@@ -1,0 +1,454 @@
+﻿| package |
+package := Package name: 'SDL2'.
+package paxVersion: 1;
+	basicComment: ''.
+
+
+package classNames
+	add: #DrawBezierCurve;
+	add: #DrawBitmap;
+	add: #DrawCharacter;
+	add: #DrawImage;
+	add: #DrawJPEG;
+	add: #DrawLine;
+	add: #DrawRectangle;
+	add: #DrawString;
+	add: #DrawText;
+	add: #DrawTexture;
+	add: #FillCommand;
+	add: #FillPolygon;
+	add: #FillQuadrilateral;
+	add: #FillRectangle;
+	add: #FillTriangle;
+	add: #FontStyle;
+	add: #PriorityQueue;
+	add: #RenderCommand;
+	add: #Renderer;
+	add: #SDL_AudioDeviceEvent;
+	add: #SDL_BlitMap;
+	add: #SDL_Color;
+	add: #SDL_CommonEvent;
+	add: #SDL_Cursor;
+	add: #SDL_DisplayEvent;
+	add: #SDL_DisplayMode;
+	add: #SDL_DropEvent;
+	add: #SDL_Event;
+	add: #SDL_EventFilter;
+	add: #SDL_FPoint;
+	add: #SDL_FRect;
+	add: #SDL_KeyboardEvent;
+	add: #SDL_Keysym;
+	add: #SDL_MouseButtonEvent;
+	add: #SDL_MouseMotionEvent;
+	add: #SDL_MouseWheelEvent;
+	add: #SDL_Object;
+	add: #SDL_Palette;
+	add: #SDL_PixelFormat;
+	add: #SDL_Point;
+	add: #SDL_QuitEvent;
+	add: #SDL_Rect;
+	add: #SDL_Renderer;
+	add: #SDL_RendererInfo;
+	add: #SDL_Surface;
+	add: #SDL_SysWMEvent;
+	add: #SDL_SysWMinfo;
+	add: #SDL_TextEditingEvent;
+	add: #SDL_TextEditingExtEvent;
+	add: #SDL_TextInputEvent;
+	add: #SDL_Texture;
+	add: #SDL_UserEvent;
+	add: #SDL_Version;
+	add: #SDL_Vertex;
+	add: #SDL_Window;
+	add: #SDL_WindowEvent;
+	add: #SDL2ImageLibrary;
+	add: #SDL2Library;
+	add: #SDL2TTFLibrary;
+	add: #SDLInputState;
+	add: #SDLSessionManager;
+	add: #TTF_Font;
+	add: #TTF_Object;
+	yourself.
+
+package methodNames
+	add: #Color -> #asSDLColor;
+	add: #Rectangle -> #asSDLFRect;
+	add: #Rectangle -> #asSDLRect;
+	yourself.
+
+package globalNames
+	add: #SDLConstants;
+	add: #TTFConstants;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\..\Dolphin-CEF\Chromium Embedded Framework\Chromium Embedded Framework'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #FontStyle
+	instanceVariableNames: 'name code'
+	classVariableNames: ''
+	poolDictionaries: 'TTFConstants'
+	classInstanceVariableNames: ''!
+Object subclass: #RenderCommand
+	instanceVariableNames: 'zIndex rotate clip'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+Object subclass: #Renderer
+	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
+	classVariableNames: ''
+	poolDictionaries: 'TTFConstants'
+	classInstanceVariableNames: ''!
+Object subclass: #SDLInputState
+	instanceVariableNames: 'library visualObjectInspectors main renderEventCode updateInterval'
+	classVariableNames: 'Singleton'
+	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
+Dictionary variableSubclass: #PriorityQueue
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalLibrary subclass: #SDL2ImageLibrary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalLibrary subclass: #SDL2Library
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalLibrary subclass: #SDL2TTFLibrary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_BlitMap
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Color
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_a _OffsetOf_b _OffsetOf_g _OffsetOf_r'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_DisplayMode
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_driverdata _OffsetOf_format _OffsetOf_h _OffsetOf_refresh_rate _OffsetOf_w'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Event
+	instanceVariableNames: 'isHandled'
+	classVariableNames: '_OffsetOf_padding _OffsetOf_type _OffsetOf_union_button _OffsetOf_union_common _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
+	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_EventFilter
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_FPoint
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_FRect
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_h _OffsetOf_w _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Keysym
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_mod _OffsetOf_scancode _OffsetOf_sym _OffsetOf_unused'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Object
+	instanceVariableNames: 'library'
+	classVariableNames: ''
+	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Palette
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_PixelFormat
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_Aloss _OffsetOf_Amask _OffsetOf_Ashift _OffsetOf_BitsPerPixel _OffsetOf_Bloss _OffsetOf_Bmask _OffsetOf_Bshift _OffsetOf_BytesPerPixel _OffsetOf_format _OffsetOf_Gloss _OffsetOf_Gmask _OffsetOf_Gshift _OffsetOf_next _OffsetOf_padding _OffsetOf_palette _OffsetOf_refcount _OffsetOf_Rloss _OffsetOf_Rmask _OffsetOf_Rshift'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Point
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Rect
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_h _OffsetOf_w _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_RendererInfo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_SysWMinfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_hdc _OffsetOf_hinstance _OffsetOf_subsystem _OffsetOf_version _OffsetOf_window'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Version
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_major _OffsetOf_minor _OffsetOf_patch'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #SDL_Vertex
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_color _OffsetOf_position _OffsetOf_tex_coord'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+ExternalStructure subclass: #TTF_Object
+	instanceVariableNames: 'library'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_AudioDeviceEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_CommonEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_DisplayEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_DropEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_KeyboardEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_state _OffsetOf_timestamp _OffsetOf_windowID'
+	poolDictionaries: 'CefConstants SDLConstants'
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_MouseButtonEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_button _OffsetOf_clicks _OffsetOf_padding1 _OffsetOf_state _OffsetOf_timestamp _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_MouseMotionEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_state _OffsetOf_timestamp _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_xrel _OffsetOf_y _OffsetOf_yrel'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_MouseWheelEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_direction _OffsetOf_mouseX _OffsetOf_mouseY _OffsetOf_preciseX _OffsetOf_preciseY _OffsetOf_timestamp _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_QuitEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_timestamp'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_SysWMEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_TextEditingEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_TextEditingExtEvent
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_TextInputEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_text _OffsetOf_timestamp _OffsetOf_windowID'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_UserEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_code _OffsetOf_data1 _OffsetOf_data2 _OffsetOf_timestamp _OffsetOf_windowID'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Event subclass: #SDL_WindowEvent
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_data1 _OffsetOf_data2 _OffsetOf_event _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_timestamp _OffsetOf_windowID'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Object subclass: #SDL_Cursor
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Object subclass: #SDL_Renderer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Object subclass: #SDL_Surface
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_clip_rect _OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_list_blitmap _OffsetOf_locked _OffsetOf_map _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_userdata _OffsetOf_w'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Object subclass: #SDL_Texture
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SDL_Object subclass: #SDL_Window
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+TTF_Object subclass: #TTF_Font
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawBezierCurve
+	instanceVariableNames: 'points color curve width'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawBitmap
+	instanceVariableNames: 'bitmap rectangle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawImage
+	instanceVariableNames: 'rectangle filePath'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawLine
+	instanceVariableNames: 'start end color width'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawRectangle
+	instanceVariableNames: 'rectangle color width'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawText
+	instanceVariableNames: 'color font rectangle fontSize fontStyle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawTexture
+	instanceVariableNames: 'texture rectangle stretch'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #FillCommand
+	instanceVariableNames: 'color'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DrawImage subclass: #DrawJPEG
+	instanceVariableNames: 'data'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DrawText subclass: #DrawCharacter
+	instanceVariableNames: 'character'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DrawText subclass: #DrawString
+	instanceVariableNames: 'string format'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FillCommand subclass: #FillPolygon
+	instanceVariableNames: 'points'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FillCommand subclass: #FillQuadrilateral
+	instanceVariableNames: 'vertexOne vertexTwo vertexThree vertexFour'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FillCommand subclass: #FillRectangle
+	instanceVariableNames: 'rectangle'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+FillCommand subclass: #FillTriangle
+	instanceVariableNames: 'vertexOne vertexTwo vertexThree'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+SessionManager subclass: #SDLSessionManager
+	instanceVariableNames: 'savedWindows'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"Global Aliases"!
+
+
+"Loose Methods"!
+
+!Color methodsFor!
+
+asSDLColor
+	^SDL_Color new
+		r: self red;
+		g: self green;
+		b: self blue;
+		a: self alpha! !
+!Color categoriesForMethods!
+asSDLColor!public! !
+!
+
+!Rectangle methodsFor!
+
+asSDLFRect
+	^SDL_FRect new
+		x: self left;
+		y: self top;
+		w: self width;
+		h: self height!
+
+asSDLRect
+	^SDL_Rect new
+		x: self left truncated;
+		y: self top truncated;
+		w: self width truncated;
+		h: self height truncated! !
+!Rectangle categoriesForMethods!
+asSDLFRect!public! !
+asSDLRect!public! !
+!
+
+"End of package definition"!
+
