@@ -87,11 +87,7 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #(
-	'..\..\Dolphin-CEF\Chromium Embedded Framework\Chromium Embedded Framework'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+package setPrerequisites: #().
 
 package!
 
@@ -250,7 +246,7 @@ SDL_Event subclass: #SDL_DropEvent
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_state _OffsetOf_timestamp _OffsetOf_windowID'
-	poolDictionaries: 'CefConstants SDLConstants'
+	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 SDL_Event subclass: #SDL_MouseButtonEvent
 	instanceVariableNames: ''
@@ -451,4 +447,3 @@ asSDLRect!public! !
 !
 
 "End of package definition"!
-

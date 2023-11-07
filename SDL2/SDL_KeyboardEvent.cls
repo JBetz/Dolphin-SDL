@@ -3,7 +3,7 @@
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_state _OffsetOf_timestamp _OffsetOf_windowID'
-	poolDictionaries: 'CefConstants SDLConstants'
+	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 SDL_KeyboardEvent guid: (GUID fromString: '{b0932b16-56bc-43d2-9018-7c53e25f208b}')!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r10!
