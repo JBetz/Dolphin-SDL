@@ -1,7 +1,7 @@
-# What is Dolphin-SDL?
+# Dolphin-SDL
 Dolphin Smalltalk language bindings to to the Simple DirectMedia Layer (SDL) library.
 
-# Why Dolphin-SDL?
+## Why Dolphin-SDL?
 
 You might want to use Dolphin-SDL if:
 
