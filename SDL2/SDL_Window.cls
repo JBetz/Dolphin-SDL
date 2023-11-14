@@ -17,7 +17,7 @@ createRenderer
 		flags: 0!
 
 destroy
-	^self library destroyWindow_window: self!
+	self library destroyWindow_window: self!
 
 extent
 	^self getExtent!
@@ -55,13 +55,16 @@ getSurface
 	^self library getWindowSurface_window: self!
 
 rectangle
-	^Rectangle origin: 0@0 extent: self getExtent!
+	^Rectangle origin: self getPosition extent: self getExtent!
 
 setIcon: aSDLSurface
 	^self library setWindowIcon_window: self icon: aSDLSurface!
 
 setInputFocus
 	^self library setWindowInputFocus_window: self!
+
+setTitle: aString
+	^self library setWindowTitle_window: self title: aString!
 
 updateSurface
 	self library updateWindowSurface_window: self! !
@@ -77,6 +80,7 @@ getSurface!public! !
 rectangle!public! !
 setIcon:!public! !
 setInputFocus!public! !
+setTitle:!public! !
 updateSurface!public! !
 !
 
