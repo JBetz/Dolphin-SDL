@@ -34,7 +34,7 @@ clip: aRectangle
 createImageTexture: aString
 	| surface |
 	surface := SDL_Surface fromFile: aString.
-	^sdlRenderer createTextureFromSurface: surface!
+	^self createTextureFromSurface: surface!
 
 createStringTexture: aDrawString
 	| font texture surface |
@@ -49,7 +49,7 @@ createStringTexture: aDrawString
 				color: (aDrawString color ifNil: [Color black])
 				wrapLength: aDrawString rectangle width.
 	aDrawString fontStyle ifNotNil: [font setStyle: FontStyle normal].
-	texture := sdlRenderer createTextureFromSurface: surface.
+	texture := self createTextureFromSurface: surface.
 	surface free.
 	^texture!
 
@@ -190,6 +190,19 @@ drawString: aString rectangle: aRectangle zIndex: anInteger
 				color: Color black;
 				zIndex: anInteger)!
 
+drawSurface: aSurface rectangle: aRectangle stretch: aBoolean zIndex: anInteger
+	self addCommand: (DrawSurface new
+				surface: aSurface;
+				rectangle: aRectangle;
+				stretch: aBoolean;
+				zIndex: anInteger)!
+
+drawSurface: aSurface rectangle: aRectangle zIndex: anInteger
+	self addCommand: (DrawSurface new
+				texture: aSurface;
+				rectangle: aRectangle;
+				zIndex: anInteger)!
+
 drawTexture: aTexture rectangle: aRectangle stretch: aBoolean zIndex: anInteger
 	self addCommand: (DrawTexture new
 				texture: aTexture;
@@ -220,7 +233,7 @@ executeDrawCharacter: aDrawCharacter
 				style: (aDrawCharacter fontStyle ifNil: [FontStyle normal])
 				pointSize: aDrawCharacter fontSize.
 	surface := font renderGlyph32Blended: aDrawCharacter character color: aDrawCharacter color.
-	texture := sdlRenderer createTextureFromSurface: surface.
+	texture := self createTextureFromSurface: surface.
 	surface free.
 	textureExtent := texture getExtent.
 	sdlRenderer
@@ -246,9 +259,27 @@ executeDrawString: aDrawString
 		destination: (Rectangle origin: aDrawString rectangle origin extent: texture getExtent).
 	texture destroy!
 
+executeDrawSurface: aDrawSurface
+	| surface texture destinationRectangle |
+	surface := aDrawSurface surface.
+	surface ifNil: [^self].
+	texture := self createTextureFromSurface: surface.
+	destinationRectangle := aDrawSurface stretch
+				ifTrue: [aDrawSurface rectangle]
+				ifFalse: 
+					[| textureExtent |
+					textureExtent := texture getExtent.
+					Rectangle origin: aDrawSurface rectangle origin extent: textureExtent].
+	sdlRenderer
+		renderCopy: texture
+		source: nil
+		destination: destinationRectangle truncated.
+	texture destroy!
+
 executeDrawTexture: aDrawTexture
 	| texture destinationRectangle |
 	texture := aDrawTexture texture.
+	texture ifNil: [^self].
 	destinationRectangle := aDrawTexture stretch
 				ifTrue: [aDrawTexture rectangle]
 				ifFalse: 
@@ -258,7 +289,7 @@ executeDrawTexture: aDrawTexture
 	sdlRenderer
 		renderCopy: texture
 		source: nil
-		destination: destinationRectangle!
+		destination: destinationRectangle truncated!
 
 executeFillQuadrilateral: aFillQuadrilateral
 	| vertices indices |
@@ -475,6 +506,8 @@ drawString:rectangle:color:fontStyle:zIndex:!public! !
 drawString:rectangle:color:zIndex:!accessing!public! !
 drawString:rectangle:fontSize:zIndex:!accessing!public! !
 drawString:rectangle:zIndex:!accessing!public! !
+drawSurface:rectangle:stretch:zIndex:!accessing!public! !
+drawSurface:rectangle:zIndex:!accessing!public! !
 drawTexture:rectangle:stretch:zIndex:!accessing!public! !
 drawTexture:rectangle:zIndex:!accessing!public! !
 enable!public! !
@@ -483,6 +516,7 @@ executeDrawCharacter:!private! !
 executeDrawLine:!private! !
 executeDrawRectangle:!private! !
 executeDrawString:!private! !
+executeDrawSurface:!private! !
 executeDrawTexture:!private! !
 executeFillQuadrilateral:!private! !
 executeFillRectangle:!private! !
