@@ -27,6 +27,9 @@ clip_rect
 
 	^SDL_Rect fromAddress: bytes yourAddress + _OffsetOf_clip_rect!
 
+extent
+	^self w @ self h!
+
 flags
 	"Answer the <Integer> value of the receiver's 'flags' field."
 
@@ -114,6 +117,7 @@ w
 	^bytes sdwordAtOffset: _OffsetOf_w! !
 !SDL_Surface categoriesForMethods!
 clip_rect!**compiled accessors**!public! !
+extent!public! !
 flags!**compiled accessors**!public! !
 format!**compiled accessors**!public! !
 free!public! !
