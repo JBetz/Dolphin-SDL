@@ -29,6 +29,9 @@ clicks: anInteger
 
 	bytes byteAtOffset: _OffsetOf_clicks put: anInteger!
 
+isDoubleClick
+	^self clicks = 2!
+
 isLeftButton
 	^self button = 1!
 
@@ -43,6 +46,12 @@ isMouseButtonUp
 
 isRightButton
 	^self button = 3!
+
+isSingleClick
+	^self clicks = 1!
+
+isTripleClick
+	^self clicks = 3!
 
 padding1
 	"Answer the <Integer> value of the receiver's 'padding1' field."
@@ -116,11 +125,14 @@ y: anInteger
 !SDL_MouseButtonEvent categoriesForMethods!
 clicks!**compiled accessors**!public! !
 clicks:!**compiled accessors**!public! !
+isDoubleClick!public! !
 isLeftButton!public! !
 isMiddleButton!public! !
 isMouseButtonDown!public! !
 isMouseButtonUp!public! !
 isRightButton!public! !
+isSingleClick!public! !
+isTripleClick!public! !
 padding1!**compiled accessors**!public! !
 padding1:!**compiled accessors**!public! !
 state!**compiled accessors**!public! !
