@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #SDL_Event
-	instanceVariableNames: 'isHandled'
+	instanceVariableNames: 'target isHandled'
 	classVariableNames: '_OffsetOf_padding _OffsetOf_type _OffsetOf_union_button _OffsetOf_union_common _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -101,6 +101,12 @@ padding: aBYTE
 
 printOn: aStream
 	aStream nextPutAll: self class name!
+
+target
+	^target!
+
+target: anObject
+	target := anObject!
 
 type
 	"Answer the <Integer> value of the receiver's 'type' field."
@@ -312,6 +318,8 @@ isHandled:!public! !
 padding!**compiled accessors**!public! !
 padding:!**compiled accessors**!public! !
 printOn:!public! !
+target!accessing!public! !
+target:!accessing!public! !
 type!**compiled accessors**!public! !
 type:!**compiled accessors**!public! !
 union_button!**compiled accessors**!public! !
