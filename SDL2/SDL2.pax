@@ -13,6 +13,7 @@ package classNames
 	add: #DrawLine;
 	add: #DrawRectangle;
 	add: #DrawString;
+	add: #DrawSurface;
 	add: #DrawText;
 	add: #DrawTexture;
 	add: #FillCommand;
@@ -149,7 +150,7 @@ ExternalStructure subclass: #SDL_DisplayMode
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #SDL_Event
-	instanceVariableNames: 'isHandled'
+	instanceVariableNames: 'target isHandled'
 	classVariableNames: '_OffsetOf_padding _OffsetOf_type _OffsetOf_union_button _OffsetOf_union_common _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -350,6 +351,11 @@ RenderCommand subclass: #DrawLine
 	classInstanceVariableNames: ''!
 RenderCommand subclass: #DrawRectangle
 	instanceVariableNames: 'rectangle color width'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+RenderCommand subclass: #DrawSurface
+	instanceVariableNames: 'surface rectangle stretch'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
