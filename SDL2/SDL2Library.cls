@@ -286,7 +286,7 @@ pushEvent_event: event
 	<cdecl: sdword SDL_PushEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
-queryTexture_renderer: renderer format: format access: access w: w h: h
+queryTexture_texture: texture format: format access: access w: w h: h
 	<cdecl: sdword SDL_QueryTexture SDL_Texture* dword* sdword* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
@@ -519,7 +519,7 @@ peepEvents_events:numevents:action:minType:maxType:!events!public! !
 pollEvent_event:!events!public! !
 pumpEvents!events!public! !
 pushEvent_event:!events!public! !
-queryTexture_renderer:format:access:w:h:!public!render! !
+queryTexture_texture:format:access:w:h:!public!render! !
 quit!init!public! !
 quitSubSystem_flags:!init!public! !
 raiseWindow_window:!public!video! !

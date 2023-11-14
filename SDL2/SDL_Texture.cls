@@ -18,7 +18,7 @@ getExtent
 	width := SDWORD new.
 	height := SDWORD new.
 	self library
-		queryTexture_renderer: self
+		queryTexture_texture: self
 		format: nil
 		access: nil
 		w: width
