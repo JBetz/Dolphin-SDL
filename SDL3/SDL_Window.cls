@@ -30,14 +30,12 @@ getExtent
 	^width value @ height value!
 
 getHandle
-	| version info windowProperties handle |
-	version := SDL_Version new.
-	self library getVersion_ver: version.
-	info := SDL_SysWMinfo new.
-	info version: version.
+	| windowProperties handle |
 	windowProperties := self getProperties.
-	handle := ExternalHandle new.
-	self library getProperty_props: windowProperties name: 'SDL.window.win32.hwnd' defaultValue: ExternalAddress new.
+	handle := self library
+		getProperty_props: windowProperties
+		name: 'SDL.window.win32.hwnd'
+		defaultValue: ExternalHandle new.
 	^handle!
 
 getID

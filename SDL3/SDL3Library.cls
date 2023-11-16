@@ -175,7 +175,7 @@ getPrimaryDisplay
 	^self invalidCall: _failureCode!
 
 getProperty_props: props name: name defaultValue: defaultValue
-	<cdecl: void SDL_GetProperty dword lpstr void*>
+	<cdecl: void* SDL_GetProperty dword lpstr void*>
 	^self invalidCall: _failureCode!
 
 getRectDisplayIndex_rect: rect
