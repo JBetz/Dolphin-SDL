@@ -73,6 +73,7 @@ package classNames
 
 package methodNames
 	add: #Color -> #asSDLColor;
+	add: #InputState -> #loopWhile:;
 	add: #Rectangle -> #asSDLFRect;
 	add: #Rectangle -> #asSDLRect;
 	yourself.
@@ -110,7 +111,7 @@ Object subclass: #Renderer
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library visualObjectInspectors main renderEventCode updateInterval'
+	instanceVariableNames: 'library windows renderEventCode isActive'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -430,6 +431,47 @@ asSDLColor
 		a: self alpha! !
 !Color categoriesForMethods!
 asSDLColor!public! !
+!
+
+!InputState methodsFor!
+
+loopWhile: aBlock
+	"Pump messages until the <niladicValuable> argument evaluates to false."
+
+	"Implementation Note: Host system events are processed at a higher priority to deferred
+	actions. A single message/action is processed before testing again to see if the loop should
+	be terminated. A single deferred action is processed between each test to see if there are
+	further Windows messages. Generally however the Windows message queue remains empty for long
+	periods, and all deferred messages will be quickly processed. When both queues are empty the
+	active process (which should be the UI process) will yield control to lower priority
+	processes, in particular the idle process which is responsible for quiescing the whole
+	system."
+
+	| msg activity |
+	msg := MSG new.
+	activity := false.
+	
+	[
+	[aBlock value ifFalse: [^self].
+	self isInputReady: msg] whileTrue: 
+				[activity := true.
+				self pumpMessage: msg].
+	SDLInputState iterate.
+	"The PostedActionWindow should evaluate all posted actions in the message pump, but for
+	robustness ensure it does not accumulate a backlog of actions as this would cause very
+	strange behaviour."
+	msgWindow evaluatePendingActions ifTrue: [activity := true].
+	deferredActions nextNoWait
+		ifNil: 
+			[self waitForInput: activity.
+			activity := false]
+		ifNotNil: 
+			[:action |
+			activity := true.
+			action value]]
+			repeat! !
+!InputState categoriesForMethods!
+loopWhile:!message dispatching!public! !
 !
 
 !Rectangle methodsFor!

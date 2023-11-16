@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library visualObjectInspectors main renderEventCode updateInterval'
+	instanceVariableNames: 'library windows renderEventCode isActive'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -11,11 +11,10 @@ SDLInputState comment: ''!
 !SDLInputState methodsFor!
 
 closeAll
-	visualObjectInspectors values
-		do: [:aVisualObjectInspector | [aVisualObjectInspector close] on: Error do: [:error | ]].
-	visualObjectInspectors removeAll!
+	windows values do: [:each | [each close] on: Error do: [:error | ]].
+	windows removeAll!
 
-createWindow: aString extent: aPoint for: aVisualObjectInspector
+createWindow: aString extent: aPoint for: aWidget
 	| window |
 	window := library
 				createWindow_title: aString
@@ -24,36 +23,15 @@ createWindow: aString extent: aPoint for: aVisualObjectInspector
 				w: aPoint x
 				h: aPoint y
 				flags: SDL_WINDOW_RESIZABLE.
-	visualObjectInspectors at: window getID put: aVisualObjectInspector.
-	self ensureMainRunning.
+	windows at: window getID put: aWidget.
 	^window!
 
-dispatchEvent: anEvent to: aVisualObjectInspector
-	[aVisualObjectInspector handleEvent: anEvent] ifCurtailed: [self quit]!
-
-ensureMainRunning
-	library := SDL2Library default.
-	main ifNotNil: [main isAlive ifTrue: [^self]].
-	self forkMain!
+dispatchEvent: anEvent to: aWidget
+	[aWidget handleEvent: anEvent] ifCurtailed: [self quit]!
 
 finalize
 	self quit.
 	super finalize!
-
-forkMain
-	main := 
-			[
-			[| frameRuntime sleepTime |
-			frameRuntime := 
-					[self
-						pumpMessages;
-						updateWindows] timeToRun.
-			sleepTime := Duration
-						milliseconds: ((updateInterval - frameRuntime asMilliseconds) truncated max: 1).
-			Processor sleep: sleepTime]
-					repeat]
-					forkAt: Processor highIOPriority.
-	main name: 'Main (SDL)'!
 
 getDisplayExtent
 	| displayMode |
@@ -64,12 +42,12 @@ getDisplayExtent
 initialize
 	super initialize.
 	library := SDL2Library default.
-	visualObjectInspectors := LookupTable new.
+	windows := LookupTable new.
 	self
 		initializeAll;
 		registerRenderEvent;
 		setHints.
-	updateInterval := 5!
+	isActive := true!
 
 initialize: anInteger
 	library init_flags: anInteger!
@@ -79,28 +57,15 @@ initializeAll
 		initialize: SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC
 				| SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS!
 
-initializeFrom: anSDLInputState
-	anSDLInputState
-		ifNil: [self initialize]
-		ifNotNil: [visualObjectInspectors := anSDLInputState visualObjectInspectors]!
-
 initializeVideo
 	self initialize: SDL_INIT_VIDEO!
 
-keepAlive
-	visualObjectInspectors isEmpty
+iterate
+	isActive
 		ifTrue: 
-			[self quit.
-			SessionManager current quit]!
-
-onDefocus
-	updateInterval := 500!
-
-onExit
-	self quit!
-
-onFocus
-	updateInterval := 5!
+			[self
+				pumpMessages;
+				updateWindows]!
 
 pollEvent
 	| event result |
@@ -119,7 +84,7 @@ pumpMessages
 				ifNotNil: 
 					[:aWindowId |
 					| destination |
-					destination := visualObjectInspectors at: aWindowId ifAbsent: [nil].
+					destination := windows at: aWindowId ifAbsent: [nil].
 					destination ifNotNil: [self dispatchEvent: currentEvent to: destination]]]
 		ifNil: [^self]]
 			repeat!
@@ -140,68 +105,39 @@ pushRenderEvent: anInteger
 				code: renderEventCode)!
 
 quit
-	self
-		closeAll;
-		stopMainProcess!
+	self closeAll.
+	SDL2TTFLibrary default quit.
+	SDL2ImageLibrary default quit.
+	library quit.
+	isActive := false!
 
 registerRenderEvent
 	renderEventCode := library registerEvents_numevents: 1!
 
 removeWindow: anInteger
-	visualObjectInspectors removeKey: anInteger ifAbsent: [nil].
-	visualObjectInspectors isEmpty ifTrue: [self stopMainProcess]!
-
-render: anInteger
-	self pushEvent: (SDL_UserEvent new
-				type: SDL_USEREVENT;
-				windowID: anInteger;
-				code: renderEventCode)!
+	windows removeKey: anInteger ifAbsent: [nil]!
 
 setHints
 	library
 		setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1';
 		setHint_name: 'SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP' value: '1'!
 
-stopMainProcess
-	main ifNotNil: [
-			[main terminate.
-			main := nil] postToInputQueue]!
-
 updateWindows
-	visualObjectInspectors
-		keysAndValuesDo: [:anInteger :aVisualObjectInspector | aVisualObjectInspector update]!
+	windows values do: [:each | each update]!
 
-visualObjectInspectors
-	^visualObjectInspectors!
-
-waitEvent
-	| event |
-	event := SDL_Event new.
-	library waitEvent_event: event.
-	^event!
-
-waitEvent: anInteger
-	| event |
-	event := SDL_Event new.
-	library waitEventTimeout_event: event timeout: anInteger.
-	^event! !
+windows
+	^windows! !
 !SDLInputState categoriesForMethods!
 closeAll!public! !
 createWindow:extent:for:!public! !
 dispatchEvent:to:!public! !
-ensureMainRunning!private! !
 finalize!public! !
-forkMain!public! !
 getDisplayExtent!public! !
 initialize!public! !
 initialize:!public! !
 initializeAll!public! !
-initializeFrom:!public! !
 initializeVideo!public! !
-keepAlive!public! !
-onDefocus!public! !
-onExit!public! !
-onFocus!public! !
+iterate!public! !
 pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
@@ -210,13 +146,9 @@ pushRenderEvent:!public! !
 quit!public! !
 registerRenderEvent!public! !
 removeWindow:!public! !
-render:!public! !
 setHints!public! !
-stopMainProcess!public! !
 updateWindows!public! !
-visualObjectInspectors!public! !
-waitEvent!public! !
-waitEvent:!public! !
+windows!public! !
 !
 
 !SDLInputState class methodsFor!
@@ -235,14 +167,12 @@ initialize
 			send: #onShutdown
 			to: self!
 
+iterate
+	Singleton ifNotNil: [Singleton iterate]!
+
 new
 	Singleton ifNil: [Singleton := super new initialize].
 	^Singleton!
-
-newFromOld: anInputState
-	^(self new)
-		initializeFrom: anInputState;
-		yourself!
 
 onShutdown
 	Singleton quit!
@@ -257,8 +187,8 @@ restart
 !SDLInputState class categoriesForMethods!
 current!public! !
 initialize!public! !
+iterate!public! !
 new!public! !
-newFromOld:!public! !
 onShutdown!public! !
 onStartup!public! !
 restart!public! !
