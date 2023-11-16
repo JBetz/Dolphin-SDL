@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library widgets renderEventCode isActive'
+	instanceVariableNames: 'library windows renderEventCode isActive'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -11,8 +11,8 @@ SDLInputState comment: ''!
 !SDLInputState methodsFor!
 
 closeAll
-	widgets values do: [:each | each close].
-	widgets removeAll!
+	windows values do: [:each | each close].
+	windows removeAll!
 
 createWindow: aString extent: aPoint for: aWidget
 	| window |
@@ -21,11 +21,11 @@ createWindow: aString extent: aPoint for: aWidget
 				w: aPoint x
 				h: aPoint y
 				flags: SDL_WINDOW_RESIZABLE.
-	widgets at: window getID put: aWidget.
+	windows at: window getID put: aWidget.
 	^window!
 
-dispatchEvent: anEvent to: aVisualObjectInspector
-	[aVisualObjectInspector handleEvent: anEvent] ifCurtailed: [self quit]!
+dispatchEvent: anEvent to: aWidget
+	[aWidget handleEvent: anEvent] ifCurtailed: [self quit]!
 
 finalize
 	self quit.
@@ -40,7 +40,7 @@ getDisplayExtent
 initialize
 	super initialize.
 	library := SDL3Library default.
-	widgets := LookupTable new.
+	windows := LookupTable new.
 	self
 		initializeAll;
 		registerRenderEvent;
@@ -82,7 +82,7 @@ pumpMessages
 				ifNotNil: 
 					[:aWindowId |
 					| destination |
-					destination := widgets at: aWindowId ifAbsent: [nil].
+					destination := windows at: aWindowId ifAbsent: [nil].
 					destination ifNotNil: [self dispatchEvent: currentEvent to: destination]]]
 		ifNil: [^self]]
 			repeat!
@@ -114,7 +114,7 @@ registerRenderEvent
 	renderEventCode := library registerEvents_numevents: 1!
 
 removeWindow: anInteger
-	widgets removeKey: anInteger ifAbsent: [nil]!
+	windows removeKey: anInteger ifAbsent: [nil]!
 
 setHints
 	library
@@ -122,10 +122,10 @@ setHints
 		setHint_name: 'SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP' value: '1'!
 
 updateWindows
-	widgets do: [:each | each update]!
+	windows do: [:each | each update]!
 
-widgets
-	^widgets! !
+windows
+	^windows! !
 !SDLInputState categoriesForMethods!
 closeAll!public! !
 createWindow:extent:for:!public! !
@@ -147,7 +147,7 @@ registerRenderEvent!public! !
 removeWindow:!public! !
 setHints!public! !
 updateWindows!public! !
-widgets!public! !
+windows!public! !
 !
 
 !SDLInputState class methodsFor!

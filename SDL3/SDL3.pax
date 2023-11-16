@@ -111,7 +111,7 @@ Object subclass: #Renderer
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library widgets renderEventCode isActive'
+	instanceVariableNames: 'library windows renderEventCode isActive'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
