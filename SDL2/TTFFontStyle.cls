@@ -1,14 +1,14 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-Object subclass: #FontStyle
+Object subclass: #TTFFontStyle
 	instanceVariableNames: 'name code'
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
-FontStyle guid: (GUID fromString: '{e162a0b7-bcb6-4588-93fa-9499cc955616}')!
-FontStyle comment: ''!
-!FontStyle categoriesForClass!Kernel-Objects! !
-!FontStyle methodsFor!
+TTFFontStyle guid: (GUID fromString: '{e162a0b7-bcb6-4588-93fa-9499cc955616}')!
+TTFFontStyle comment: ''!
+!TTFFontStyle categoriesForClass!Kernel-Objects! !
+!TTFFontStyle methodsFor!
 
 <= aTTFFontStyle
 	^code <= aTTFFontStyle code!
@@ -24,7 +24,7 @@ name
 
 name: anObject
 	name := anObject! !
-!FontStyle categoriesForMethods!
+!TTFFontStyle categoriesForMethods!
 <=!public! !
 code!accessing!public! !
 code:!accessing!private! !
@@ -32,18 +32,18 @@ name!accessing!public! !
 name:!accessing!private! !
 !
 
-!FontStyle class methodsFor!
+!TTFFontStyle class methodsFor!
 
 allStyles
 	^{self normal. self bold. self italic. self strikethrough. self underline}!
 
 bold
-	^FontStyle new
+	^TTFFontStyle new
 		name: 'Bold';
 		code: TTF_STYLE_BOLD!
 
 italic
-	^FontStyle new
+	^TTFFontStyle new
 		name: 'Italic';
 		code: TTF_STYLE_ITALIC!
 
@@ -51,20 +51,20 @@ new
 	^super new initialize!
 
 normal
-	^FontStyle new
+	^TTFFontStyle new
 		name: 'Normal';
 		code: TTF_STYLE_NORMAL!
 
 strikethrough
-	^FontStyle new
+	^TTFFontStyle new
 		name: 'Strikethrough';
 		code: TTF_STYLE_STRIKETHROUGH!
 
 underline
-	^FontStyle new
+	^TTFFontStyle new
 		name: 'Underline';
 		code: TTF_STYLE_UNDERLINE! !
-!FontStyle class categoriesForMethods!
+!TTFFontStyle class categoriesForMethods!
 allStyles!public! !
 bold!public! !
 italic!public! !

@@ -1,14 +1,14 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-Object subclass: #Renderer
+Object subclass: #Renderer2D
 	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
-Renderer guid: (GUID fromString: '{9be79942-98a4-44d7-8072-de4700712167}')!
-Renderer comment: ''!
-!Renderer categoriesForClass!Kernel-Objects! !
-!Renderer methodsFor!
+Renderer2D guid: (GUID fromString: '{9be79942-98a4-44d7-8072-de4700712167}')!
+Renderer2D comment: ''!
+!Renderer2D categoriesForClass!Kernel-Objects! !
+!Renderer2D methodsFor!
 
 addCommand: aDrawCommand
 	isEnabled
@@ -40,17 +40,16 @@ createStringTexture: aDrawString
 	| font texture surface |
 	font := self
 				lookupFont: (aDrawString fontName ifNil: [self defaultFontName])
-				style: (aDrawString fontStyle ifNil: [FontStyle normal])
+				style: (aDrawString fontStyle ifNil: [TTFFontStyle normal])
 				pointSize: (aDrawString fontSize ifNil: [18]).
-	aDrawString fontStyle
-		ifNotNil: [:aFontStyle | font setStyle: aFontStyle].
+	aDrawString fontStyle ifNotNil: [:aFontStyle | font setStyle: aFontStyle].
 	surface := font
 				renderUTF8BlendedWrapped: aDrawString string displayString
 				color: (aDrawString color ifNil: [Color black])
 				wrapLength: aDrawString rectangle width.
-	aDrawString fontStyle ifNotNil: [font setStyle: FontStyle normal].
+	aDrawString fontStyle ifNotNil: [font setStyle: TTFFontStyle normal].
 	texture := self createTextureFromSurface: surface.
-	surface free.
+	surface destroy.
 	^texture!
 
 createTexture: aPoint
@@ -67,9 +66,7 @@ destroy
 	fontCache
 		ifNotNil: 
 			[fontCache values do: [:aFont | aFont close].
-			fontCache removeAll].
-	SDL2TTFLibrary default quit.
-	SDL2ImageLibrary default quit!
+			fontCache removeAll]!
 
 disable
 	isEnabled := false!
@@ -230,14 +227,14 @@ executeDrawCharacter: aDrawCharacter
 	| font surface texture textureExtent |
 	font := self
 				lookupFont: self defaultFontName
-				style: (aDrawCharacter fontStyle ifNil: [FontStyle normal])
+				style: (aDrawCharacter fontStyle ifNil: [TTFFontStyle normal])
 				pointSize: aDrawCharacter fontSize.
 	surface := font renderGlyph32Blended: aDrawCharacter character color: aDrawCharacter color.
 	texture := self createTextureFromSurface: surface.
-	surface free.
+	surface destroy.
 	textureExtent := texture getExtent.
 	sdlRenderer
-		renderCopy: texture
+		renderTexture: texture
 		source: nil
 		destination: (Rectangle origin: aDrawCharacter rectangle origin extent: textureExtent).
 	texture destroy!
@@ -254,7 +251,7 @@ executeDrawString: aDrawString
 	| texture |
 	texture := self createStringTexture: aDrawString.
 	sdlRenderer
-		renderCopy: texture
+		renderTexture: texture
 		source: nil
 		destination: (Rectangle origin: aDrawString rectangle origin extent: texture getExtent).
 	texture destroy!
@@ -271,9 +268,9 @@ executeDrawSurface: aDrawSurface
 					textureExtent := texture getExtent.
 					Rectangle origin: aDrawSurface rectangle origin extent: textureExtent].
 	sdlRenderer
-		renderCopy: texture
+		renderTexture: texture
 		source: nil
-		destination: destinationRectangle truncated.
+		destination: destinationRectangle.
 	texture destroy!
 
 executeDrawTexture: aDrawTexture
@@ -287,9 +284,9 @@ executeDrawTexture: aDrawTexture
 					textureExtent := texture getExtent.
 					Rectangle origin: aDrawTexture rectangle origin extent: textureExtent].
 	sdlRenderer
-		renderCopy: texture
+		renderTexture: texture
 		source: nil
-		destination: destinationRectangle truncated!
+		destination: destinationRectangle!
 
 executeFillQuadrilateral: aFillQuadrilateral
 	| vertices indices |
@@ -368,8 +365,8 @@ initialize
 	offset := 0 @ 0.
 	isEnabled := true.
 	fontCache := LookupTable new.
-	SDL2TTFLibrary default init.
-	SDL2ImageLibrary default init_flags: 0!
+	SDL3TTFLibrary default init.
+	SDL3ImageLibrary default init_flags: 0!
 
 isEnabled
 	^isEnabled!
@@ -393,13 +390,13 @@ measureString: aString fontSize: anInteger
 	^self
 		measureString: aString
 		fontSize: anInteger
-		fontStyle: FontStyle normal!
+		fontStyle: TTFFontStyle normal!
 
 measureString: aString fontSize: anInteger fontStyle: aFontStyle
 	| font origin extent |
 	font := self
 				lookupFont: self defaultFontName
-				style: (aFontStyle ifNil: [FontStyle normal])
+				style: (aFontStyle ifNil: [TTFFontStyle normal])
 				pointSize: anInteger.
 	origin := 0 @ 0.
 	extent := font sizeText: aString.
@@ -409,7 +406,7 @@ measureString: aString inRectangle: aRectangle fontSize: anInteger fontStyle: aF
 	| font origin extent |
 	font := self
 				lookupFont: self defaultFontName
-				style: (aFontStyle ifNil: [FontStyle normal])
+				style: (aFontStyle ifNil: [TTFFontStyle normal])
 				pointSize: anInteger.
 	origin := aRectangle origin.
 	aRectangle width = 0
@@ -421,7 +418,7 @@ measureString: aString inRectangle: aRectangle fontSize: anInteger fontStyle: aF
 						color: Color black
 						wrapLength: aRectangle width.
 			extent := surface isNull ifTrue: [0 @ 0] ifFalse: [surface w @ surface h].
-			surface free].
+			surface destroy].
 	^Rectangle origin: origin extent: extent!
 
 offset
@@ -477,7 +474,7 @@ withoutOffsetDo: aBlock
 	offset := 0@0.
 	aBlock value.
 	offset := currentOffset! !
-!Renderer categoriesForMethods!
+!Renderer2D categoriesForMethods!
 addCommand:!public! !
 addOffset:!public! !
 clear!public! !
@@ -546,11 +543,11 @@ withoutClipDo:!public! !
 withoutOffsetDo:!public! !
 !
 
-!Renderer class methodsFor!
+!Renderer2D class methodsFor!
 
 new
 	^super new initialize! !
-!Renderer class categoriesForMethods!
+!Renderer2D class categoriesForMethods!
 new!public! !
 !
 

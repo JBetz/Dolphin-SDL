@@ -21,10 +21,9 @@ package classNames
 	add: #FillQuadrilateral;
 	add: #FillRectangle;
 	add: #FillTriangle;
-	add: #FontStyle;
 	add: #PriorityQueue;
 	add: #RenderCommand;
-	add: #Renderer;
+	add: #Renderer2D;
 	add: #SDL_AudioDeviceEvent;
 	add: #SDL_BlitMap;
 	add: #SDL_Color;
@@ -68,6 +67,7 @@ package classNames
 	add: #SDLInputState;
 	add: #TTF_Font;
 	add: #TTF_Object;
+	add: #TTFFontStyle;
 	yourself.
 
 package methodNames
@@ -94,17 +94,12 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #FontStyle
-	instanceVariableNames: 'name code'
-	classVariableNames: ''
-	poolDictionaries: 'TTFConstants'
-	classInstanceVariableNames: ''!
 Object subclass: #RenderCommand
 	instanceVariableNames: 'zIndex rotate clip'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-Object subclass: #Renderer
+Object subclass: #Renderer2D
 	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
@@ -113,6 +108,11 @@ Object subclass: #SDLInputState
 	instanceVariableNames: 'library windows renderEventCode isActive'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
+Object subclass: #TTFFontStyle
+	instanceVariableNames: 'name code'
+	classVariableNames: ''
+	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 Dictionary variableSubclass: #PriorityQueue
 	instanceVariableNames: ''
