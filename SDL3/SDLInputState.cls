@@ -14,18 +14,18 @@ closeAll
 	windows values do: [:each | each close].
 	windows removeAll!
 
-createWindow: aString extent: aPoint for: aWidget
+createWindow: aString extent: aPoint for: anApplication
 	| window |
 	window := library
 				createWindow_title: aString
 				w: aPoint x
 				h: aPoint y
 				flags: SDL_WINDOW_RESIZABLE.
-	windows at: window getID put: aWidget.
+	windows at: window getID put: anApplication.
 	^window!
 
-dispatchEvent: anEvent to: aWidget
-	[aWidget handleEvent: anEvent] ifCurtailed: [self quit]!
+dispatchEvent: anEvent to: anApplication
+	[anApplication onEvent: anEvent] ifCurtailed: [self quit]!
 
 finalize
 	self quit.

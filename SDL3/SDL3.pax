@@ -5,6 +5,7 @@ package paxVersion: 1;
 
 
 package classNames
+	add: #Application;
 	add: #DrawBezierCurve;
 	add: #DrawBitmap;
 	add: #DrawCharacter;
@@ -94,6 +95,11 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #Application
+	instanceVariableNames: 'renderer window cursor'
+	classVariableNames: ''
+	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
 Object subclass: #RenderCommand
 	instanceVariableNames: 'zIndex rotate clip'
 	classVariableNames: ''
