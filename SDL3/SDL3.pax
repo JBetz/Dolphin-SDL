@@ -89,7 +89,10 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #().
+package setPrerequisites: #(
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
@@ -97,7 +100,7 @@ package!
 
 Object subclass: #Application
 	instanceVariableNames: 'renderer window cursor'
-	classVariableNames: ''
+	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #RenderCommand
@@ -282,7 +285,7 @@ SDL_Event subclass: #SDL_SysWMEvent
 	classInstanceVariableNames: ''!
 SDL_Event subclass: #SDL_TextEditingEvent
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_length _OffsetOf_start _OffsetOf_text _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_Event subclass: #SDL_TextEditingExtEvent
@@ -495,3 +498,4 @@ asSDLRect!public! !
 !
 
 "End of package definition"!
+

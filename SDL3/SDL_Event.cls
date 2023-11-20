@@ -36,6 +36,9 @@ asMouseMotionEvent
 asMouseWheelEvent
 	^SDL_MouseWheelEvent fromAddress: bytes yourAddress!
 
+asTextEditingEvent
+	^SDL_TextEditingEvent fromAddress: bytes yourAddress!
+
 asTextInputEvent
 	^SDL_TextInputEvent fromAddress: bytes yourAddress!
 
@@ -69,6 +72,7 @@ convertToSubclass
 	type = SDL_EVENT_MOUSE_MOTION ifTrue: [^self asMouseMotionEvent].
 	type = SDL_EVENT_MOUSE_WHEEL ifTrue: [^self asMouseWheelEvent].
 	type = SDL_EVENT_TEXT_INPUT ifTrue: [^self asTextInputEvent].
+	type = SDL_EVENT_TEXT_EDITING ifTrue: [^self asTextEditingEvent].
 	type = SDL_EVENT_USER ifTrue: [^self asUserEvent].
 	self isWindowEvent ifTrue: [^self asWindowEvent].
 	^self!
@@ -305,6 +309,7 @@ asKeyboardEvent!public! !
 asMouseButtonEvent!public! !
 asMouseMotionEvent!public! !
 asMouseWheelEvent!public! !
+asTextEditingEvent!public! !
 asTextInputEvent!public! !
 asUserEvent!public! !
 asWindowEvent!public! !

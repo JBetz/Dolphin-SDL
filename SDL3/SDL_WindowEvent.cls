@@ -38,9 +38,6 @@ data2: anInteger
 isCloseRequested
 	^self type = SDL_EVENT_WINDOW_CLOSE_REQUESTED!
 
-isEnter
-	^self type = SDL_EVENT_WINDOW_ENTER!
-
 isExposed
 	^self type = SDL_EVENT_WINDOW_EXPOSED!
 
@@ -61,6 +58,12 @@ isMaximized
 
 isMinimized
 	^self type = SDL_EVENT_WINDOW_MINIMIZED!
+
+isMouseEnter
+	^self type = SDL_EVENT_WINDOW_MOUSE_ENTER!
+
+isMouseLeave
+	^self type = SDL_EVENT_WINDOW_MOUSE_LEAVE!
 
 isMoved
 	^self type = SDL_EVENT_WINDOW_MOVED!
@@ -115,7 +118,6 @@ data1:!**compiled accessors**!public! !
 data2!**compiled accessors**!public! !
 data2:!**compiled accessors**!public! !
 isCloseRequested!public! !
-isEnter!public! !
 isExposed!public! !
 isFocusGained!public! !
 isFocusLost!public! !
@@ -123,6 +125,8 @@ isHidden!public! !
 isLeave!public! !
 isMaximized!public! !
 isMinimized!public! !
+isMouseEnter!public! !
+isMouseLeave!public! !
 isMoved!public! !
 isPixelSizeChanged!public! !
 isQuit!public! !
