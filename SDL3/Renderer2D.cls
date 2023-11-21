@@ -57,7 +57,7 @@ createTextureFromSurface: aSDL_Surface
 	^sdlRenderer createTextureFromSurface: aSDL_Surface!
 
 defaultFontFile
-	^'source-sans-pro\source-sans-pro-latin-400-normal.ttf'!
+	^'default.ttf'!
 
 destroy
 	sdlRenderer ifNotNil: [sdlRenderer destroy].
