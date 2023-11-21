@@ -38,11 +38,9 @@ createImageTexture: aString
 
 createStringTexture: aDrawString
 	| font texture surface |
-	font := self
-				lookupFont: (aDrawString fontName ifNil: [self defaultFontName])
-				style: (aDrawString fontStyle ifNil: [TTFFontStyle normal])
+	font := self lookupFont: (aDrawString fontName ifNil: [self defaultFontFile])
 				pointSize: (aDrawString fontSize ifNil: [18]).
-	aDrawString fontStyle ifNotNil: [:aFontStyle | font setStyle: aFontStyle].
+	font setStyle: (aDrawString fontStyle ifNil: [TTFFontStyle normal]).
 	surface := font
 				renderUTF8BlendedWrapped: aDrawString string displayString
 				color: (aDrawString color ifNil: [Color black])
@@ -58,8 +56,8 @@ createTexture: aPoint
 createTextureFromSurface: aSDL_Surface
 	^sdlRenderer createTextureFromSurface: aSDL_Surface!
 
-defaultFontName
-	^'source-sans-pro\source-sans-pro-latin'!
+defaultFontFile
+	^'source-sans-pro\source-sans-pro-latin-400-normal.ttf'!
 
 destroy
 	sdlRenderer ifNotNil: [sdlRenderer destroy].
@@ -225,10 +223,8 @@ execute: aRenderCommand
 
 executeDrawCharacter: aDrawCharacter
 	| font surface texture textureExtent |
-	font := self
-				lookupFont: self defaultFontName
-				style: (aDrawCharacter fontStyle ifNil: [TTFFontStyle normal])
-				pointSize: aDrawCharacter fontSize.
+	font := self lookupFont: self defaultFontFile pointSize: aDrawCharacter fontSize.
+	font setStyle: (aDrawCharacter fontStyle ifNil: [TTFFontStyle normal]).
 	surface := font renderGlyph32Blended: aDrawCharacter character color: aDrawCharacter color.
 	texture := self createTextureFromSurface: surface.
 	surface destroy.
@@ -371,19 +367,14 @@ initialize
 isEnabled
 	^isEnabled!
 
-lookupFont: aString style: aFontStyle pointSize: anInteger
-	| styleCode fileName suffix index font |
-	styleCode := aFontStyle code.
-	suffix := '-400-normal'.
-	styleCode = TTF_STYLE_BOLD ifTrue: [suffix := '-700-normal'].
-	styleCode = TTF_STYLE_ITALIC ifTrue: [suffix := '-400-italic'].
-	fileName := aString , suffix , '.ttf'.
-	(File exists: fileName)
-		ifFalse: [Error signal: ('Font file does not exist at: <1s>' expandMacrosWith: fileName)].
-	index := fileName -> anInteger.
+lookupFont: aString pointSize: anInteger
+	| index font |
+	(File exists: aString)
+		ifFalse: [Error signal: ('Font file does not exist at: <1s>' expandMacrosWith: aString)].
+	index := aString -> anInteger.
 	font := fontCache at: index ifAbsent: [nil].
 	(font isNil or: [font isNull])
-		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: fileName pointSize: anInteger)].
+		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: aString pointSize: anInteger)].
 	^font!
 
 measureString: aString fontSize: anInteger
@@ -394,20 +385,16 @@ measureString: aString fontSize: anInteger
 
 measureString: aString fontSize: anInteger fontStyle: aFontStyle
 	| font origin extent |
-	font := self
-				lookupFont: self defaultFontName
-				style: (aFontStyle ifNil: [TTFFontStyle normal])
-				pointSize: anInteger.
+	font := self lookupFont: self defaultFontFile pointSize: anInteger.
+	font setStyle: (aFontStyle ifNil: [TTFFontStyle normal]).
 	origin := 0 @ 0.
 	extent := font sizeText: aString.
 	^Rectangle origin: origin extent: extent!
 
 measureString: aString inRectangle: aRectangle fontSize: anInteger fontStyle: aFontStyle
 	| font origin extent |
-	font := self
-				lookupFont: self defaultFontName
-				style: (aFontStyle ifNil: [TTFFontStyle normal])
-				pointSize: anInteger.
+	font := self lookupFont: self defaultFontFile pointSize: anInteger.
+	font setStyle: (aFontStyle ifNil: [TTFFontStyle normal]).
 	origin := aRectangle origin.
 	aRectangle width = 0
 		ifTrue: [extent := font sizeText: aString]
@@ -436,6 +423,9 @@ renderRectangle: aRectangle toSurface: aSDLSurface
 		format: 0
 		pixels: aSDLSurface pixels
 		pitch: aSDLSurface pitch!
+
+resetClip
+	clip := nil!
 
 sdlRenderer: anObject
 	sdlRenderer := anObject!
@@ -485,7 +475,7 @@ createImageTexture:!public! !
 createStringTexture:!public! !
 createTexture:!public! !
 createTextureFromSurface:!public! !
-defaultFontName!public! !
+defaultFontFile!public! !
 destroy!public! !
 disable!public! !
 drawArrowFrom:to:width:color:zIndex:!accessing!public! !
@@ -526,7 +516,7 @@ flush!public! !
 forceRender:!public! !
 initialize!public! !
 isEnabled!public! !
-lookupFont:style:pointSize:!public! !
+lookupFont:pointSize:!public! !
 measureString:fontSize:!public! !
 measureString:fontSize:fontStyle:!public! !
 measureString:inRectangle:fontSize:fontStyle:!public! !
@@ -534,6 +524,7 @@ offset!public! !
 offset:!public! !
 present!public! !
 renderRectangle:toSurface:!public! !
+resetClip!public! !
 sdlRenderer:!accessing!public! !
 subtractOffset:!public! !
 viewport!public! !
