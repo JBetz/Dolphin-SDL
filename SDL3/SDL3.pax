@@ -89,17 +89,14 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #(
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\..\..\Desktop\Dolphin Images\Active\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+package setPrerequisites: #().
 
 package!
 
 "Class Definitions"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor'
+	instanceVariableNames: 'renderer window cursor mousePosition'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -498,4 +495,3 @@ asSDLRect!public! !
 !
 
 "End of package definition"!
-

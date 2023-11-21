@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor'
+	instanceVariableNames: 'renderer window cursor mousePosition'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -15,6 +15,18 @@ calculateInitialExtent
 	preferredExtent := self preferredExtent.
 	displayExtent := SDLInputState new getDisplayExtent.
 	^(preferredExtent x min: displayExtent x - 100) @ (preferredExtent y min: displayExtent y - 100)!
+
+close
+	cursor ifNotNil: [cursor destroy].
+	renderer
+		ifNotNil: 
+			[renderer destroy.
+			renderer := nil].
+	window
+		ifNotNil: 
+			[SDLInputState new removeWindow: window getID.
+			window destroy.
+			window := nil]!
 
 createRenderer
 	| sdlRenderer |
@@ -36,6 +48,9 @@ height
 left
 	^self rectangle left!
 
+mousePosition
+	^mousePosition ifNil: [0 @ 0]!
+
 onEvent: aSDLEvent
 	| event selector |
 	event := aSDLEvent convertToSubclass.
@@ -53,7 +68,7 @@ onMouseButtonUp: aMouseButtonEvent
 	!
 
 onMouseMotion: aMouseMotionEvent
-	!
+	mousePosition := aMouseMotionEvent position!
 
 onMouseWheel: aMouseWheelEvent
 	!
@@ -70,7 +85,8 @@ onViewCreated
 		createWindow;
 		createRenderer!
 
-onWindowCloseRequested: aWindowEvent!
+onWindowCloseRequested: aWindowEvent
+	self close!
 
 onWindowDestroyed: aWindowEvent!
 
@@ -127,11 +143,13 @@ windowPosition
 	^window ifNotNil: [window getPosition]! !
 !Application categoriesForMethods!
 calculateInitialExtent!private! !
+close!public! !
 createRenderer!private! !
 cursor:!public! !
 extent!public! !
 height!public! !
 left!public! !
+mousePosition!public! !
 onEvent:!public! !
 onKeyDown:!event handling!public! !
 onKeyUp:!event handling!public! !
