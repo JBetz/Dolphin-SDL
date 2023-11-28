@@ -117,9 +117,7 @@ removeWindow: anInteger
 	windows removeKey: anInteger ifAbsent: [nil]!
 
 setHints
-	library
-		setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1';
-		setHint_name: 'SDL_HINT_WINDOWS_ENABLE_MESSAGELOOP' value: '1'!
+	library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
 updateWindows
 	windows do: [:each | each update]!
