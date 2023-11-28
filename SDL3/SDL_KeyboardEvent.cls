@@ -28,8 +28,17 @@ isAltDown
 isBackspace
 	^self scanCode = SDL_SCANCODE_BACKSPACE!
 
+isCapsLock
+	^SDL_SCANCODE_CAPSLOCK = self scanCode!
+
 isCapsLockActive
 	^(self keysym mod bitAnd: SDL_KMOD_CAPS) asBoolean!
+
+isCapsLockDown
+	^(self keysym mod bitAnd: SDL_KMOD_CAPS) asBoolean!
+
+isCtrl
+	^{SDL_SCANCODE_LCTRL. SDL_SCANCODE_RCTRL} includes: self scanCode!
 
 isCtrlDown
 	^(self keysym mod bitAnd: SDL_KMOD_LCTRL) asBoolean
@@ -62,6 +71,9 @@ isLeft
 isLetter
 	^self keyCode >= SDLK_a & (self keyCode <= SDLK_z)!
 
+isModifier
+	^self isShift or: [self isCtrl or: [self isAlt or: [self isCapsLock]]]!
+
 isModifierDown
 	^self isShiftDown or: [self isCtrlDown or: [self isAltDown]]!
 
@@ -77,6 +89,17 @@ isRepeat
 
 isRight
 	^self scanCode = SDL_SCANCODE_RIGHT!
+
+isSecondModifier
+	(self isCtrl and: [self isShiftDown or: [self isAltDown or: [self isCapsLockDown]]])
+		ifTrue: [^true].
+	(self isAlt and: [self isCtrlDown or: [self isShiftDown or: [self isCapsLockDown]]])
+		ifTrue: [^true].
+	(self isShift and: [self isCtrlDown or: [self isAltDown or: [self isCapsLockDown]]])
+		ifTrue: [^true].
+	(self isCapsLock and: [self isCtrlDown or: [self isAltDown or: [self isShiftDown]]])
+		ifTrue: [^true].
+	^false!
 
 isShift
 	^{SDL_SCANCODE_LSHIFT. SDL_SCANCODE_RSHIFT} includes: self scanCode!
@@ -268,7 +291,10 @@ windowsSpecialKeyCode
 isAlt!public! !
 isAltDown!public! !
 isBackspace!public! !
+isCapsLock!public! !
 isCapsLockActive!public! !
+isCapsLockDown!public! !
+isCtrl!public! !
 isCtrlDown!public! !
 isDelete!public! !
 isDigit!public! !
@@ -279,11 +305,13 @@ isKeyDown!public! !
 isKeyUp!public! !
 isLeft!public! !
 isLetter!public! !
+isModifier!public! !
 isModifierDown!public! !
 isNumLockActive!public! !
 isPunctuation!public! !
 isRepeat!public! !
 isRight!public! !
+isSecondModifier!public! !
 isShift!public! !
 isShiftDown!public! !
 isSystemKey!public! !
