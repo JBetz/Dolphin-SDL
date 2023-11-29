@@ -1,9 +1,9 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library windows renderEventCode isActive'
+	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary'
 	classVariableNames: 'Singleton'
-	poolDictionaries: 'SDLConstants'
+	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
 SDLInputState guid: (GUID fromString: '{9b0ff9fb-40c3-4d7e-91fe-2a58048fdbdf}')!
 SDLInputState comment: ''!
@@ -40,23 +40,32 @@ getDisplayExtent
 initialize
 	super initialize.
 	library := SDL3Library default.
+	ttfLibrary := SDL3TTFLibrary default.
+	imageLibrary := SDL3ImageLibrary default.
 	windows := LookupTable new.
 	self
-		initializeAll;
+		initializeLibraries;
 		registerRenderEvent;
 		setHints.
-	isActive := true!
+	isActive := true.
+	keyStates := library getKeyboardState_numkeys: nil!
 
-initialize: anInteger
-	library init_flags: anInteger!
+initializeLibraries
+	| resultCode |
+	resultCode := library
+				init_flags: SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC
+						| SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS.
+	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL base library'].
+	resultCode := ttfLibrary init.
+	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL TTF library'].
+	resultCode := imageLibrary init_flags: 0.
+	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL image library']!
 
-initializeAll
-	self
-		initialize: SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC
-				| SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS!
+isCapsLockDown
+	^self isKeyDown: SDL_SCANCODE_CAPSLOCK!
 
-initializeVideo
-	self initialize: SDL_INIT_VIDEO!
+isKeyDown: scanCode
+	^(keyStates byteAtOffset: scanCode) asBoolean!
 
 iterate
 	isActive
@@ -105,10 +114,11 @@ pushRenderEvent: anInteger
 
 quit
 	self closeAll.
-	SDL3TTFLibrary default quit.
-	SDL3ImageLibrary default quit.
-	library quit.
-	isActive := false!
+	keyStates := nil.
+	isActive := false.
+	imageLibrary quit.
+	ttfLibrary quit.
+	library quit!
 
 registerRenderEvent
 	renderEventCode := library registerEvents_numevents: 1!
@@ -131,9 +141,9 @@ dispatchEvent:to:!public! !
 finalize!public! !
 getDisplayExtent!public! !
 initialize!public! !
-initialize:!public! !
-initializeAll!public! !
-initializeVideo!public! !
+initializeLibraries!public! !
+isCapsLockDown!public! !
+isKeyDown:!public! !
 iterate!public! !
 pollEvent!public! !
 pumpMessages!public! !

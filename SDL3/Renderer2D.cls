@@ -360,9 +360,7 @@ initialize
 	renderQueue := PriorityQueue new.
 	offset := 0 @ 0.
 	isEnabled := true.
-	fontCache := LookupTable new.
-	SDL3TTFLibrary default init.
-	SDL3ImageLibrary default init_flags: 0!
+	fontCache := LookupTable new!
 
 isEnabled
 	^isEnabled!
@@ -465,8 +463,8 @@ withoutOffsetDo: aBlock
 	aBlock value.
 	offset := currentOffset! !
 !Renderer2D categoriesForMethods!
-addCommand:!public! !
-addOffset:!public! !
+addCommand:!private! !
+addOffset:!private! !
 clear!public! !
 clearOffset!public! !
 clip!public! !
