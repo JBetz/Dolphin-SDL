@@ -34,9 +34,6 @@ isCapsLock
 isCapsLockActive
 	^(self keysym mod bitAnd: SDL_KMOD_CAPS) asBoolean!
 
-isCapsLockDown
-	^(self keysym mod bitAnd: SDL_KMOD_CAPS) asBoolean!
-
 isCtrl
 	^{SDL_SCANCODE_LCTRL. SDL_SCANCODE_RCTRL} includes: self scanCode!
 
@@ -91,11 +88,11 @@ isRight
 	^self scanCode = SDL_SCANCODE_RIGHT!
 
 isSecondModifier
-	(self isCtrl and: [self isShiftDown or: [self isAltDown or: [self isCapsLockDown]]])
+	(self isCtrl and: [self isShiftDown or: [self isAltDown or: [SDLInputState current isCapsLockDown]]])
 		ifTrue: [^true].
-	(self isAlt and: [self isCtrlDown or: [self isShiftDown or: [self isCapsLockDown]]])
+	(self isAlt and: [self isCtrlDown or: [self isShiftDown or: [SDLInputState current isCapsLockDown]]])
 		ifTrue: [^true].
-	(self isShift and: [self isCtrlDown or: [self isAltDown or: [self isCapsLockDown]]])
+	(self isShift and: [self isCtrlDown or: [self isAltDown or: [SDLInputState current isCapsLockDown]]])
 		ifTrue: [^true].
 	(self isCapsLock and: [self isCtrlDown or: [self isAltDown or: [self isShiftDown]]])
 		ifTrue: [^true].
@@ -293,7 +290,6 @@ isAltDown!public! !
 isBackspace!public! !
 isCapsLock!public! !
 isCapsLockActive!public! !
-isCapsLockDown!public! !
 isCtrl!public! !
 isCtrlDown!public! !
 isDelete!public! !

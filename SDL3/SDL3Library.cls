@@ -146,6 +146,10 @@ getError
 	<cdecl: lpstr SDL_GetError>
 	^self invalidCall: _failureCode!
 
+getKeyboardState_numkeys: numkeys
+	<cdecl: byte* SDL_GetKeyboardState sdword*>
+	^self invalidCall: _failureCode!
+
 getKeyFromScancode_scancode: scancode
 	<cdecl: sdword SDL_GetKeyFromScancode sdword>
 	^self invalidCall: _failureCode!
@@ -283,7 +287,7 @@ hideWindow_window: window
 	^self invalidCall: _failureCode!
 
 init_flags: flags
-	<cdecl: void SDL_Init dword>
+	<cdecl: sdword SDL_Init dword>
 	^self invalidCall: _failureCode!
 
 initSubSystem_flags: flags
@@ -516,6 +520,7 @@ getDisplayName_displayIndex:!public!video! !
 getDisplays_count:!public!video! !
 getDisplayUsableBounds_displayIndex:rect:!public!video! !
 getError!error!public! !
+getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
 getNumDisplayModes_displayIndex:!public!video! !
 getNumVideoDisplays!public!video! !

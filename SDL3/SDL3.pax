@@ -111,9 +111,9 @@ Object subclass: #Renderer2D
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library windows renderEventCode isActive'
+	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary'
 	classVariableNames: 'Singleton'
-	poolDictionaries: 'SDLConstants'
+	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
 Object subclass: #TTFFontStyle
 	instanceVariableNames: 'name code'
