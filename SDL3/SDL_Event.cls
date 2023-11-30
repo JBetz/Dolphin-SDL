@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #SDL_Event
-	instanceVariableNames: 'target isHandled'
+	instanceVariableNames: 'target handlers'
 	classVariableNames: '_OffsetOf_common _OffsetOf_padding _OffsetOf_union_button _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -23,6 +23,10 @@ SDL_Event addClassConstant: '_OffsetOf_union_window' value: 16r0!
 SDL_Event comment: ''!
 !SDL_Event categoriesForClass!External-Data-Structured! !
 !SDL_Event methodsFor!
+
+addHandler: anObject
+	handlers ifNil: [handlers := OrderedCollection new].
+	handlers add: anObject!
 
 asKeyboardEvent
 	^SDL_KeyboardEvent fromAddress: bytes yourAddress!
@@ -90,15 +94,11 @@ hasAssociatedWindow
 				SDL_EVENT_DROP_FILE.
 				SDL_EVENT_USER} includes: self type]!
 
-initialize
-	super initialize.
-	isHandled := false!
+isConsumed
+	^handlers anySatisfy: [:each | each consumesKeyboardInput]!
 
 isHandled
-	^isHandled!
-
-isHandled: aBoolean
-	isHandled := aBoolean!
+	^handlers ifNil: [false] ifNotNil: [handlers isEmpty not]!
 
 isWindowEvent
 	^self type between: SDL_EVENT_WINDOW_FIRST and: SDL_EVENT_WINDOW_LAST!
@@ -305,6 +305,7 @@ union_window: aSDL_WindowEvent
 windowID
 	^self hasAssociatedWindow ifTrue: [bytes dwordAtOffset: 12] ifFalse: [nil]! !
 !SDL_Event categoriesForMethods!
+addHandler:!accessing!public! !
 asKeyboardEvent!public! !
 asMouseButtonEvent!public! !
 asMouseMotionEvent!public! !
@@ -317,9 +318,8 @@ common!public! !
 common:!public! !
 convertToSubclass!public! !
 hasAssociatedWindow!public! !
-initialize!public! !
+isConsumed!public! !
 isHandled!public! !
-isHandled:!public! !
 isWindowEvent!public! !
 padding!public! !
 padding:!public! !
