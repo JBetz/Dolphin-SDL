@@ -111,7 +111,7 @@ Object subclass: #Renderer2D
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary'
+	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary callbacks'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -156,7 +156,7 @@ ExternalStructure subclass: #SDL_DisplayMode
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #SDL_Event
-	instanceVariableNames: 'target isHandled'
+	instanceVariableNames: 'target handlers'
 	classVariableNames: '_OffsetOf_common _OffsetOf_padding _OffsetOf_union_button _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary'
+	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary callbacks'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -43,18 +43,18 @@ initialize
 	ttfLibrary := SDL3TTFLibrary default.
 	imageLibrary := SDL3ImageLibrary default.
 	windows := LookupTable new.
+	callbacks := LookupTable new.
 	self
 		initializeLibraries;
 		registerRenderEvent;
 		setHints.
 	isActive := true.
-	keyStates := library getKeyboardState_numkeys: nil!
+	keyStates := library getKeyboardState_numkeys: nil.
+	!
 
 initializeLibraries
 	| resultCode |
-	resultCode := library
-				init_flags: SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC
-						| SDL_INIT_GAMECONTROLLER | SDL_INIT_EVENTS.
+	resultCode := library init_flags: SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL base library'].
 	resultCode := ttfLibrary init.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL TTF library'].
@@ -126,6 +126,21 @@ registerRenderEvent
 removeWindow: anInteger
 	windows removeKey: anInteger ifAbsent: [nil]!
 
+scheduleCallback: aBlock inMilliseconds: anInteger
+	| timerId externalCallback |
+	externalCallback := ExternalCallback block: 
+					[:interval :param |
+					aBlock value.
+					library removeTimer_id: timerId.
+					callbacks removeKey: timerId.
+					0]
+				descriptor: (ExternalDescriptor returnType: 'dword' argumentTypes: 'dword void*').
+	timerId := library
+				addTimer_interval: anInteger
+				callback: externalCallback
+				param: nil.
+	callbacks at: timerId put: externalCallback!
+
 setHints
 	library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
@@ -149,10 +164,12 @@ pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
 pushEvent:!public! !
+pushFutureRenderEvent!public! !
 pushRenderEvent:!public! !
 quit!public! !
 registerRenderEvent!public! !
 removeWindow:!public! !
+scheduleCallback:inMilliseconds:!public! !
 setHints!public! !
 updateWindows!public! !
 windows!public! !
@@ -200,4 +217,3 @@ onShutdown!public! !
 onStartup!public! !
 restart!public! !
 !
-

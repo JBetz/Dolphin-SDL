@@ -11,7 +11,11 @@ SDL3Library comment: ''!
 !SDL3Library methodsFor!
 
 addEventWatch_filter: filter userdata: userdata
-	<cdecl: void SDL_AddEventWatch SDL_EventFilter lpvoid>
+	<cdecl: void SDL_AddEventWatch SDL_EventFilter void*>
+	^self invalidCall: _failureCode!
+
+addTimer_interval: interval callback: callback param: param
+	<cdecl: sdword SDL_AddTimer dword void* void*>
 	^self invalidCall: _failureCode!
 
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
@@ -63,15 +67,23 @@ createWindowAndRenderer_width: width height: height windowFlags: windowFlags win
 	^self invalidCall: _failureCode!
 
 createWindowFrom_data: data
-	<cdecl: SDL_Window* SDL_CreateWindowFrom lpvoid>
+	<cdecl: SDL_Window* SDL_CreateWindowFrom void*>
 	^self invalidCall: _failureCode!
 
 createWindowWithPosition_title: title x: x y: y w: w h: h flags: flags
 	<cdecl: SDL_Window* SDL_CreateWindowWithPosition lpstr sdword sdword sdword sdword dword>
 	^self invalidCall: _failureCode!
 
+delay_ms: ms
+	<cdecl: void SDL_Delay dword>
+	^self invalidCall: _failureCode!
+
+delayNS_ns: ns
+	<cdecl: void SDL_DelayNS qword>
+	^self invalidCall: _failureCode!
+
 delEventWatch_filter: filter userdata: userdata
-	<cdecl: void SDL_DelEventWatch SDL_EventFilter lpvoid>
+	<cdecl: void SDL_DelEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 destroyCursor_cursor: cursor
@@ -99,7 +111,7 @@ displayOrientation_displayIndex: displayIndex
 	^self invalidCall: _failureCode!
 
 enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter appEvent: appEvent appQuit: appQuit
-	<cdecl: sdword SDL_EnterAppMainCallbacks sdword lpstr lpvoid lpvoid lpvoid lpvoid>
+	<cdecl: sdword SDL_EnterAppMainCallbacks sdword lpstr void* void* void* void*>
 	^self invalidCall: _failureCode!
 
 flashWindow_window: window operation: operation
@@ -166,6 +178,14 @@ getNumVideoDrivers
 	<cdecl: sdword SDL_GetNumVideoDrivers>
 	^self invalidCall: _failureCode!
 
+getPerformanceCounter
+	<cdecl: qword SDL_GetTicks>
+	^self invalidCall: _failureCode!
+
+getPerformanceFrequency
+	<cdecl: qword SDL_GetTicks>
+	^self invalidCall: _failureCode!
+
 getPixelFormatEnumForMasks_bpp: bpp rMask: rMask gMask: gMask bMask: bMask aMask: aMask
 	<cdecl: dword SDL_GetPixelFormatEnumForMasks sdword dword dword dword dword>
 	^self invalidCall: _failureCode!
@@ -207,11 +227,11 @@ getTextureBlendMode_texture: texture blendMode: blendMode
 	^self invalidCall: _failureCode!
 
 getTicks
-	<cdecl: dword SDL_GetTicks>
+	<cdecl: qword SDL_GetTicks>
 	^self invalidCall: _failureCode!
 
-getTicks64
-	<cdecl: dword SDL_GetTicks64>
+getTicksNS
+	<cdecl: qword SDL_GetTicks>
 	^self invalidCall: _failureCode!
 
 getVersion_ver: ver
@@ -227,7 +247,7 @@ getWindowBordersSize_window: window top: top left: left bottom: bottom right: ri
 	^self invalidCall: _failureCode!
 
 getWindowData_window: window name: name
-	<cdecl: lpvoid SDL_SetWindowData SDL_Window* lpstr>
+	<cdecl: void* SDL_SetWindowData SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
 getWindowDisplayIndex_window: window
@@ -247,7 +267,7 @@ getWindowFullscreenMode_window: window
 	^self invalidCall: _failureCode!
 
 getWindowICCProfile_window: window size: size
-	<cdecl: lpvoid SDL_GetWindowICCProfile SDL_Window* intptr*>
+	<cdecl: void* SDL_GetWindowICCProfile SDL_Window* intptr*>
 	^self invalidCall: _failureCode!
 
 getWindowID_window: window
@@ -295,7 +315,7 @@ initSubSystem_flags: flags
 	^self invalidCall: _failureCode!
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<cdecl: sdword SDL_LockTexture SDL_Texture* SDL_Rect* lpvoid* sdword*>
+	<cdecl: sdword SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
 	^self invalidCall: _failureCode!
 
 maximizeWindow_window: window
@@ -340,6 +360,10 @@ raiseWindow_window: window
 
 registerEvents_numevents: numevents
 	<cdecl: dword SDL_RegisterEvents sdword>
+	^self invalidCall: _failureCode!
+
+removeTimer_id: id
+	<cdecl: bool SDL_RemoveTimer sdword>
 	^self invalidCall: _failureCode!
 
 renderClear_renderer: renderer
@@ -391,7 +415,7 @@ setCursor_cursor: cursor
 	^self invalidCall: _failureCode!
 
 setEventFilter_filter: filter userdata: userdata
-	<cdecl: void SDL_SetEventFilter SDL_EventFilter lpvoid>
+	<cdecl: void SDL_SetEventFilter SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 setHint_name: name value: value
@@ -415,7 +439,7 @@ setTextureBlendMode_texture: texture blendMode: blendMode
 	^self invalidCall: _failureCode!
 
 setWindowData_window: window name: name userdata: userdata
-	<cdecl: lpvoid SDL_SetWindowData SDL_Window* lpstr lpvoid>
+	<cdecl: void* SDL_SetWindowData SDL_Window* lpstr void*>
 	^self invalidCall: _failureCode!
 
 setWindowFullscreen_window: window fullscreen: fullscreen
@@ -455,7 +479,7 @@ unlockTexture_texture: texture
 	^self invalidCall: _failureCode!
 
 updateTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<cdecl: sdword SDL_UpdateTexture SDL_Texture* SDL_Rect* lpvoid sdword>
+	<cdecl: sdword SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
 	^self invalidCall: _failureCode!
 
 updateWindowSurface_window: window
@@ -487,6 +511,7 @@ wasInit_flags: flags
 	^self invalidCall: _failureCode! !
 !SDL3Library categoriesForMethods!
 addEventWatch_filter:userdata:!events!public! !
+addTimer_interval:callback:param:!public!video! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createRenderer_window:index:flags:!public!render! !
@@ -501,6 +526,8 @@ createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_width:height:windowFlags:window:renderer:!public!render! !
 createWindowFrom_data:!public!video! !
 createWindowWithPosition_title:x:y:w:h:flags:!public!video! !
+delay_ms:!public!video! !
+delayNS_ns:!public!video! !
 delEventWatch_filter:userdata:!events!public! !
 destroyCursor_cursor:!public! !
 destroyRenderer_renderer:!public!render! !
@@ -525,6 +552,8 @@ getKeyFromScancode_scancode:!public!video! !
 getNumDisplayModes_displayIndex:!public!video! !
 getNumVideoDisplays!public!video! !
 getNumVideoDrivers!public!video! !
+getPerformanceCounter!public!video! !
+getPerformanceFrequency!public!video! !
 getPixelFormatEnumForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
 getPointDisplayIndex_point:!public!video! !
 getPrimaryDisplay!public! !
@@ -536,7 +565,7 @@ getRendererInfo_renderer:info:!public!render! !
 getRenderWindow_renderer:!public!render! !
 getTextureBlendMode_texture:blendMode:!public!render! !
 getTicks!public!video! !
-getTicks64!public!video! !
+getTicksNS!public!video! !
 getVersion_ver:!public! !
 getVideoDriver_index:!public!video! !
 getWindowBordersSize_window:top:left:bottom:right:!public!video! !
@@ -569,6 +598,7 @@ quit!init!public! !
 quitSubSystem_flags:!init!public! !
 raiseWindow_window:!public!video! !
 registerEvents_numevents:!events!public! !
+removeTimer_id:!public!video! !
 renderClear_renderer:!public!render! !
 renderClipEnabled_renderer:!public!render! !
 renderFillRect_renderer:rect:!public!render! !
