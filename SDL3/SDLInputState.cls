@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'library windows renderEventCode isActive keyStates ttfLibrary imageLibrary callbacks'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -16,7 +16,7 @@ closeAll
 
 createWindow: aString extent: aPoint for: anApplication
 	| window |
-	window := library
+	window := sdlLibrary
 				createWindow_title: aString
 				w: aPoint x
 				h: aPoint y
@@ -33,32 +33,30 @@ finalize
 
 getDisplayExtent
 	| primaryDisplayId displayMode |
-	primaryDisplayId := library getPrimaryDisplay.
-	displayMode := library getCurrentDisplayMode_displayID: primaryDisplayId.
+	primaryDisplayId := sdlLibrary getPrimaryDisplay.
+	displayMode := sdlLibrary getCurrentDisplayMode_displayID: primaryDisplayId.
 	^displayMode w @ displayMode h!
 
 initialize
 	super initialize.
-	library := SDL3Library default.
-	ttfLibrary := SDL3TTFLibrary default.
-	imageLibrary := SDL3ImageLibrary default.
+	sdlLibrary := SDL3Library default.
+	sdlTtfLibrary := SDL3TTFLibrary default.
+	sdlImageLibrary := SDL3ImageLibrary default.
 	windows := LookupTable new.
-	callbacks := LookupTable new.
 	self
 		initializeLibraries;
 		registerRenderEvent;
 		setHints.
 	isActive := true.
-	keyStates := library getKeyboardState_numkeys: nil.
-	!
+	keyStates := sdlLibrary getKeyboardState_numkeys: nil!
 
 initializeLibraries
 	| resultCode |
-	resultCode := library init_flags: SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER.
+	resultCode := sdlLibrary init_flags: SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL base library'].
-	resultCode := ttfLibrary init.
+	resultCode := sdlTtfLibrary init.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL TTF library'].
-	resultCode := imageLibrary init_flags: 0.
+	resultCode := sdlImageLibrary init_flags: 0.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL image library']!
 
 isCapsLockDown
@@ -77,7 +75,7 @@ iterate
 pollEvent
 	| event result |
 	event := SDL_Event new.
-	result := library pollEvent_event: event.
+	result := sdlLibrary pollEvent_event: event.
 	^result = 0 ifTrue: [nil] ifFalse: [event]!
 
 pumpMessages
@@ -103,7 +101,16 @@ pushCloseEvent: anInteger
 				windowID: anInteger)!
 
 pushEvent: aSDLEvent
-	library pushEvent_event: aSDLEvent!
+	sdlLibrary pushEvent_event: aSDLEvent!
+
+pushFutureRenderEvent
+	| now |
+	now := SDL3Library default getTicks.
+	Transcript display: now; cr.
+	self pushEvent: (SDL_UserEvent new
+				type: SDL_EVENT_USER;
+				timestamp: now + 50000;
+				code: renderEventCode)!
 
 pushRenderEvent: anInteger
 	self pushEvent: (SDL_UserEvent new
@@ -116,33 +123,18 @@ quit
 	self closeAll.
 	keyStates := nil.
 	isActive := false.
-	imageLibrary quit.
-	ttfLibrary quit.
-	library quit!
+	sdlImageLibrary quit.
+	sdlTtfLibrary quit.
+	sdlLibrary quit!
 
 registerRenderEvent
-	renderEventCode := library registerEvents_numevents: 1!
+	renderEventCode := sdlLibrary registerEvents_numevents: 1!
 
 removeWindow: anInteger
 	windows removeKey: anInteger ifAbsent: [nil]!
 
-scheduleCallback: aBlock inMilliseconds: anInteger
-	| timerId externalCallback |
-	externalCallback := ExternalCallback block: 
-					[:interval :param |
-					aBlock value.
-					library removeTimer_id: timerId.
-					callbacks removeKey: timerId.
-					0]
-				descriptor: (ExternalDescriptor returnType: 'dword' argumentTypes: 'dword void*').
-	timerId := library
-				addTimer_interval: anInteger
-				callback: externalCallback
-				param: nil.
-	callbacks at: timerId put: externalCallback!
-
 setHints
-	library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
+	sdlLibrary setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
 updateWindows
 	windows do: [:each | each update]!
@@ -169,7 +161,6 @@ pushRenderEvent:!public! !
 quit!public! !
 registerRenderEvent!public! !
 removeWindow:!public! !
-scheduleCallback:inMilliseconds:!public! !
 setHints!public! !
 updateWindows!public! !
 windows!public! !
@@ -217,3 +208,4 @@ onShutdown!public! !
 onStartup!public! !
 restart!public! !
 !
+
