@@ -90,6 +90,9 @@ onWindowCloseRequested: aWindowEvent
 
 onWindowDestroyed: aWindowEvent!
 
+onWindowDisplayChanged: aSDL_WindowEvent 
+	^self!
+
 onWindowExposed: aWindowEvent!
 
 onWindowFocusGained: aWindowEvent!
@@ -163,6 +166,7 @@ onUser:!event handling!public! !
 onViewCreated!public! !
 onWindowCloseRequested:!event handling!public! !
 onWindowDestroyed:!event handling!public! !
+onWindowDisplayChanged:!public! !
 onWindowExposed:!event handling!public! !
 onWindowFocusGained:!event handling!public! !
 onWindowFocusLost:!event handling!public! !
