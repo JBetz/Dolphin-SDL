@@ -19,11 +19,13 @@ SDL_KeyboardEvent comment: ''!
 !SDL_KeyboardEvent methodsFor!
 
 isAlt
-	^{SDL_SCANCODE_LALT. SDL_SCANCODE_RALT} includes: self scanCode!
+	^self isLeftAlt or: [self isRightAlt]!
 
 isAltDown
-	^(self keysym mod bitAnd: SDL_KMOD_LALT) asBoolean
-		or: [(self keysym mod bitAnd: SDL_KMOD_RALT) asBoolean]!
+	^self isLeftAltDown or: [self isRightAltDown]!
+
+isAnotherModifierDown
+	^self isLeftCtrl and: [ self isRightCtrlDown  ]!
 
 isBackspace
 	^self scanCode = SDL_SCANCODE_BACKSPACE!
@@ -34,12 +36,14 @@ isCapsLock
 isCapsLockActive
 	^(self keysym mod bitAnd: SDL_KMOD_CAPS) asBoolean!
 
+isCapsLockDown
+	^SDLInputState current isCapsLockDown!
+
 isCtrl
-	^{SDL_SCANCODE_LCTRL. SDL_SCANCODE_RCTRL} includes: self scanCode!
+	^self isLeftCtrl or: [self isRightCtrl]!
 
 isCtrlDown
-	^(self keysym mod bitAnd: SDL_KMOD_LCTRL) asBoolean
-		or: [(self keysym mod bitAnd: SDL_KMOD_RCTRL) asBoolean]!
+	^self isLeftCtrlDown or: [self isRightCtrlDown]!
 
 isDelete
 	^self scanCode = SDL_SCANCODE_DELETE!
@@ -65,6 +69,24 @@ isKeyUp
 isLeft
 	^self scanCode = SDL_SCANCODE_LEFT!
 
+isLeftAlt
+	^self scanCode = SDL_SCANCODE_LALT!
+
+isLeftAltDown
+	^(self keysym mod bitAnd: SDL_KMOD_LALT) asBoolean!
+
+isLeftCtrl
+	^self scanCode = SDL_SCANCODE_LCTRL!
+
+isLeftCtrlDown
+	^(self keysym mod bitAnd: SDL_KMOD_LCTRL) asBoolean!
+
+isLeftShift
+	^self scanCode = SDL_SCANCODE_LSHIFT!
+
+isLeftShiftDown
+	^(self keysym mod bitAnd: SDL_KMOD_LSHIFT) asBoolean!
+
 isLetter
 	^self keyCode >= SDLK_a & (self keyCode <= SDLK_z)!
 
@@ -72,7 +94,7 @@ isModifier
 	^self isShift or: [self isCtrl or: [self isAlt or: [self isCapsLock]]]!
 
 isModifierDown
-	^self isShiftDown or: [self isCtrlDown or: [self isAltDown]]!
+	^self isShiftDown or: [self isCtrlDown or: [self isAltDown or: [self isCapsLockDown]]]!
 
 isNumLockActive 
 	^(self keysym mod bitAnd: SDL_KMOD_NUM) asBoolean not!
@@ -87,23 +109,52 @@ isRepeat
 isRight
 	^self scanCode = SDL_SCANCODE_RIGHT!
 
+isRightAlt
+	^self scanCode = SDL_SCANCODE_RALT!
+
+isRightAltDown
+	^(self keysym mod bitAnd: SDL_KMOD_RALT) asBoolean!
+
+isRightCtrl
+	^self scanCode = SDL_SCANCODE_RCTRL!
+
+isRightCtrlDown
+	^(self keysym mod bitAnd: SDL_KMOD_RCTRL) asBoolean!
+
+isRightShift
+	^self scanCode = SDL_SCANCODE_RSHIFT!
+
+isRightShiftDown
+	^(self keysym mod bitAnd: SDL_KMOD_RSHIFT) asBoolean!
+
 isSecondModifier
-	(self isCtrl and: [self isShiftDown or: [self isAltDown or: [SDLInputState current isCapsLockDown]]])
-		ifTrue: [^true].
-	(self isAlt and: [self isCtrlDown or: [self isShiftDown or: [SDLInputState current isCapsLockDown]]])
-		ifTrue: [^true].
-	(self isShift and: [self isCtrlDown or: [self isAltDown or: [SDLInputState current isCapsLockDown]]])
-		ifTrue: [^true].
+	(self isLeftCtrl
+		and: [self isRightCtrlDown or: [self isShiftDown or: [self isAltDown or: [self isCapsLockDown]]]])
+			ifTrue: [^true].
+	(self isRightCtrl
+		and: [self isLeftCtrlDown or: [self isShiftDown or: [self isAltDown or: [self isCapsLockDown]]]])
+			ifTrue: [^true].
+	(self isLeftAlt
+		and: [self isRightAltDown or: [self isCtrlDown or: [self isShiftDown or: [self isCapsLockDown]]]])
+			ifTrue: [^true].
+	(self isRightAlt
+		and: [self isLeftAltDown or: [self isCtrlDown or: [self isShiftDown or: [self isCapsLockDown]]]])
+			ifTrue: [^true].
+	(self isLeftShift
+		and: [self isRightShiftDown or: [self isCtrlDown or: [self isAltDown or: [self isCapsLockDown]]]])
+			ifTrue: [^true].
+	(self isRightShift
+		and: [self isLeftShiftDown or: [self isCtrlDown or: [self isAltDown or: [self isCapsLockDown]]]])
+			ifTrue: [^true].
 	(self isCapsLock and: [self isCtrlDown or: [self isAltDown or: [self isShiftDown]]])
 		ifTrue: [^true].
 	^false!
 
 isShift
-	^{SDL_SCANCODE_LSHIFT. SDL_SCANCODE_RSHIFT} includes: self scanCode!
+	^self isLeftShift or: [self isRightShift]!
 
 isShiftDown
-	^(self keysym mod bitAnd: SDL_KMOD_LSHIFT) asBoolean
-		or: [(self keysym mod bitAnd: SDL_KMOD_RSHIFT) asBoolean]!
+	^self isLeftShiftDown or: [self isRightShiftDown]!
 
 isSystemKey
 	^self isAlt!
@@ -287,9 +338,11 @@ windowsSpecialKeyCode
 !SDL_KeyboardEvent categoriesForMethods!
 isAlt!public! !
 isAltDown!public! !
+isAnotherModifierDown!public! !
 isBackspace!public! !
 isCapsLock!public! !
 isCapsLockActive!public! !
+isCapsLockDown!public! !
 isCtrl!public! !
 isCtrlDown!public! !
 isDelete!public! !
@@ -300,6 +353,12 @@ isEscape!public! !
 isKeyDown!public! !
 isKeyUp!public! !
 isLeft!public! !
+isLeftAlt!public! !
+isLeftAltDown!public! !
+isLeftCtrl!public! !
+isLeftCtrlDown!public! !
+isLeftShift!public! !
+isLeftShiftDown!public! !
 isLetter!public! !
 isModifier!public! !
 isModifierDown!public! !
@@ -307,6 +366,12 @@ isNumLockActive!public! !
 isPunctuation!public! !
 isRepeat!public! !
 isRight!public! !
+isRightAlt!public! !
+isRightAltDown!public! !
+isRightCtrl!public! !
+isRightCtrlDown!public! !
+isRightShift!public! !
+isRightShiftDown!public! !
 isSecondModifier!public! !
 isShift!public! !
 isShiftDown!public! !
