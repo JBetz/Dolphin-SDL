@@ -10,7 +10,7 @@ SDLInputState comment: ''!
 !SDLInputState categoriesForClass!Kernel-Objects! !
 !SDLInputState methodsFor!
 
-closeAll
+closeAllWindows
 	windows values do: [:each | each close].
 	windows removeAll!
 
@@ -120,7 +120,7 @@ pushRenderEvent: anInteger
 				code: renderEventCode)!
 
 quit
-	self closeAll.
+	self closeAllWindows.
 	keyStates := nil.
 	isActive := false.
 	sdlImageLibrary quit.
@@ -142,7 +142,7 @@ updateWindows
 windows
 	^windows! !
 !SDLInputState categoriesForMethods!
-closeAll!public! !
+closeAllWindows!public! !
 createWindow:extent:for:!public! !
 dispatchEvent:to:!public! !
 finalize!public! !
