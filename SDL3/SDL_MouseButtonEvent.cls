@@ -74,6 +74,9 @@ padding1: anInteger
 
 	bytes byteAtOffset: _OffsetOf_padding1 put: anInteger!
 
+position
+	^self x @ self y!
+
 state
 	"Answer the <Integer> value of the receiver's 'state' field."
 
@@ -158,6 +161,7 @@ isSingleClick!public! !
 isTripleClick!public! !
 padding1!**compiled accessors**!public! !
 padding1:!**compiled accessors**!public! !
+position!public! !
 state!**compiled accessors**!public! !
 state:!**compiled accessors**!public! !
 timestamp!**compiled accessors**!public! !
