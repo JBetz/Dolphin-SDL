@@ -34,10 +34,14 @@ createRenderer
 	renderer := Renderer2D new sdlRenderer: sdlRenderer.
 	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND!
 
-cursor: aSDLCursor
-	cursor ifNotNil: [cursor destroy].
-	cursor := aSDLCursor.
-	cursor ifNotNil: [cursor makeCurrent]!
+cursor: aSymbol
+	cursor name ~= aSymbol
+		ifTrue: 
+			[cursor ifNotNil: [cursor destroy].
+			cursor := SDL_Cursor perform: aSymbol.
+			cursor
+				name: aSymbol;
+				makeCurrent]!
 
 extent
 	^window ifNotNil: [window extent] ifNil: [0 @ 0]!

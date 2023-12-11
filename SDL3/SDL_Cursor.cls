@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 SDL_Object subclass: #SDL_Cursor
-	instanceVariableNames: ''
+	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,10 +14,18 @@ destroy
 	self library destroyCursor_cursor: self!
 
 makeCurrent
-	self library setCursor_cursor: self! !
+	self library setCursor_cursor: self!
+
+name
+	^name!
+
+name: anObject
+	name := anObject! !
 !SDL_Cursor categoriesForMethods!
 destroy!public! !
 makeCurrent!public! !
+name!accessing!public! !
+name:!accessing!public! !
 !
 
 !SDL_Cursor class methodsFor!

@@ -309,7 +309,7 @@ SDL_Event subclass: #SDL_WindowEvent
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_Object subclass: #SDL_Cursor
-	instanceVariableNames: ''
+	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
