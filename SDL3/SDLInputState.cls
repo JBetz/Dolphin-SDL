@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -25,7 +25,7 @@ createWindow: aString extent: aPoint for: anApplication
 	^window!
 
 dispatchEvent: anEvent to: anApplication
-	[anApplication onEvent: anEvent] ifCurtailed: [self quit]!
+	anApplication onEvent: anEvent!
 
 finalize
 	self quit.
@@ -48,6 +48,7 @@ initialize
 		registerRenderEvent;
 		setHints.
 	isActive := true.
+	isProcessing := false.
 	keyStates := sdlLibrary getKeyboardState_numkeys: nil!
 
 initializeLibraries
@@ -66,11 +67,13 @@ isKeyDown: scanCode
 	^(keyStates byteAtOffset: scanCode) asBoolean!
 
 iterate
-	isActive
+	(isActive and: [isProcessing not])
 		ifTrue: 
-			[self
+			[isProcessing := true.
+			self
 				pumpMessages;
-				updateWindows]!
+				updateWindows.
+			isProcessing := false]!
 
 pollEvent
 	| event result |
@@ -102,15 +105,6 @@ pushCloseEvent: anInteger
 
 pushEvent: aSDLEvent
 	sdlLibrary pushEvent_event: aSDLEvent!
-
-pushFutureRenderEvent
-	| now |
-	now := SDL3Library default getTicks.
-	Transcript display: now; cr.
-	self pushEvent: (SDL_UserEvent new
-				type: SDL_EVENT_USER;
-				timestamp: now + 50000;
-				code: renderEventCode)!
 
 pushRenderEvent: anInteger
 	self pushEvent: (SDL_UserEvent new
@@ -156,7 +150,6 @@ pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
 pushEvent:!public! !
-pushFutureRenderEvent!public! !
 pushRenderEvent:!public! !
 quit!public! !
 registerRenderEvent!public! !
