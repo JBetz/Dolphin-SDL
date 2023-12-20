@@ -82,7 +82,7 @@ onTextEditing: aTextEditingEvent !
 onTextInput: aTextInputEvent!
 
 onUser: aUserEvent
-	!
+	self markDirty!
 
 onViewCreated
 	self

@@ -241,7 +241,7 @@ executeDrawLine: aDrawLine
 
 executeDrawRectangle: aDrawRectangle
 	aDrawRectangle color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
-	sdlRenderer drawRectangle: aDrawRectangle rectangle!
+	aDrawRectangle rectangle ifNotNil: [:aRectangle | sdlRenderer drawRectangle: aRectangle]!
 
 executeDrawString: aDrawString
 	| texture |
@@ -285,14 +285,15 @@ executeDrawTexture: aDrawTexture
 		destination: destinationRectangle!
 
 executeFillQuadrilateral: aFillQuadrilateral
-	| vertices indices |
+	| color vertices indices |
+	color := (aFillQuadrilateral color ifNil: [Color white]) asSDLColor.
 	vertices := aFillQuadrilateral points collect: 
 					[:aPoint |
 					SDL_Vertex new
 						position: (SDL_FPoint new
 									x: aPoint x;
 									y: aPoint y);
-						color: (aFillQuadrilateral color ifNil: [Color white]) asSDLColor;
+						color: color;
 						tex_coord: SDL_FPoint new].
 	indices := {0. 3. 1. 1. 2. 3} collect: [:anInteger | anInteger asSDword].
 	sdlRenderer
