@@ -70,9 +70,10 @@ iterate
 	(isActive and: [isProcessing not])
 		ifTrue: 
 			[isProcessing := true.
-			self
+			
+			[self
 				pumpMessages;
-				updateWindows.
+				updateWindows] ifCurtailed: [isProcessing := false].
 			isProcessing := false]!
 
 pollEvent
