@@ -334,7 +334,7 @@ SDL_Object subclass: #SDL_Window
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 TTF_Object subclass: #TTF_Font
-	instanceVariableNames: ''
+	instanceVariableNames: 'glyphCache'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

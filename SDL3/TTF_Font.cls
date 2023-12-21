@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 TTF_Object subclass: #TTF_Font
-	instanceVariableNames: ''
+	instanceVariableNames: 'glyphCache'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -18,6 +18,24 @@ getFontKerningSizeGlyphs32Between: aCharacter and: anotherCharacter
 				getFontKerningSizeGlyphs32_font: self
 				previousCh: aCharacter code
 				ch: anotherCharacter code)!
+
+initialize
+	super initialize.
+	glyphCache := LookupTable new!
+
+lineSkip
+	^library fontLineSkip_font: self!
+
+lookupGlyph: aCharacter color: aColor renderer: aRenderer
+	| colorCache |
+	colorCache := glyphCache at: aCharacter ifAbsentPut: [LookupTable new].
+	^colorCache at: aColor
+		ifAbsentPut: 
+			[| surface texture |
+			surface := self renderGlyph32Blended: aCharacter color: aColor.
+			texture := aRenderer createTextureFromSurface: surface.
+			surface destroy.
+			texture]!
 
 renderGlyph32Blended: aCharacter color: aColor
 	^self checkResult: (self library
@@ -48,6 +66,9 @@ sizeText: aString
 !TTF_Font categoriesForMethods!
 close!public! !
 getFontKerningSizeGlyphs32Between:and:!public! !
+initialize!public! !
+lineSkip!public! !
+lookupGlyph:color:renderer:!public! !
 renderGlyph32Blended:color:!public! !
 renderUTF8BlendedWrapped:color:wrapLength:!public! !
 setStyle:!public! !
@@ -57,7 +78,9 @@ sizeText:!public! !
 !TTF_Font class methodsFor!
 
 fromFile: aString pointSize: anInteger
-	^SDL3TTFLibrary default openFont_file: aString ptsize: anInteger! !
+	^(SDL3TTFLibrary default openFont_file: aString ptsize: anInteger)
+		initialize;
+		yourself! !
 !TTF_Font class categoriesForMethods!
 fromFile:pointSize:!public! !
 !
