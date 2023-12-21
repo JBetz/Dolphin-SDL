@@ -13,6 +13,9 @@ SDL_Texture comment: ''!
 destroy
 	self library destroyTexture_texture: self!
 
+extent
+	^self getExtent!
+
 getExtent
 	| width height |
 	width := SDWORD new.
@@ -68,6 +71,7 @@ updateRectangle: aRectangle pixels: pixels pitch: pitch
 				pitch: pitch)! !
 !SDL_Texture categoriesForMethods!
 destroy!public! !
+extent!public! !
 getExtent!public! !
 getWidth!public! !
 lock!public! !
