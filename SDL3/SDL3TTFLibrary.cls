@@ -14,6 +14,10 @@ closeFont_font: font
 	<cdecl: void TTF_CloseFont TTF_Font*>
 	^self invalidCall: _failureCode!
 
+fontLineSkip_font: font
+	<cdecl: sdword TTF_FontLineSkip TTF_Font*>
+	^self invalidCall: _failureCode!
+
 getError
 	<cdecl: lpstr TTF_GetError>
 	^self invalidCall: _failureCode!
@@ -111,6 +115,7 @@ wasInit
 	^self invalidCall: _failureCode! !
 !SDL3TTFLibrary categoriesForMethods!
 closeFont_font:!public! !
+fontLineSkip_font:!public! !
 getError!public! !
 getFontKerningSizeGlyphs32_font:previousCh:ch:!public! !
 init!public! !
