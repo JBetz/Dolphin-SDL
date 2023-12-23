@@ -426,8 +426,8 @@ renderRectangle: aRectangle toSurface: aSDLSurface
 resetClip
 	clip := nil!
 
-sdlRenderer: anObject
-	sdlRenderer := anObject!
+sdlRenderer: aSDL_Renderer
+	sdlRenderer := aSDL_Renderer!
 
 subtractOffset: aPoint
 	offset := offset - aPoint!
