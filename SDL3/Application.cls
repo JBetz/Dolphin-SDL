@@ -129,7 +129,7 @@ origin
 	^0@0!
 
 preferredExtent
-	^1200@1000!
+	^self class preferredExtent!
 
 rectangle
 	^Rectangle origin: self origin extent: self extent!
@@ -186,7 +186,7 @@ onWindowResized:!event handling!public! !
 onWindowRestored:!event handling!public! !
 onWindowShown:!event handling!public! !
 origin!public! !
-preferredExtent!private! !
+preferredExtent!public! !
 rectangle!public! !
 renderer:!public! !
 top!public! !
@@ -232,8 +232,16 @@ initialize
 		at: SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED put: #onWindowDisplayScaleChanged:;
 		at: SDL_EVENT_WINDOW_OCCLUDED put: #onWindowOccluded:;
 		at: SDL_EVENT_WINDOW_DESTROYED put: #onWindowDestroyed:;
-		at: SDL_EVENT_USER put: #onUser:! !
+		at: SDL_EVENT_USER put: #onUser:!
+
+new
+	^super new initialize!
+
+preferredExtent
+	^1920@1080! !
 !Application class categoriesForMethods!
 initialize!public! !
+new!public! !
+preferredExtent!public! !
 !
 
