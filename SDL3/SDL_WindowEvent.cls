@@ -50,9 +50,6 @@ isFocusLost
 isHidden
 	^self type = SDL_EVENT_WINDOW_HIDDEN!
 
-isLeave
-	^self type = SDL_EVENT_WINDOW_LEAVE!
-
 isMaximized
 	^self type = SDL_EVENT_WINDOW_MAXIMIZED!
 
@@ -122,7 +119,6 @@ isExposed!public! !
 isFocusGained!public! !
 isFocusLost!public! !
 isHidden!public! !
-isLeave!public! !
 isMaximized!public! !
 isMinimized!public! !
 isMouseEnter!public! !
