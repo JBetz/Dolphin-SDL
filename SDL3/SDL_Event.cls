@@ -328,30 +328,30 @@ target!accessing!public! !
 target:!accessing!public! !
 timestamp!public! !
 type!public! !
-union_button!public! !
-union_button:!public! !
-union_display!public! !
-union_display:!public! !
-union_edit!public! !
-union_edit:!public! !
-union_editExt!public! !
-union_editExt:!public! !
-union_key!public! !
-union_key:!public! !
-union_motion!public! !
-union_motion:!public! !
-union_quit!public! !
-union_quit:!public! !
-union_syswm!public! !
-union_syswm:!public! !
-union_text!public! !
-union_text:!public! !
-union_user!public! !
-union_user:!public! !
-union_wheel!public! !
-union_wheel:!public! !
-union_window!public! !
-union_window:!public! !
+union_button!**compiled accessors**!public! !
+union_button:!**compiled accessors**!public! !
+union_display!**compiled accessors**!public! !
+union_display:!**compiled accessors**!public! !
+union_edit!**compiled accessors**!public! !
+union_edit:!**compiled accessors**!public! !
+union_editExt!**compiled accessors**!public! !
+union_editExt:!**compiled accessors**!public! !
+union_key!**compiled accessors**!public! !
+union_key:!**compiled accessors**!public! !
+union_motion!**compiled accessors**!public! !
+union_motion:!**compiled accessors**!public! !
+union_quit!**compiled accessors**!public! !
+union_quit:!**compiled accessors**!public! !
+union_syswm!**compiled accessors**!public! !
+union_syswm:!**compiled accessors**!public! !
+union_text!**compiled accessors**!public! !
+union_text:!**compiled accessors**!public! !
+union_user!**compiled accessors**!public! !
+union_user:!**compiled accessors**!public! !
+union_wheel!**compiled accessors**!public! !
+union_wheel:!**compiled accessors**!public! !
+union_window!**compiled accessors**!public! !
+union_window:!**compiled accessors**!public! !
 windowID!public! !
 !
 

@@ -24,8 +24,8 @@ name: anObject
 !SDL_Cursor categoriesForMethods!
 destroy!public! !
 makeCurrent!public! !
-name!accessing!public! !
-name:!accessing!public! !
+name!**compiled accessors**!accessing!public! !
+name:!**compiled accessors**!accessing!public! !
 !
 
 !SDL_Cursor class methodsFor!

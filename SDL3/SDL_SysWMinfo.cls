@@ -59,14 +59,14 @@ window: anExternalHandle
 
 	bytes uintPtrAtOffset: _OffsetOf_window put: anExternalHandle yourAddress! !
 !SDL_SysWMinfo categoriesForMethods!
-hdc!public! !
-hinstance!public! !
-subsystem!public! !
-subsystem:!public! !
-version!public! !
-version:!public! !
-window!public! !
-window:!public! !
+hdc!**compiled accessors**!public! !
+hinstance!**compiled accessors**!public! !
+subsystem!**compiled accessors**!public! !
+subsystem:!**compiled accessors**!public! !
+version!**compiled accessors**!public! !
+version:!**compiled accessors**!public! !
+window!**compiled accessors**!public! !
+window:!**compiled accessors**!public! !
 !
 
 !SDL_SysWMinfo class methodsFor!

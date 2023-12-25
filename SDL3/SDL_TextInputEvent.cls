@@ -61,7 +61,7 @@ windowID: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_windowID put: anInteger! !
 !SDL_TextInputEvent categoriesForMethods!
-text!public! !
+text!**compiled accessors**!public! !
 text:!**compiled accessors**!public! !
 timestamp!**compiled accessors**!public! !
 timestamp:!**compiled accessors**!public! !

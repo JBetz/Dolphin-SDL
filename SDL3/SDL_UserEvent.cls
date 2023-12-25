@@ -76,18 +76,18 @@ windowID: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_windowID put: anInteger! !
 !SDL_UserEvent categoriesForMethods!
-code!public! !
-code:!public! !
-data1!public! !
-data1:!public! !
-data2!public! !
-data2:!public! !
-timestamp!public! !
-timestamp:!public! !
-type!public! !
-type:!public! !
-windowID!public! !
-windowID:!public! !
+code!**compiled accessors**!constants!public! !
+code:!**compiled accessors**!constants!public! !
+data1!**compiled accessors**!constants!public! !
+data1:!**compiled accessors**!constants!public! !
+data2!**compiled accessors**!constants!public! !
+data2:!**compiled accessors**!constants!public! !
+timestamp!**compiled accessors**!constants!public! !
+timestamp:!**compiled accessors**!constants!public! !
+type!**compiled accessors**!constants!public! !
+type:!**compiled accessors**!constants!public! !
+windowID!**compiled accessors**!constants!public! !
+windowID:!**compiled accessors**!constants!public! !
 !
 
 !SDL_UserEvent class methodsFor!

@@ -32,10 +32,10 @@ type: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_type put: anInteger! !
 !SDL_QuitEvent categoriesForMethods!
-timestamp!public! !
-timestamp:!public! !
-type!public! !
-type:!public! !
+timestamp!**compiled accessors**!public! !
+timestamp:!**compiled accessors**!public! !
+type!**compiled accessors**!public! !
+type:!**compiled accessors**!public! !
 !
 
 !SDL_QuitEvent class methodsFor!
