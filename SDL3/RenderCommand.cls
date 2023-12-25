@@ -19,48 +19,6 @@ clip
 clip: anObject
 	clip := anObject!
 
-ifDrawRectangle: drawRectangleBlock ifDrawString: drawStringBlock ifFillRectangle: fillRectangleBlock ifDrawImage: drawImageBlock ifDrawBitmap: drawBitmapBlock ifDrawLine: drawLineBlock ifDrawBezierCurve: drawBezierCurveBlock ifFillPolygon: fillPolygonBlock
-	self class = DrawRectangle
-		ifTrue: [drawRectangleBlock value]
-		ifFalse: 
-			[self class = DrawString
-				ifTrue: [drawStringBlock value]
-				ifFalse: 
-					[self class = FillRectangle
-						ifTrue: [fillRectangleBlock value]
-						ifFalse: 
-							[self class = DrawImage
-								ifTrue: [drawImageBlock value]
-								ifFalse: 
-									[self class = DrawBitmap
-										ifTrue: [drawBitmapBlock value]
-										ifFalse: 
-											[self class = DrawLine
-												ifTrue: [drawLineBlock value]
-												ifFalse: [self class = DrawBezierCurve
-													ifTrue: [ drawBezierCurveBlock value ] 
-													ifFalse: [ self class = FillPolygon ifTrue: [fillPolygonBlock value]]]]]]]]!
-
-ifDrawRectangle: drawRectangleBlock ifDrawString: drawStringBlock ifFillRectangle: fillRectangleBlock ifDrawImage: drawImageBlock ifDrawBitmap: drawBitmapBlock ifDrawLine: drawLineBlock ifFillPolygon: fillPolygonBlock
-	self class = DrawRectangle
-		ifTrue: [drawRectangleBlock value]
-		ifFalse: 
-			[self class = DrawString
-				ifTrue: [drawStringBlock value]
-				ifFalse: 
-					[self class = FillRectangle
-						ifTrue: [fillRectangleBlock value]
-						ifFalse: 
-							[self class = DrawImage
-								ifTrue: [drawImageBlock value]
-								ifFalse: 
-									[self class = DrawBitmap
-										ifTrue: [drawBitmapBlock value]
-										ifFalse: 
-											[self class = DrawLine
-												ifTrue: [drawLineBlock value]
-												ifFalse: [self class = FillPolygon ifTrue: [fillPolygonBlock value]]]]]]]!
-
 rotate
 	^rotate!
 
@@ -76,8 +34,6 @@ zIndex: anObject
 asSelector!public! !
 clip!public! !
 clip:!public! !
-ifDrawRectangle:ifDrawString:ifFillRectangle:ifDrawImage:ifDrawBitmap:ifDrawLine:ifDrawBezierCurve:ifFillPolygon:!public! !
-ifDrawRectangle:ifDrawString:ifFillRectangle:ifDrawImage:ifDrawBitmap:ifDrawLine:ifFillPolygon:!public! !
 rotate!public! !
 rotate:!public! !
 zIndex!public! !
