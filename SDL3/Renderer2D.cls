@@ -22,9 +22,6 @@ addOffset: aPoint
 clear
 	sdlRenderer clear!
 
-clearOffset
-	offset := 0@0!
-
 clip
 	^clip!
 
@@ -44,7 +41,7 @@ createStringTexture: aDrawString
 	surface := font
 				renderUTF8BlendedWrapped: aDrawString string displayString
 				color: (aDrawString color ifNil: [Color black])
-				wrapLength: aDrawString rectangle width.
+				wrapLength: 0.
 	aDrawString fontStyle ifNotNil: [font setStyle: TTFFontStyle normal].
 	texture := self createTextureFromSurface: surface.
 	surface destroy.
@@ -436,14 +433,17 @@ viewport
 	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent!
 
 withClip: aRectangle do: aBlock
-	aRectangle
-		ifNotNil: 
-			[| currentClip |
-			currentClip := clip.
-			clip := currentClip ifNotNil: [currentClip intersect: aRectangle] ifNil: [aRectangle].
-			aBlock value.
-			clip := currentClip]
-		ifNil: [aBlock value]!
+	| currentClip |
+	aRectangle ifNil: [^aBlock value].
+	currentClip := clip.
+	clip := currentClip
+				ifNotNil: 
+					[(currentClip intersects: aRectangle)
+						ifTrue: [currentClip intersect: aRectangle]
+						ifFalse: [Rectangle empty]]
+				ifNil: [aRectangle].
+	aBlock value.
+	clip := currentClip!
 
 withOffset: aPoint do: aBlock
 	self addOffset: aPoint.
@@ -467,7 +467,6 @@ withoutOffsetDo: aBlock
 addCommand:!private! !
 addOffset:!private! !
 clear!public! !
-clearOffset!public! !
 clip!public! !
 clip:!public! !
 createImageTexture:!public! !
@@ -525,7 +524,7 @@ present!public! !
 renderRectangle:toSurface:!public! !
 resetClip!public! !
 sdlRenderer:!accessing!public! !
-subtractOffset:!public! !
+subtractOffset:!private! !
 viewport!public! !
 withClip:do:!public! !
 withOffset:do:!public! !
