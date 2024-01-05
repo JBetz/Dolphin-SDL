@@ -14,6 +14,12 @@ SDL_Rect comment: ''!
 !SDL_Rect categoriesForClass!Kernel-Objects! !
 !SDL_Rect methodsFor!
 
+asRectangle
+	^Rectangle origin: self origin extent: self extent!
+
+extent
+	^self w @ self h!
+
 h
 	"Answer the <Integer> value of the receiver's 'h' field."
 
@@ -23,6 +29,15 @@ h: anInteger
 	"Set the receiver's 'h' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_h put: anInteger!
+
+intersect: aSDL_Rect 
+	| result |
+	result := SDL_Rect new.
+	SDL3Library default getRectIntersection_a: self b: aSDL_Rect result: result.
+	^result!
+
+origin
+	^self x @ self y!
 
 w
 	"Answer the <Integer> value of the receiver's 'w' field."
@@ -54,8 +69,12 @@ y: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
 !SDL_Rect categoriesForMethods!
+asRectangle!public! !
+extent!public! !
 h!**compiled accessors**!public! !
 h:!**compiled accessors**!public! !
+intersect:!public! !
+origin!public! !
 w!**compiled accessors**!public! !
 w:!**compiled accessors**!public! !
 x!**compiled accessors**!public! !

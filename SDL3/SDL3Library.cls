@@ -26,10 +26,6 @@ createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
 	<cdecl: SDL_Cursor* SDL_CreateCursor word* word* sdword sdword sdword sdword>
 	^self invalidCall: _failureCode!
 
-createRenderer_window: window index: index flags: flags
-	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* sdword dword>
-	^self invalidCall: _failureCode!
-
 createRenderer_window: window name: name flags: flags
 	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr dword>
 	^self invalidCall: _failureCode!
@@ -204,6 +200,14 @@ getProperty_props: props name: name defaultValue: defaultValue
 
 getRectDisplayIndex_rect: rect
 	<cdecl: sdword SDL_GetRectDisplayIndex SDL_Rect*>
+	^self invalidCall: _failureCode!
+
+getRectIntersection_a: a b: b result: result
+	<cdecl: bool SDL_GetRectIntersection SDL_Rect* SDL_Rect* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
+getRectIntersectionFloat_a: a b: b result: result
+	<cdecl: bool SDL_GetRectIntersectionFloat SDL_FRect* SDL_FRect* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 getRenderClipRect_renderer: renderer rect: rect
@@ -514,7 +518,6 @@ addEventWatch_filter:userdata:!events!public! !
 addTimer_interval:callback:param:!public!video! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
-createRenderer_window:index:flags:!public!render! !
 createRenderer_window:name:flags:!public!render! !
 createRGBSurface_flags:width:height:depth:rMask:gMask:bMask:aMask:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
@@ -559,6 +562,8 @@ getPointDisplayIndex_point:!public!video! !
 getPrimaryDisplay!public! !
 getProperty_props:name:defaultValue:!public!video! !
 getRectDisplayIndex_rect:!public!video! !
+getRectIntersection_a:b:result:!public!video! !
+getRectIntersectionFloat_a:b:result:!public!video! !
 getRenderClipRect_renderer:rect:!public!render! !
 getRenderer_window:!public!render! !
 getRendererInfo_renderer:info:!public!render! !
