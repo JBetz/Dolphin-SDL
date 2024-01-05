@@ -76,6 +76,7 @@ package methodNames
 	add: #InputState -> #loopWhile:;
 	add: #Rectangle -> #asSDLFRect;
 	add: #Rectangle -> #asSDLRect;
+	add: 'Rectangle class' -> #empty;
 	yourself.
 
 package globalNames
@@ -495,6 +496,16 @@ asSDLRect
 !Rectangle categoriesForMethods!
 asSDLFRect!public! !
 asSDLRect!public! !
+!
+
+!Rectangle class methodsFor!
+
+empty
+	"Answer a new, empty, rectangle."
+
+	^self origin: 0@0 corner: 0@0! !
+!Rectangle class categoriesForMethods!
+empty!instance creation!public! !
 !
 
 "End of package definition"!
