@@ -25,7 +25,9 @@ createWindow: aString extent: aPoint for: anApplication
 	^window!
 
 dispatchEvent: anEvent to: anApplication
-	anApplication onEvent: anEvent!
+	anApplication
+		onEvent: anEvent;
+		markDirty!
 
 finalize
 	self quit.
@@ -132,7 +134,7 @@ setHints
 	sdlLibrary setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
 updateWindows
-	windows do: [:each | each update]!
+	(windows select: [:each | each isDirty]) do: [:each | each update]!
 
 windows
 	^windows! !
