@@ -100,7 +100,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
