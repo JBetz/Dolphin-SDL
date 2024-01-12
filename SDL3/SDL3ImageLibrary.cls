@@ -11,23 +11,23 @@ SDL3ImageLibrary comment: ''!
 !SDL3ImageLibrary methodsFor!
 
 init_flags: flags
-	<cdecl: sdword IMG_Init sdword>
+	<stdcall: sdword IMG_Init sdword>
 	^self invalidCall: _failureCode!
 
 load_file: file
-	<cdecl: SDL_Surface* IMG_Load lpstr>
+	<stdcall: SDL_Surface* IMG_Load lpstr>
 	^self invalidCall: _failureCode!
 
 quit
-	<cdecl: void IMG_Quit>
+	<stdcall: void IMG_Quit>
 	^self invalidCall: _failureCode!
 
 saveJPG_surface: surface file: file quality: quality
-	<cdecl: sdword IMG_SaveJPG SDL_Surface* lpstr sdword>
+	<stdcall: sdword IMG_SaveJPG SDL_Surface* lpstr sdword>
 	^self invalidCall: _failureCode!
 
 savePNG_surface: surface file: file
-	<cdecl: sdword IMG_SavePNG SDL_Surface* lpstr>
+	<stdcall: sdword IMG_SavePNG SDL_Surface* lpstr>
 	^self invalidCall: _failureCode! !
 !SDL3ImageLibrary categoriesForMethods!
 init_flags:!public! !

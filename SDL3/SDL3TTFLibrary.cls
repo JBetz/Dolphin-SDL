@@ -11,19 +11,23 @@ SDL3TTFLibrary comment: ''!
 !SDL3TTFLibrary methodsFor!
 
 closeFont_font: font
-	<cdecl: void TTF_CloseFont TTF_Font*>
+	<stdcall: void TTF_CloseFont TTF_Font*>
 	^self invalidCall: _failureCode!
 
 fontLineSkip_font: font
-	<cdecl: sdword TTF_FontLineSkip TTF_Font*>
+	<stdcall: sdword TTF_FontLineSkip TTF_Font*>
 	^self invalidCall: _failureCode!
 
 getError
-	<cdecl: lpstr TTF_GetError>
+	<stdcall: lpstr TTF_GetError>
 	^self invalidCall: _failureCode!
 
 getFontKerningSizeGlyphs32_font: font previousCh: previousCh ch: ch
 	<cdecl: sdword TTF_GetFontKerningSizeGlyphs32 TTF_Font* dword dword>
+	^self invalidCall: _failureCode!
+
+glyphMetrics32_font: font ch: ch minx: minx maxx: maxx miny: miny maxy: maxy advance: advance
+	<cdecl: sdword TTF_GlyphMetrics32 TTF_Font* dword sdword* sdword* sdword* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 init
@@ -51,39 +55,39 @@ quit
 	^self invalidCall: _failureCode!
 
 renderGlyph32Blended_font: font ch: ch fg: fg
-	<cdecl: SDL_Surface* TTF_RenderGlyph32_Blended TTF_Font* dword SDL_Color>
+	<stdcall: SDL_Surface* TTF_RenderGlyph32_Blended TTF_Font* dword SDL_Color>
 	^self invalidCall: _failureCode!
 
 renderUTF8Blended_font: font text: text fg: fg
-	<cdecl: SDL_Surface* TTF_RenderUTF8_Blended TTF_Font* lpstr SDL_Color>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_Blended TTF_Font* lpstr SDL_Color>
 	^self invalidCall: _failureCode!
 
 renderUTF8BlendedWrapped_font: font text: text fg: fg wrapLength: wrapLength
-	<cdecl: SDL_Surface* TTF_RenderUTF8_Blended_Wrapped TTF_Font* lpstr SDL_Color dword>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_Blended_Wrapped TTF_Font* lpstr SDL_Color dword>
 	^self invalidCall: _failureCode!
 
 renderUTF8LCD_font: font text: text fg: fg bg: bg
-	<cdecl: SDL_Surface* TTF_RenderUTF8_LCD TTF_Font* lpstr SDL_Color SDL_Color>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_LCD TTF_Font* lpstr SDL_Color SDL_Color>
 	^self invalidCall: _failureCode!
 
 renderUTF8LCDWrapped_font: font text: text fg: fg bg: bg wrapLength: wrapLength
-	<cdecl: SDL_Surface* TTF_RenderUTF8_LCD_Wrapped TTF_Font* lpstr SDL_Color SDL_Color dword>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_LCD_Wrapped TTF_Font* lpstr SDL_Color SDL_Color dword>
 	^self invalidCall: _failureCode!
 
 renderUTF8Shaded_font: font text: text fg: fg bg: bg
-	<cdecl: SDL_Surface* TTF_RenderUTF8_Shaded TTF_Font* lpstr SDL_Color SDL_Color>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_Shaded TTF_Font* lpstr SDL_Color SDL_Color>
 	^self invalidCall: _failureCode!
 
 renderUTF8ShadedWrapped_font: font text: text fg: fg bg: bg wrapLength: wrapLength
-	<cdecl: SDL_Surface* TTF_RenderUTF8_Shaded_Wrapped TTF_Font* lpstr SDL_Color SDL_Color dword>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_Shaded_Wrapped TTF_Font* lpstr SDL_Color SDL_Color dword>
 	^self invalidCall: _failureCode!
 
 renderUTF8Solid_font: font text: text color: color
-	<cdecl: SDL_Surface* TTF_RenderUTF8_Solid TTF_Font* lpstr SDL_Color>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_Solid TTF_Font* lpstr SDL_Color>
 	^self invalidCall: _failureCode!
 
 renderUTF8SolidWrapped_font: font text: text color: color wrapLength: wrapLength
-	<cdecl: SDL_Surface* TTF_RenderUTF8_Solid_Wrapped TTF_Font* lpstr SDL_Color dword>
+	<stdcall: SDL_Surface* TTF_RenderUTF8_Solid_Wrapped TTF_Font* lpstr SDL_Color dword>
 	^self invalidCall: _failureCode!
 
 setFontSDF_font: font onOff: onOff
@@ -118,6 +122,7 @@ closeFont_font:!public! !
 fontLineSkip_font:!public! !
 getError!public! !
 getFontKerningSizeGlyphs32_font:previousCh:ch:!public! !
+glyphMetrics32_font:ch:minx:maxx:miny:maxy:advance:!public! !
 init!public! !
 measureText_font:text:measureWidth:extent:count:!public! !
 measureUTF8_font:text:measureWidth:extent:count:!public! !
