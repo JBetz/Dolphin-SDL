@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -49,8 +49,18 @@ extent
 height
 	^self extent y!
 
+initialize
+	super initialize.
+	isDirty := true!
+
+isDirty
+	^isDirty!
+
 left
 	^self rectangle left!
+
+markDirty
+	isDirty := true!
 
 mousePosition
 	^mousePosition ifNil: [0 @ 0]!
@@ -137,11 +147,20 @@ rectangle
 renderer: aRenderer
 	renderer := aRenderer!
 
+setWindowTitle: aString
+	window ifNotNil: [window setTitle: aString]!
+
 top
 	^self rectangle top!
 
+update
+!
+
 viewport
 	^renderer viewport!
+
+width
+	^self extent x!
 
 window
 	^window!
@@ -155,7 +174,10 @@ createRenderer!private! !
 cursor:!public! !
 extent!public! !
 height!public! !
+initialize!public! !
+isDirty!public! !
 left!public! !
+markDirty!public! !
 mousePosition!public! !
 onEvent:!public! !
 onKeyDown:!event handling!public! !
@@ -189,8 +211,11 @@ origin!public! !
 preferredExtent!public! !
 rectangle!public! !
 renderer:!public! !
+setWindowTitle:!accessing!public! !
 top!public! !
+update!public! !
 viewport!public! !
+width!public! !
 window!accessing!public! !
 windowPosition!public! !
 !
