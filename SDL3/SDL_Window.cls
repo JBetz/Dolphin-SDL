@@ -57,6 +57,9 @@ getProperties
 getSurface
 	^self library getWindowSurface_window: self!
 
+height
+	^self extent y!
+
 rectangle
 	^Rectangle origin: self getPosition extent: self getExtent!
 
@@ -70,7 +73,10 @@ setTitle: aString
 	^self library setWindowTitle_window: self title: aString!
 
 updateSurface
-	self library updateWindowSurface_window: self! !
+	self library updateWindowSurface_window: self!
+
+width
+	^self extent x! !
 !SDL_Window categoriesForMethods!
 createRenderer!public! !
 destroy!public! !
@@ -81,10 +87,12 @@ getID!public! !
 getPosition!public! !
 getProperties!public! !
 getSurface!public! !
+height!public! !
 rectangle!public! !
 setIcon:!public! !
 setInputFocus!public! !
 setTitle:!public! !
 updateSurface!public! !
+width!public! !
 !
 
