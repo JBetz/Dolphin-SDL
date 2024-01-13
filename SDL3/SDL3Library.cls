@@ -306,6 +306,70 @@ getWindowTitle_window: window
 	<stdcall: lpstr SDL_SetWindowTitle SDL_Window*>
 	^self invalidCall: _failureCode!
 
+glBindTexture_texture: texture texw: texw texh: texh
+	<stdcall: sdword SDL_GL_BindTexture SDL_Texture* float* float*>
+	^self invalidCall: _failureCode!
+
+glCreateContext_window: window
+	<stdcall: SDL_GLContext SDL_GL_CreateContext SDL_Window*>
+	^self invalidCall: _failureCode!
+
+glDeleteContext_context: context
+	<stdcall: sdword SDL_GL_DeleteContext SDL_GLContext>
+	^self invalidCall: _failureCode!
+
+glExtensionSupported_extension: extension
+	<stdcall: bool SDL_GL_ExtensionSupported char*>
+	^self invalidCall: _failureCode!
+
+glGetAttribute_attr: attr value: value
+	<stdcall: sdword SDL_GL_GetAttribute sdword float*>
+	^self invalidCall: _failureCode!
+
+glGetCurrentContext
+	<stdcall: SDL_GLContext SDL_GL_GetCurrentContext>
+	^self invalidCall: _failureCode!
+
+glGetCurrentWindow
+	<stdcall: SDL_Window* SDL_GL_GetCurrentWindow>
+	^self invalidCall: _failureCode!
+
+glGetProcAddress_proc: proc
+	<stdcall: SDL_FunctionPointer SDL_GL_GetProcAddress char*>
+	^self invalidCall: _failureCode!
+
+glGetSwapInterval_interval: interval
+	<stdcall: sdword SDL_GL_GetSwapInterval sdword*>
+	^self invalidCall: _failureCode!
+
+glLoadLibrary_path: path
+	<stdcall: sdword SDL_GL_LoadLibrary char*>
+	^self invalidCall: _failureCode!
+
+glMakeCurrent_window: window context: context
+	<stdcall: sdword SDL_GL_MakeCurrent SDL_Window* SDL_GLContext>
+	^self invalidCall: _failureCode!
+
+glResetAttributes
+	<stdcall: void SDL_GL_ResetAttributes>
+	^self invalidCall: _failureCode!
+
+glSetAttribute_attr: attr value: value
+	<stdcall: sdword SDL_GL_SetAttribute sdword float>
+	^self invalidCall: _failureCode!
+
+glSetSwapInterval_interval: interval
+	<stdcall: sdword SDL_GL_SetSwapInterval sdword>
+	^self invalidCall: _failureCode!
+
+glSwapWindow_window: window
+	<stdcall: sdword SDL_GL_SwapWindow SDL_Window*>
+	^self invalidCall: _failureCode!
+
+glUnloadLibrary
+	<stdcall: void SDL_GL_UnloadLibrary>
+	^self invalidCall: _failureCode!
+
 hideWindow_window: window
 	<stdcall: void SDL_HideWindow SDL_Window*>
 	^self invalidCall: _failureCode!
@@ -588,6 +652,22 @@ getWindowProperties_window:!public!video! !
 getWindowSize_window:w:h:!public!video! !
 getWindowSurface_window:!public!video! !
 getWindowTitle_window:!public!video! !
+glBindTexture_texture:texw:texh:!public!video! !
+glCreateContext_window:!public!video! !
+glDeleteContext_context:!public!video! !
+glExtensionSupported_extension:!public!video! !
+glGetAttribute_attr:value:!public!video! !
+glGetCurrentContext!public!video! !
+glGetCurrentWindow!public!video! !
+glGetProcAddress_proc:!public!video! !
+glGetSwapInterval_interval:!public!video! !
+glLoadLibrary_path:!public!video! !
+glMakeCurrent_window:context:!public!video! !
+glResetAttributes!public!video! !
+glSetAttribute_attr:value:!public!video! !
+glSetSwapInterval_interval:!public!video! !
+glSwapWindow_window:!public!video! !
+glUnloadLibrary!public!video! !
 hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !

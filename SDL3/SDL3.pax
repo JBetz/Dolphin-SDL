@@ -37,6 +37,8 @@ package classNames
 	add: #SDL_EventFilter;
 	add: #SDL_FPoint;
 	add: #SDL_FRect;
+	add: #SDL_FunctionPointer;
+	add: #SDL_GLContext;
 	add: #SDL_KeyboardEvent;
 	add: #SDL_Keysym;
 	add: #SDL_MouseButtonEvent;
@@ -231,6 +233,16 @@ ExternalStructure subclass: #SDL_Vertex
 	classInstanceVariableNames: ''!
 ExternalStructure subclass: #TTF_Object
 	instanceVariableNames: 'library'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LPVOID subclass: #SDL_FunctionPointer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+LPVOID subclass: #SDL_GLContext
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
