@@ -148,7 +148,10 @@ renderer: aRenderer
 	renderer := aRenderer!
 
 setWindowTitle: aString
-	window ifNotNil: [window setTitle: aString]!
+	| title |
+	window ifNil: [^self].
+	title := aString ifNotNil: [aString] ifNil: [self class name asHumanPhrase].
+	window setTitle: title!
 
 top
 	^self rectangle top!
