@@ -8,7 +8,6 @@ package classNames
 	add: #Application;
 	add: #DrawBezierCurve;
 	add: #DrawBitmap;
-	add: #DrawCharacter;
 	add: #DrawImage;
 	add: #DrawJPEG;
 	add: #DrawLine;
@@ -398,11 +397,6 @@ RenderCommand subclass: #FillCommand
 	classInstanceVariableNames: ''!
 DrawImage subclass: #DrawJPEG
 	instanceVariableNames: 'data'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-DrawText subclass: #DrawCharacter
-	instanceVariableNames: 'character'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
