@@ -11,571 +11,579 @@ SDL3Library comment: ''!
 !SDL3Library methodsFor!
 
 addEventWatch_filter: filter userdata: userdata
-	<stdcall: void SDL_AddEventWatch SDL_EventFilter void*>
+	<cdecl: void SDL_AddEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 addTimer_interval: interval callback: callback param: param
-	<stdcall: sdword SDL_AddTimer dword void* void*>
+	<cdecl: sdword SDL_AddTimer dword void* void*>
 	^self invalidCall: _failureCode!
 
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
-	<stdcall: sdword SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
+	<cdecl: sdword SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
-	<stdcall: SDL_Cursor* SDL_CreateCursor word* word* sdword sdword sdword sdword>
+	<cdecl: SDL_Cursor* SDL_CreateCursor word* word* sdword sdword sdword sdword>
 	^self invalidCall: _failureCode!
 
 createRenderer_window: window name: name flags: flags
-	<stdcall: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr dword>
+	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr dword>
 	^self invalidCall: _failureCode!
 
 createRGBSurface_flags: flags width: width height: height depth: depth rMask: rMask gMask: gMask bMask: bMask aMask: aMask
-	<stdcall: SDL_Surface* SDL_CreateRGBSurface dword sdword sdword sdword dword dword dword dword>
+	<cdecl: SDL_Surface* SDL_CreateRGBSurface dword sdword sdword sdword dword dword dword dword>
 	^self invalidCall: _failureCode!
 
 createSoftwareRenderer_surface: surface
-	<stdcall: SDL_Renderer* SDL_CreateSoftwareRenderer SDL_Surface*>
+	<cdecl: SDL_Renderer* SDL_CreateSoftwareRenderer SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 createSurface_width: width height: height format: format
-	<stdcall: SDL_Surface* SDL_CreateSurface sdword sdword dword>
+	<cdecl: SDL_Surface* SDL_CreateSurface sdword sdword dword>
 	^self invalidCall: _failureCode!
 
 createSystemCursor_id: id
-	<stdcall: SDL_Cursor* SDL_CreateSystemCursor sdword>
+	<cdecl: SDL_Cursor* SDL_CreateSystemCursor sdword>
 	^self invalidCall: _failureCode!
 
 createTexture_renderer: renderer format: format access: access w: w h: h
-	<stdcall: SDL_Texture* SDL_CreateTexture SDL_Renderer* dword sdword sdword sdword>
+	<cdecl: SDL_Texture* SDL_CreateTexture SDL_Renderer* dword sdword sdword sdword>
 	^self invalidCall: _failureCode!
 
 createTextureFromSurface_renderer: renderer surface: surface
-	<stdcall: SDL_Texture* SDL_CreateTextureFromSurface SDL_Renderer* SDL_Surface*>
+	<cdecl: SDL_Texture* SDL_CreateTextureFromSurface SDL_Renderer* SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 createWindow_title: title w: w h: h flags: flags
-	<stdcall: SDL_Window* SDL_CreateWindow lpstr sdword sdword dword>
+	<cdecl: SDL_Window* SDL_CreateWindow lpstr sdword sdword dword>
 	^self invalidCall: _failureCode!
 
 createWindowAndRenderer_width: width height: height windowFlags: windowFlags window: window renderer: renderer
-	<stdcall: sdword SDL_CreateWindowAndRenderer sdword sdword dword SDL_Window* SDL_Renderer*>
+	<cdecl: sdword SDL_CreateWindowAndRenderer sdword sdword dword SDL_Window* SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 createWindowFrom_data: data
-	<stdcall: SDL_Window* SDL_CreateWindowFrom void*>
+	<cdecl: SDL_Window* SDL_CreateWindowFrom void*>
 	^self invalidCall: _failureCode!
 
 createWindowWithPosition_title: title x: x y: y w: w h: h flags: flags
-	<stdcall: SDL_Window* SDL_CreateWindowWithPosition lpstr sdword sdword sdword sdword dword>
+	<cdecl: SDL_Window* SDL_CreateWindowWithPosition lpstr sdword sdword sdword sdword dword>
 	^self invalidCall: _failureCode!
 
 delay_ms: ms
-	<stdcall: void SDL_Delay dword>
+	<cdecl: void SDL_Delay dword>
 	^self invalidCall: _failureCode!
 
 delayNS_ns: ns
-	<stdcall: void SDL_DelayNS qword>
+	<cdecl: void SDL_DelayNS qword>
 	^self invalidCall: _failureCode!
 
 delEventWatch_filter: filter userdata: userdata
-	<stdcall: void SDL_DelEventWatch SDL_EventFilter void*>
+	<cdecl: void SDL_DelEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 destroyCursor_cursor: cursor
-	<stdcall: void SDL_DestroyCursor SDL_Cursor*>
+	<cdecl: void SDL_DestroyCursor SDL_Cursor*>
 	^self invalidCall: _failureCode!
 
 destroyRenderer_renderer: renderer
-	<stdcall: void SDL_DestroyRenderer SDL_Renderer*>
+	<cdecl: void SDL_DestroyRenderer SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 destroySurface_surface: surface
-	<stdcall: void SDL_DestroySurface SDL_Surface*>
+	<cdecl: void SDL_DestroySurface SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 destroyTexture_texture: texture
-	<stdcall: void SDL_DestroyTexture SDL_Texture*>
+	<cdecl: void SDL_DestroyTexture SDL_Texture*>
 	^self invalidCall: _failureCode!
 
 destroyWindow_window: window
-	<stdcall: void SDL_DestroyWindow SDL_Window*>
+	<cdecl: void SDL_DestroyWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 displayOrientation_displayIndex: displayIndex
-	<stdcall: sdword SDL_DisplayOrientation sdword>
+	<cdecl: sdword SDL_DisplayOrientation sdword>
 	^self invalidCall: _failureCode!
 
 enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter appEvent: appEvent appQuit: appQuit
-	<stdcall: sdword SDL_EnterAppMainCallbacks sdword lpstr void* void* void* void*>
+	<cdecl: sdword SDL_EnterAppMainCallbacks sdword lpstr void* void* void* void*>
 	^self invalidCall: _failureCode!
 
 flashWindow_window: window operation: operation
-	<stdcall: sdword SDL_DestroyWindow SDL_Window* dword>
+	<cdecl: sdword SDL_DestroyWindow SDL_Window* dword>
 	^self invalidCall: _failureCode!
 
 getCurrentDisplayMode_displayID: displayID
-	<stdcall: SDL_DisplayMode* SDL_GetCurrentDisplayMode dword>
+	<cdecl: SDL_DisplayMode* SDL_GetCurrentDisplayMode dword>
 	^self invalidCall: _failureCode!
 
 getCurrentVideoDriver
-	<stdcall: lpstr SDL_GetCurrentVideoDriver>
+	<cdecl: lpstr SDL_GetCurrentVideoDriver>
 	^self invalidCall: _failureCode!
 
 getDesktopDisplayMode_displayIndex: displayIndex mode: mode
-	<stdcall: sdword SDL_GetDesktopDisplayMode sdword SDL_DisplayMode*>
+	<cdecl: sdword SDL_GetDesktopDisplayMode sdword SDL_DisplayMode*>
 	^self invalidCall: _failureCode!
 
 getDisplayBounds_displayIndex: displayIndex rect: rect
-	<stdcall: sdword SDL_GetDisplayBounds sdword SDL_Rect*>
+	<cdecl: sdword SDL_GetDisplayBounds sdword SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getDisplayDPI_displayIndex: displayIndex ddpi: ddpi hdpi: hdpi vdpi: vdpi
-	<stdcall: sdword SDL_GetDisplayDPI sdword float* float* float*>
+	<cdecl: sdword SDL_GetDisplayDPI sdword float* float* float*>
 	^self invalidCall: _failureCode!
 
 getDisplayMode_displayIndex: displayIndex modeIndex: modeIndex mode: mode
-	<stdcall: sdword SDL_GetDisplayMode sdword sdword SDL_DisplayMode*>
+	<cdecl: sdword SDL_GetDisplayMode sdword sdword SDL_DisplayMode*>
 	^self invalidCall: _failureCode!
 
 getDisplayName_displayIndex: displayIndex
-	<stdcall: lpstr SDL_GetDisplayName sdword>
+	<cdecl: lpstr SDL_GetDisplayName sdword>
 	^self invalidCall: _failureCode!
 
 getDisplays_count: count
-	<stdcall: dword* SDL_GetDisplays sdword*>
+	<cdecl: dword* SDL_GetDisplays sdword*>
 	^self invalidCall: _failureCode!
 
 getDisplayUsableBounds_displayIndex: displayIndex rect: rect
-	<stdcall: sdword SDL_GetDisplayUsableBounds sdword SDL_Rect*>
+	<cdecl: sdword SDL_GetDisplayUsableBounds sdword SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getError
-	<stdcall: lpstr SDL_GetError>
+	<cdecl: lpstr SDL_GetError>
 	^self invalidCall: _failureCode!
 
 getKeyboardState_numkeys: numkeys
-	<stdcall: byte* SDL_GetKeyboardState sdword*>
+	<cdecl: byte* SDL_GetKeyboardState sdword*>
 	^self invalidCall: _failureCode!
 
 getKeyFromScancode_scancode: scancode
-	<stdcall: sdword SDL_GetKeyFromScancode sdword>
+	<cdecl: sdword SDL_GetKeyFromScancode sdword>
 	^self invalidCall: _failureCode!
 
 getNumDisplayModes_displayIndex: displayIndex
-	<stdcall: sdword SDL_GetNumDisplayModes sdword>
+	<cdecl: sdword SDL_GetNumDisplayModes sdword>
 	^self invalidCall: _failureCode!
 
 getNumVideoDisplays
-	<stdcall: sdword SDL_GetNumVideoDisplays>
+	<cdecl: sdword SDL_GetNumVideoDisplays>
 	^self invalidCall: _failureCode!
 
 getNumVideoDrivers
-	<stdcall: sdword SDL_GetNumVideoDrivers>
+	<cdecl: sdword SDL_GetNumVideoDrivers>
 	^self invalidCall: _failureCode!
 
 getPerformanceCounter
-	<stdcall: qword SDL_GetTicks>
+	<cdecl: qword SDL_GetTicks>
 	^self invalidCall: _failureCode!
 
 getPerformanceFrequency
-	<stdcall: qword SDL_GetTicks>
+	<cdecl: qword SDL_GetTicks>
 	^self invalidCall: _failureCode!
 
 getPixelFormatEnumForMasks_bpp: bpp rMask: rMask gMask: gMask bMask: bMask aMask: aMask
-	<stdcall: dword SDL_GetPixelFormatEnumForMasks sdword dword dword dword dword>
+	<cdecl: dword SDL_GetPixelFormatEnumForMasks sdword dword dword dword dword>
 	^self invalidCall: _failureCode!
 
 getPointDisplayIndex_point: point
-	<stdcall: sdword SDL_GetPointDisplayIndex SDL_Point*>
+	<cdecl: sdword SDL_GetPointDisplayIndex SDL_Point*>
 	^self invalidCall: _failureCode!
 
 getPrimaryDisplay
-	<stdcall: dword SDL_GetPrimaryDisplay>
+	<cdecl: dword SDL_GetPrimaryDisplay>
 	^self invalidCall: _failureCode!
 
 getProperty_props: props name: name defaultValue: defaultValue
-	<stdcall: void* SDL_GetProperty dword lpstr void*>
+	<cdecl: void* SDL_GetProperty dword lpstr void*>
 	^self invalidCall: _failureCode!
 
 getRectDisplayIndex_rect: rect
-	<stdcall: sdword SDL_GetRectDisplayIndex SDL_Rect*>
+	<cdecl: sdword SDL_GetRectDisplayIndex SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getRectIntersection_a: a b: b result: result
-	<stdcall: bool SDL_GetRectIntersection SDL_Rect* SDL_Rect* SDL_Rect*>
+	<cdecl: bool SDL_GetRectIntersection SDL_Rect* SDL_Rect* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getRectIntersectionFloat_a: a b: b result: result
-	<stdcall: bool SDL_GetRectIntersectionFloat SDL_FRect* SDL_FRect* SDL_FRect*>
+	<cdecl: bool SDL_GetRectIntersectionFloat SDL_FRect* SDL_FRect* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 getRenderClipRect_renderer: renderer rect: rect
-	<stdcall: bool SDL_GetRenderClipRect SDL_Renderer* SDL_Rect*>
+	<cdecl: bool SDL_GetRenderClipRect SDL_Renderer* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getRenderer_window: window
-	<stdcall: SDL_Renderer* SDL_GetRenderer SDL_Window*>
+	<cdecl: SDL_Renderer* SDL_GetRenderer SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getRendererInfo_renderer: renderer info: info
-	<stdcall: sdword SDL_GetRendererInfo SDL_Renderer* SDL_RendererInfo*>
+	<cdecl: sdword SDL_GetRendererInfo SDL_Renderer* SDL_RendererInfo*>
+	^self invalidCall: _failureCode!
+
+getRenderScale_renderer: renderer scaleX: scaleX scaleY: scaleY
+	<cdecl: sdword SDL_GetRenderScale SDL_Renderer* float* float*>
 	^self invalidCall: _failureCode!
 
 getRenderWindow_renderer: renderer
-	<stdcall: SDL_Window* SDL_GetRenderWindow SDL_Renderer*>
+	<cdecl: SDL_Window* SDL_GetRenderWindow SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 getTextureBlendMode_texture: texture blendMode: blendMode
-	<stdcall: sdword SDL_GetTextureBlendMode SDL_Texture* dword*>
+	<cdecl: sdword SDL_GetTextureBlendMode SDL_Texture* dword*>
 	^self invalidCall: _failureCode!
 
 getTicks
-	<stdcall: qword SDL_GetTicks>
+	<cdecl: qword SDL_GetTicks>
 	^self invalidCall: _failureCode!
 
 getTicksNS
-	<stdcall: qword SDL_GetTicks>
+	<cdecl: qword SDL_GetTicks>
 	^self invalidCall: _failureCode!
 
 getVersion_ver: ver
-	<stdcall: void SDL_GetVersion SDL_Version*>
+	<cdecl: void SDL_GetVersion SDL_Version*>
 	^self invalidCall: _failureCode!
 
 getVideoDriver_index: index
-	<stdcall: lpstr SDL_GetVideoDriver sdword>
+	<cdecl: lpstr SDL_GetVideoDriver sdword>
 	^self invalidCall: _failureCode!
 
 getWindowBordersSize_window: window top: top left: left bottom: bottom right: right
-	<stdcall: sdword SDL_GetWindowBordersSize SDL_Window* sdword* sdword* sdword* sdword*>
+	<cdecl: sdword SDL_GetWindowBordersSize SDL_Window* sdword* sdword* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 getWindowData_window: window name: name
-	<stdcall: void* SDL_SetWindowData SDL_Window* lpstr>
+	<cdecl: void* SDL_SetWindowData SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
 getWindowDisplayIndex_window: window
-	<stdcall: sdword SDL_GetRectDisplayIndex SDL_Window*>
+	<cdecl: sdword SDL_GetRectDisplayIndex SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowFlags_window: window
-	<stdcall: dword SDL_GetWindowFlags SDL_Window*>
+	<cdecl: dword SDL_GetWindowFlags SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowFromID_id: id
-	<stdcall: SDL_Window* SDL_GetWindowFromID dword>
+	<cdecl: SDL_Window* SDL_GetWindowFromID dword>
 	^self invalidCall: _failureCode!
 
 getWindowFullscreenMode_window: window
-	<stdcall: SDL_DisplayMode* SDL_GetWindowDisplayMode SDL_Window*>
+	<cdecl: SDL_DisplayMode* SDL_GetWindowDisplayMode SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowICCProfile_window: window size: size
-	<stdcall: void* SDL_GetWindowICCProfile SDL_Window* intptr*>
+	<cdecl: void* SDL_GetWindowICCProfile SDL_Window* intptr*>
 	^self invalidCall: _failureCode!
 
 getWindowID_window: window
-	<stdcall: dword SDL_GetWindowID SDL_Window*>
+	<cdecl: dword SDL_GetWindowID SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowKeyboardGrab_window: window
-	<stdcall: bool SDL_GetWindowKeyboardGrab SDL_Window*>
+	<cdecl: bool SDL_GetWindowKeyboardGrab SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowPixelFormat_window: window
-	<stdcall: dword SDL_GetWindowPixelFormat SDL_Window*>
+	<cdecl: dword SDL_GetWindowPixelFormat SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowPosition_window: window x: x y: y
-	<stdcall: void SDL_GetWindowPosition SDL_Window* sdword* sdword*>
+	<cdecl: void SDL_GetWindowPosition SDL_Window* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 getWindowProperties_window: window
-	<stdcall: dword SDL_GetWindowProperties SDL_Window*>
+	<cdecl: dword SDL_GetWindowProperties SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowSize_window: window w: w h: h
-	<stdcall: void SDL_GetWindowSize SDL_Window* sdword* sdword*>
+	<cdecl: void SDL_GetWindowSize SDL_Window* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 getWindowSurface_window: window
-	<stdcall: SDL_Surface* SDL_GetWindowSurface SDL_Window*>
+	<cdecl: SDL_Surface* SDL_GetWindowSurface SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getWindowTitle_window: window
-	<stdcall: lpstr SDL_SetWindowTitle SDL_Window*>
+	<cdecl: lpstr SDL_SetWindowTitle SDL_Window*>
 	^self invalidCall: _failureCode!
 
 glBindTexture_texture: texture texw: texw texh: texh
-	<stdcall: sdword SDL_GL_BindTexture SDL_Texture* float* float*>
+	<cdecl: sdword SDL_GL_BindTexture SDL_Texture* float* float*>
 	^self invalidCall: _failureCode!
 
 glCreateContext_window: window
-	<stdcall: SDL_GLContext SDL_GL_CreateContext SDL_Window*>
+	<cdecl: SDL_GLContext SDL_GL_CreateContext SDL_Window*>
 	^self invalidCall: _failureCode!
 
 glDeleteContext_context: context
-	<stdcall: sdword SDL_GL_DeleteContext SDL_GLContext>
+	<cdecl: sdword SDL_GL_DeleteContext SDL_GLContext>
 	^self invalidCall: _failureCode!
 
 glExtensionSupported_extension: extension
-	<stdcall: bool SDL_GL_ExtensionSupported char*>
+	<cdecl: bool SDL_GL_ExtensionSupported char*>
 	^self invalidCall: _failureCode!
 
 glGetAttribute_attr: attr value: value
-	<stdcall: sdword SDL_GL_GetAttribute sdword float*>
+	<cdecl: sdword SDL_GL_GetAttribute sdword float*>
 	^self invalidCall: _failureCode!
 
 glGetCurrentContext
-	<stdcall: SDL_GLContext SDL_GL_GetCurrentContext>
+	<cdecl: SDL_GLContext SDL_GL_GetCurrentContext>
 	^self invalidCall: _failureCode!
 
 glGetCurrentWindow
-	<stdcall: SDL_Window* SDL_GL_GetCurrentWindow>
+	<cdecl: SDL_Window* SDL_GL_GetCurrentWindow>
 	^self invalidCall: _failureCode!
 
 glGetProcAddress_proc: proc
-	<stdcall: SDL_FunctionPointer SDL_GL_GetProcAddress char*>
+	<cdecl: SDL_FunctionPointer SDL_GL_GetProcAddress char*>
 	^self invalidCall: _failureCode!
 
 glGetSwapInterval_interval: interval
-	<stdcall: sdword SDL_GL_GetSwapInterval sdword*>
+	<cdecl: sdword SDL_GL_GetSwapInterval sdword*>
 	^self invalidCall: _failureCode!
 
 glLoadLibrary_path: path
-	<stdcall: sdword SDL_GL_LoadLibrary char*>
+	<cdecl: sdword SDL_GL_LoadLibrary char*>
 	^self invalidCall: _failureCode!
 
 glMakeCurrent_window: window context: context
-	<stdcall: sdword SDL_GL_MakeCurrent SDL_Window* SDL_GLContext>
+	<cdecl: sdword SDL_GL_MakeCurrent SDL_Window* SDL_GLContext>
 	^self invalidCall: _failureCode!
 
 glResetAttributes
-	<stdcall: void SDL_GL_ResetAttributes>
+	<cdecl: void SDL_GL_ResetAttributes>
 	^self invalidCall: _failureCode!
 
 glSetAttribute_attr: attr value: value
-	<stdcall: sdword SDL_GL_SetAttribute sdword float>
+	<cdecl: sdword SDL_GL_SetAttribute sdword float>
 	^self invalidCall: _failureCode!
 
 glSetSwapInterval_interval: interval
-	<stdcall: sdword SDL_GL_SetSwapInterval sdword>
+	<cdecl: sdword SDL_GL_SetSwapInterval sdword>
 	^self invalidCall: _failureCode!
 
 glSwapWindow_window: window
-	<stdcall: sdword SDL_GL_SwapWindow SDL_Window*>
+	<cdecl: sdword SDL_GL_SwapWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 glUnloadLibrary
-	<stdcall: void SDL_GL_UnloadLibrary>
+	<cdecl: void SDL_GL_UnloadLibrary>
 	^self invalidCall: _failureCode!
 
 hideWindow_window: window
-	<stdcall: void SDL_HideWindow SDL_Window*>
+	<cdecl: void SDL_HideWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 init_flags: flags
-	<stdcall: sdword SDL_Init dword>
+	<cdecl: sdword SDL_Init dword>
 	^self invalidCall: _failureCode!
 
 initSubSystem_flags: flags
-	<stdcall: void SDL_InitSubSystem dword>
+	<cdecl: void SDL_InitSubSystem dword>
 	^self invalidCall: _failureCode!
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<stdcall: sdword SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
+	<cdecl: sdword SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
 	^self invalidCall: _failureCode!
 
 maximizeWindow_window: window
-	<stdcall: void SDL_MaximizeWindow SDL_Window*>
+	<cdecl: void SDL_MaximizeWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 minimizeWindow_window: window
-	<stdcall: void SDL_MinimizeWindow SDL_Window*>
+	<cdecl: void SDL_MinimizeWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 peepEvents_events: events numevents: numevents action: action minType: minType maxType: maxType
-	<stdcall: sdword SDL_PeepEvents SDL_Event* sdword dword dword dword>
+	<cdecl: sdword SDL_PeepEvents SDL_Event* sdword dword dword dword>
 	^self invalidCall: _failureCode!
 
 pollEvent_event: event
-	<stdcall: sdword SDL_PollEvent SDL_Event*>
+	<cdecl: sdword SDL_PollEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
 pumpEvents
-	<stdcall: void SDL_PumpEvents>
+	<cdecl: void SDL_PumpEvents>
 	^self invalidCall: _failureCode!
 
 pushEvent_event: event
-	<stdcall: sdword SDL_PushEvent SDL_Event*>
+	<cdecl: sdword SDL_PushEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
 queryTexture_texture: texture format: format access: access w: w h: h
-	<stdcall: sdword SDL_QueryTexture SDL_Texture* dword* sdword* sdword* sdword*>
+	<cdecl: sdword SDL_QueryTexture SDL_Texture* dword* sdword* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 quit
-	<stdcall: void SDL_Quit>
+	<cdecl: void SDL_Quit>
 	^self invalidCall: _failureCode!
 
 quitSubSystem_flags: flags
-	<stdcall: void SDL_QuitSubSystem dword>
+	<cdecl: void SDL_QuitSubSystem dword>
 	^self invalidCall: _failureCode!
 
 raiseWindow_window: window
-	<stdcall: void SDL_RaiseWindow SDL_Window*>
+	<cdecl: void SDL_RaiseWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 registerEvents_numevents: numevents
-	<stdcall: dword SDL_RegisterEvents sdword>
+	<cdecl: dword SDL_RegisterEvents sdword>
 	^self invalidCall: _failureCode!
 
 removeTimer_id: id
-	<stdcall: bool SDL_RemoveTimer sdword>
+	<cdecl: bool SDL_RemoveTimer sdword>
 	^self invalidCall: _failureCode!
 
 renderClear_renderer: renderer
-	<stdcall: sdword SDL_RenderClear SDL_Renderer*>
+	<cdecl: sdword SDL_RenderClear SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 renderClipEnabled_renderer: renderer
-	<stdcall: bool SDL_RenderClipEnabled SDL_Renderer*>
+	<cdecl: bool SDL_RenderClipEnabled SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 renderFillRect_renderer: renderer rect: rect
-	<stdcall: sdword SDL_RenderFillRect SDL_Renderer* SDL_FRect*>
+	<cdecl: sdword SDL_RenderFillRect SDL_Renderer* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 renderGeometry_renderer: renderer texture: texture vertices: vertices numVertices: numVertices indices: indices numIndices: numIndices
-	<stdcall: sdword SDL_RenderGeometry SDL_Renderer* SDL_Texture* SDL_Vertex* sdword sdword* sdword>
+	<cdecl: sdword SDL_RenderGeometry SDL_Renderer* SDL_Texture* SDL_Vertex* sdword sdword* sdword>
 	^self invalidCall: _failureCode!
 
 renderLine_renderer: renderer x1: x1 y1: y1 x2: x2 y2: y2
-	<stdcall: sdword SDL_RenderLine SDL_Renderer* float float float float>
+	<cdecl: sdword SDL_RenderLine SDL_Renderer* float float float float>
 	^self invalidCall: _failureCode!
 
 renderPresent_renderer: renderer
-	<stdcall: sdword SDL_RenderPresent SDL_Renderer*>
+	<cdecl: sdword SDL_RenderPresent SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 renderReadPixels_renderer: renderer rect: rect format: format pixels: pixels pitch: pitch
-	<stdcall: sdword SDL_RenderReadPixels SDL_Renderer* SDL_Rect* dword void* sdword>
+	<cdecl: sdword SDL_RenderReadPixels SDL_Renderer* SDL_Rect* dword void* sdword>
 	^self invalidCall: _failureCode!
 
 renderRect_renderer: renderer rect: rect
-	<stdcall: sdword SDL_RenderRect SDL_Renderer* SDL_FRect*>
+	<cdecl: sdword SDL_RenderRect SDL_Renderer* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 renderSetClipRect_renderer: renderer rect: rect
-	<stdcall: sdword SDL_RenderSetClipRect SDL_Renderer* SDL_Rect*>
+	<cdecl: sdword SDL_RenderSetClipRect SDL_Renderer* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 renderTexture_renderer: renderer texture: texture srcrect: srcrect dstrect: dstrect
-	<stdcall: sdword SDL_RenderTexture SDL_Renderer* SDL_Texture* SDL_FRect* SDL_FRect*>
+	<cdecl: sdword SDL_RenderTexture SDL_Renderer* SDL_Texture* SDL_FRect* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 restoreWindow_window: window
-	<stdcall: void SDL_RestoreWindow SDL_Window*>
+	<cdecl: void SDL_RestoreWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 setCursor_cursor: cursor
-	<stdcall: void SDL_SetCursor SDL_Cursor*>
+	<cdecl: void SDL_SetCursor SDL_Cursor*>
 	^self invalidCall: _failureCode!
 
 setEventFilter_filter: filter userdata: userdata
-	<stdcall: void SDL_SetEventFilter SDL_EventFilter void*>
+	<cdecl: void SDL_SetEventFilter SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 setHint_name: name value: value
-	<stdcall: bool SDL_SetHint lpstr lpstr>
+	<cdecl: bool SDL_SetHint lpstr lpstr>
 	^self invalidCall: _failureCode!
 
 setRenderClipRect_renderer: renderer rect: rect
-	<stdcall: sdword SDL_SetRenderClipRect SDL_Renderer* SDL_Rect*>
+	<cdecl: sdword SDL_SetRenderClipRect SDL_Renderer* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 setRenderDrawBlendMode_renderer: renderer blendMode: blendMode
-	<stdcall: sdword SDL_SetRenderDrawBlendMode SDL_Renderer* dword>
+	<cdecl: sdword SDL_SetRenderDrawBlendMode SDL_Renderer* dword>
 	^self invalidCall: _failureCode!
 
 setRenderDrawColor_renderer: renderer r: r g: g b: b a: a
-	<stdcall: sdword SDL_SetRenderDrawColor SDL_Renderer* byte byte byte byte>
+	<cdecl: sdword SDL_SetRenderDrawColor SDL_Renderer* byte byte byte byte>
+	^self invalidCall: _failureCode!
+
+setRenderScale_renderer: renderer scaleX: scaleX scaleY: scaleY
+	<cdecl: sdword SDL_SetRenderScale SDL_Renderer* float float>
 	^self invalidCall: _failureCode!
 
 setTextureBlendMode_texture: texture blendMode: blendMode
-	<stdcall: sdword SDL_SetTextureBlendMode SDL_Texture* dword>
+	<cdecl: sdword SDL_SetTextureBlendMode SDL_Texture* dword>
 	^self invalidCall: _failureCode!
 
 setWindowData_window: window name: name userdata: userdata
-	<stdcall: void* SDL_SetWindowData SDL_Window* lpstr void*>
+	<cdecl: void* SDL_SetWindowData SDL_Window* lpstr void*>
 	^self invalidCall: _failureCode!
 
 setWindowFullscreen_window: window fullscreen: fullscreen
-	<stdcall: sdword SDL_SetWindowFullscreen SDL_Window* bool>
+	<cdecl: sdword SDL_SetWindowFullscreen SDL_Window* bool>
 	^self invalidCall: _failureCode!
 
 setWindowIcon_window: window icon: icon
-	<stdcall: void SDL_SetWindowIcon SDL_Window* SDL_Surface*>
+	<cdecl: void SDL_SetWindowIcon SDL_Window* SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 setWindowInputFocus_window: window
-	<stdcall: sdword SDL_SetWindowInputFocus SDL_Window*>
+	<cdecl: sdword SDL_SetWindowInputFocus SDL_Window*>
 	^self invalidCall: _failureCode!
 
 setWindowKeyboardGrab_window: window grabbed: grabbed
-	<stdcall: void SDL_SetWindowKeyboardGrab SDL_Window* bool>
+	<cdecl: void SDL_SetWindowKeyboardGrab SDL_Window* bool>
 	^self invalidCall: _failureCode!
 
 setWindowPosition_window: window x: x y: y
-	<stdcall: void SDL_SetWindowPosition SDL_Window* sdword sdword>
+	<cdecl: void SDL_SetWindowPosition SDL_Window* sdword sdword>
 	^self invalidCall: _failureCode!
 
 setWindowSize_window: window w: w h: h
-	<stdcall: void SDL_SetWindowSize SDL_Window* sdword sdword>
+	<cdecl: void SDL_SetWindowSize SDL_Window* sdword sdword>
 	^self invalidCall: _failureCode!
 
 setWindowTitle_window: window title: title
-	<stdcall: void SDL_SetWindowTitle SDL_Window* lpstr>
+	<cdecl: void SDL_SetWindowTitle SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
 showWindow_window: window
-	<stdcall: void SDL_ShowWindow SDL_Window*>
+	<cdecl: void SDL_ShowWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 unlockTexture_texture: texture
-	<stdcall: sdword SDL_UnlockTexture SDL_Texture*>
+	<cdecl: sdword SDL_UnlockTexture SDL_Texture*>
 	^self invalidCall: _failureCode!
 
 updateTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<stdcall: sdword SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
+	<cdecl: sdword SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
 	^self invalidCall: _failureCode!
 
 updateWindowSurface_window: window
-	<stdcall: sdword SDL_UpdateWindowSurface SDL_Window*>
+	<cdecl: sdword SDL_UpdateWindowSurface SDL_Window*>
 	^self invalidCall: _failureCode!
 
 updateWindowSurfaceRects_window: window rects: rects numrects: numrects
-	<stdcall: sdword SDL_UpdateWindowSurface SDL_Window* SDL_Rect* sdword>
+	<cdecl: sdword SDL_UpdateWindowSurface SDL_Window* SDL_Rect* sdword>
 	^self invalidCall: _failureCode!
 
 videoInit_driverName: driverName
-	<stdcall: sdword SDL_VideoInit lpstr>
+	<cdecl: sdword SDL_VideoInit lpstr>
 	^self invalidCall: _failureCode!
 
 videoQuit
-	<stdcall: void SDL_VideoQuit>
+	<cdecl: void SDL_VideoQuit>
 	^self invalidCall: _failureCode!
 
 waitEvent_event: event
-	<stdcall: sdword SDL_WaitEvent SDL_Event*>
+	<cdecl: sdword SDL_WaitEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
 waitEventTimeout_event: event timeout: timeout
-	<stdcall: sdword SDL_WaitEventTimeout SDL_Event* sdword>
+	<cdecl: sdword SDL_WaitEventTimeout SDL_Event* sdword>
 	^self invalidCall: _failureCode!
 
 wasInit_flags: flags
-	<stdcall: void SDL_WasInit dword>
+	<cdecl: void SDL_WasInit dword>
 	^self invalidCall: _failureCode! !
 !SDL3Library categoriesForMethods!
 addEventWatch_filter:userdata:!events!public! !
@@ -631,6 +639,7 @@ getRectIntersectionFloat_a:b:result:!public!video! !
 getRenderClipRect_renderer:rect:!public!render! !
 getRenderer_window:!public!render! !
 getRendererInfo_renderer:info:!public!render! !
+getRenderScale_renderer:scaleX:scaleY:!public!render! !
 getRenderWindow_renderer:!public!render! !
 getTextureBlendMode_texture:blendMode:!public!render! !
 getTicks!public!video! !
@@ -701,6 +710,7 @@ setHint_name:value:!public! !
 setRenderClipRect_renderer:rect:!public!render! !
 setRenderDrawBlendMode_renderer:blendMode:!public!render! !
 setRenderDrawColor_renderer:r:g:b:a:!public!render! !
+setRenderScale_renderer:scaleX:scaleY:!public!render! !
 setTextureBlendMode_texture:blendMode:!public!render! !
 setWindowData_window:name:userdata:!public!video! !
 setWindowFullscreen_window:fullscreen:!public!video! !
