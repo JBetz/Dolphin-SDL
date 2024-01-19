@@ -76,26 +76,26 @@ windowID: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_windowID put: anInteger! !
 !SDL_UserEvent categoriesForMethods!
-code!**compiled accessors**!constants!public! !
-code:!**compiled accessors**!constants!public! !
-data1!**compiled accessors**!constants!public! !
-data1:!**compiled accessors**!constants!public! !
-data2!**compiled accessors**!constants!public! !
-data2:!**compiled accessors**!constants!public! !
-timestamp!**compiled accessors**!constants!public! !
-timestamp:!**compiled accessors**!constants!public! !
-type!**compiled accessors**!constants!public! !
-type:!**compiled accessors**!constants!public! !
-windowID!**compiled accessors**!constants!public! !
-windowID:!**compiled accessors**!constants!public! !
+code!**compiled accessors**!public! !
+code:!**compiled accessors**!public! !
+data1!**compiled accessors**!public! !
+data1:!**compiled accessors**!public! !
+data2!**compiled accessors**!public! !
+data2:!**compiled accessors**!public! !
+timestamp!**compiled accessors**!public! !
+timestamp:!**compiled accessors**!public! !
+type!**compiled accessors**!public! !
+type:!**compiled accessors**!public! !
+windowID!**compiled accessors**!public! !
+windowID:!**compiled accessors**!public! !
 !
 
 !SDL_UserEvent class methodsFor!
 
 defineFields
-	"SDL_UserEvent compileDefinition
+	"SDL_UserEvent compileDefinition"
 	
-	typedef struct SDL_UserEvent
+	"typedef struct SDL_UserEvent
 	{
 	    Uint32 type;        /**< ::SDL_USEREVENT through ::SDL_LASTEVENT-1 */
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
