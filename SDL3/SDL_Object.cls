@@ -13,7 +13,7 @@ SDL_Object comment: ''!
 checkResult: anObject
 	anObject
 		ifNil: [Error signal: self library getError]
-		ifNotNil: [anObject isInteger ifTrue: [anObject = -1 ifTrue: [Error signal: self library getError]]].
+		ifNotNil: [anObject isInteger ifTrue: [anObject < 0 ifTrue: [Error signal: self library getError]]].
 	^anObject!
 
 initialize
