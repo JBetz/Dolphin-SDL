@@ -93,14 +93,6 @@ drawArrowFrom: startPoint to: endPoint width: width color: color zIndex: zIndex
 					color: color;
 					zIndex: zIndex)!
 
-drawCharacter: aCharacter rectangle: aRectangle color: aColor fontSize: anInteger zIndex: anInteger2
-	self addCommand: (DrawCharacter new
-				character: aCharacter;
-				rectangle: aRectangle;
-				color: aColor;
-				fontSize: anInteger;
-				zIndex: anInteger2)!
-
 drawCount
 	| count |
 	count := 0.
@@ -218,27 +210,13 @@ execute: aRenderCommand
 	self perform: selector with: aRenderCommand.
 	aRenderCommand clip ifNotNil: [sdlRenderer resetClip]!
 
-executeDrawCharacter: aDrawCharacter
-	| font surface texture textureExtent |
-	font := self lookupFont: self defaultFontFile pointSize: aDrawCharacter fontSize.
-	font setStyle: (aDrawCharacter fontStyle ifNil: [TTFFontStyle normal]).
-	surface := font renderGlyph32Blended: aDrawCharacter character color: aDrawCharacter color.
-	texture := self createTextureFromSurface: surface.
-	surface destroy.
-	textureExtent := texture getExtent.
-	sdlRenderer
-		renderTexture: texture
-		source: nil
-		destination: (Rectangle origin: aDrawCharacter rectangle origin extent: textureExtent).
-	texture destroy!
-
 executeDrawLine: aDrawLine
 	aDrawLine color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
 	sdlRenderer drawLineFrom: aDrawLine start to: aDrawLine end!
 
 executeDrawRectangle: aDrawRectangle
 	aDrawRectangle color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
-	aDrawRectangle rectangle ifNotNil: [:aRectangle | sdlRenderer drawRectangle: aRectangle]!
+	sdlRenderer drawRectangle: aDrawRectangle rectangle!
 
 executeDrawString: aDrawString
 	| texture |
@@ -300,7 +278,7 @@ executeFillQuadrilateral: aFillQuadrilateral
 
 executeFillRectangle: aFillRectangle
 	aFillRectangle color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
-	sdlRenderer fillRectangle: aFillRectangle rectangle!
+	aFillRectangle rectangle ifNotNil: [:aRectangle | sdlRenderer fillRectangle: aRectangle]!
 
 executeFillTriangle: aFillTriangle
 	| vertices |
@@ -477,7 +455,6 @@ defaultFontFile!public! !
 destroy!public! !
 disable!public! !
 drawArrowFrom:to:width:color:zIndex:!accessing!public! !
-drawCharacter:rectangle:color:fontSize:zIndex:!public! !
 drawCount!public! !
 drawImage:rectangle:zIndex:!accessing!public! !
 drawLineFrom:to:width:color:zIndex:!accessing!public! !
@@ -497,15 +474,14 @@ drawTexture:rectangle:stretch:zIndex:!accessing!public! !
 drawTexture:rectangle:zIndex:!accessing!public! !
 enable!public! !
 execute:!private! !
-executeDrawCharacter:!private! !
-executeDrawLine:!private! !
-executeDrawRectangle:!private! !
-executeDrawString:!private! !
-executeDrawSurface:!private! !
-executeDrawTexture:!private! !
-executeFillQuadrilateral:!private! !
-executeFillRectangle:!private! !
-executeFillTriangle:!private! !
+executeDrawLine:!executing!private! !
+executeDrawRectangle:!executing!private! !
+executeDrawString:!executing!private! !
+executeDrawSurface:!executing!private! !
+executeDrawTexture:!executing!private! !
+executeFillQuadrilateral:!executing!private! !
+executeFillRectangle:!executing!private! !
+executeFillTriangle:!executing!private! !
 fillPolygon:color:zIndex:!public! !
 fillQuadrilateral:color:zIndex:!public! !
 fillRectangle:color:zIndex:!public! !
