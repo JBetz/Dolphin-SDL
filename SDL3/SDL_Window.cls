@@ -60,6 +60,9 @@ getSurface
 height
 	^self extent y!
 
+hide
+	self library hideWindow_window: self!
+
 rectangle
 	^Rectangle origin: self getPosition extent: self getExtent!
 
@@ -71,6 +74,9 @@ setInputFocus
 
 setTitle: aString
 	^self library setWindowTitle_window: self title: aString!
+
+show
+	self library showWindow_window: self!
 
 updateSurface
 	self library updateWindowSurface_window: self!
@@ -88,10 +94,12 @@ getPosition!public! !
 getProperties!public! !
 getSurface!public! !
 height!public! !
+hide!public! !
 rectangle!public! !
 setIcon:!public! !
 setInputFocus!public! !
 setTitle:!public! !
+show!public! !
 updateSurface!public! !
 width!public! !
 !
