@@ -14,15 +14,18 @@ closeAllWindows
 	windows values do: [:each | each close].
 	windows removeAll!
 
-createWindow: aString extent: aPoint for: anApplication
+createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
 	window := sdlLibrary
 				createWindow_title: aString
 				w: aPoint x
 				h: aPoint y
-				flags: SDL_WINDOW_RESIZABLE.
+				flags: anInteger.
 	windows at: window getID put: anApplication.
 	^window!
+
+createWindow: aString extent: aPoint for: anApplication
+	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
 dispatchEvent: anEvent to: anApplication
 	anApplication
@@ -140,6 +143,7 @@ windows
 	^windows! !
 !SDLInputState categoriesForMethods!
 closeAllWindows!public! !
+createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
 dispatchEvent:to:!public! !
 finalize!public! !
