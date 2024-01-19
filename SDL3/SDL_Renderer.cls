@@ -41,6 +41,16 @@ drawRectangle: aRectangle
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
 
+getScale
+	| scaleX scaleY |
+	scaleX := FLOAT new.
+	scaleY := FLOAT new.
+	self checkResult: (self library
+				getRenderScale_renderer: self
+				scaleX: scaleX
+				scaleY: scaleY).
+	^scaleX value @ scaleY value!
+
 getWindow
 	^self library getRenderWindow_renderer: self!
 
@@ -83,6 +93,9 @@ renderTexture: texture source: source destination: destination
 resetClip
 	self library setRenderClipRect_renderer: self rect: nil!
 
+resetScale
+	self setScale: 1.0 @ 1.0!
+
 setClip: aRectangle
 	self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect!
 
@@ -95,7 +108,13 @@ setDrawColor: aColor
 		r: aColor red
 		g: aColor green
 		b: aColor blue
-		a: aColor alpha! !
+		a: aColor alpha!
+
+setScale: aPoint
+	self checkResult: (self library
+				setRenderScale_renderer: self
+				scaleX: aPoint x
+				scaleY: aPoint y)! !
 !SDL_Renderer categoriesForMethods!
 clear!public! !
 createTexture:!public! !
@@ -104,6 +123,7 @@ destroy!public! !
 drawLineFrom:to:!public! !
 drawRectangle:!public! !
 fillRectangle:!public! !
+getScale!public! !
 getWindow!public! !
 present!public! !
 renderGeometry:vertices:!public! !
@@ -111,8 +131,10 @@ renderGeometry:vertices:indices:!public! !
 renderReadPixels:format:pixels:pitch:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !
+resetScale!public! !
 setClip:!public! !
 setDrawBlendMode:!public! !
 setDrawColor:!public! !
+setScale:!public! !
 !
 
