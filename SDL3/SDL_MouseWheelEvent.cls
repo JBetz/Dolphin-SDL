@@ -29,8 +29,20 @@ direction: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_direction put: anInteger!
 
+isDown
+	^self y < 0!
+
+isLeft
+	^self x < 0!
+
+isRight
+	^self x > 0!
+
+isUp
+	^self y > 0!
+
 isVertical
-	^self direction = 0!
+	^self x > 0!
 
 mouseX
 	"Answer the <Float> value of the receiver's 'mouseX' field."
@@ -114,6 +126,10 @@ y: aFloat
 !SDL_MouseWheelEvent categoriesForMethods!
 direction!**compiled accessors**!public! !
 direction:!**compiled accessors**!public! !
+isDown!public! !
+isLeft!public! !
+isRight!public! !
+isUp!public! !
 isVertical!public! !
 mouseX!**compiled accessors**!public! !
 mouseX:!**compiled accessors**!public! !
