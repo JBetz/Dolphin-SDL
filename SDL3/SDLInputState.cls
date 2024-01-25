@@ -65,11 +65,20 @@ initializeLibraries
 	resultCode := sdlImageLibrary init_flags: 0.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL image library']!
 
+isAltKeyDown
+	^(self isKeyDown: SDL_SCANCODE_LALT) or: [self isKeyDown: SDL_SCANCODE_RALT]!
+
 isCapsLockDown
 	^self isKeyDown: SDL_SCANCODE_CAPSLOCK!
 
+isCtrlKeyDown
+	^(self isKeyDown: SDL_SCANCODE_LCTRL) or: [self isKeyDown: SDL_SCANCODE_RCTRL]!
+
 isKeyDown: scanCode
 	^(keyStates byteAtOffset: scanCode) asBoolean!
+
+isShiftKeyDown
+	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
 iterate
 	(isActive and: [isProcessing not])
@@ -150,8 +159,11 @@ finalize!public! !
 getDisplayExtent!public! !
 initialize!public! !
 initializeLibraries!public! !
+isAltKeyDown!public! !
 isCapsLockDown!public! !
+isCtrlKeyDown!public! !
 isKeyDown:!public! !
+isShiftKeyDown!public! !
 iterate!public! !
 pollEvent!public! !
 pumpMessages!public! !
@@ -193,7 +205,8 @@ onShutdown
 	Singleton quit!
 
 onStartup
-	Singleton initialize!
+	Singleton initialize.
+	SessionManager inputState registerExternalMessageLoop: [self iterate]!
 
 restart
 	self
