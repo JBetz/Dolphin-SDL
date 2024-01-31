@@ -39,6 +39,7 @@ finalize
 getDisplayExtent
 	| primaryDisplayId displayMode |
 	primaryDisplayId := sdlLibrary getPrimaryDisplay.
+	primaryDisplayId = 0 ifTrue: [Error signal: sdlLibrary getError].
 	displayMode := sdlLibrary getCurrentDisplayMode_displayID: primaryDisplayId.
 	^displayMode w @ displayMode h!
 
