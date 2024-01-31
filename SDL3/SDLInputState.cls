@@ -194,7 +194,8 @@ initialize
 			to: self;
 		when: #sessionStopped
 			send: #onShutdown
-			to: self!
+			to: self.
+	self onStartup!
 
 iterate
 	Singleton ifNotNil: [Singleton iterate]!
