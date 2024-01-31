@@ -196,7 +196,8 @@ initialize
 			to: self!
 
 iterate
-	Singleton ifNotNil: [Singleton iterate]!
+	Singleton ifNotNil: [Singleton iterate].
+	[self iterate] postToInputQueue!
 
 new
 	Singleton ifNil: [Singleton := super new initialize].
@@ -207,7 +208,7 @@ onShutdown
 
 onStartup
 	Singleton initialize.
-	SessionManager inputState registerExternalMessageLoop: [self iterate]!
+	self iterate!
 
 restart
 	self
