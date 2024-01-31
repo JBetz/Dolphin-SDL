@@ -13,11 +13,27 @@ SDL_Renderer comment: ''!
 clear
 	self library renderClear_renderer: self!
 
-createTexture: aPoint
+createSurfaceFrom: pixels width: width height: height pitch: pitch format: format
+	^self checkResult: (self library
+				createSurfaceFrom_pixels: pixels
+				width: width
+				height: height
+				pitch: pitch
+				format: format)!
+
+createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format: format
+	^self checkResult: (self library
+				createSurfaceFrom_pixels: pixels
+				width: width
+				height: height
+				pitch: pitch
+				format: format)!
+
+createTexture: aPoint access: anInteger
 	^self checkResult: (self library
 				createTexture_renderer: self
-				format: 0
-				access: 1
+				format: SDL_PIXELFORMAT_UNKNOWN
+				access: anInteger
 				w: aPoint x asInteger
 				h: aPoint y asInteger)!
 
@@ -40,6 +56,9 @@ drawRectangle: aRectangle
 
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
+
+getRenderTarget
+	^self library getRenderTarget_renderer: self!
 
 getScale
 	| scaleX scaleY |
@@ -110,6 +129,9 @@ setDrawColor: aColor
 		b: aColor blue
 		a: aColor alpha!
 
+setRenderTarget: aSDLTexture
+	self checkResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
+
 setScale: aPoint
 	self checkResult: (self library
 				setRenderScale_renderer: self
@@ -117,12 +139,15 @@ setScale: aPoint
 				scaleY: aPoint y)! !
 !SDL_Renderer categoriesForMethods!
 clear!public! !
-createTexture:!public! !
+createSurfaceFrom:width:height:pitch:format:!public! !
+createSurfaceFrom_pixels:width:height:pitch:format:!public! !
+createTexture:access:!public! !
 createTextureFromSurface:!public! !
 destroy!public! !
 drawLineFrom:to:!public! !
 drawRectangle:!public! !
 fillRectangle:!public! !
+getRenderTarget!public! !
 getScale!public! !
 getWindow!public! !
 present!public! !
@@ -135,6 +160,7 @@ resetScale!public! !
 setClip:!public! !
 setDrawBlendMode:!public! !
 setDrawColor:!public! !
+setRenderTarget:!public! !
 setScale:!public! !
 !
 

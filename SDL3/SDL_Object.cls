@@ -11,9 +11,9 @@ SDL_Object comment: ''!
 !SDL_Object methodsFor!
 
 checkResult: anObject
-	anObject
-		ifNil: [Error signal: self library getError]
-		ifNotNil: [anObject isInteger ifTrue: [anObject < 0 ifTrue: [Error signal: self library getError]]].
+	(anObject isInteger not and: [anObject isNull]) ifTrue: [Error signal: library getError].
+	anObject ifNil: [Error signal: self library getError].
+	(anObject isInteger and: [anObject < 0]) ifTrue: [Error signal: self library getError].
 	^anObject!
 
 initialize

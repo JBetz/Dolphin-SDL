@@ -30,16 +30,16 @@ createRenderer_window: window name: name flags: flags
 	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr dword>
 	^self invalidCall: _failureCode!
 
-createRGBSurface_flags: flags width: width height: height depth: depth rMask: rMask gMask: gMask bMask: bMask aMask: aMask
-	<cdecl: SDL_Surface* SDL_CreateRGBSurface dword sdword sdword sdword dword dword dword dword>
-	^self invalidCall: _failureCode!
-
 createSoftwareRenderer_surface: surface
 	<cdecl: SDL_Renderer* SDL_CreateSoftwareRenderer SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 createSurface_width: width height: height format: format
 	<cdecl: SDL_Surface* SDL_CreateSurface sdword sdword dword>
+	^self invalidCall: _failureCode!
+
+createSurfaceFrom_pixels: pixels width: width height: height pitch: sdword format: format
+	<cdecl: SDL_Surface* SDL_CreateSurfaceFrom void* sdword sdword sdword dword>
 	^self invalidCall: _failureCode!
 
 createSystemCursor_id: id
@@ -224,6 +224,10 @@ getRendererInfo_renderer: renderer info: info
 
 getRenderScale_renderer: renderer scaleX: scaleX scaleY: scaleY
 	<cdecl: sdword SDL_GetRenderScale SDL_Renderer* float* float*>
+	^self invalidCall: _failureCode!
+
+getRenderTarget_renderer: renderer
+	<cdecl: SDL_Texture* SDL_GetRenderTarget SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 getRenderWindow_renderer: renderer
@@ -510,6 +514,10 @@ setRenderScale_renderer: renderer scaleX: scaleX scaleY: scaleY
 	<cdecl: sdword SDL_SetRenderScale SDL_Renderer* float float>
 	^self invalidCall: _failureCode!
 
+setRenderTarget_renderer: renderer texture: texture
+	<cdecl: sdword SDL_SetRenderTarget SDL_Renderer* SDL_Texture*>
+	^self invalidCall: _failureCode!
+
 setTextureBlendMode_texture: texture blendMode: blendMode
 	<cdecl: sdword SDL_SetTextureBlendMode SDL_Texture* dword>
 	^self invalidCall: _failureCode!
@@ -591,9 +599,9 @@ addTimer_interval:callback:param:!public!video! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createRenderer_window:name:flags:!public!render! !
-createRGBSurface_flags:width:height:depth:rMask:gMask:bMask:aMask:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
 createSurface_width:height:format:!public!render! !
+createSurfaceFrom_pixels:width:height:pitch:format:!public!render! !
 createSystemCursor_id:!events!public! !
 createTexture_renderer:format:access:w:h:!public!render! !
 createTextureFromSurface_renderer:surface:!public!render! !
@@ -640,6 +648,7 @@ getRenderClipRect_renderer:rect:!public!render! !
 getRenderer_window:!public!render! !
 getRendererInfo_renderer:info:!public!render! !
 getRenderScale_renderer:scaleX:scaleY:!public!render! !
+getRenderTarget_renderer:!public!render! !
 getRenderWindow_renderer:!public!render! !
 getTextureBlendMode_texture:blendMode:!public!render! !
 getTicks!public!video! !
@@ -711,6 +720,7 @@ setRenderClipRect_renderer:rect:!public!render! !
 setRenderDrawBlendMode_renderer:blendMode:!public!render! !
 setRenderDrawColor_renderer:r:g:b:a:!public!render! !
 setRenderScale_renderer:scaleX:scaleY:!public!render! !
+setRenderTarget_renderer:texture:!public!render! !
 setTextureBlendMode_texture:blendMode:!public!render! !
 setWindowData_window:name:userdata:!public!video! !
 setWindowFullscreen_window:fullscreen:!public!video! !

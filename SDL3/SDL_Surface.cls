@@ -99,7 +99,7 @@ refcount: anInteger
 	bytes sdwordAtOffset: _OffsetOf_refcount put: anInteger!
 
 saveAsPNG: aString
-	SDL3ImageLibrary default savePNG_surface: self file: aString!
+	self checkResult: (SDL3ImageLibrary default savePNG_surface: self file: aString)!
 
 userdata
 	"Answer the <ExternalAddress> value of the receiver's 'userdata' field."
@@ -185,7 +185,10 @@ defineFields
 		defineField: #refcount type: SDWORDField new!
 
 fromFile: aString
-	^SDL3ImageLibrary default load_file: aString!
+	| result |
+	result := SDL3ImageLibrary default load_file: aString.
+	result isNull ifTrue: [Error signal: SDL3Library default getError].
+	^result!
 
 getFieldNames
 	^#(#flags #format #w #h #pitch #pixels #userdata #locked #list_blitmap #clip_rect #map #refcount)!

@@ -28,11 +28,22 @@ getExtent
 		h: height.
 	^width value @ height value!
 
+getFormat
+	| format |
+	format := DWORD new.
+	self library
+		queryTexture_texture: self
+		format: format
+		access: nil
+		w: nil
+		h: nil.
+	^format value!
+
 getWidth
 	| width |
 	width := SDWORD new.
 	self library
-		queryTexture_renderer: self
+		queryTexture_texture: self
 		format: nil
 		access: nil
 		w: width
@@ -73,6 +84,7 @@ updateRectangle: aRectangle pixels: pixels pitch: pitch
 destroy!public! !
 extent!public! !
 getExtent!public! !
+getFormat!public! !
 getWidth!public! !
 lock!public! !
 lockRectangle:!public! !

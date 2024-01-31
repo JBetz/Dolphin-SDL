@@ -3,7 +3,7 @@
 Object subclass: #Renderer2D
 	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
 	classVariableNames: ''
-	poolDictionaries: 'TTFConstants'
+	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
 Renderer2D guid: (GUID fromString: '{9be79942-98a4-44d7-8072-de4700712167}')!
 Renderer2D comment: ''!
@@ -33,6 +33,12 @@ createImageTexture: aString
 	surface := SDL_Surface fromFile: aString.
 	^self createTextureFromSurface: surface!
 
+createStaticTexture: aPoint
+	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_STATIC!
+
+createStreamingTexture: aPoint
+	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_STREAMING!
+
 createStringTexture: aDrawString
 	| font texture surface |
 	font := self lookupFont: (aDrawString fontName ifNil: [self defaultFontFile])
@@ -47,8 +53,8 @@ createStringTexture: aDrawString
 	surface destroy.
 	^texture!
 
-createTexture: aPoint
-	^sdlRenderer createTexture: aPoint!
+createTargetTexture: aPoint
+	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_TARGET!
 
 createTextureFromSurface: aSDL_Surface
 	^sdlRenderer createTextureFromSurface: aSDL_Surface!
@@ -199,6 +205,9 @@ drawTexture: aTexture rectangle: aRectangle zIndex: anInteger
 				texture: aTexture;
 				rectangle: aRectangle;
 				zIndex: anInteger)!
+
+duplicateTexture: aSDL_Texture 
+	^sdlRenderer duplicateTexture: aSDL_Texture!
 
 enable
 	isEnabled := true!
@@ -391,15 +400,37 @@ offset: aPoint
 present
 	sdlRenderer present!
 
-renderRectangle: aRectangle toSurface: aSDLSurface
-	sdlRenderer
-		renderReadPixels: aRectangle
-		format: 0
-		pixels: aSDLSurface pixels
-		pitch: aSDLSurface pitch!
-
 resetClip
 	clip := nil!
+
+saveTexture: aSDLTexture fileName: aString
+	| extent format bytesPerPixel newTexture pixels surface |
+	extent := aSDLTexture getExtent.
+	format := aSDLTexture getFormat.
+	bytesPerPixel := 4.
+	newTexture := self createTargetTexture: extent.
+	sdlRenderer
+		setRenderTarget: newTexture;
+		setDrawColor: Color white;
+		clear;
+		renderTexture: aSDLTexture
+			source: nil
+			destination: nil.
+	pixels := DWORDArray new: extent x * extent y * bytesPerPixel.
+	sdlRenderer
+		renderReadPixels: nil
+		format: format
+		pixels: pixels
+		pitch: extent x * bytesPerPixel.
+	surface := sdlRenderer
+				createSurfaceFrom: pixels
+				width: extent x
+				height: extent y
+				pitch: extent x * bytesPerPixel
+				format: format.
+	surface saveAsPNG: aString.
+	surface destroy.
+	newTexture destroy!
 
 sdlRenderer: aSDL_Renderer
 	sdlRenderer := aSDL_Renderer!
@@ -448,8 +479,10 @@ clear!public! !
 clip!public! !
 clip:!public! !
 createImageTexture:!public! !
+createStaticTexture:!public! !
+createStreamingTexture:!public! !
 createStringTexture:!public! !
-createTexture:!public! !
+createTargetTexture:!public! !
 createTextureFromSurface:!public! !
 defaultFontFile!public! !
 destroy!public! !
@@ -472,6 +505,7 @@ drawSurface:rectangle:stretch:zIndex:!accessing!public! !
 drawSurface:rectangle:zIndex:!accessing!public! !
 drawTexture:rectangle:stretch:zIndex:!accessing!public! !
 drawTexture:rectangle:zIndex:!accessing!public! !
+duplicateTexture:!public! !
 enable!public! !
 execute:!private! !
 executeDrawLine:!executing!private! !
@@ -497,8 +531,8 @@ measureString:inRectangle:fontSize:fontStyle:!public! !
 offset!public! !
 offset:!public! !
 present!public! !
-renderRectangle:toSurface:!public! !
 resetClip!public! !
+saveTexture:fileName:!public! !
 sdlRenderer:!accessing!public! !
 subtractOffset:!private! !
 viewport!public! !
