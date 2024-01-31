@@ -18,10 +18,17 @@ calculateInitialExtent
 
 close
 	cursor ifNotNil: [cursor destroy].
+	self
+		closeRenderer;
+		closeWindow!
+
+closeRenderer
 	renderer
 		ifNotNil: 
 			[renderer destroy.
-			renderer := nil].
+			renderer := nil]!
+
+closeWindow
 	window
 		ifNotNil: 
 			[SDLInputState new removeWindow: window getID.
@@ -33,6 +40,13 @@ createRenderer
 	sdlRenderer := window createRenderer.
 	renderer := Renderer2D new sdlRenderer: sdlRenderer.
 	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND!
+
+createWindow
+	window := SDLInputState new
+				createWindow: self class name asHumanPhrase
+				extent: self calculateInitialExtent
+				flags: SDL_WINDOW_RESIZABLE
+				for: self!
 
 cursor: aSymbol
 	cursor name ~= aSymbol
@@ -173,7 +187,10 @@ windowPosition
 !Application categoriesForMethods!
 calculateInitialExtent!private! !
 close!public! !
+closeRenderer!public! !
+closeWindow!public! !
 createRenderer!private! !
+createWindow!public! !
 cursor:!public! !
 extent!public! !
 height!public! !
