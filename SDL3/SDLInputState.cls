@@ -89,7 +89,8 @@ iterate
 			[self
 				pumpMessages;
 				updateWindows] ifCurtailed: [isProcessing := false].
-			isProcessing := false]!
+			isProcessing := false].
+	[self iterate] postToInputQueue!
 
 pollEvent
 	| event result |
@@ -196,8 +197,7 @@ initialize
 			to: self!
 
 iterate
-	Singleton ifNotNil: [Singleton iterate].
-	[self iterate] postToInputQueue!
+	Singleton ifNotNil: [Singleton iterate]!
 
 new
 	Singleton ifNil: [Singleton := super new initialize].
