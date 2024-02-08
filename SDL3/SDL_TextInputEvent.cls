@@ -17,19 +17,12 @@ SDL_TextInputEvent comment: ''!
 text
 	"Answer the <Utf8String> value of the receiver's 'text' field."
 
-	^Utf8String fromAddress: bytes yourAddress + _OffsetOf_text!
+	^Utf8String fromAddress: (bytes intPtrAtOffset: _OffsetOf_text)!
 
 text: anUtf8String
 	"Set the receiver's 'text' field to the value of the argument, anUtf8String"
 
-	| size |
-	size := anUtf8String byteSize - 1 min: 63.
-	anUtf8String
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_text + 1)
-		to: _OffsetOf_text + size
-		startingAt: 1.
-	bytes byteAtOffset: _OffsetOf_text + size put: 0!
+	bytes uintPtrAtOffset: _OffsetOf_text put: anUtf8String yourAddress!
 
 timestamp
 	"Answer the <Integer> value of the receiver's 'timestamp' field."
@@ -95,7 +88,7 @@ defineFields
 		defineField: #type type: DWORDField new;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
-		defineField: #text type: (StringField type: Utf8String length: 64)!
+		defineField: #text type: (PointerField type: Utf8String)!
 
 getFieldNames
 	^#(#type #timestamp #windowID #text)! !
