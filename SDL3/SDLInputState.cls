@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates isProcessing'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -14,8 +14,23 @@ closeAllWindows
 	windows values do: [:each | each close].
 	windows removeAll!
 
+closeLibraries
+	sdlImageLibrary
+		ifNotNil: 
+			[sdlImageLibrary quitIfOpen.
+			sdlImageLibrary := nil].
+	sdlTtfLibrary
+		ifNotNil: 
+			[sdlTtfLibrary quitIfOpen.
+			sdlTtfLibrary := nil].
+	sdlLibrary
+		ifNotNil: 
+			[sdlLibrary quitIfOpen.
+			sdlLibrary := nil]!
+
 createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
+	self ensureMessageLoopRunning.
 	window := sdlLibrary
 				createWindow_title: aString
 				w: aPoint x
@@ -31,6 +46,11 @@ dispatchEvent: anEvent to: anApplication
 	anApplication
 		onEvent: anEvent;
 		markDirty!
+
+ensureMessageLoopRunning
+	(messageLoopProcess notNil and: [messageLoopProcess isAlive])
+		ifFalse: [self startMessageLoopProcess].
+	messageLoopProcess priority: Processor userSchedulingPriority!
 
 finalize
 	self quit.
@@ -53,8 +73,6 @@ initialize
 		initializeLibraries;
 		registerRenderEvent;
 		setHints.
-	isActive := true.
-	isProcessing := false.
 	keyStates := sdlLibrary getKeyboardState_numkeys: nil!
 
 initializeLibraries
@@ -80,17 +98,6 @@ isKeyDown: scanCode
 
 isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
-
-iterate
-	(isActive and: [isProcessing not])
-		ifTrue: 
-			[isProcessing := true.
-			
-			[self
-				pumpMessages;
-				updateWindows] ifCurtailed: [isProcessing := false].
-			isProcessing := false].
-	[self iterate] postToInputQueue!
 
 pollEvent
 	| event result |
@@ -131,21 +138,45 @@ pushRenderEvent: anInteger
 				code: renderEventCode)!
 
 quit
-	self closeAllWindows.
 	keyStates := nil.
-	isActive := false.
-	sdlImageLibrary quit.
-	sdlTtfLibrary quit.
-	sdlLibrary quit!
+	self
+		closeAllWindows;
+		stopMessageLoopProcess;
+		closeLibraries!
 
 registerRenderEvent
 	renderEventCode := sdlLibrary registerEvents_numevents: 1!
 
 removeWindow: anInteger
-	windows removeKey: anInteger ifAbsent: [nil]!
+	windows removeKey: anInteger ifAbsent: [nil].
+	windows isEmpty ifTrue: [messageLoopProcess priority: Processor systemBasePriority]!
 
 setHints
 	sdlLibrary setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
+
+startMessageLoopProcess
+	| delay isProcessing |
+	delay := Delay forMilliseconds: 1000 / 60.
+	isProcessing := false.
+	messageLoopProcess := 
+			[
+			[isProcessing
+				ifFalse: 
+					[isProcessing := true.
+					
+					[self
+						pumpMessages;
+						updateWindows] ensure: [isProcessing := false]].
+			delay wait]
+					repeat]
+					forkAt: Processor userSchedulingPriority - 1.
+	messageLoopProcess name: 'SDL'!
+
+stopMessageLoopProcess
+	messageLoopProcess
+		ifNotNil: 
+			[messageLoopProcess isAlive ifTrue: [messageLoopProcess terminate].
+			messageLoopProcess := nil]!
 
 updateWindows
 	(windows select: [:each | each isDirty]) do: [:each | each update]!
@@ -154,9 +185,11 @@ windows
 	^windows! !
 !SDLInputState categoriesForMethods!
 closeAllWindows!public! !
+closeLibraries!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
 dispatchEvent:to:!public! !
+ensureMessageLoopRunning!public! !
 finalize!public! !
 getDisplayExtent!public! !
 initialize!public! !
@@ -166,7 +199,6 @@ isCapsLockDown!public! !
 isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
-iterate!public! !
 pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
@@ -176,6 +208,8 @@ quit!public! !
 registerRenderEvent!public! !
 removeWindow:!public! !
 setHints!public! !
+startMessageLoopProcess!private! !
+stopMessageLoopProcess!private! !
 updateWindows!public! !
 windows!public! !
 !
@@ -194,22 +228,21 @@ initialize
 			to: self;
 		when: #sessionStopped
 			send: #onShutdown
-			to: self.
-	self onStartup!
-
-iterate
-	Singleton ifNotNil: [Singleton iterate]!
+			to: self!
 
 new
 	Singleton ifNil: [Singleton := super new initialize].
 	^Singleton!
 
 onShutdown
-	Singleton quit!
+	Singleton ifNotNil: [Singleton quit]!
 
 onStartup
-	Singleton initialize.
-	self iterate!
+	Singleton ifNotNil: [Singleton quit].
+	self reset!
+
+reset
+	Singleton := nil!
 
 restart
 	self
@@ -218,10 +251,10 @@ restart
 !SDLInputState class categoriesForMethods!
 current!public! !
 initialize!public! !
-iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
+reset!public! !
 restart!public! !
 !
 
