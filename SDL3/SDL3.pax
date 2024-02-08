@@ -66,7 +66,7 @@ package classNames
 	add: #SDL3ImageLibrary;
 	add: #SDL3Library;
 	add: #SDL3TTFLibrary;
-	add: #SDLInputState;
+	add: #SDLWindowManager;
 	add: #TTF_Font;
 	add: #TTF_Object;
 	add: #TTFFontStyle;
@@ -114,7 +114,7 @@ Object subclass: #Renderer2D
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
-Object subclass: #SDLInputState
+Object subclass: #SDLWindowManager
 	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'

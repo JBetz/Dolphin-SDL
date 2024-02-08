@@ -1,14 +1,14 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-Object subclass: #SDLInputState
+Object subclass: #SDLWindowManager
 	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
-SDLInputState guid: (GUID fromString: '{9b0ff9fb-40c3-4d7e-91fe-2a58048fdbdf}')!
-SDLInputState comment: ''!
-!SDLInputState categoriesForClass!Kernel-Objects! !
-!SDLInputState methodsFor!
+SDLWindowManager guid: (GUID fromString: '{9b0ff9fb-40c3-4d7e-91fe-2a58048fdbdf}')!
+SDLWindowManager comment: ''!
+!SDLWindowManager categoriesForClass!Kernel-Objects! !
+!SDLWindowManager methodsFor!
 
 closeAllWindows
 	windows values do: [:each | each close].
@@ -183,7 +183,7 @@ updateWindows
 
 windows
 	^windows! !
-!SDLInputState categoriesForMethods!
+!SDLWindowManager categoriesForMethods!
 closeAllWindows!public! !
 closeLibraries!public! !
 createWindow:extent:flags:for:!public! !
@@ -214,7 +214,7 @@ updateWindows!public! !
 windows!public! !
 !
 
-!SDLInputState class methodsFor!
+!SDLWindowManager class methodsFor!
 
 current
 	^Singleton!
@@ -248,7 +248,7 @@ restart
 	self
 		onShutdown;
 		onStartup! !
-!SDLInputState class categoriesForMethods!
+!SDLWindowManager class categoriesForMethods!
 current!public! !
 initialize!public! !
 new!public! !

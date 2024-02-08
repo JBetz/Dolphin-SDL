@@ -13,7 +13,7 @@ Application comment: ''!
 calculateInitialExtent
 	| preferredExtent displayExtent |
 	preferredExtent := self preferredExtent.
-	displayExtent := SDLInputState new getDisplayExtent.
+	displayExtent := SDLWindowManager new getDisplayExtent.
 	^(preferredExtent x min: displayExtent x - 100) @ (preferredExtent y min: displayExtent y - 100)!
 
 close
@@ -31,7 +31,7 @@ closeRenderer
 closeWindow
 	window
 		ifNotNil: 
-			[SDLInputState new removeWindow: window getID.
+			[SDLWindowManager new removeWindow: window getID.
 			window destroy.
 			window := nil]!
 
@@ -42,7 +42,7 @@ createRenderer
 	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND!
 
 createWindow
-	window := SDLInputState new
+	window := SDLWindowManager new
 				createWindow: self class name asHumanPhrase
 				extent: self calculateInitialExtent
 				flags: SDL_WINDOW_RESIZABLE
