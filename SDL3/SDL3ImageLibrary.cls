@@ -26,6 +26,9 @@ quit
 	<cdecl: void IMG_Quit>
 	^self invalidCall: _failureCode!
 
+quitIfOpen
+	self isOpen ifTrue: [self quit]!
+
 saveJPG_surface: surface file: file quality: quality
 	<cdecl: sdword IMG_SaveJPG SDL_Surface* lpstr sdword>
 	^self invalidCall: _failureCode!
@@ -38,6 +41,7 @@ init_flags:!public! !
 load_file:!public! !
 loadTexture_renderer:file:!public! !
 quit!public! !
+quitIfOpen!public! !
 saveJPG_surface:file:quality:!public! !
 savePNG_surface:file:!public! !
 !

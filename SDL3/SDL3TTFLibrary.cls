@@ -54,6 +54,9 @@ quit
 	<cdecl: void TTF_Quit>
 	^self invalidCall: _failureCode!
 
+quitIfOpen
+	self isOpen ifTrue: [self quit]!
+
 renderGlyph32Blended_font: font ch: ch fg: fg
 	<cdecl: SDL_Surface* TTF_RenderGlyph32_Blended TTF_Font* dword SDL_Color>
 	^self invalidCall: _failureCode!
@@ -129,6 +132,7 @@ measureUTF8_font:text:measureWidth:extent:count:!public! !
 openFont_file:ptsize:!public! !
 openFontIndex_file:ptsize:index:!public! !
 quit!public! !
+quitIfOpen!public! !
 renderGlyph32Blended_font:ch:fg:!public! !
 renderUTF8Blended_font:text:fg:!public! !
 renderUTF8BlendedWrapped_font:text:fg:wrapLength:!public! !

@@ -426,6 +426,9 @@ quit
 	<cdecl: void SDL_Quit>
 	^self invalidCall: _failureCode!
 
+quitIfOpen
+	self isOpen ifTrue: [self quit]!
+
 quitSubSystem_flags: flags
 	<cdecl: void SDL_QuitSubSystem dword>
 	^self invalidCall: _failureCode!
@@ -698,6 +701,7 @@ pumpEvents!events!public! !
 pushEvent_event:!events!public! !
 queryTexture_texture:format:access:w:h:!public!render! !
 quit!init!public! !
+quitIfOpen!public! !
 quitSubSystem_flags:!init!public! !
 raiseWindow_window:!public!video! !
 registerEvents_numevents:!events!public! !
