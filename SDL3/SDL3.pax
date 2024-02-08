@@ -115,7 +115,7 @@ Object subclass: #Renderer2D
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #SDLInputState
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates isProcessing'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -335,7 +335,7 @@ SDL_Object subclass: #SDL_Surface
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_Object subclass: #SDL_Texture
-	instanceVariableNames: ''
+	instanceVariableNames: 'isPainted'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
