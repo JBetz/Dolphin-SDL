@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 SDL_Object subclass: #SDL_Texture
-	instanceVariableNames: ''
+	instanceVariableNames: 'isPainted'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -50,6 +50,12 @@ getWidth
 		h: nil.
 	^width value!
 
+isPainted
+	^isPainted ifNil: [ false ]!
+
+isPainted: aBoolean
+	isPainted := aBoolean!
+
 lock
 	^self lockRectangle: nil!
 
@@ -86,6 +92,8 @@ extent!public! !
 getExtent!public! !
 getFormat!public! !
 getWidth!public! !
+isPainted!public! !
+isPainted:!public! !
 lock!public! !
 lockRectangle:!public! !
 unlock!public! !
