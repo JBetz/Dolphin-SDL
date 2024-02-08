@@ -15,9 +15,9 @@ SDL_TextInputEvent comment: ''!
 !SDL_TextInputEvent methodsFor!
 
 text
-	"Answer the <CHARField> value of the receiver's 'text' field."
+	"Answer the <Utf8String> value of the receiver's 'text' field."
 
-	^Utf8String fromAddress: (bytes intPtrAtOffset: _OffsetOf_text)!
+	^Utf8String fromAddress: bytes yourAddress + _OffsetOf_text!
 
 text: anUtf8String
 	"Set the receiver's 'text' field to the value of the argument, anUtf8String"
