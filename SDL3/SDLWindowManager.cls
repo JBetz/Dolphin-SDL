@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess framesPerSecond isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -69,6 +69,8 @@ initialize
 	sdlTtfLibrary := SDL3TTFLibrary default.
 	sdlImageLibrary := SDL3ImageLibrary default.
 	windows := LookupTable new.
+	isProcessing := false.
+	framesPerSecond := 60.
 	self
 		initializeLibraries;
 		registerRenderEvent;
@@ -98,6 +100,11 @@ isKeyDown: scanCode
 
 isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
+
+iterate
+	self
+		pumpMessages;
+		updateWindows!
 
 pollEvent
 	| event result |
@@ -155,21 +162,12 @@ setHints
 	sdlLibrary setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
 startMessageLoopProcess
-	| delay isProcessing |
-	delay := Delay forMilliseconds: 1000 / 60.
-	isProcessing := false.
 	messageLoopProcess := 
 			[
-			[isProcessing
-				ifFalse: 
-					[isProcessing := true.
-					
-					[self
-						pumpMessages;
-						updateWindows] ensure: [isProcessing := false]].
-			delay wait]
+			[[self iterate] postToMessageQueue.
+			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
 					repeat]
-					forkAt: Processor userSchedulingPriority - 1.
+					forkAt: Processor userSchedulingPriority.
 	messageLoopProcess name: 'SDL'!
 
 stopMessageLoopProcess
@@ -199,6 +197,7 @@ isCapsLockDown!public! !
 isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
+iterate!private! !
 pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
