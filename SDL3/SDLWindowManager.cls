@@ -102,9 +102,12 @@ isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
 iterate
-	self
+	isProcessing ifTrue: [^self].
+	isProcessing := true.
+	
+	[self
 		pumpMessages;
-		updateWindows!
+		updateWindows] ensure: [isProcessing := false]!
 
 pollEvent
 	| event result |
@@ -144,13 +147,6 @@ pushRenderEvent: anInteger
 				windowID: anInteger;
 				code: renderEventCode)!
 
-quit
-	keyStates := nil.
-	self
-		closeAllWindows;
-		stopMessageLoopProcess;
-		closeLibraries!
-
 registerRenderEvent
 	renderEventCode := sdlLibrary registerEvents_numevents: 1!
 
@@ -169,6 +165,13 @@ startMessageLoopProcess
 					repeat]
 					forkAt: Processor userSchedulingPriority.
 	messageLoopProcess name: 'SDL'!
+
+stop
+	keyStates := nil.
+	self
+		closeAllWindows;
+		stopMessageLoopProcess;
+		closeLibraries!
 
 stopMessageLoopProcess
 	messageLoopProcess
@@ -203,11 +206,11 @@ pumpMessages!public! !
 pushCloseEvent:!public! !
 pushEvent:!public! !
 pushRenderEvent:!public! !
-quit!public! !
 registerRenderEvent!public! !
 removeWindow:!public! !
 setHints!public! !
 startMessageLoopProcess!private! !
+stop!public! !
 stopMessageLoopProcess!private! !
 updateWindows!public! !
 windows!public! !
@@ -234,10 +237,10 @@ new
 	^Singleton!
 
 onShutdown
-	Singleton ifNotNil: [Singleton quit]!
+	Singleton ifNotNil: [Singleton stop]!
 
 onStartup
-	Singleton ifNotNil: [Singleton quit].
+	Singleton ifNotNil: [Singleton stop].
 	self reset!
 
 reset
