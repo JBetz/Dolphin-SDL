@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #RenderCommand
-	instanceVariableNames: 'zIndex rotate clip'
+	instanceVariableNames: 'zIndex clip'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -19,12 +19,6 @@ clip
 clip: anObject
 	clip := anObject!
 
-rotate
-	^rotate!
-
-rotate: aRealAngle
-	rotate := aRealAngle!
-
 zIndex
 	^zIndex!
 
@@ -34,8 +28,6 @@ zIndex: anObject
 asSelector!public! !
 clip!public! !
 clip:!public! !
-rotate!public! !
-rotate:!public! !
 zIndex!public! !
 zIndex:!public! !
 !
