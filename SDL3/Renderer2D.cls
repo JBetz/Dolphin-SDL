@@ -351,13 +351,14 @@ isEnabled
 	^isEnabled!
 
 lookupFont: aString pointSize: anInteger
-	| index font |
-	(File exists: aString)
-		ifFalse: [Error signal: ('Font file does not exist at: <1s>' expandMacrosWith: aString)].
+	| fontFileName index font |
+	fontFileName := SessionManager current imageBase , aString.
+	(File exists: fontFileName)
+		ifFalse: [Error signal: ('Font file does not exist at: <1s>' expandMacrosWith: fontFileName)].
 	index := aString -> anInteger.
 	font := fontCache at: index ifAbsent: [nil].
 	(font isNil or: [font isNull])
-		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: aString pointSize: anInteger)].
+		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: fontFileName pointSize: anInteger)].
 	^font!
 
 measureString: aString fontSize: anInteger
