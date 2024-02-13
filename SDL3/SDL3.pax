@@ -105,7 +105,7 @@ Object subclass: #Application
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #RenderCommand
-	instanceVariableNames: 'zIndex rotate clip'
+	instanceVariableNames: 'zIndex clip'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -115,7 +115,7 @@ Object subclass: #Renderer2D
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess framesPerSecond isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
