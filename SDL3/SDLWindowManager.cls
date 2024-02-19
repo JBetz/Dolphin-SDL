@@ -28,6 +28,10 @@ closeLibraries
 			[sdlLibrary quitIfOpen.
 			sdlLibrary := nil]!
 
+closeWindow: anInteger
+	windows removeKey: anInteger ifAbsent: [nil].
+	windows isEmpty ifTrue: [messageLoopProcess priority: Processor systemBasePriority]!
+
 createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
 	self ensureMessageLoopRunning.
@@ -37,7 +41,7 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 				h: aPoint y
 				flags: anInteger.
 	windows at: window getID put: anApplication.
-	^window!
+	^window initialize!
 
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
@@ -146,10 +150,6 @@ pushRenderEvent: anInteger
 registerRenderEvent
 	renderEventCode := sdlLibrary registerEvents_numevents: 1!
 
-removeWindow: anInteger
-	windows removeKey: anInteger ifAbsent: [nil].
-	windows isEmpty ifTrue: [messageLoopProcess priority: Processor systemBasePriority]!
-
 setHints
 	sdlLibrary setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
@@ -183,6 +183,7 @@ windows
 !SDLWindowManager categoriesForMethods!
 closeAllWindows!public! !
 closeLibraries!public! !
+closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
 dispatchEvent:to:!public! !
@@ -202,7 +203,6 @@ pushCloseEvent:!public! !
 pushEvent:!public! !
 pushRenderEvent:!public! !
 registerRenderEvent!public! !
-removeWindow:!public! !
 setHints!public! !
 startMessageLoopProcess!private! !
 stop!public! !
