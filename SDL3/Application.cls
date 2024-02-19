@@ -26,10 +26,9 @@ closeRenderer
 	renderer := nil!
 
 closeWindow
-	window
-		ifNotNil: 
-			[SDLWindowManager new removeWindow: window getID.
-			window := nil]!
+	window ifNil: [^self].
+	SDLWindowManager new closeWindow: window getID.
+	window := nil!
 
 createRenderer
 	| sdlRenderer |
