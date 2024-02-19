@@ -52,10 +52,6 @@ ensureMessageLoopRunning
 		ifFalse: [self startMessageLoopProcess].
 	messageLoopProcess priority: Processor userSchedulingPriority!
 
-finalize
-	self quit.
-	super finalize!
-
 getDisplayExtent
 	| primaryDisplayId displayMode |
 	primaryDisplayId := sdlLibrary getPrimaryDisplay.
@@ -160,7 +156,7 @@ setHints
 startMessageLoopProcess
 	messageLoopProcess := 
 			[
-			[[self iterate] postToMessageQueue.
+			[[self iterate] postToInputQueue.
 			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
 					repeat]
 					forkAt: Processor userSchedulingPriority.
@@ -191,7 +187,6 @@ createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
 dispatchEvent:to:!public! !
 ensureMessageLoopRunning!public! !
-finalize!public! !
 getDisplayExtent!public! !
 initialize!public! !
 initializeLibraries!public! !

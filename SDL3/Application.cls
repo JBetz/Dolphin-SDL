@@ -17,22 +17,18 @@ calculateInitialExtent
 	^(preferredExtent x min: displayExtent x - 100) @ (preferredExtent y min: displayExtent y - 100)!
 
 close
-	cursor ifNotNil: [cursor destroy].
+	cursor := nil.
 	self
 		closeRenderer;
 		closeWindow!
 
 closeRenderer
-	renderer
-		ifNotNil: 
-			[renderer destroy.
-			renderer := nil]!
+	renderer := nil!
 
 closeWindow
 	window
 		ifNotNil: 
 			[SDLWindowManager new removeWindow: window getID.
-			window destroy.
 			window := nil]!
 
 createRenderer
@@ -51,8 +47,7 @@ createWindow
 cursor: aSymbol
 	cursor name ~= aSymbol
 		ifTrue: 
-			[cursor ifNotNil: [cursor destroy].
-			cursor := SDL_Cursor perform: aSymbol.
+			[cursor := SDL_Cursor perform: aSymbol.
 			cursor
 				name: aSymbol;
 				makeCurrent]!

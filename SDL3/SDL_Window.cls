@@ -10,11 +10,13 @@ SDL_Window comment: ''!
 !SDL_Window categoriesForClass!External-Data-Structured! !
 !SDL_Window methodsFor!
 
-createRenderer 
-	^self library
-		createRenderer_window: self
-		name: nil
-		flags: 0!
+createRenderer
+	| renderer |
+	renderer := self library
+				createRenderer_window: self
+				name: nil
+				flags: 0.
+	^renderer initialize!
 
 destroy
 	self library destroyWindow_window: self!

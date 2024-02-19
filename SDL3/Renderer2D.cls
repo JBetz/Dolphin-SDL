@@ -50,7 +50,6 @@ createStringTexture: aDrawString
 				wrapLength: 0.
 	aDrawString fontStyle ifNotNil: [font setStyle: TTFFontStyle normal].
 	texture := self createTextureFromSurface: surface.
-	surface destroy.
 	^texture!
 
 createTargetTexture: aPoint
@@ -61,13 +60,6 @@ createTextureFromSurface: aSDL_Surface
 
 defaultFontFile
 	^'default.ttf'!
-
-destroy
-	sdlRenderer ifNotNil: [sdlRenderer destroy].
-	fontCache
-		ifNotNil: 
-			[fontCache values do: [:aFont | aFont close].
-			fontCache removeAll]!
 
 disable
 	isEnabled := false!
@@ -233,8 +225,7 @@ executeDrawString: aDrawString
 	sdlRenderer
 		renderTexture: texture
 		source: nil
-		destination: (Rectangle origin: aDrawString rectangle origin extent: texture getExtent).
-	texture destroy!
+		destination: (Rectangle origin: aDrawString rectangle origin extent: texture getExtent)!
 
 executeDrawSurface: aDrawSurface
 	| surface texture destinationRectangle |
@@ -250,8 +241,7 @@ executeDrawSurface: aDrawSurface
 	sdlRenderer
 		renderTexture: texture
 		source: nil
-		destination: destinationRectangle.
-	texture destroy!
+		destination: destinationRectangle!
 
 executeDrawTexture: aDrawTexture
 	| texture destinationRectangle |
@@ -388,8 +378,7 @@ measureString: aString inRectangle: aRectangle fontSize: anInteger fontStyle: aF
 						renderUTF8BlendedWrapped: aString
 						color: Color black
 						wrapLength: aRectangle width.
-			extent := surface isNull ifTrue: [0 @ 0] ifFalse: [surface w @ surface h].
-			surface destroy].
+			extent := surface isNull ifTrue: [0 @ 0] ifFalse: [surface w @ surface h]].
 	^Rectangle origin: origin extent: extent!
 
 offset
@@ -429,9 +418,7 @@ saveTexture: aSDLTexture fileName: aString
 				height: extent y
 				pitch: extent x * bytesPerPixel
 				format: format.
-	surface saveAsPNG: aString.
-	surface destroy.
-	newTexture destroy!
+	surface saveAsPNG: aString!
 
 sdlRenderer: aSDL_Renderer
 	sdlRenderer := aSDL_Renderer!
@@ -486,7 +473,6 @@ createStringTexture:!public! !
 createTargetTexture:!public! !
 createTextureFromSurface:!public! !
 defaultFontFile!public! !
-destroy!public! !
 disable!public! !
 drawArrowFrom:to:width:color:zIndex:!accessing!public! !
 drawCount!public! !

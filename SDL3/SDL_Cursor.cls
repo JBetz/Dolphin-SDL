@@ -61,7 +61,7 @@ sizeWE
 	^self systemCursor: SDL_SYSTEM_CURSOR_SIZEWE!
 
 systemCursor: anInteger
-	^SDL3Library default createSystemCursor_id: anInteger!
+	^(SDL3Library default createSystemCursor_id: anInteger) initialize!
 
 wait
 	^self systemCursor: SDL_SYSTEM_CURSOR_WAIT!

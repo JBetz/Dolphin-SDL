@@ -16,15 +16,24 @@ checkResult: anObject
 		ifNotNil: [anObject isInteger ifTrue: [anObject = -1 ifTrue: [Error signal: self library getError]]].
 	^anObject!
 
+destroy
+	self subclassResponsibility!
+
+free
+	self destroy.
+	super free!
+
 initialize
 	super initialize.
-	library := SDL3TTFLibrary default!
+	self beFinalizable!
 
 library
 	library ifNil: [library := SDL3TTFLibrary default].
 	^library! !
 !TTF_Object categoriesForMethods!
 checkResult:!public! !
+destroy!public! !
+free!public! !
 initialize!public! !
 library!public! !
 !

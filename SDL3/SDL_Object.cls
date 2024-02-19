@@ -16,15 +16,24 @@ checkResult: anObject
 	(anObject isInteger and: [anObject < 0]) ifTrue: [Error signal: self library getError].
 	^anObject!
 
+destroy
+	self subclassResponsibility!
+
+free
+	self destroy.
+	super free!
+
 initialize
 	super initialize.
-	library := SDL3Library default!
+	self beFinalizable!
 
 library
 	library ifNil: [library := SDL3Library default].
 	^library! !
 !SDL_Object categoriesForMethods!
 checkResult:!public! !
+destroy!public! !
+free!public! !
 initialize!public! !
 library!public! !
 !

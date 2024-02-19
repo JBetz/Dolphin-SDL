@@ -185,10 +185,10 @@ defineFields
 		defineField: #refcount type: SDWORDField new!
 
 fromFile: aString
-	| result |
-	result := SDL3ImageLibrary default load_file: aString.
-	result isNull ifTrue: [Error signal: SDL3Library default getError].
-	^result!
+	| surface |
+	surface := SDL3ImageLibrary default load_file: aString.
+	surface isNull ifTrue: [Error signal: SDL3Library default getError].
+	^surface initialize!
 
 getFieldNames
 	^#(#flags #format #w #h #pitch #pixels #userdata #locked #list_blitmap #clip_rect #map #refcount)!

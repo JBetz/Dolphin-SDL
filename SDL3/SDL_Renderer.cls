@@ -14,31 +14,40 @@ clear
 	self library renderClear_renderer: self!
 
 createSurfaceFrom: pixels width: width height: height pitch: pitch format: format
-	^self checkResult: (self library
-				createSurfaceFrom_pixels: pixels
-				width: width
-				height: height
-				pitch: pitch
-				format: format)!
+	| surface |
+	surface := self checkResult: (self library
+						createSurfaceFrom_pixels: pixels
+						width: width
+						height: height
+						pitch: pitch
+						format: format).
+	^surface initialize!
 
 createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format: format
-	^self checkResult: (self library
-				createSurfaceFrom_pixels: pixels
-				width: width
-				height: height
-				pitch: pitch
-				format: format)!
+	| surface |
+	surface := self checkResult: (self library
+						createSurfaceFrom_pixels: pixels
+						width: width
+						height: height
+						pitch: pitch
+						format: format).
+	^surface initialize!
 
 createTexture: aPoint access: anInteger
-	^self checkResult: (self library
-				createTexture_renderer: self
-				format: SDL_PIXELFORMAT_UNKNOWN
-				access: anInteger
-				w: aPoint x asInteger
-				h: aPoint y asInteger)!
+	| texture |
+	texture := self checkResult: (self library
+						createTexture_renderer: self
+						format: SDL_PIXELFORMAT_UNKNOWN
+						access: anInteger
+						w: aPoint x asInteger
+						h: aPoint y asInteger).
+	^texture initialize!
 
 createTextureFromSurface: aSDL_Surface
-	^self checkResult: (self library createTextureFromSurface_renderer: self surface: aSDL_Surface)!
+	| texture |
+	texture := self
+				checkResult: (self library createTextureFromSurface_renderer: self surface: aSDL_Surface).
+	^texture initialize!
 
 destroy
 	self library destroyRenderer_renderer: self!
