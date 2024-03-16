@@ -536,4 +536,3 @@ new
 !Renderer2D class categoriesForMethods!
 new!public! !
 !
-
