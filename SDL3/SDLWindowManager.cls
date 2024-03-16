@@ -102,7 +102,7 @@ isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
 iterate
-	isProcessing ifTrue: [^self].
+	(sdlLibrary isNil or: [isProcessing]) ifTrue: [^self].
 	isProcessing := true.
 	
 	[self
@@ -170,10 +170,9 @@ stop
 		closeLibraries!
 
 stopMessageLoopProcess
-	messageLoopProcess
-		ifNotNil: 
-			[messageLoopProcess isAlive ifTrue: [messageLoopProcess terminate].
-			messageLoopProcess := nil]!
+	messageLoopProcess ifNil: [^self].
+	messageLoopProcess isAlive ifTrue: [messageLoopProcess terminate].
+	messageLoopProcess := nil!
 
 updateWindows
 	(windows select: [:each | each isDirty]) do: [:each | each update]!
