@@ -2,19 +2,20 @@
 
 SDL_Event subclass: #SDL_MouseWheelEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_direction _OffsetOf_mouseX _OffsetOf_mouseY _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_y'
+	classVariableNames: '_OffsetOf_direction _OffsetOf_mouseX _OffsetOf_mouseY _OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_MouseWheelEvent guid: (GUID fromString: '{43665aae-f4c0-47a2-ba25-3c6da6024eb2}')!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_direction' value: 16r1C!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_mouseX' value: 16r20!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_mouseY' value: 16r24!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_direction' value: 16r20!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_mouseX' value: 16r24!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_mouseY' value: 16r28!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_MouseWheelEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_which' value: 16r10!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_windowID' value: 16rC!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_x' value: 16r14!
-SDL_MouseWheelEvent addClassConstant: '_OffsetOf_y' value: 16r18!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_which' value: 16r14!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_x' value: 16r18!
+SDL_MouseWheelEvent addClassConstant: '_OffsetOf_y' value: 16r1C!
 SDL_MouseWheelEvent comment: ''!
 !SDL_MouseWheelEvent categoriesForClass!External-Data-Structured! !
 !SDL_MouseWheelEvent methodsFor!
@@ -157,6 +158,7 @@ defineFields
 	"typedef struct SDL_MouseWheelEvent
 	{
 	    Uint32 type;        /**< ::SDL_EVENT_MOUSE_WHEEL */
+            Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	    SDL_WindowID windowID; /**< The window with mouse focus, if any */
 	    SDL_MouseID which;  /**< The mouse instance id, SDL_TOUCH_MOUSEID, or SDL_PEN_MOUSEID */
@@ -169,6 +171,7 @@ defineFields
 
 	self
 		defineField: #type type: DWORDField new;
+                defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #which type: DWORDField new;

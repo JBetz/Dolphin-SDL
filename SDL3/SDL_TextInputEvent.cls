@@ -2,14 +2,15 @@
 
 SDL_Event subclass: #SDL_TextInputEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_text _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_reserved _OffsetOf_text _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_TextInputEvent guid: (GUID fromString: '{05d8e7dc-6dfc-44c8-a7dc-6d2ce18a3854}')!
-SDL_TextInputEvent addClassConstant: '_OffsetOf_text' value: 16r10!
-SDL_TextInputEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_TextInputEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_TextInputEvent addClassConstant: '_OffsetOf_text' value: 16r14!
+SDL_TextInputEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_TextInputEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-SDL_TextInputEvent addClassConstant: '_OffsetOf_windowID' value: 16rC!
+SDL_TextInputEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
 SDL_TextInputEvent comment: ''!
 !SDL_TextInputEvent categoriesForClass!External-Data-Structured! !
 !SDL_TextInputEvent methodsFor!
@@ -79,6 +80,7 @@ defineFields
 	typedef struct SDL_TextInputEvent
 	{
 	    Uint32 type;        /**< ::SDL_EVENT_TEXT_INPUT */
+            Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	    SDL_WindowID windowID; /**< The window with keyboard focus, if any */
 	    char *text;         /**< The input text */
@@ -86,6 +88,7 @@ defineFields
 
 	self
 		defineField: #type type: DWORDField new;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #text type: (PointerField type: Utf8String)!

@@ -2,11 +2,12 @@
 
 SDL_Event subclass: #SDL_CommonEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_timestamp _OffsetOf_type'
+	classVariableNames: '_OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_CommonEvent guid: (GUID fromString: '{05fe376e-500c-4a8b-8574-5f0afa101309}')!
-SDL_CommonEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_CommonEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_CommonEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_CommonEvent addClassConstant: '_OffsetOf_type' value: 16r0!
 SDL_CommonEvent comment: ''!
 !SDL_CommonEvent categoriesForClass!External-Data-Structured! !
@@ -45,12 +46,14 @@ defineFields
 
 	"typedef struct SDL_CommonEvent
 	{
-	    Uint32 type;
+	    Uint32 type;        /**< Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration */
+	    Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	} SDL_CommonEvent;'"
+	} SDL_CommonEvent;"
 
 	self
 		defineField: #type type: DWORDField new;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new!
 
 getFieldNames

@@ -2,16 +2,17 @@
 
 SDL_Event subclass: #SDL_TextEditingEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_length _OffsetOf_start _OffsetOf_text _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_length _OffsetOf_reserved _OffsetOf_start _OffsetOf_text _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_TextEditingEvent guid: (GUID fromString: '{0258ccbb-5f47-499c-9c64-eedb44b62e2b}')!
-SDL_TextEditingEvent addClassConstant: '_OffsetOf_length' value: 16r54!
-SDL_TextEditingEvent addClassConstant: '_OffsetOf_start' value: 16r50!
-SDL_TextEditingEvent addClassConstant: '_OffsetOf_text' value: 16r10!
-SDL_TextEditingEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_TextEditingEvent addClassConstant: '_OffsetOf_length' value: 16r58!
+SDL_TextEditingEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_TextEditingEvent addClassConstant: '_OffsetOf_start' value: 16r54!
+SDL_TextEditingEvent addClassConstant: '_OffsetOf_text' value: 16r14!
+SDL_TextEditingEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-SDL_TextEditingEvent addClassConstant: '_OffsetOf_windowID' value: 16rC!
+SDL_TextEditingEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
 SDL_TextEditingEvent comment: ''!
 !SDL_TextEditingEvent categoriesForClass!External-Data-Structured! !
 !SDL_TextEditingEvent methodsFor!
@@ -112,6 +113,7 @@ defineFields
 	typedef struct SDL_TextEditingEvent
 	{
 	    Uint32 type;        /**< ::SDL_EVENT_TEXT_EDITING */
+            Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	    SDL_WindowID windowID; /**< The window with keyboard focus, if any */
 	    char *text;         /**< The editing text */
@@ -121,6 +123,7 @@ defineFields
 
 	self
 		defineField: #type type: DWORDField new;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #text type: (StringField type: Utf8String length: 64);

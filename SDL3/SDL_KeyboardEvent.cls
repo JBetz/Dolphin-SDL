@@ -2,18 +2,19 @@
 
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 SDL_KeyboardEvent guid: (GUID fromString: '{b0932b16-56bc-43d2-9018-7c53e25f208b}')!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r14!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding2' value: 16r12!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding3' value: 16r13!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_repeat' value: 16r11!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_state' value: 16r10!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r18!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding2' value: 16r16!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding3' value: 16r17!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_repeat' value: 16r15!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_state' value: 16r14!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_windowID' value: 16rC!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
 SDL_KeyboardEvent comment: ''!
 !SDL_KeyboardEvent categoriesForClass!External-Data-Structured! !
 !SDL_KeyboardEvent methodsFor!
@@ -407,11 +408,12 @@ windowsSpecialKeyCode!private! !
 !SDL_KeyboardEvent class methodsFor!
 
 defineFields
-	"SDL_KeyboardEvent compileDefinition
+	"SDL_KeyboardEvent compileDefinition"
 	
-	typedef struct SDL_KeyboardEvent
+	"typedef struct SDL_KeyboardEvent
 	{
 	    Uint32 type;        /**< ::SDL_KEYDOWN or ::SDL_KEYUP */
+	    Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	    Uint32 windowID;    /**< The window with keyboard focus, if any */
 	    Uint8 state;        /**< ::SDL_PRESSED or ::SDL_RELEASED */
@@ -423,6 +425,7 @@ defineFields
 
 	self
 		defineField: #type type: DWORDField new;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #state type: BYTEField new;

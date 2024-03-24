@@ -2,11 +2,12 @@
 
 SDL_Event subclass: #SDL_QuitEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_timestamp _OffsetOf_type'
+	classVariableNames: '_OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_QuitEvent guid: (GUID fromString: '{75ade90c-54ff-49b4-b62c-d908bf60e9a9}')!
-SDL_QuitEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_QuitEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_QuitEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_QuitEvent addClassConstant: '_OffsetOf_type' value: 16r0!
 SDL_QuitEvent comment: ''!
 !SDL_QuitEvent categoriesForClass!External-Data-Structured! !
@@ -46,11 +47,13 @@ defineFields
 	typedef struct SDL_QuitEvent
 	{
 		Uint32 type;        /**< ::SDL_QUIT */
+		Uint32 reserved;
 		Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	} SDL_QuitEvent;"
 
 	self
 		defineField: #type type: DWORDField new;
+                defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new!
 
 getFieldNames

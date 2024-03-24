@@ -2,19 +2,20 @@
 
 SDL_Event subclass: #SDL_MouseMotionEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_xrel _OffsetOf_y _OffsetOf_yrel'
+	classVariableNames: '_OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_xrel _OffsetOf_y _OffsetOf_yrel'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_MouseMotionEvent guid: (GUID fromString: '{532fc246-c023-4499-b64e-7d8e38583c3d}')!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_state' value: 16r14!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_state' value: 16r18!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_MouseMotionEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_which' value: 16r10!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_windowID' value: 16rC!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_x' value: 16r18!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_xrel' value: 16r20!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_y' value: 16r1C!
-SDL_MouseMotionEvent addClassConstant: '_OffsetOf_yrel' value: 16r24!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_which' value: 16r14!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_x' value: 16r1C!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_xrel' value: 16r24!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_y' value: 16r20!
+SDL_MouseMotionEvent addClassConstant: '_OffsetOf_yrel' value: 16r28!
 SDL_MouseMotionEvent comment: ''!
 !SDL_MouseMotionEvent categoriesForClass!External-Data-Structured! !
 !SDL_MouseMotionEvent methodsFor!
@@ -141,6 +142,7 @@ defineFields
 	"typedef struct SDL_MouseMotionEvent
 	{
 	    Uint32 type;        /**< ::SDL_EVENT_MOUSE_MOTION */
+            Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	    SDL_WindowID windowID; /**< The window with mouse focus, if any */
 	    SDL_MouseID which;  /**< The mouse instance id, SDL_TOUCH_MOUSEID, or SDL_PEN_MOUSEID */
@@ -153,6 +155,7 @@ defineFields
 
 	self
 		defineField: #type type: DWORDField new;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #which type: DWORDField new;

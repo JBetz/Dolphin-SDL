@@ -2,15 +2,16 @@
 
 SDL_Event subclass: #SDL_WindowEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_data1 _OffsetOf_data2 _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_data1 _OffsetOf_data2 _OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 SDL_WindowEvent guid: (GUID fromString: '{efce64d5-b7a9-4cff-819b-70f60ba1e5b6}')!
-SDL_WindowEvent addClassConstant: '_OffsetOf_data1' value: 16r10!
-SDL_WindowEvent addClassConstant: '_OffsetOf_data2' value: 16r14!
-SDL_WindowEvent addClassConstant: '_OffsetOf_timestamp' value: 16r4!
+SDL_WindowEvent addClassConstant: '_OffsetOf_data1' value: 16r14!
+SDL_WindowEvent addClassConstant: '_OffsetOf_data2' value: 16r18!
+SDL_WindowEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
+SDL_WindowEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_WindowEvent addClassConstant: '_OffsetOf_type' value: 16r0!
-SDL_WindowEvent addClassConstant: '_OffsetOf_windowID' value: 16rC!
+SDL_WindowEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
 SDL_WindowEvent comment: ''!
 !SDL_WindowEvent categoriesForClass!External-Data-Structured! !
 !SDL_WindowEvent methodsFor!
@@ -147,17 +148,17 @@ defineFields
 	 */
 	typedef struct SDL_WindowEvent
 	{
-	    Uint32 type;        /**< ::SDL_WINDOWEVENT_* */
+	    SDL_EventType type; /**< ::SDL_WINDOWEVENT_* */
+	    Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
 	    SDL_WindowID windowID; /**< The associated window */
 	    Sint32 data1;       /**< event dependent data */
 	    Sint32 data2;       /**< event dependent data */
-	} SDL_WindowEvent;
-
-	/**"
+	} SDL_WindowEvent;"
 
 	self
 		defineField: #type type: DWORDField new;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #data1 type: SDWORDField new;
