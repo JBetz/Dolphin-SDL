@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode isActive keyStates messageLoopProcess framesPerSecond isProcessing'
+	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -45,11 +45,6 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
-
-dispatchEvent: anEvent to: anApplication
-	anApplication
-		onEvent: anEvent;
-		markDirty!
 
 ensureMessageLoopRunning
 	(messageLoopProcess notNil and: [messageLoopProcess isAlive])
@@ -117,18 +112,14 @@ pollEvent
 
 pumpMessages
 	
-	[| currentEvent |
-	currentEvent := self pollEvent.
-	currentEvent
-		ifNotNil: 
-			[currentEvent type = SDL_EVENT_POLL_SENTINEL ifTrue: [^self].
-			currentEvent windowID
-				ifNotNil: 
-					[:aWindowId |
-					| destination |
-					destination := windows at: aWindowId ifAbsent: [nil].
-					destination ifNotNil: [self dispatchEvent: currentEvent to: destination]]]
-		ifNil: [^self]]
+	[| event windowId destination |
+	event := self pollEvent.
+	event ifNil: [^self].
+	event type = SDL_EVENT_POLL_SENTINEL ifTrue: [^self].
+	windowId := event windowID.
+	windowId ifNil: [^self].
+	destination := windows at: windowId ifAbsent: [^nil].
+	destination onEvent: event]
 			repeat!
 
 pushCloseEvent: anInteger
@@ -185,7 +176,6 @@ closeLibraries!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
-dispatchEvent:to:!public! !
 ensureMessageLoopRunning!public! !
 getDisplayExtent!public! !
 initialize!public! !
@@ -253,4 +243,3 @@ onStartup!public! !
 reset!public! !
 restart!public! !
 !
-

@@ -77,7 +77,9 @@ onEvent: aSDLEvent
 	| event selector |
 	event := aSDLEvent convertToSubclass.
 	selector := EventMap at: event type ifAbsent: [^nil].
-	self perform: selector with: event!
+	self
+		perform: selector with: event;
+		markDirty!
 
 onKeyDown: aKeyboardEvent!
 
