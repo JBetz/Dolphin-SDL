@@ -1,21 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Smalltalk at: #SDLConstants put: (PoolConstantsDictionary named: #SDLConstants)!
-SDLConstants at: 'AUDIO_F32' put: 16r8120!
-SDLConstants at: 'AUDIO_F32LSB' put: 16r8120!
-SDLConstants at: 'AUDIO_F32MSB' put: 16r9120!
-SDLConstants at: 'AUDIO_S16' put: 16r8010!
-SDLConstants at: 'AUDIO_S16LSB' put: 16r8010!
-SDLConstants at: 'AUDIO_S16MSB' put: 16r9010!
-SDLConstants at: 'AUDIO_S32' put: 16r8020!
-SDLConstants at: 'AUDIO_S32LSB' put: 16r8020!
-SDLConstants at: 'AUDIO_S32MSB' put: 16r9020!
-SDLConstants at: 'AUDIO_S8' put: 16r8008!
-SDLConstants at: 'AUDIO_U16' put: 16r10!
-SDLConstants at: 'AUDIO_U16LSB' put: 16r10!
-SDLConstants at: 'AUDIO_U16MSB' put: 16r1010!
-SDLConstants at: 'AUDIO_U8' put: 16r8!
-SDLConstants at: 'DL_MOUSEBUTTONUP' put: 16r402!
 SDLConstants at: 'SDL_ADDEVENT' put: 16r0!
 SDLConstants at: 'SDL_ARRAYORDER_ABGR' put: 16r6!
 SDLConstants at: 'SDL_ARRAYORDER_ARGB' put: 16r3!
@@ -29,7 +14,17 @@ SDLConstants at: 'SDL_AUDIO_ALLOW_CHANNELS_CHANGE' put: 16r4!
 SDLConstants at: 'SDL_AUDIO_ALLOW_FORMAT_CHANGE' put: 16r2!
 SDLConstants at: 'SDL_AUDIO_ALLOW_FREQUENCY_CHANGE' put: 16r1!
 SDLConstants at: 'SDL_AUDIO_ALLOW_SAMPLES_CHANGE' put: 16r8!
+SDLConstants at: 'SDL_AUDIO_DEVICE_DEFAULT_CAPTURE' put: 16rFFFFFFFE!
+SDLConstants at: 'SDL_AUDIO_DEVICE_DEFAULT_OUTPUT' put: 16rFFFFFFFF!
+SDLConstants at: 'SDL_AUDIO_F32BE' put: 16r9120!
+SDLConstants at: 'SDL_AUDIO_F32LE' put: 16r8120!
 SDLConstants at: 'SDL_AUDIO_MASK_BITSIZE' put: 16rFF!
+SDLConstants at: 'SDL_AUDIO_S16BE' put: 16r9010!
+SDLConstants at: 'SDL_AUDIO_S16LE' put: 16r8010!
+SDLConstants at: 'SDL_AUDIO_S32BE' put: 16r9020!
+SDLConstants at: 'SDL_AUDIO_S32LE' put: 16r8020!
+SDLConstants at: 'SDL_AUDIO_S8' put: 16r8008!
+SDLConstants at: 'SDL_AUDIO_U8' put: 16r8!
 SDLConstants at: 'SDL_BITMAPORDER_1234' put: 16r2!
 SDLConstants at: 'SDL_BITMAPORDER_4321' put: 16r1!
 SDLConstants at: 'SDL_BITMAPORDER_NONE' put: 16r0!

@@ -18,8 +18,32 @@ addTimer_interval: interval callback: callback param: param
 	<cdecl: sdword SDL_AddTimer dword void* void*>
 	^self invalidCall: _failureCode!
 
+audioDevicePaused_devid: devid
+	<cdecl: bool SDL_AudioDevicePaused dword>
+	^self invalidCall: _failureCode!
+
+bindAudioStream_devid: devid stream: stream
+	<cdecl: sdword SDL_BindAudioStreams dword SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+bindAudioStreams_devid: devid streams: streams numStreams: numStreams
+	<cdecl: sdword SDL_BindAudioStreams dword SDL_AudioStream** sdword>
+	^self invalidCall: _failureCode!
+
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
 	<cdecl: sdword SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
+clearAudioStream_stream: stream
+	<cdecl: sdword SDL_ClearAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+closeAudioDevice_devid: devid
+	<cdecl: void SDL_CloseAudioDevice dword>
+	^self invalidCall: _failureCode!
+
+createAudioStream_sourceSpec: sourceSpec destinationSpec: destinationSpec
+	<cdecl: SDL_AudioStream* SDL_CreateAudioStream SDL_AudioSpec* SDL_AudioSpec*>
 	^self invalidCall: _failureCode!
 
 createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
@@ -82,6 +106,10 @@ delEventWatch_filter: filter userdata: userdata
 	<cdecl: void SDL_DelEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
+destroyAudioStream_stream: stream
+	<cdecl: void SDL_DestroyAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
 destroyCursor_cursor: cursor
 	<cdecl: void SDL_DestroyCursor SDL_Cursor*>
 	^self invalidCall: _failureCode!
@@ -112,6 +140,58 @@ enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter a
 
 flashWindow_window: window operation: operation
 	<cdecl: sdword SDL_DestroyWindow SDL_Window* dword>
+	^self invalidCall: _failureCode!
+
+flushAudioStream_stream: stream
+	<cdecl: sdword SDL_FlushAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getAudioCaptureDevices_count: count
+	<cdecl: dword* SDL_GetAudioCaptureDevices sdword*>
+	^self invalidCall: _failureCode!
+
+getAudioDeviceFormat_devid: devid spec: spec sampleFrames: sampleFrames
+	<cdecl: sdword SDL_GetAudioDeviceName dword SDL_AudioSpec* sdword*>
+	^self invalidCall: _failureCode!
+
+getAudioDeviceName_devid: devid
+	<cdecl: lpstr SDL_GetAudioDeviceName dword>
+	^self invalidCall: _failureCode!
+
+getAudioDriver_index: index
+	<cdecl: lpstr SDL_GetAudioDriver sdword>
+	^self invalidCall: _failureCode!
+
+getAudioOutputDevices_count: count
+	<cdecl: dword* SDL_GetAudioOutputDevices sdword*>
+	^self invalidCall: _failureCode!
+
+getAudioStreamAvailable_stream: stream
+	<cdecl: sdword SDL_GetAudioStreamAvailable SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getAudioStreamDevice_stream: stream
+	<cdecl: dword SDL_GetAudioStreamDevice SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getAudioStreamFormat_stream: stream sourceSpec: sourceSpec destinationSpec: destinationSpec
+	<cdecl: sdword SDL_GetAudioStreamFormat SDL_AudioStream* SDL_AudioSpec* SDL_AudioSpec*>
+	^self invalidCall: _failureCode!
+
+getAudioStreamFrequencyRatio_stream: stream
+	<cdecl: float SDL_GetAudioStreamFrequencyRatio SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getAudioStreamProperties_stream: stream
+	<cdecl: dword SDL_GetAudioStreamProperties SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getAudioStreamQueued_stream: stream
+	<cdecl: sdword SDL_GetAudioStreamQueued SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getCurrentAudioDriver
+	<cdecl: lpstr SDL_GetCurrentAudioDriver>
 	^self invalidCall: _failureCode!
 
 getCurrentDisplayMode_displayID: displayID
@@ -160,6 +240,10 @@ getKeyboardState_numkeys: numkeys
 
 getKeyFromScancode_scancode: scancode
 	<cdecl: sdword SDL_GetKeyFromScancode sdword>
+	^self invalidCall: _failureCode!
+
+getNumAudioDrivers
+	<cdecl: sdword SDL_GetNumAudioDrivers>
 	^self invalidCall: _failureCode!
 
 getNumDisplayModes_displayIndex: displayIndex
@@ -387,7 +471,11 @@ init_flags: flags
 	^self invalidCall: _failureCode!
 
 initSubSystem_flags: flags
-	<cdecl: void SDL_InitSubSystem dword>
+	<cdecl: sdword SDL_InitSubSystem dword>
+	^self invalidCall: _failureCode!
+
+lockAudioStream_stream: stream
+	<cdecl: sdword SDL_LockAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
@@ -400,6 +488,18 @@ maximizeWindow_window: window
 
 minimizeWindow_window: window
 	<cdecl: void SDL_MinimizeWindow SDL_Window*>
+	^self invalidCall: _failureCode!
+
+openAudioDevice_devid: devid spec: spec
+	<cdecl: dword SDL_OpenAudioDevice dword SDL_AudioSpec*>
+	^self invalidCall: _failureCode!
+
+openAudioDeviceStream_devid: devid spec: spec callback: callback userdata: userdata
+	<cdecl: SDL_AudioStream* SDL_OpenAudioDeviceStream dword SDL_AudioSpec* void* void*>
+	^self invalidCall: _failureCode!
+
+pauseAudioDevice_devid: devid
+	<cdecl: sdword SDL_PauseAudioDevice dword>
 	^self invalidCall: _failureCode!
 
 peepEvents_events: events numevents: numevents action: action minType: minType maxType: maxType
@@ -416,6 +516,10 @@ pumpEvents
 
 pushEvent_event: event
 	<cdecl: sdword SDL_PushEvent SDL_Event*>
+	^self invalidCall: _failureCode!
+
+putAudioStreamData_stream: stream buffer: buffer length: length
+	<cdecl: sdword SDL_PutAudioStreamData SDL_AudioStream* void* sdword>
 	^self invalidCall: _failureCode!
 
 queryTexture_texture: texture format: format access: access w: w h: h
@@ -487,6 +591,14 @@ renderTexture_renderer: renderer texture: texture srcrect: srcrect dstrect: dstr
 
 restoreWindow_window: window
 	<cdecl: void SDL_RestoreWindow SDL_Window*>
+	^self invalidCall: _failureCode!
+
+resumeAudioDevice_devid: devid
+	<cdecl: sdword SDL_ResumeAudioDevice dword>
+	^self invalidCall: _failureCode!
+
+setAudioStreamFormat_stream: stream sourceSpec: sourceSpec destinationSpec: destinationSpec
+	<cdecl: sdword SDL_SetAudioStreamFormat SDL_AudioStream* SDL_AudioSpec* SDL_AudioSpec*>
 	^self invalidCall: _failureCode!
 
 setCursor_cursor: cursor
@@ -561,6 +673,18 @@ showWindow_window: window
 	<cdecl: void SDL_ShowWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
+unbindAudioStream_stream: stream
+	<cdecl: void SDL_UnbindAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+unbindAudioStreams_streams: streams numStreams: numStreams
+	<cdecl: void SDL_BindAudioStreams SDL_AudioStream** sdword>
+	^self invalidCall: _failureCode!
+
+unlockAudioStream_stream: stream
+	<cdecl: sdword SDL_UnlockAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
 unlockTexture_texture: texture
 	<cdecl: sdword SDL_UnlockTexture SDL_Texture*>
 	^self invalidCall: _failureCode!
@@ -599,7 +723,13 @@ wasInit_flags: flags
 !SDL3Library categoriesForMethods!
 addEventWatch_filter:userdata:!events!public! !
 addTimer_interval:callback:param:!public!video! !
+audioDevicePaused_devid:!audio!public! !
+bindAudioStream_devid:stream:!audio!public! !
+bindAudioStreams_devid:streams:numStreams:!audio!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
+clearAudioStream_stream:!audio!public! !
+closeAudioDevice_devid:!audio!public! !
+createAudioStream_sourceSpec:destinationSpec:!audio!public! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createRenderer_window:name:flags:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
@@ -615,6 +745,7 @@ createWindowWithPosition_title:x:y:w:h:flags:!public!video! !
 delay_ms:!public!video! !
 delayNS_ns:!public!video! !
 delEventWatch_filter:userdata:!events!public! !
+destroyAudioStream_stream:!audio!public! !
 destroyCursor_cursor:!public! !
 destroyRenderer_renderer:!public!render! !
 destroySurface_surface:!public! !
@@ -623,6 +754,19 @@ destroyWindow_window:!public!video! !
 displayOrientation_displayIndex:!public!video! !
 enterAppMainCallbacks_argc:argv:appInit:appIter:appEvent:appQuit:!init!public! !
 flashWindow_window:operation:!public!video! !
+flushAudioStream_stream:!audio!public! !
+getAudioCaptureDevices_count:!audio!public! !
+getAudioDeviceFormat_devid:spec:sampleFrames:!audio!public! !
+getAudioDeviceName_devid:!audio!public! !
+getAudioDriver_index:!audio!public! !
+getAudioOutputDevices_count:!audio!public! !
+getAudioStreamAvailable_stream:!audio!public! !
+getAudioStreamDevice_stream:!audio!public! !
+getAudioStreamFormat_stream:sourceSpec:destinationSpec:!audio!public! !
+getAudioStreamFrequencyRatio_stream:!audio!public! !
+getAudioStreamProperties_stream:!audio!public! !
+getAudioStreamQueued_stream:!audio!public! !
+getCurrentAudioDriver!audio!public! !
 getCurrentDisplayMode_displayID:!public! !
 getCurrentVideoDriver!public!video! !
 getDesktopDisplayMode_displayIndex:mode:!public!video! !
@@ -635,6 +779,7 @@ getDisplayUsableBounds_displayIndex:rect:!public!video! !
 getError!error!public! !
 getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
+getNumAudioDrivers!audio!public! !
 getNumDisplayModes_displayIndex:!public!video! !
 getNumVideoDisplays!public!video! !
 getNumVideoDrivers!public!video! !
@@ -692,13 +837,18 @@ glUnloadLibrary!public!video! !
 hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
+lockAudioStream_stream:!audio!public! !
 lockTexture_texture:rect:pixels:pitch:!public!render! !
 maximizeWindow_window:!public!video! !
 minimizeWindow_window:!public!video! !
+openAudioDevice_devid:spec:!audio!public! !
+openAudioDeviceStream_devid:spec:callback:userdata:!audio!public! !
+pauseAudioDevice_devid:!audio!public! !
 peepEvents_events:numevents:action:minType:maxType:!events!public! !
 pollEvent_event:!events!public! !
 pumpEvents!events!public! !
 pushEvent_event:!events!public! !
+putAudioStreamData_stream:buffer:length:!audio!public! !
 queryTexture_texture:format:access:w:h:!public!render! !
 quit!init!public! !
 quitIfOpen!public! !
@@ -717,6 +867,8 @@ renderRect_renderer:rect:!public!render! !
 renderSetClipRect_renderer:rect:!public!render! !
 renderTexture_renderer:texture:srcrect:dstrect:!public! !
 restoreWindow_window:!public!video! !
+resumeAudioDevice_devid:!audio!public! !
+setAudioStreamFormat_stream:sourceSpec:destinationSpec:!audio!public! !
 setCursor_cursor:!events!public! !
 setEventFilter_filter:userdata:!events!public! !
 setHint_name:value:!public! !
@@ -735,6 +887,9 @@ setWindowPosition_window:x:y:!public!video! !
 setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
 showWindow_window:!public!video! !
+unbindAudioStream_stream:!audio!public! !
+unbindAudioStreams_streams:numStreams:!audio!public! !
+unlockAudioStream_stream:!audio!public! !
 unlockTexture_texture:!public!render! !
 updateTexture_texture:rect:pixels:pitch:!public!render! !
 updateWindowSurface_window:!public!video! !
@@ -749,8 +904,29 @@ wasInit_flags:!init!public! !
 !SDL3Library class methodsFor!
 
 fileName
-	^'SDL3'! !
+	^'SDL3'!
+
+testAudio
+	| sdl resultCode audioSpec audioDeviceId audioStream |
+	sdl := SDL3Library default.
+	resultCode := sdl initSubSystem_flags: 16.
+	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL audio subsystem'].
+	audioSpec := SDL_AudioSpec new.
+	sdl
+		getAudioDeviceFormat_devid: 16rFFFFFFFF
+		spec: audioSpec
+		sampleFrames: nil.
+	Transcript
+		display: audioSpec;
+		cr.
+	audioDeviceId := sdl openAudioDevice_devid: 16rFFFFFFFF spec: audioSpec.
+	audioStream := sdl createAudioStream_sourceSpec: audioSpec destinationSpec: audioSpec.
+	resultCode := sdl bindAudioStream_devid: audioDeviceId stream: audioStream.
+	resultCode < 0 ifTrue: [self error: 'Error binding audio stream'].
+	resultCode := sdl unbindAudioStream_stream: audioStream.
+	sdl quitSubSystem_flags: 16! !
 !SDL3Library class categoriesForMethods!
 fileName!public! !
+testAudio!public! !
 !
 
