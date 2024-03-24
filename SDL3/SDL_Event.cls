@@ -303,7 +303,7 @@ union_window: aSDL_WindowEvent
 		startingAt: 1!
 
 windowID
-	^self hasAssociatedWindow ifTrue: [bytes dwordAtOffset: 12] ifFalse: [nil]! !
+	^self hasAssociatedWindow ifTrue: [self union_window windowID] ifFalse: [nil]! !
 !SDL_Event categoriesForMethods!
 addHandler:!accessing!public! !
 asKeyboardEvent!public! !
