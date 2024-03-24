@@ -16,11 +16,22 @@ destroy
 flush
 	self library flushAudioStream_stream: self!
 
-putData: anExternalAddress length: anInteger
-	self library putAudioStreamData_stream: self buffer: anExternalAddress length: anInteger! !
+getAudioDevice
+	^self checkResult: (self library getAudioStreamDevice_stream: self)!
+
+putData: anExternalArray
+	self checkResult: (self library
+				putAudioStreamData_stream: self
+				buffer: anExternalArray yourAddress
+				length: anExternalArray byteSize)!
+
+putData: anExternalArray length: anInteger
+	self checkResult: (self library putAudioStreamData_stream: self buffer: anExternalArray yourAddress length: anInteger)! !
 !SDL_AudioStream categoriesForMethods!
 destroy!public! !
 flush!public! !
+getAudioDevice!public! !
+putData:!public! !
 putData:length:!public! !
 !
 
