@@ -273,7 +273,7 @@ SDL_Event subclass: #SDL_DropEvent
 	classInstanceVariableNames: ''!
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 SDL_Event subclass: #SDL_MouseButtonEvent

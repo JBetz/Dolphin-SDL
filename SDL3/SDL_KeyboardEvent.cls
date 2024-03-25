@@ -2,18 +2,19 @@
 
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 SDL_KeyboardEvent guid: (GUID fromString: '{b0932b16-56bc-43d2-9018-7c53e25f208b}')!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r18!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding2' value: 16r16!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding3' value: 16r17!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_repeat' value: 16r15!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r1C!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding2' value: 16r1A!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding3' value: 16r1B!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_repeat' value: 16r19!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_state' value: 16r14!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_state' value: 16r18!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_type' value: 16r0!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_which' value: 16r14!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
 SDL_KeyboardEvent comment: ''!
 !SDL_KeyboardEvent categoriesForClass!External-Data-Structured! !
@@ -186,26 +187,6 @@ keysym: aSDL_Keysym
 		to: ##(_OffsetOf_keysym + SDL_Keysym basicByteSize)
 		startingAt: 1!
 
-padding2
-	"Answer the <Integer> value of the receiver's 'padding2' field."
-
-	^bytes byteAtOffset: _OffsetOf_padding2!
-
-padding2: anInteger
-	"Set the receiver's 'padding2' field to the value of the argument, anInteger"
-
-	bytes byteAtOffset: _OffsetOf_padding2 put: anInteger!
-
-padding3
-	"Answer the <Integer> value of the receiver's 'padding3' field."
-
-	^bytes byteAtOffset: _OffsetOf_padding3!
-
-padding3: anInteger
-	"Set the receiver's 'padding3' field to the value of the argument, anInteger"
-
-	bytes byteAtOffset: _OffsetOf_padding3 put: anInteger!
-
 repeat
 	"Answer the <Integer> value of the receiver's 'repeat' field."
 
@@ -248,6 +229,16 @@ type: anInteger
 	"Set the receiver's 'type' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_type put: anInteger!
+
+which
+	"Answer the <Integer> value of the receiver's 'which' field."
+
+	^bytes dwordAtOffset: _OffsetOf_which!
+
+which: anInteger
+	"Set the receiver's 'which' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_which put: anInteger!
 
 windowID
 	"Answer the <Integer> value of the receiver's 'windowID' field."
@@ -383,10 +374,6 @@ isValidTextInput!public! !
 keyCode!public! !
 keysym!**compiled accessors**!public! !
 keysym:!**compiled accessors**!public! !
-padding2!**compiled accessors**!public! !
-padding2:!**compiled accessors**!public! !
-padding3!**compiled accessors**!public! !
-padding3:!**compiled accessors**!public! !
 repeat!**compiled accessors**!public! !
 repeat:!**compiled accessors**!public! !
 scanCode!public! !
@@ -396,6 +383,8 @@ timestamp!**compiled accessors**!public! !
 timestamp:!**compiled accessors**!public! !
 type!**compiled accessors**!public! !
 type:!**compiled accessors**!public! !
+which!**compiled accessors**!public! !
+which:!**compiled accessors**!public! !
 windowID!**compiled accessors**!public! !
 windowID:!**compiled accessors**!public! !
 windowsAlphabetKeyCode!private! !
@@ -415,7 +404,8 @@ defineFields
 	    Uint32 type;        /**< ::SDL_KEYDOWN or ::SDL_KEYUP */
 	    Uint32 reserved;
 	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    Uint32 windowID;    /**< The window with keyboard focus, if any */
+	    SDL_WindowID windowID;    /**< The window with keyboard focus, if any */
+	    SDL_KeyboardID which; /**< The keyboard instance id, or 0 if unknown or virtual */
 	    Uint8 state;        /**< ::SDL_PRESSED or ::SDL_RELEASED */
 	    Uint8 repeat;       /**< Non-zero if this is a key repeat */
 	    Uint8 padding2;
@@ -428,14 +418,15 @@ defineFields
 		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
+		defineField: #which type: DWORDField new;
 		defineField: #state type: BYTEField new;
 		defineField: #repeat type: BYTEField new;
-		defineField: #padding2 type: BYTEField new;
-		defineField: #padding3 type: BYTEField new;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller;
 		defineField: #keysym type: (StructureField type: SDL_Keysym)!
 
 getFieldNames
-	^#(#type #timestamp #windowID #state #repeat #padding2 #padding3 #keysym)! !
+	^#(#type #timestamp #windowID #which #state #repeat #keysym)! !
 !SDL_KeyboardEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
