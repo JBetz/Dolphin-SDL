@@ -99,7 +99,6 @@ isShiftKeyDown
 iterate
 	(sdlLibrary isNil or: [isProcessing]) ifTrue: [^self].
 	isProcessing := true.
-	
 	[self
 		pumpMessages;
 		updateWindows] ensure: [isProcessing := false]!
@@ -147,7 +146,7 @@ setHints
 startMessageLoopProcess
 	messageLoopProcess := 
 			[
-			[[self iterate] postToInputQueue.
+			[[self iterate] postToMessageQueue.
 			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
 					repeat]
 					forkAt: Processor userSchedulingPriority.
