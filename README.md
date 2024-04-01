@@ -12,5 +12,7 @@ You might want to use Dolphin-SDL if:
 ## Getting Started
 * Install [Dolphin Smalltalk 7.1](https://github.com/dolphinsmalltalk/Dolphin)
 * Install `SDL*.pax` in a Dolphin image
-* Download SDL's Windows 32-bit binaries: [SDL, SDL_ttf, SDL_image](https://github.com/JBetz/build-sdl3-win32/releases)
+* Download SDL's Windows 32-bit binaries
+** For the main library (SDL3.dll), a preview release is available at: https://github.com/libsdl-org/SDL/releases/tag/prerelease-3.1.0 
+** For the font and image libraries (SDL3_ttf.dll and SDL3_image.dll), the binaries can be downloaded from [build-sdl-win32](https://github.com/JBetz/build-sdl3-win32/releases) 
 * Unpack the zip file and copy DLLs into the same directory as the Dolphin image
