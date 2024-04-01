@@ -11,7 +11,7 @@ SDL_Renderer comment: ''!
 !SDL_Renderer methodsFor!
 
 clear
-	self library renderClear_renderer: self!
+	self checkResult: (self library renderClear_renderer: self)!
 
 createSurfaceFrom: pixels width: width height: height pitch: pitch format: format
 	| surface |
