@@ -569,6 +569,10 @@ renderLine_renderer: renderer x1: x1 y1: y1 x2: x2 y2: y2
 	<cdecl: sdword SDL_RenderLine SDL_Renderer* float float float float>
 	^self invalidCall: _failureCode!
 
+renderPoint_renderer: renderer x: x y: y
+	<cdecl: sdword SDL_RenderPoint SDL_Renderer* float float>
+	^self invalidCall: _failureCode!
+
 renderPresent_renderer: renderer
 	<cdecl: sdword SDL_RenderPresent SDL_Renderer*>
 	^self invalidCall: _failureCode!
@@ -671,6 +675,10 @@ setWindowTitle_window: window title: title
 
 showWindow_window: window
 	<cdecl: void SDL_ShowWindow SDL_Window*>
+	^self invalidCall: _failureCode!
+
+startTextInput
+	<cdecl: void SDL_StartTextInput>
 	^self invalidCall: _failureCode!
 
 unbindAudioStream_stream: stream
@@ -861,6 +869,7 @@ renderClipEnabled_renderer:!public!render! !
 renderFillRect_renderer:rect:!public!render! !
 renderGeometry_renderer:texture:vertices:numVertices:indices:numIndices:!public!render! !
 renderLine_renderer:x1:y1:x2:y2:!public! !
+renderPoint_renderer:x:y:!public! !
 renderPresent_renderer:!public!render! !
 renderReadPixels_renderer:rect:format:pixels:pitch:!public!render! !
 renderRect_renderer:rect:!public!render! !
@@ -887,6 +896,7 @@ setWindowPosition_window:x:y:!public!video! !
 setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
 showWindow_window:!public!video! !
+startTextInput!public!video! !
 unbindAudioStream_stream:!audio!public! !
 unbindAudioStreams_streams:numStreams:!audio!public! !
 unlockAudioStream_stream:!audio!public! !
