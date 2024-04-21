@@ -68,7 +68,7 @@ package classNames
 	add: #SDL3ImageLibrary;
 	add: #SDL3Library;
 	add: #SDL3TTFLibrary;
-	add: #SDLWindowManager;
+	add: #SDLInputState;
 	add: #TTF_Font;
 	add: #TTF_Object;
 	add: #TTFFontStyle;
@@ -102,7 +102,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -116,7 +116,7 @@ Object subclass: #Renderer2D
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
-Object subclass: #SDLWindowManager
+Object subclass: #SDLInputState
 	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
