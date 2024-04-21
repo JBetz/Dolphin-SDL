@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -13,7 +13,7 @@ Application comment: ''!
 calculateInitialExtent
 	| preferredExtent displayExtent |
 	preferredExtent := self preferredExtent.
-	displayExtent := SDLWindowManager new getDisplayExtent.
+	displayExtent := inputState getDisplayExtent.
 	^(preferredExtent x min: displayExtent x - 100) @ (preferredExtent y min: displayExtent y - 100)!
 
 close
@@ -27,7 +27,7 @@ closeRenderer
 
 closeWindow
 	window ifNil: [^self].
-	SDLWindowManager new closeWindow: window getID.
+	inputState closeWindow: window getID.
 	window := nil!
 
 createRenderer
@@ -37,7 +37,7 @@ createRenderer
 	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND!
 
 createWindow
-	window := SDLWindowManager new
+	window := inputState
 				createWindow: self class name asHumanPhrase
 				extent: self calculateInitialExtent
 				flags: SDL_WINDOW_RESIZABLE
@@ -59,6 +59,7 @@ height
 
 initialize
 	super initialize.
+	inputState := SDLInputState current.
 	isDirty := true!
 
 isDirty
@@ -161,7 +162,7 @@ setWindowTitle: aString
 	| title |
 	window ifNil: [^self].
 	title := aString ifNotNil: [aString] ifNil: [self class name asHumanPhrase].
-	window setTitle: title!
+	window setTitle: title asUtf8String!
 
 top
 	^self rectangle top!
