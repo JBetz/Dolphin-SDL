@@ -103,6 +103,13 @@ drawImage: aFilePath rectangle: aRectangle zIndex: anInteger
 				rectangle: aRectangle;
 				zIndex: anInteger)!
 
+drawLineFrom: startPoint to: endPoint color: color zIndex: zIndex
+	self addCommand: (DrawLine new
+				start: startPoint;
+				end: endPoint;
+				color: color;
+				zIndex: zIndex)!
+
 drawLineFrom: startPoint to: endPoint width: width color: color zIndex: zIndex
 	self addCommand: (DrawLine new
 				start: startPoint;
@@ -110,6 +117,12 @@ drawLineFrom: startPoint to: endPoint width: width color: color zIndex: zIndex
 				width: width;
 				color: color;
 				zIndex: zIndex)!
+
+drawLineFrom: startPoint to: endPoint zIndex: anInteger 
+	self addCommand: (DrawLine new
+				start: startPoint;
+				end: endPoint;
+				zIndex: anInteger)!
 
 drawRectangle: aRectangle
 	self drawRectangle: aRectangle color: Color black!
@@ -217,7 +230,7 @@ executeDrawLine: aDrawLine
 
 executeDrawRectangle: aDrawRectangle
 	aDrawRectangle color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
-	sdlRenderer drawRectangle: aDrawRectangle rectangle!
+	sdlRenderer renderRectangle: aDrawRectangle rectangle!
 
 executeDrawString: aDrawString
 	| texture |
@@ -247,7 +260,7 @@ executeDrawTexture: aDrawTexture
 	| texture destinationRectangle |
 	texture := aDrawTexture texture.
 	texture ifNil: [^self].
-	destinationRectangle := aDrawTexture stretch
+	destinationRectangle := aDrawTexture stretch 
 				ifTrue: [aDrawTexture rectangle]
 				ifFalse: 
 					[| textureExtent |
@@ -351,36 +364,6 @@ lookupFont: aString pointSize: anInteger
 		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: fontFileName pointSize: anInteger)].
 	^font!
 
-measureString: aString fontSize: anInteger
-	^self
-		measureString: aString
-		fontSize: anInteger
-		fontStyle: TTFFontStyle normal!
-
-measureString: aString fontSize: anInteger fontStyle: aFontStyle
-	| font origin extent |
-	font := self lookupFont: self defaultFontFile pointSize: anInteger.
-	font setStyle: (aFontStyle ifNil: [TTFFontStyle normal]).
-	origin := 0 @ 0.
-	extent := font sizeText: aString.
-	^Rectangle origin: origin extent: extent!
-
-measureString: aString inRectangle: aRectangle fontSize: anInteger fontStyle: aFontStyle
-	| font origin extent |
-	font := self lookupFont: self defaultFontFile pointSize: anInteger.
-	font setStyle: (aFontStyle ifNil: [TTFFontStyle normal]).
-	origin := aRectangle origin.
-	aRectangle width = 0
-		ifTrue: [extent := font sizeText: aString]
-		ifFalse: 
-			[| surface |
-			surface := font
-						renderUTF8BlendedWrapped: aString
-						color: Color black
-						wrapLength: aRectangle width.
-			extent := surface isNull ifTrue: [0 @ 0] ifFalse: [surface w @ surface h]].
-	^Rectangle origin: origin extent: extent!
-
 offset
 	^offset!
 
@@ -477,7 +460,9 @@ disable!public! !
 drawArrowFrom:to:width:color:zIndex:!accessing!public! !
 drawCount!public! !
 drawImage:rectangle:zIndex:!accessing!public! !
+drawLineFrom:to:color:zIndex:!public! !
 drawLineFrom:to:width:color:zIndex:!accessing!public! !
+drawLineFrom:to:zIndex:!public! !
 drawRectangle:!public! !
 drawRectangle:color:!public! !
 drawRectangle:color:width:zIndex:!public! !
@@ -512,9 +497,6 @@ forceRender:!public! !
 initialize!public! !
 isEnabled!public! !
 lookupFont:pointSize:!public! !
-measureString:fontSize:!public! !
-measureString:fontSize:fontStyle:!public! !
-measureString:inRectangle:fontSize:fontStyle:!public! !
 offset!public! !
 offset:!public! !
 present!public! !
