@@ -18,10 +18,6 @@ fontLineSkip_font: font
 	<cdecl: sdword TTF_FontLineSkip TTF_Font*>
 	^self invalidCall: _failureCode!
 
-getError
-	<cdecl: lpstr TTF_GetError>
-	^self invalidCall: _failureCode!
-
 getFontKerningSizeGlyphs32_font: font previousCh: previousCh ch: ch
 	<cdecl: sdword TTF_GetFontKerningSizeGlyphs32 TTF_Font* dword dword>
 	^self invalidCall: _failureCode!
@@ -123,7 +119,6 @@ wasInit
 !SDL3TTFLibrary categoriesForMethods!
 closeFont_font:!public! !
 fontLineSkip_font:!public! !
-getError!public! !
 getFontKerningSizeGlyphs32_font:previousCh:ch:!public! !
 glyphMetrics32_font:ch:minx:maxx:miny:maxy:advance:!public! !
 init!public! !

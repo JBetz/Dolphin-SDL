@@ -12,8 +12,8 @@ TTF_Object comment: ''!
 
 checkResult: anObject
 	anObject
-		ifNil: [Error signal: self library getError]
-		ifNotNil: [anObject isInteger ifTrue: [anObject = -1 ifTrue: [Error signal: self library getError]]].
+		ifNil: [Error signal: SDL3Library default getError]
+		ifNotNil: [anObject isInteger ifTrue: [anObject = -1 ifTrue: [Error signal: SDL3Library default getError]]].
 	^anObject!
 
 destroy
@@ -37,4 +37,3 @@ free!public! !
 initialize!public! !
 library!public! !
 !
-
