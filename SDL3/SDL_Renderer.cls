@@ -52,17 +52,6 @@ createTextureFromSurface: aSDL_Surface
 destroy
 	self library destroyRenderer_renderer: self!
 
-drawLineFrom: start to: end
-	self library
-		renderLine_renderer: self
-		x1: start x
-		y1: start y
-		x2: end x
-		y2: end y!
-
-drawRectangle: aRectangle
-	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
-
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
 
@@ -103,6 +92,20 @@ renderGeometry: texture vertices: vertices indices: indices
 		indices: (SDWORDArray withAll: indices)
 		numIndices: indices size!
 
+renderLineFrom: start to: end
+	self library
+		renderLine_renderer: self
+		x1: start x
+		y1: start y
+		x2: end x
+		y2: end y!
+
+renderPoint: aPoint
+	self library
+		renderPoint_renderer: self
+		x: aPoint x
+		y: aPoint y!
+
 renderReadPixels: aRectangle format: anInteger pixels: pixels pitch: pitch
 	self checkResult: (self library
 				renderReadPixels_renderer: self
@@ -110,6 +113,9 @@ renderReadPixels: aRectangle format: anInteger pixels: pixels pitch: pitch
 				format: anInteger
 				pixels: pixels
 				pitch: pitch)!
+
+renderRectangle: aRectangle
+	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
 
 renderTexture: texture source: source destination: destination
 	self library
@@ -153,8 +159,6 @@ createSurfaceFrom_pixels:width:height:pitch:format:!public! !
 createTexture:access:!public! !
 createTextureFromSurface:!public! !
 destroy!public! !
-drawLineFrom:to:!public! !
-drawRectangle:!public! !
 fillRectangle:!public! !
 getRenderTarget!public! !
 getScale!public! !
@@ -162,7 +166,10 @@ getWindow!public! !
 present!public! !
 renderGeometry:vertices:!public! !
 renderGeometry:vertices:indices:!public! !
+renderLineFrom:to:!public! !
+renderPoint:!public! !
 renderReadPixels:format:pixels:pitch:!public! !
+renderRectangle:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !
 resetScale!public! !
