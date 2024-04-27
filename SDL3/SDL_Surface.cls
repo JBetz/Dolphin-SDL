@@ -48,6 +48,12 @@ h
 
 	^bytes sdwordAtOffset: _OffsetOf_h!
 
+isSurface
+	^true!
+
+isTexture
+	^false!
+
 list_blitmap
 	"Answer the <ExternalAddress> value of the receiver's 'list_blitmap' field."
 
@@ -122,6 +128,8 @@ extent!public! !
 flags!public! !
 format!public! !
 h!public! !
+isSurface!public! !
+isTexture!public! !
 list_blitmap!public! !
 list_blitmap:!public! !
 locked!public! !

@@ -56,6 +56,12 @@ isPainted
 isPainted: aBoolean
 	isPainted := aBoolean!
 
+isSurface
+	^false!
+
+isTexture
+	^true!
+
 lock
 	^self lockRectangle: nil!
 
@@ -94,6 +100,8 @@ getFormat!public! !
 getWidth!public! !
 isPainted!public! !
 isPainted:!public! !
+isSurface!public! !
+isTexture!public! !
 lock!public! !
 lockRectangle:!public! !
 unlock!public! !
