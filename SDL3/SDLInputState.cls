@@ -203,6 +203,7 @@ windows!public! !
 !SDLInputState class methodsFor!
 
 current
+	Singleton ifNil: [Singleton := super new initialize].
 	^Singleton!
 
 initialize
@@ -217,8 +218,7 @@ initialize
 			to: self!
 
 new
-	Singleton ifNil: [Singleton := super new initialize].
-	^Singleton!
+	^self shouldNotImplement!
 
 onShutdown
 	Singleton ifNotNil: [Singleton stop]!
