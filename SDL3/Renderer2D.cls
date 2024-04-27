@@ -377,10 +377,8 @@ resetClip
 	clip := nil!
 
 saveTexture: aSDLTexture fileName: aString
-	| extent format bytesPerPixel newTexture pixels surface |
+	| extent newTexture surface |
 	extent := aSDLTexture getExtent.
-	format := aSDLTexture getFormat.
-	bytesPerPixel := 4.
 	newTexture := self createTargetTexture: extent.
 	sdlRenderer
 		setRenderTarget: newTexture;
@@ -389,19 +387,9 @@ saveTexture: aSDLTexture fileName: aString
 		renderTexture: aSDLTexture
 			source: nil
 			destination: nil.
-	pixels := DWORDArray new: extent x * extent y * bytesPerPixel.
-	sdlRenderer
-		renderReadPixels: nil
-		format: format
-		pixels: pixels
-		pitch: extent x * bytesPerPixel.
-	surface := sdlRenderer
-				createSurfaceFrom: pixels
-				width: extent x
-				height: extent y
-				pitch: extent x * bytesPerPixel
-				format: format.
-	surface saveAsPNG: aString!
+	surface := sdlRenderer renderReadPixels: nil.
+	surface saveAsPNG: aString.
+	^surface!
 
 sdlRenderer: aSDL_Renderer
 	sdlRenderer := aSDL_Renderer!

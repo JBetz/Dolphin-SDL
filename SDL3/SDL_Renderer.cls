@@ -106,13 +106,9 @@ renderPoint: aPoint
 		x: aPoint x
 		y: aPoint y!
 
-renderReadPixels: aRectangle format: anInteger pixels: pixels pitch: pitch
-	self checkResult: (self library
-				renderReadPixels_renderer: self
-				rect: (aRectangle ifNotNil: [aRectangle asSDLRect])
-				format: anInteger
-				pixels: pixels
-				pitch: pitch)!
+renderReadPixels: aRectangle
+	^self checkResult: (self library renderReadPixels_renderer: self
+				rect: (aRectangle ifNotNil: [aRectangle asSDLRect]))!
 
 renderRectangle: aRectangle
 	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
@@ -168,7 +164,7 @@ renderGeometry:vertices:!public! !
 renderGeometry:vertices:indices:!public! !
 renderLineFrom:to:!public! !
 renderPoint:!public! !
-renderReadPixels:format:pixels:pitch:!public! !
+renderReadPixels:!public! !
 renderRectangle:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !

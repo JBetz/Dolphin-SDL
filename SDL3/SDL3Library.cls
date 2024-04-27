@@ -577,8 +577,8 @@ renderPresent_renderer: renderer
 	<cdecl: sdword SDL_RenderPresent SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
-renderReadPixels_renderer: renderer rect: rect format: format pixels: pixels pitch: pitch
-	<cdecl: sdword SDL_RenderReadPixels SDL_Renderer* SDL_Rect* dword void* sdword>
+renderReadPixels_renderer: renderer rect: rect
+	<cdecl: SDL_Surface* SDL_RenderReadPixels SDL_Renderer* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 renderRect_renderer: renderer rect: rect
@@ -871,7 +871,7 @@ renderGeometry_renderer:texture:vertices:numVertices:indices:numIndices:!public!
 renderLine_renderer:x1:y1:x2:y2:!public! !
 renderPoint_renderer:x:y:!public! !
 renderPresent_renderer:!public!render! !
-renderReadPixels_renderer:rect:format:pixels:pitch:!public!render! !
+renderReadPixels_renderer:rect:!public!render! !
 renderRect_renderer:rect:!public!render! !
 renderSetClipRect_renderer:rect:!public!render! !
 renderTexture_renderer:texture:srcrect:dstrect:!public! !
