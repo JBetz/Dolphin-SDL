@@ -8,8 +8,6 @@ package classNames
 	add: #Application;
 	add: #DrawBezierCurve;
 	add: #DrawBitmap;
-	add: #DrawImage;
-	add: #DrawJPEG;
 	add: #DrawLine;
 	add: #DrawRectangle;
 	add: #DrawString;
@@ -371,11 +369,6 @@ RenderCommand subclass: #DrawBitmap
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-RenderCommand subclass: #DrawImage
-	instanceVariableNames: 'rectangle filePath'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 RenderCommand subclass: #DrawLine
 	instanceVariableNames: 'start end color width'
 	classVariableNames: ''
@@ -403,11 +396,6 @@ RenderCommand subclass: #DrawTexture
 	classInstanceVariableNames: ''!
 RenderCommand subclass: #FillCommand
 	instanceVariableNames: 'color'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-DrawImage subclass: #DrawJPEG
-	instanceVariableNames: 'data'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

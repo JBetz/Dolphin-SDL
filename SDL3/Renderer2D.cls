@@ -97,12 +97,6 @@ drawCount
 	renderQueue do: [:each | count := count + each size].
 	^count!
 
-drawImage: aFilePath rectangle: aRectangle zIndex: anInteger
-	self addCommand: (DrawImage new
-				filePath: aFilePath;
-				rectangle: aRectangle;
-				zIndex: anInteger)!
-
 drawLineFrom: startPoint to: endPoint color: color zIndex: zIndex
 	self addCommand: (DrawLine new
 				start: startPoint;
@@ -447,7 +441,6 @@ defaultFontFile!public! !
 disable!public! !
 drawArrowFrom:to:width:color:zIndex:!accessing!public! !
 drawCount!public! !
-drawImage:rectangle:zIndex:!accessing!public! !
 drawLineFrom:to:color:zIndex:!public! !
 drawLineFrom:to:width:color:zIndex:!accessing!public! !
 drawLineFrom:to:zIndex:!public! !
@@ -506,3 +499,4 @@ new
 !Renderer2D class categoriesForMethods!
 new!public! !
 !
+
