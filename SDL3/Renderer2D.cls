@@ -220,7 +220,7 @@ execute: aRenderCommand
 
 executeDrawLine: aDrawLine
 	aDrawLine color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
-	sdlRenderer drawLineFrom: aDrawLine start to: aDrawLine end!
+	sdlRenderer renderLineFrom: aDrawLine start to: aDrawLine end!
 
 executeDrawRectangle: aDrawRectangle
 	aDrawRectangle color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
