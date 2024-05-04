@@ -33,14 +33,15 @@ closeWindow
 createRenderer
 	| sdlRenderer |
 	sdlRenderer := window createRenderer.
+	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND.
 	renderer := Renderer2D new sdlRenderer: sdlRenderer.
-	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND!
+!
 
 createWindow
 	window := inputState
 				createWindow: self class name asHumanPhrase
 				extent: self calculateInitialExtent
-				flags: SDL_WINDOW_RESIZABLE
+				flags: self windowFlags
 				for: self!
 
 cursor: aSymbol
@@ -74,6 +75,11 @@ markDirty
 mousePosition
 	^mousePosition ifNil: [0 @ 0]!
 
+onCreated
+	self
+		createWindow;
+		createRenderer!
+
 onEvent: aSDLEvent
 	| event selector |
 	event := aSDLEvent convertToSubclass.
@@ -104,11 +110,6 @@ onTextInput: aTextInputEvent!
 
 onUser: aUserEvent
 	self markDirty!
-
-onViewCreated
-	self
-		createWindow;
-		createRenderer!
 
 onWindowCloseRequested: aWindowEvent
 	self close!
@@ -179,6 +180,9 @@ width
 window
 	^window!
 
+windowFlags
+	^SDL_WINDOW_RESIZABLE!
+
 windowPosition
 	^window ifNotNil: [window getPosition]! !
 !Application categoriesForMethods!
@@ -186,7 +190,7 @@ calculateInitialExtent!private! !
 close!public! !
 closeRenderer!public! !
 closeWindow!public! !
-createRenderer!private! !
+createRenderer!public! !
 createWindow!public! !
 cursor:!public! !
 extent!public! !
@@ -196,6 +200,7 @@ isDirty!public! !
 left!public! !
 markDirty!public! !
 mousePosition!public! !
+onCreated!public! !
 onEvent:!public! !
 onKeyDown:!event handling!public! !
 onKeyUp:!event handling!public! !
@@ -206,7 +211,6 @@ onMouseWheel:!event handling!public! !
 onTextEditing:!public! !
 onTextInput:!event handling!public! !
 onUser:!event handling!public! !
-onViewCreated!public! !
 onWindowCloseRequested:!event handling!public! !
 onWindowDestroyed:!event handling!public! !
 onWindowDisplayChanged:!public! !
@@ -234,6 +238,7 @@ update!public! !
 viewport!public! !
 width!public! !
 window!accessing!public! !
+windowFlags!public! !
 windowPosition!public! !
 !
 
