@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-RenderCommand subclass: #DrawTexture
-	instanceVariableNames: 'texture rectangle stretch'
+DrawImage subclass: #DrawTexture
+	instanceVariableNames: 'texture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,33 +10,12 @@ DrawTexture comment: ''!
 !DrawTexture categoriesForClass!Kernel-Objects! !
 !DrawTexture methodsFor!
 
-initialize
-	super initialize.
-	stretch := false!
-
-rectangle
-	^rectangle!
-
-rectangle: anObject
-	rectangle := anObject!
-
-stretch
-	^stretch!
-
-stretch: anObject
-	stretch := anObject!
-
 texture
 	^texture!
 
 texture: anObject
 	texture := anObject! !
 !DrawTexture categoriesForMethods!
-initialize!public! !
-rectangle!accessing!public! !
-rectangle:!accessing!public! !
-stretch!accessing!public! !
-stretch:!accessing!public! !
 texture!accessing!public! !
 texture:!accessing!public! !
 !

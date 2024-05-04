@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-RenderCommand subclass: #DrawSurface
-	instanceVariableNames: 'surface rectangle stretch'
+DrawImage subclass: #DrawSurface
+	instanceVariableNames: 'surface'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -10,28 +10,12 @@ DrawSurface comment: ''!
 !DrawSurface categoriesForClass!Kernel-Objects! !
 !DrawSurface methodsFor!
 
-rectangle
-	^rectangle!
-
-rectangle: anObject
-	rectangle := anObject!
-
-stretch
-	^stretch!
-
-stretch: anObject
-	stretch := anObject!
-
 surface
 	^surface!
 
 surface: anObject
 	surface := anObject! !
 !DrawSurface categoriesForMethods!
-rectangle!accessing!public! !
-rectangle:!accessing!public! !
-stretch!accessing!public! !
-stretch:!accessing!public! !
 surface!accessing!public! !
 surface:!accessing!public! !
 !

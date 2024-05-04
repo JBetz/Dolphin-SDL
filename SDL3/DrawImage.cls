@@ -1,35 +1,59 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 RenderCommand subclass: #DrawImage
-	instanceVariableNames: 'rectangle filePath'
+	instanceVariableNames: 'image rectangle stretch'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-DrawImage guid: (GUID fromString: '{e179d881-b7e0-43c2-9d8e-d0d44865002b}')!
+DrawImage guid: (GUID fromString: '{856cfa9c-5e3b-4589-834b-7abacb4c36c5}')!
 DrawImage comment: ''!
 !DrawImage categoriesForClass!Kernel-Objects! !
 !DrawImage methodsFor!
 
-applyOffset: aPoint
-	rectangle := Rectangle origin: (rectangle origin x + aPoint x) @ (rectangle origin y + aPoint y)
-				corner: (rectangle corner x + aPoint x) @ (rectangle corner y + aPoint y)!
+asDrawSurface
+	^DrawSurface new
+		surface: image;
+		rectangle: rectangle;
+		stretch: stretch;
+		zIndex: zIndex!
 
-filePath
-	^filePath!
+asDrawTexture
+	^DrawTexture new
+		texture: image;
+		rectangle: rectangle;
+		stretch: stretch;
+		zIndex: zIndex!
 
-filePath: anObject
-	filePath := anObject!
+image
+	^image!
+
+image: anObject
+	image := anObject!
+
+initialize
+	super initialize.
+	stretch := false!
 
 rectangle
 	^rectangle!
 
 rectangle: anObject
-	rectangle := anObject! !
+	rectangle := anObject!
+
+stretch
+	^stretch!
+
+stretch: anObject
+	stretch := anObject! !
 !DrawImage categoriesForMethods!
-applyOffset:!public! !
-filePath!accessing!public! !
-filePath:!accessing!public! !
+asDrawSurface!public! !
+asDrawTexture!public! !
+image!accessing!public! !
+image:!accessing!public! !
+initialize!public! !
 rectangle!accessing!public! !
 rectangle:!accessing!public! !
+stretch!accessing!public! !
+stretch:!accessing!public! !
 !
 

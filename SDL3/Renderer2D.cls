@@ -97,6 +97,13 @@ drawCount
 	renderQueue do: [:each | count := count + each size].
 	^count!
 
+drawImage: anImage rectangle: aRectangle stretch: aBoolean zIndex: anInteger
+	self addCommand: (DrawImage new
+				image: anImage;
+				rectangle: aRectangle;
+				stretch: aBoolean;
+				zIndex: anInteger)!
+
 drawLineFrom: startPoint to: endPoint color: color zIndex: zIndex
 	self addCommand: (DrawLine new
 				start: startPoint;
@@ -217,6 +224,10 @@ execute: aRenderCommand
 	aRenderCommand clip ifNotNil: [:aRectangle | sdlRenderer setClip: aRectangle].
 	self perform: selector with: aRenderCommand.
 	aRenderCommand clip ifNotNil: [sdlRenderer resetClip]!
+
+executeDrawImage: aDrawImage
+	aDrawImage image isTexture ifTrue: [self executeDrawTexture: aDrawImage asDrawTexture].
+	aDrawImage image isSurface ifTrue: [self executeDrawSurface: aDrawImage asDrawSurface]!
 
 executeDrawLine: aDrawLine
 	aDrawLine color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
@@ -441,6 +452,7 @@ defaultFontFile!public! !
 disable!public! !
 drawArrowFrom:to:width:color:zIndex:!accessing!public! !
 drawCount!public! !
+drawImage:rectangle:stretch:zIndex:!accessing!public! !
 drawLineFrom:to:color:zIndex:!public! !
 drawLineFrom:to:width:color:zIndex:!accessing!public! !
 drawLineFrom:to:zIndex:!public! !
@@ -461,6 +473,7 @@ drawTexture:rectangle:zIndex:!accessing!public! !
 duplicateTexture:!public! !
 enable!public! !
 execute:!private! !
+executeDrawImage:!executing!private! !
 executeDrawLine:!executing!private! !
 executeDrawRectangle:!executing!private! !
 executeDrawString:!executing!private! !

@@ -7,7 +7,7 @@ package paxVersion: 1;
 package classNames
 	add: #Application;
 	add: #DrawBezierCurve;
-	add: #DrawBitmap;
+	add: #DrawImage;
 	add: #DrawLine;
 	add: #DrawRectangle;
 	add: #DrawString;
@@ -364,8 +364,8 @@ RenderCommand subclass: #DrawBezierCurve
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-RenderCommand subclass: #DrawBitmap
-	instanceVariableNames: 'bitmap rectangle'
+RenderCommand subclass: #DrawImage
+	instanceVariableNames: 'image rectangle stretch'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -379,23 +379,23 @@ RenderCommand subclass: #DrawRectangle
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-RenderCommand subclass: #DrawSurface
-	instanceVariableNames: 'surface rectangle stretch'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
 RenderCommand subclass: #DrawText
 	instanceVariableNames: 'color font rectangle fontSize fontStyle'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-RenderCommand subclass: #DrawTexture
-	instanceVariableNames: 'texture rectangle stretch'
+RenderCommand subclass: #FillCommand
+	instanceVariableNames: 'color'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
-RenderCommand subclass: #FillCommand
-	instanceVariableNames: 'color'
+DrawImage subclass: #DrawSurface
+	instanceVariableNames: 'surface'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+DrawImage subclass: #DrawTexture
+	instanceVariableNames: 'texture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
