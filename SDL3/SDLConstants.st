@@ -250,9 +250,7 @@ SDLConstants at: 'SDL_PIXELTYPE_PACKED16' put: 16r5!
 SDLConstants at: 'SDL_PIXELTYPE_PACKED32' put: 16r6!
 SDLConstants at: 'SDL_PIXELTYPE_PACKED8' put: 16r4!
 SDLConstants at: 'SDL_PIXELTYPE_UNKNOWN' put: 16r0!
-SDLConstants at: 'SDL_RENDERER_ACCELERATED' put: 16r2!
 SDLConstants at: 'SDL_RENDERER_PRESENTVSYNC' put: 16r4!
-SDLConstants at: 'SDL_RENDERER_SOFTWARE' put: 16r1!
 SDLConstants at: 'SDL_SCANCODE_0' put: 16r27!
 SDLConstants at: 'SDL_SCANCODE_1' put: 16r1E!
 SDLConstants at: 'SDL_SCANCODE_2' put: 16r1F!
