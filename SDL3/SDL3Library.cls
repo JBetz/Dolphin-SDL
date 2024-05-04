@@ -82,8 +82,8 @@ createWindow_title: title w: w h: h flags: flags
 	<cdecl: SDL_Window* SDL_CreateWindow lpstr sdword sdword dword>
 	^self invalidCall: _failureCode!
 
-createWindowAndRenderer_width: width height: height windowFlags: windowFlags window: window renderer: renderer
-	<cdecl: sdword SDL_CreateWindowAndRenderer sdword sdword dword SDL_Window* SDL_Renderer*>
+createWindowAndRenderer_title: title width: width height: height windowFlags: windowFlags window: window renderer: renderer
+	<cdecl: sdword SDL_CreateWindowAndRenderer lpstr sdword sdword dword SDL_Window* SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 createWindowFrom_data: data
@@ -747,7 +747,7 @@ createSystemCursor_id:!events!public! !
 createTexture_renderer:format:access:w:h:!public!render! !
 createTextureFromSurface_renderer:surface:!public!render! !
 createWindow_title:w:h:flags:!public!video! !
-createWindowAndRenderer_width:height:windowFlags:window:renderer:!public!render! !
+createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
 createWindowFrom_data:!public!video! !
 createWindowWithPosition_title:x:y:w:h:flags:!public!video! !
 delay_ms:!public!video! !
