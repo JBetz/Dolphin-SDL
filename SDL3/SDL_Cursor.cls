@@ -5,9 +5,13 @@ SDL_Object subclass: #SDL_Cursor
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Cursor guid: (GUID fromString: '{5104b28a-0cf4-44bf-bc3c-85f9fdd3235d}')!
+
 SDL_Cursor comment: ''!
+
 !SDL_Cursor categoriesForClass!Kernel-Objects! !
+
 !SDL_Cursor methodsFor!
 
 destroy
@@ -21,6 +25,7 @@ name
 
 name: anObject
 	name := anObject! !
+
 !SDL_Cursor categoriesForMethods!
 destroy!public! !
 makeCurrent!public! !
@@ -68,6 +73,7 @@ wait
 
 waitArrow
 	^self systemCursor: SDL_SYSTEM_CURSOR_WAITARROW! !
+
 !SDL_Cursor class categoriesForMethods!
 arrow!public! !
 hand!public! !

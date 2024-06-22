@@ -5,9 +5,13 @@ Object subclass: #Renderer2D
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
+
 Renderer2D guid: (GUID fromString: '{9be79942-98a4-44d7-8072-de4700712167}')!
+
 Renderer2D comment: ''!
+
 !Renderer2D categoriesForClass!Kernel-Objects! !
+
 !Renderer2D methodsFor!
 
 addCommand: aDrawCommand
@@ -436,6 +440,7 @@ withoutOffsetDo: aBlock
 	offset := 0@0.
 	aBlock value.
 	offset := currentOffset! !
+
 !Renderer2D categoriesForMethods!
 addCommand:!private! !
 addOffset:!private! !
@@ -509,6 +514,7 @@ withoutOffsetDo:!public! !
 
 new
 	^super new initialize! !
+
 !Renderer2D class categoriesForMethods!
 new!public! !
 !

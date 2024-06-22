@@ -5,7 +5,9 @@ SDL_Event subclass: #SDL_TextEditingEvent
 	classVariableNames: '_OffsetOf_length _OffsetOf_reserved _OffsetOf_start _OffsetOf_text _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_TextEditingEvent guid: (GUID fromString: '{0258ccbb-5f47-499c-9c64-eedb44b62e2b}')!
+
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_length' value: 16r58!
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_start' value: 16r54!
@@ -13,8 +15,11 @@ SDL_TextEditingEvent addClassConstant: '_OffsetOf_text' value: 16r14!
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_type' value: 16r0!
 SDL_TextEditingEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
+
 SDL_TextEditingEvent comment: ''!
+
 !SDL_TextEditingEvent categoriesForClass!External-Data-Structured! !
+
 !SDL_TextEditingEvent methodsFor!
 
 length
@@ -83,6 +88,7 @@ windowID: anInteger
 	"Set the receiver's 'windowID' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_windowID put: anInteger! !
+
 !SDL_TextEditingEvent categoriesForMethods!
 length!**compiled accessors**!public! !
 length:!**compiled accessors**!public! !
@@ -132,6 +138,7 @@ defineFields
 
 getFieldNames
 	^#(#type #timestamp #windowID #text #start #length)! !
+
 !SDL_TextEditingEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

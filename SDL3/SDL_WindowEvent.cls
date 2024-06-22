@@ -5,15 +5,20 @@ SDL_Event subclass: #SDL_WindowEvent
 	classVariableNames: '_OffsetOf_data1 _OffsetOf_data2 _OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type _OffsetOf_windowID'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_WindowEvent guid: (GUID fromString: '{efce64d5-b7a9-4cff-819b-70f60ba1e5b6}')!
+
 SDL_WindowEvent addClassConstant: '_OffsetOf_data1' value: 16r14!
 SDL_WindowEvent addClassConstant: '_OffsetOf_data2' value: 16r18!
 SDL_WindowEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
 SDL_WindowEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_WindowEvent addClassConstant: '_OffsetOf_type' value: 16r0!
 SDL_WindowEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
+
 SDL_WindowEvent comment: ''!
+
 !SDL_WindowEvent categoriesForClass!External-Data-Structured! !
+
 !SDL_WindowEvent methodsFor!
 
 data1
@@ -110,6 +115,7 @@ windowID: anInteger
 	"Set the receiver's 'windowID' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_windowID put: anInteger! !
+
 !SDL_WindowEvent categoriesForMethods!
 data1!**compiled accessors**!public! !
 data1:!**compiled accessors**!public! !
@@ -166,6 +172,7 @@ defineFields
 
 getFieldNames
 	^#(#type #timestamp #windowID #data1 #data2)! !
+
 !SDL_WindowEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

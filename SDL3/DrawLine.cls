@@ -5,9 +5,13 @@ RenderCommand subclass: #DrawLine
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 DrawLine guid: (GUID fromString: '{fd5096a2-6069-41e3-96a8-ad80448a7a92}')!
+
 DrawLine comment: ''!
+
 !DrawLine categoriesForClass!Kernel-Objects! !
+
 !DrawLine methodsFor!
 
 applyOffset: aPoint
@@ -37,6 +41,7 @@ width
 
 width: anObject
 	width := anObject! !
+
 !DrawLine categoriesForMethods!
 applyOffset:!public! !
 color!accessing!public! !

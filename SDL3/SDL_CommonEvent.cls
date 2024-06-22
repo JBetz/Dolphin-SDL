@@ -5,12 +5,17 @@ SDL_Event subclass: #SDL_CommonEvent
 	classVariableNames: '_OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_CommonEvent guid: (GUID fromString: '{05fe376e-500c-4a8b-8574-5f0afa101309}')!
+
 SDL_CommonEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
 SDL_CommonEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_CommonEvent addClassConstant: '_OffsetOf_type' value: 16r0!
+
 SDL_CommonEvent comment: ''!
+
 !SDL_CommonEvent categoriesForClass!External-Data-Structured! !
+
 !SDL_CommonEvent methodsFor!
 
 timestamp
@@ -32,6 +37,7 @@ type: anInteger
 	"Set the receiver's 'type' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_type put: anInteger! !
+
 !SDL_CommonEvent categoriesForMethods!
 timestamp!**compiled accessors**!public! !
 timestamp:!**compiled accessors**!public! !
@@ -58,6 +64,7 @@ defineFields
 
 getFieldNames
 	^#(#type #timestamp)! !
+
 !SDL_CommonEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

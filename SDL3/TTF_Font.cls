@@ -5,9 +5,13 @@ TTF_Object subclass: #TTF_Font
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 TTF_Font guid: (GUID fromString: '{585b18c9-4dea-447c-af6d-2d9852b57b07}')!
+
 TTF_Font comment: ''!
+
 !TTF_Font categoriesForClass!External-Data-Structured! !
+
 !TTF_Font methodsFor!
 
 close
@@ -68,6 +72,7 @@ sizeText: aString
 				w: width
 				h: height).
 	^width value @ height value! !
+
 !TTF_Font categoriesForMethods!
 close!public! !
 destroy!public! !
@@ -85,6 +90,7 @@ sizeText:!public! !
 
 fromFile: aString pointSize: anInteger
 	^(SDL3TTFLibrary default openFont_file: aString ptsize: anInteger) initialize! !
+
 !TTF_Font class categoriesForMethods!
 fromFile:pointSize:!public! !
 !

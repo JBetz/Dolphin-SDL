@@ -5,9 +5,13 @@ RenderCommand subclass: #DrawBezierCurve
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 DrawBezierCurve guid: (GUID fromString: '{6c1c924f-fec0-4f22-ac25-1d4ab5da81bf}')!
+
 DrawBezierCurve comment: ''!
+
 !DrawBezierCurve categoriesForClass!Unclassified! !
+
 !DrawBezierCurve methodsFor!
 
 color
@@ -27,6 +31,7 @@ width
 
 width: anObject
 	width := anObject! !
+
 !DrawBezierCurve categoriesForMethods!
 color!public! !
 color:!public! !

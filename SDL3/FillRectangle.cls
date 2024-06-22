@@ -5,9 +5,13 @@ FillCommand subclass: #FillRectangle
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 FillRectangle guid: (GUID fromString: '{86298fce-d92b-436c-9f3a-841458642813}')!
+
 FillRectangle comment: ''!
+
 !FillRectangle categoriesForClass!Kernel-Objects! !
+
 !FillRectangle methodsFor!
 
 applyOffset: aPoint
@@ -19,6 +23,7 @@ rectangle
 
 rectangle: anObject
 	rectangle := anObject! !
+
 !FillRectangle categoriesForMethods!
 applyOffset:!public! !
 rectangle!accessing!public! !

@@ -5,7 +5,9 @@ SDL_Object subclass: #SDL_Surface
 	classVariableNames: '_OffsetOf_clip_rect _OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_list_blitmap _OffsetOf_locked _OffsetOf_map _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_userdata _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Surface guid: (GUID fromString: '{3aabd7c9-80d5-4b61-8b6d-7b078df05699}')!
+
 SDL_Surface addClassConstant: '_OffsetOf_clip_rect' value: 16r24!
 SDL_Surface addClassConstant: '_OffsetOf_flags' value: 16r0!
 SDL_Surface addClassConstant: '_OffsetOf_format' value: 16r4!
@@ -18,8 +20,11 @@ SDL_Surface addClassConstant: '_OffsetOf_pixels' value: 16r14!
 SDL_Surface addClassConstant: '_OffsetOf_refcount' value: 16r38!
 SDL_Surface addClassConstant: '_OffsetOf_userdata' value: 16r18!
 SDL_Surface addClassConstant: '_OffsetOf_w' value: 16r8!
+
 SDL_Surface comment: ''!
+
 !SDL_Surface categoriesForClass!External-Data-Structured! !
+
 !SDL_Surface methodsFor!
 
 clip_rect
@@ -121,6 +126,7 @@ w
 	"Answer the <Integer> value of the receiver's 'w' field."
 
 	^bytes sdwordAtOffset: _OffsetOf_w! !
+
 !SDL_Surface categoriesForMethods!
 clip_rect!public! !
 destroy!public! !
@@ -214,6 +220,7 @@ newExtent: aPoint
 		createSurface_width: aPoint x
 		height: aPoint y
 		format: format! !
+
 !SDL_Surface class categoriesForMethods!
 defineFields!public! !
 fromFile:!public! !

@@ -5,12 +5,17 @@ ExternalStructure subclass: #SDL_Vertex
 	classVariableNames: '_OffsetOf_color _OffsetOf_position _OffsetOf_tex_coord'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Vertex guid: (GUID fromString: '{87ebc352-9aba-4986-aceb-11e278bf9866}')!
+
 SDL_Vertex addClassConstant: '_OffsetOf_color' value: 16r8!
 SDL_Vertex addClassConstant: '_OffsetOf_position' value: 16r0!
 SDL_Vertex addClassConstant: '_OffsetOf_tex_coord' value: 16rC!
+
 SDL_Vertex comment: ''!
+
 !SDL_Vertex categoriesForClass!External-Data-Structured! !
+
 !SDL_Vertex methodsFor!
 
 color
@@ -54,6 +59,7 @@ tex_coord: aSDL_FPoint
 		from: ##(_OffsetOf_tex_coord + 1)
 		to: ##(_OffsetOf_tex_coord + SDL_FPoint basicByteSize)
 		startingAt: 1! !
+
 !SDL_Vertex categoriesForMethods!
 color!**compiled accessors**!public! !
 color:!**compiled accessors**!public! !
@@ -82,6 +88,7 @@ defineFields
 
 getFieldNames
 	^#(#position #color #tex_coord)! !
+
 !SDL_Vertex class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

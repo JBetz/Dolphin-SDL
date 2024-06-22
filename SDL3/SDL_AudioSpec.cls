@@ -5,12 +5,17 @@ ExternalStructure subclass: #SDL_AudioSpec
 	classVariableNames: '_OffsetOf_channels _OffsetOf_format _OffsetOf_freq'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_AudioSpec guid: (GUID fromString: '{b97296d3-4719-46a2-b7a9-253daf1c13c6}')!
+
 SDL_AudioSpec addClassConstant: '_OffsetOf_channels' value: 16r4!
 SDL_AudioSpec addClassConstant: '_OffsetOf_format' value: 16r0!
 SDL_AudioSpec addClassConstant: '_OffsetOf_freq' value: 16r8!
+
 SDL_AudioSpec comment: ''!
+
 !SDL_AudioSpec categoriesForClass!External-Data-Structured! !
+
 !SDL_AudioSpec methodsFor!
 
 channels
@@ -42,6 +47,7 @@ freq: anInteger
 	"Set the receiver's 'freq' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_freq put: anInteger! !
+
 !SDL_AudioSpec categoriesForMethods!
 channels!**compiled accessors**!public! !
 channels:!**compiled accessors**!public! !
@@ -70,6 +76,7 @@ defineFields
 
 getFieldNames
 	^#(#format #channels #freq)! !
+
 !SDL_AudioSpec class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

@@ -5,7 +5,9 @@ SDL_Event subclass: #SDL_MouseButtonEvent
 	classVariableNames: '_OffsetOf_button _OffsetOf_clicks _OffsetOf_padding1 _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_MouseButtonEvent guid: (GUID fromString: '{7826f1b9-36e4-401a-9541-32b1ae2f2c99}')!
+
 SDL_MouseButtonEvent addClassConstant: '_OffsetOf_button' value: 16r18!
 SDL_MouseButtonEvent addClassConstant: '_OffsetOf_clicks' value: 16r1A!
 SDL_MouseButtonEvent addClassConstant: '_OffsetOf_padding1' value: 16r1B!
@@ -17,8 +19,11 @@ SDL_MouseButtonEvent addClassConstant: '_OffsetOf_which' value: 16r14!
 SDL_MouseButtonEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
 SDL_MouseButtonEvent addClassConstant: '_OffsetOf_x' value: 16r1C!
 SDL_MouseButtonEvent addClassConstant: '_OffsetOf_y' value: 16r20!
+
 SDL_MouseButtonEvent comment: ''!
+
 !SDL_MouseButtonEvent categoriesForClass!External-Data-Structured! !
+
 !SDL_MouseButtonEvent methodsFor!
 
 button
@@ -147,6 +152,7 @@ y: aFloat
 	"Set the receiver's 'y' field to the value of the argument, aFloat"
 
 	bytes floatAtOffset: _OffsetOf_y put: aFloat! !
+
 !SDL_MouseButtonEvent categoriesForMethods!
 button!**compiled accessors**!public! !
 button:!**compiled accessors**!public! !
@@ -214,6 +220,7 @@ defineFields
 
 getFieldNames
 	^#(#type #timestamp #windowID #which #button #state #clicks #padding1 #x #y)! !
+
 !SDL_MouseButtonEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

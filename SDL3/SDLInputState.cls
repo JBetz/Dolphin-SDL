@@ -5,9 +5,13 @@ Object subclass: #SDLInputState
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
+
 SDLInputState guid: (GUID fromString: '{9b0ff9fb-40c3-4d7e-91fe-2a58048fdbdf}')!
+
 SDLInputState comment: ''!
+
 !SDLInputState categoriesForClass!Kernel-Objects! !
+
 !SDLInputState methodsFor!
 
 closeAllWindows
@@ -170,6 +174,7 @@ updateWindows
 
 windows
 	^windows! !
+
 !SDLInputState categoriesForMethods!
 closeAllWindows!public! !
 closeLibraries!public! !
@@ -234,6 +239,7 @@ restart
 	self
 		onShutdown;
 		onStartup! !
+
 !SDLInputState class categoriesForMethods!
 current!public! !
 initialize!public! !

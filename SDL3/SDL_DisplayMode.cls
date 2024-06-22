@@ -5,14 +5,19 @@ ExternalStructure subclass: #SDL_DisplayMode
 	classVariableNames: '_OffsetOf_driverdata _OffsetOf_format _OffsetOf_h _OffsetOf_refresh_rate _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_DisplayMode guid: (GUID fromString: '{568a4a3b-46ed-444c-a329-f08d8efd3191}')!
+
 SDL_DisplayMode addClassConstant: '_OffsetOf_driverdata' value: 16r10!
 SDL_DisplayMode addClassConstant: '_OffsetOf_format' value: 16r0!
 SDL_DisplayMode addClassConstant: '_OffsetOf_h' value: 16r8!
 SDL_DisplayMode addClassConstant: '_OffsetOf_refresh_rate' value: 16rC!
 SDL_DisplayMode addClassConstant: '_OffsetOf_w' value: 16r4!
+
 SDL_DisplayMode comment: ''!
+
 !SDL_DisplayMode categoriesForClass!External-Data-Structured! !
+
 !SDL_DisplayMode methodsFor!
 
 driverdata
@@ -64,6 +69,7 @@ w: anInteger
 	"Set the receiver's 'w' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_w put: anInteger! !
+
 !SDL_DisplayMode categoriesForMethods!
 driverdata!**compiled accessors**!public! !
 driverdata:!**compiled accessors**!public! !
@@ -99,6 +105,7 @@ defineFields
 
 getFieldNames
 	^#(#format #w #h #refresh_rate #driverdata)! !
+
 !SDL_DisplayMode class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

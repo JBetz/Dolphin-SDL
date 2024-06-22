@@ -5,9 +5,13 @@ ExternalLibrary subclass: #SDL3ImageLibrary
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL3ImageLibrary guid: (GUID fromString: '{dc8fcffc-be51-41c4-8c01-ec1a3d58d507}')!
+
 SDL3ImageLibrary comment: ''!
+
 !SDL3ImageLibrary categoriesForClass!Unclassified! !
+
 !SDL3ImageLibrary methodsFor!
 
 init_flags: flags
@@ -36,6 +40,7 @@ saveJPG_surface: surface file: file quality: quality
 savePNG_surface: surface file: file
 	<cdecl: sdword IMG_SavePNG SDL_Surface* lpstr>
 	^self invalidCall: _failureCode! !
+
 !SDL3ImageLibrary categoriesForMethods!
 init_flags:!public! !
 load_file:!public! !
@@ -50,6 +55,7 @@ savePNG_surface:file:!public! !
 
 fileName
 	^'SDL3_image'! !
+
 !SDL3ImageLibrary class categoriesForMethods!
 fileName!public! !
 !

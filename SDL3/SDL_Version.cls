@@ -5,12 +5,17 @@ ExternalStructure subclass: #SDL_Version
 	classVariableNames: '_OffsetOf_major _OffsetOf_minor _OffsetOf_patch'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Version guid: (GUID fromString: '{f0fdc22d-3138-4c1d-b7b7-df66913fbbed}')!
+
 SDL_Version addClassConstant: '_OffsetOf_major' value: 16r0!
 SDL_Version addClassConstant: '_OffsetOf_minor' value: 16r1!
 SDL_Version addClassConstant: '_OffsetOf_patch' value: 16r2!
+
 SDL_Version comment: ''!
+
 !SDL_Version categoriesForClass!External-Data-Structured! !
+
 !SDL_Version methodsFor!
 
 major
@@ -42,6 +47,7 @@ patch: anInteger
 	"Set the receiver's 'patch' field to the value of the argument, anInteger"
 
 	bytes byteAtOffset: _OffsetOf_patch put: anInteger! !
+
 !SDL_Version categoriesForMethods!
 major!**compiled accessors**!public! !
 major:!**compiled accessors**!public! !
@@ -70,6 +76,7 @@ defineFields
 
 getFieldNames
 	^#(#major #minor #patch)! !
+
 !SDL_Version class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

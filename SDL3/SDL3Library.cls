@@ -5,9 +5,13 @@ ExternalLibrary subclass: #SDL3Library
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL3Library guid: (GUID fromString: '{d80d9ac6-6a3b-4435-927f-a7dec1b341ed}')!
+
 SDL3Library comment: ''!
+
 !SDL3Library categoriesForClass!External-Libraries! !
+
 !SDL3Library methodsFor!
 
 addEventWatch_filter: filter userdata: userdata
@@ -728,6 +732,7 @@ waitEventTimeout_event: event timeout: timeout
 wasInit_flags: flags
 	<cdecl: void SDL_WasInit dword>
 	^self invalidCall: _failureCode! !
+
 !SDL3Library categoriesForMethods!
 addEventWatch_filter:userdata:!events!public! !
 addTimer_interval:callback:param:!public!video! !
@@ -935,6 +940,7 @@ testAudio
 	resultCode < 0 ifTrue: [self error: 'Error binding audio stream'].
 	resultCode := sdl unbindAudioStream_stream: audioStream.
 	sdl quitSubSystem_flags: 16! !
+
 !SDL3Library class categoriesForMethods!
 fileName!public! !
 testAudio!public! !

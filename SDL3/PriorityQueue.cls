@@ -5,9 +5,13 @@ Dictionary variableSubclass: #PriorityQueue
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 PriorityQueue guid: (GUID fromString: '{928c2e51-0158-4483-9b47-12f3a526fe5d}')!
+
 PriorityQueue comment: ''!
+
 !PriorityQueue categoriesForClass!Kernel-Objects! !
+
 !PriorityQueue methodsFor!
 
 dequeue
@@ -39,6 +43,7 @@ highestPriorityLevel
 
 reverseFlushWith: aBlock
 	self flushWith: aBlock sortBlock:  [ :a :b | a < b ]! !
+
 !PriorityQueue categoriesForMethods!
 dequeue!public! !
 enqueue:!public! !

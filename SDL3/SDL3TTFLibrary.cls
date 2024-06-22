@@ -5,9 +5,13 @@ ExternalLibrary subclass: #SDL3TTFLibrary
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL3TTFLibrary guid: (GUID fromString: '{ca75e275-9381-4cf6-a337-2384f3ab7f23}')!
+
 SDL3TTFLibrary comment: ''!
+
 !SDL3TTFLibrary categoriesForClass!Unclassified! !
+
 !SDL3TTFLibrary methodsFor!
 
 closeFont_font: font
@@ -116,6 +120,7 @@ sizeUTF8_font: font text: text w: w h: h
 wasInit
 	<cdecl: sdword TTF_WasInit>
 	^self invalidCall: _failureCode! !
+
 !SDL3TTFLibrary categoriesForMethods!
 closeFont_font:!public! !
 fontLineSkip_font:!public! !
@@ -150,6 +155,7 @@ wasInit!public! !
 
 fileName
 	^'SDL3_ttf'! !
+
 !SDL3TTFLibrary class categoriesForMethods!
 fileName!public! !
 !

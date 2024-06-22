@@ -5,13 +5,18 @@ ExternalStructure subclass: #SDL_Keysym
 	classVariableNames: '_OffsetOf_mod _OffsetOf_scancode _OffsetOf_sym _OffsetOf_unused'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Keysym guid: (GUID fromString: '{c263b2c4-d00d-4b31-929f-f0c4b185acc2}')!
+
 SDL_Keysym addClassConstant: '_OffsetOf_mod' value: 16r8!
 SDL_Keysym addClassConstant: '_OffsetOf_scancode' value: 16r0!
 SDL_Keysym addClassConstant: '_OffsetOf_sym' value: 16r4!
 SDL_Keysym addClassConstant: '_OffsetOf_unused' value: 16rC!
+
 SDL_Keysym comment: ''!
+
 !SDL_Keysym categoriesForClass!External-Data-Structured! !
+
 !SDL_Keysym methodsFor!
 
 mod
@@ -53,6 +58,7 @@ unused: anInteger
 	"Set the receiver's 'unused' field to the value of the argument, anInteger"
 
 	bytes dwordAtOffset: _OffsetOf_unused put: anInteger! !
+
 !SDL_Keysym categoriesForMethods!
 mod!**compiled accessors**!public! !
 mod:!**compiled accessors**!public! !
@@ -85,6 +91,7 @@ defineFields
 
 getFieldNames
 	^#(#scancode #sym #mod #unused)! !
+
 !SDL_Keysym class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

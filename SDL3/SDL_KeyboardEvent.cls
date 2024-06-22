@@ -5,7 +5,9 @@ SDL_Event subclass: #SDL_KeyboardEvent
 	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
+
 SDL_KeyboardEvent guid: (GUID fromString: '{b0932b16-56bc-43d2-9018-7c53e25f208b}')!
+
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r1C!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding2' value: 16r1A!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding3' value: 16r1B!
@@ -16,8 +18,11 @@ SDL_KeyboardEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_type' value: 16r0!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_which' value: 16r14!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_windowID' value: 16r10!
+
 SDL_KeyboardEvent comment: ''!
+
 !SDL_KeyboardEvent categoriesForClass!External-Data-Structured! !
+
 !SDL_KeyboardEvent methodsFor!
 
 isAlt
@@ -327,6 +332,7 @@ windowsSpecialKeyCode
 	sdlKeyCode = SDLK_BACKSLASH ifTrue: [windowsKeyCode := 220].
 	sdlKeyCode = SDLK_RIGHTBRACKET ifTrue: [windowsKeyCode := 221].
 	^windowsKeyCode! !
+
 !SDL_KeyboardEvent categoriesForMethods!
 isAlt!public! !
 isAltDown!public! !
@@ -427,6 +433,7 @@ defineFields
 
 getFieldNames
 	^#(#type #timestamp #windowID #which #state #repeat #keysym)! !
+
 !SDL_KeyboardEvent class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

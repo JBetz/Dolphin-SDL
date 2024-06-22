@@ -5,13 +5,18 @@ ExternalStructure subclass: #SDL_FRect
 	classVariableNames: '_OffsetOf_h _OffsetOf_w _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_FRect guid: (GUID fromString: '{44252d5f-21b2-4f7f-94b5-96725debce5b}')!
+
 SDL_FRect addClassConstant: '_OffsetOf_h' value: 16rC!
 SDL_FRect addClassConstant: '_OffsetOf_w' value: 16r8!
 SDL_FRect addClassConstant: '_OffsetOf_x' value: 16r0!
 SDL_FRect addClassConstant: '_OffsetOf_y' value: 16r4!
+
 SDL_FRect comment: ''!
+
 !SDL_FRect categoriesForClass!External-Data-Structured! !
+
 !SDL_FRect methodsFor!
 
 h
@@ -53,6 +58,7 @@ y: aFloat
 	"Set the receiver's 'y' field to the value of the argument, aFloat"
 
 	bytes floatAtOffset: _OffsetOf_y put: aFloat! !
+
 !SDL_FRect categoriesForMethods!
 h!**compiled accessors**!public! !
 h:!**compiled accessors**!public! !
@@ -85,6 +91,7 @@ defineFields
 
 getFieldNames
 	^#(#x #y #w #h)! !
+
 !SDL_FRect class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

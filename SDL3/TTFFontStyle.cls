@@ -5,9 +5,13 @@ Object subclass: #TTFFontStyle
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
+
 TTFFontStyle guid: (GUID fromString: '{e162a0b7-bcb6-4588-93fa-9499cc955616}')!
+
 TTFFontStyle comment: ''!
+
 !TTFFontStyle categoriesForClass!Kernel-Objects! !
+
 !TTFFontStyle methodsFor!
 
 <= aTTFFontStyle
@@ -24,6 +28,7 @@ name
 
 name: anObject
 	name := anObject! !
+
 !TTFFontStyle categoriesForMethods!
 <=!public! !
 code!accessing!public! !
@@ -64,6 +69,7 @@ underline
 	^TTFFontStyle new
 		name: 'Underline';
 		code: TTF_STYLE_UNDERLINE! !
+
 !TTFFontStyle class categoriesForMethods!
 allStyles!public! !
 bold!public! !

@@ -5,9 +5,13 @@ SDL_Object subclass: #SDL_Renderer
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Renderer guid: (GUID fromString: '{bb968c30-e713-45d5-b727-54acecbcc8ac}')!
+
 SDL_Renderer comment: ''!
+
 !SDL_Renderer categoriesForClass!External-Data-Structured! !
+
 !SDL_Renderer methodsFor!
 
 clear
@@ -148,6 +152,7 @@ setScale: aPoint
 				setRenderScale_renderer: self
 				scaleX: aPoint x
 				scaleY: aPoint y)! !
+
 !SDL_Renderer categoriesForMethods!
 clear!public! !
 createSurfaceFrom:width:height:pitch:format:!public! !

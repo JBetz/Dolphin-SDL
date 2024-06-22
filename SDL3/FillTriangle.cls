@@ -5,9 +5,13 @@ FillCommand subclass: #FillTriangle
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 FillTriangle guid: (GUID fromString: '{56c6ac68-c0a2-4b7e-a2f9-bb20b048164c}')!
+
 FillTriangle comment: ''!
+
 !FillTriangle categoriesForClass!Kernel-Objects! !
+
 !FillTriangle methodsFor!
 
 points
@@ -30,6 +34,7 @@ vertexTwo
 
 vertexTwo: anObject
 	vertexTwo := anObject! !
+
 !FillTriangle categoriesForMethods!
 points!public! !
 vertexOne!accessing!public! !

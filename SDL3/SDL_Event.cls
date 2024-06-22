@@ -5,7 +5,9 @@ ExternalStructure subclass: #SDL_Event
 	classVariableNames: '_OffsetOf_common _OffsetOf_padding _OffsetOf_union_button _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
+
 SDL_Event guid: (GUID fromString: '{22d4884c-5d9e-40fd-a7e0-f86f85f39969}')!
+
 SDL_Event addClassConstant: '_OffsetOf_common' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_padding' value: 16r5C!
 SDL_Event addClassConstant: '_OffsetOf_union_button' value: 16r0!
@@ -20,8 +22,11 @@ SDL_Event addClassConstant: '_OffsetOf_union_text' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_user' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_wheel' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_window' value: 16r0!
+
 SDL_Event comment: ''!
+
 !SDL_Event categoriesForClass!External-Data-Structured! !
+
 !SDL_Event methodsFor!
 
 addHandler: anObject
@@ -304,6 +309,7 @@ union_window: aSDL_WindowEvent
 
 windowID
 	^self hasAssociatedWindow ifTrue: [self union_window windowID] ifFalse: [nil]! !
+
 !SDL_Event categoriesForMethods!
 addHandler:!accessing!public! !
 asKeyboardEvent!public! !
@@ -459,6 +465,7 @@ getFieldNames
 
 packing
 	^4! !
+
 !SDL_Event class categoriesForMethods!
 defineFields!public! !
 fromAddress:!public! !

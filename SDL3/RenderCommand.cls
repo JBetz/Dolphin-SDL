@@ -5,9 +5,13 @@ Object subclass: #RenderCommand
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 RenderCommand guid: (GUID fromString: '{0565881b-e125-4551-b037-26816ec53091}')!
+
 RenderCommand comment: ''!
+
 !RenderCommand categoriesForClass!Kernel-Objects! !
+
 !RenderCommand methodsFor!
 
 asSelector
@@ -24,6 +28,7 @@ zIndex
 
 zIndex: anObject
 	zIndex := anObject! !
+
 !RenderCommand categoriesForMethods!
 asSelector!public! !
 clip!public! !
@@ -36,6 +41,7 @@ zIndex:!public! !
 
 new
 	^super new initialize! !
+
 !RenderCommand class categoriesForMethods!
 new!public! !
 !

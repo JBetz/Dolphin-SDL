@@ -5,9 +5,13 @@ SDL_Object subclass: #SDL_Window
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Window guid: (GUID fromString: '{24a0a78e-6a0c-472a-9fda-77b8354d6b95}')!
+
 SDL_Window comment: ''!
+
 !SDL_Window categoriesForClass!External-Data-Structured! !
+
 !SDL_Window methodsFor!
 
 createRenderer
@@ -85,6 +89,7 @@ updateSurface
 
 width
 	^self extent x! !
+
 !SDL_Window categoriesForMethods!
 createRenderer!public! !
 destroy!public! !

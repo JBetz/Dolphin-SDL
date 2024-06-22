@@ -5,13 +5,18 @@ ExternalStructure subclass: #SDL_Rect
 	classVariableNames: '_OffsetOf_h _OffsetOf_w _OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Rect guid: (GUID fromString: '{51dd2f00-9366-49f1-a65c-856e2abbf2a3}')!
+
 SDL_Rect addClassConstant: '_OffsetOf_h' value: 16rC!
 SDL_Rect addClassConstant: '_OffsetOf_w' value: 16r8!
 SDL_Rect addClassConstant: '_OffsetOf_x' value: 16r0!
 SDL_Rect addClassConstant: '_OffsetOf_y' value: 16r4!
+
 SDL_Rect comment: ''!
+
 !SDL_Rect categoriesForClass!Kernel-Objects! !
+
 !SDL_Rect methodsFor!
 
 asRectangle
@@ -68,6 +73,7 @@ y: anInteger
 	"Set the receiver's 'y' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
+
 !SDL_Rect categoriesForMethods!
 asRectangle!public! !
 extent!public! !
@@ -102,6 +108,7 @@ defineFields
 
 getFieldNames
 	^#(#x #y #w #h)! !
+
 !SDL_Rect class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

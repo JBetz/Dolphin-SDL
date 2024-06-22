@@ -5,9 +5,13 @@ SDL_Object subclass: #SDL_Texture
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Texture guid: (GUID fromString: '{e253ed78-06ba-402e-8f07-b2da561b1b2c}')!
+
 SDL_Texture comment: ''!
+
 !SDL_Texture categoriesForClass!External-Data-Structured! !
+
 !SDL_Texture methodsFor!
 
 destroy
@@ -92,6 +96,7 @@ updateRectangle: aRectangle pixels: pixels pitch: pitch
 				rect: aRectangle asSDLRect
 				pixels: pixels
 				pitch: pitch)! !
+
 !SDL_Texture categoriesForMethods!
 destroy!public! !
 extent!public! !

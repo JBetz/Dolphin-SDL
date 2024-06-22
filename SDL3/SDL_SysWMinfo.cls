@@ -5,14 +5,19 @@ ExternalStructure subclass: #SDL_SysWMinfo
 	classVariableNames: '_OffsetOf_hdc _OffsetOf_hinstance _OffsetOf_subsystem _OffsetOf_version _OffsetOf_window'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_SysWMinfo guid: (GUID fromString: '{ebdb1ed4-80aa-44fd-aa94-7898606b137e}')!
+
 SDL_SysWMinfo addClassConstant: '_OffsetOf_hdc' value: 16rC!
 SDL_SysWMinfo addClassConstant: '_OffsetOf_hinstance' value: 16r10!
 SDL_SysWMinfo addClassConstant: '_OffsetOf_subsystem' value: 16r4!
 SDL_SysWMinfo addClassConstant: '_OffsetOf_version' value: 16r0!
 SDL_SysWMinfo addClassConstant: '_OffsetOf_window' value: 16r8!
+
 SDL_SysWMinfo comment: ''!
+
 !SDL_SysWMinfo categoriesForClass!External-Data-Structured! !
+
 !SDL_SysWMinfo methodsFor!
 
 hdc
@@ -58,6 +63,7 @@ window: anExternalHandle
 	"Set the receiver's 'window' field to the value of the argument, anExternalHandle"
 
 	bytes uintPtrAtOffset: _OffsetOf_window put: anExternalHandle yourAddress! !
+
 !SDL_SysWMinfo categoriesForMethods!
 hdc!**compiled accessors**!public! !
 hinstance!**compiled accessors**!public! !
@@ -97,6 +103,7 @@ defineFields
 
 getFieldNames
 	^#(#version #subsystem #window #hdc #hinstance)! !
+
 !SDL_SysWMinfo class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

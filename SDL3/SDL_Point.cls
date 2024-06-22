@@ -5,11 +5,16 @@ ExternalStructure subclass: #SDL_Point
 	classVariableNames: '_OffsetOf_x _OffsetOf_y'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_Point guid: (GUID fromString: '{a3faa30a-cfef-41b8-81a8-1c9701f045e8}')!
+
 SDL_Point addClassConstant: '_OffsetOf_x' value: 16r0!
 SDL_Point addClassConstant: '_OffsetOf_y' value: 16r4!
+
 SDL_Point comment: ''!
+
 !SDL_Point categoriesForClass!External-Data-Structured! !
+
 !SDL_Point methodsFor!
 
 x
@@ -31,6 +36,7 @@ y: anInteger
 	"Set the receiver's 'y' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
+
 !SDL_Point categoriesForMethods!
 x!**compiled accessors**!public! !
 x:!**compiled accessors**!public! !
@@ -55,6 +61,7 @@ defineFields
 
 getFieldNames
 	^#(#x #y)! !
+
 !SDL_Point class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

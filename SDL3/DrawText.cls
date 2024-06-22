@@ -5,9 +5,13 @@ RenderCommand subclass: #DrawText
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 DrawText guid: (GUID fromString: '{3bd8bdbd-fd9a-400b-b677-a972c22853c6}')!
+
 DrawText comment: ''!
+
 !DrawText categoriesForClass!Kernel-Objects! !
+
 !DrawText methodsFor!
 
 color
@@ -42,6 +46,7 @@ rectangle
 
 rectangle: anObject
 	rectangle := anObject! !
+
 !DrawText categoriesForMethods!
 color!accessing!public! !
 color:!accessing!public! !

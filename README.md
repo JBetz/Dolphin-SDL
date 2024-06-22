@@ -10,7 +10,7 @@ You might want to use Dolphin-SDL if:
 * You're looking forward to [SDL3's planned GPU API for 3D graphics](https://www.patreon.com/posts/new-project-top-58563886) and want to build 3D widgets or video games with Smalltalk when it's ready
 
 ## Getting Started
-* Install [Dolphin Smalltalk 7.1](https://github.com/dolphinsmalltalk/Dolphin)
+* Install [Dolphin Smalltalk 7.2](https://github.com/dolphinsmalltalk/Dolphin)
 * Install `SDL*.pax` in a Dolphin image
 * Download SDL's Windows 32-bit binaries
   * For the main library (SDL3.dll), a preview release is available from the official SDL repo: https://github.com/libsdl-org/SDL/releases/tag/prerelease-3.1.0 

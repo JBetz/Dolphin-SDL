@@ -5,9 +5,13 @@ RenderCommand subclass: #DrawImage
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 DrawImage guid: (GUID fromString: '{856cfa9c-5e3b-4589-834b-7abacb4c36c5}')!
+
 DrawImage comment: ''!
+
 !DrawImage categoriesForClass!Kernel-Objects! !
+
 !DrawImage methodsFor!
 
 asDrawSurface
@@ -45,6 +49,7 @@ stretch
 
 stretch: anObject
 	stretch := anObject! !
+
 !DrawImage categoriesForMethods!
 asDrawSurface!public! !
 asDrawTexture!public! !

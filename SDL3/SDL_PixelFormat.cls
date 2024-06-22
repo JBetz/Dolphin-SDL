@@ -5,7 +5,9 @@ ExternalStructure subclass: #SDL_PixelFormat
 	classVariableNames: '_OffsetOf_Aloss _OffsetOf_Amask _OffsetOf_Ashift _OffsetOf_BitsPerPixel _OffsetOf_Bloss _OffsetOf_Bmask _OffsetOf_Bshift _OffsetOf_BytesPerPixel _OffsetOf_format _OffsetOf_Gloss _OffsetOf_Gmask _OffsetOf_Gshift _OffsetOf_next _OffsetOf_padding _OffsetOf_palette _OffsetOf_refcount _OffsetOf_Rloss _OffsetOf_Rmask _OffsetOf_Rshift'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 SDL_PixelFormat guid: (GUID fromString: '{1a77facb-3c48-483e-ab78-56e05698125d}')!
+
 SDL_PixelFormat addClassConstant: '_OffsetOf_Aloss' value: 16r1F!
 SDL_PixelFormat addClassConstant: '_OffsetOf_Amask' value: 16r18!
 SDL_PixelFormat addClassConstant: '_OffsetOf_Ashift' value: 16r23!
@@ -25,8 +27,11 @@ SDL_PixelFormat addClassConstant: '_OffsetOf_refcount' value: 16r24!
 SDL_PixelFormat addClassConstant: '_OffsetOf_Rloss' value: 16r1C!
 SDL_PixelFormat addClassConstant: '_OffsetOf_Rmask' value: 16rC!
 SDL_PixelFormat addClassConstant: '_OffsetOf_Rshift' value: 16r20!
+
 SDL_PixelFormat comment: ''!
+
 !SDL_PixelFormat categoriesForClass!External-Data-Structured! !
+
 !SDL_PixelFormat methodsFor!
 
 Aloss
@@ -224,6 +229,7 @@ Rshift: anInteger
 	"Set the receiver's 'Rshift' field to the value of the argument, anInteger"
 
 	bytes byteAtOffset: _OffsetOf_Rshift put: anInteger! !
+
 !SDL_PixelFormat categoriesForMethods!
 Aloss!**compiled accessors**!public! !
 Aloss:!**compiled accessors**!public! !
@@ -316,6 +322,7 @@ defineFields
 
 getFieldNames
 	^#(#format #palette #BitsPerPixel #BytesPerPixel #padding #Rmask #Gmask #Bmask #Amask #Rloss #Gloss #Bloss #Aloss #Rshift #Gshift #Bshift #Ashift #refcount #next)! !
+
 !SDL_PixelFormat class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !

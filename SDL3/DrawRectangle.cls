@@ -5,9 +5,13 @@ RenderCommand subclass: #DrawRectangle
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 DrawRectangle guid: (GUID fromString: '{e4359af8-1f8b-4c2f-b2b4-7d05a06a4b6a}')!
+
 DrawRectangle comment: ''!
+
 !DrawRectangle categoriesForClass!Kernel-Objects! !
+
 !DrawRectangle methodsFor!
 
 color
@@ -27,6 +31,7 @@ width
 
 width: anObject
 	width := anObject! !
+
 !DrawRectangle categoriesForMethods!
 color!accessing!public! !
 color:!accessing!public! !
