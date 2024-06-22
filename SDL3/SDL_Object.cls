@@ -5,9 +5,13 @@ ExternalStructure subclass: #SDL_Object
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
+
 SDL_Object guid: (GUID fromString: '{94f3180b-5da5-45a7-8ae7-499f08d724db}')!
+
 SDL_Object comment: ''!
+
 !SDL_Object categoriesForClass!External-Data-Structured! !
+
 !SDL_Object methodsFor!
 
 checkResult: anObject
@@ -20,7 +24,12 @@ destroy
 	self subclassResponsibility!
 
 free
-	self destroy.
+	[self destroy] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: error;
+				cr].
 	super free!
 
 initialize
@@ -30,6 +39,7 @@ initialize
 library
 	library ifNil: [library := SDL3Library default].
 	^library! !
+
 !SDL_Object categoriesForMethods!
 checkResult:!public! !
 destroy!public! !
@@ -42,6 +52,7 @@ library!public! !
 
 new
 	^super new initialize! !
+
 !SDL_Object class categoriesForMethods!
 new!public! !
 !

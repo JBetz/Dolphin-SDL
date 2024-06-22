@@ -5,9 +5,13 @@ ExternalStructure subclass: #TTF_Object
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
+
 TTF_Object guid: (GUID fromString: '{d25ebdf2-fabf-4f70-a641-33b9aa4695a9}')!
+
 TTF_Object comment: ''!
+
 !TTF_Object categoriesForClass!External-Data-Structured! !
+
 !TTF_Object methodsFor!
 
 checkResult: anObject
@@ -20,7 +24,12 @@ destroy
 	self subclassResponsibility!
 
 free
-	self destroy.
+	[self destroy] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: error;
+				cr].
 	super free!
 
 initialize
@@ -30,6 +39,7 @@ initialize
 library
 	library ifNil: [library := SDL3TTFLibrary default].
 	^library! !
+
 !TTF_Object categoriesForMethods!
 checkResult:!public! !
 destroy!public! !
@@ -37,3 +47,4 @@ free!public! !
 initialize!public! !
 library!public! !
 !
+
