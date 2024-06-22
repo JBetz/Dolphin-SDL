@@ -5,9 +5,13 @@ Object subclass: #Application
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
+
 Application guid: (GUID fromString: '{0bff31b0-fdc2-450a-8e3b-c3f9bec48eb4}')!
+
 Application comment: ''!
+
 !Application categoriesForClass!Kernel-Objects! !
+
 !Application methodsFor!
 
 calculateInitialExtent
@@ -45,12 +49,11 @@ createWindow
 				for: self!
 
 cursor: aSymbol
-	cursor name ~= aSymbol
-		ifTrue: 
-			[cursor := SDL_Cursor perform: aSymbol.
-			cursor
-				name: aSymbol;
-				makeCurrent]!
+	cursor name = aSymbol ifTrue: [^self].
+	cursor := SDL_Cursor perform: aSymbol.
+	cursor
+		name: aSymbol;
+		makeCurrent!
 
 extent
 	^window ifNotNil: [window extent] ifNil: [0 @ 0]!
@@ -185,6 +188,7 @@ windowFlags
 
 windowPosition
 	^window ifNotNil: [window getPosition]! !
+
 !Application categoriesForMethods!
 calculateInitialExtent!private! !
 close!public! !
@@ -286,6 +290,7 @@ new
 
 preferredExtent
 	^1920@1080! !
+
 !Application class categoriesForMethods!
 initialize!public! !
 new!public! !
