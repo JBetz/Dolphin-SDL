@@ -402,16 +402,12 @@ getWindowTitle_window: window
 	<cdecl: lpstr SDL_SetWindowTitle SDL_Window*>
 	^self invalidCall: _failureCode!
 
-glBindTexture_texture: texture texw: texw texh: texh
-	<cdecl: sdword SDL_GL_BindTexture SDL_Texture* float* float*>
-	^self invalidCall: _failureCode!
-
 glCreateContext_window: window
-	<cdecl: SDL_GLContext SDL_GL_CreateContext SDL_Window*>
+	<cdecl: handle SDL_GL_CreateContext SDL_Window*>
 	^self invalidCall: _failureCode!
 
 glDeleteContext_context: context
-	<cdecl: sdword SDL_GL_DeleteContext SDL_GLContext>
+	<cdecl: sdword SDL_GL_DeleteContext handle>
 	^self invalidCall: _failureCode!
 
 glExtensionSupported_extension: extension
@@ -419,11 +415,11 @@ glExtensionSupported_extension: extension
 	^self invalidCall: _failureCode!
 
 glGetAttribute_attr: attr value: value
-	<cdecl: sdword SDL_GL_GetAttribute sdword float*>
+	<cdecl: sdword SDL_GL_GetAttribute sdword sdword*>
 	^self invalidCall: _failureCode!
 
 glGetCurrentContext
-	<cdecl: SDL_GLContext SDL_GL_GetCurrentContext>
+	<cdecl: handle SDL_GL_GetCurrentContext>
 	^self invalidCall: _failureCode!
 
 glGetCurrentWindow
@@ -431,7 +427,7 @@ glGetCurrentWindow
 	^self invalidCall: _failureCode!
 
 glGetProcAddress_proc: proc
-	<cdecl: SDL_FunctionPointer SDL_GL_GetProcAddress char*>
+	<cdecl: lpvoid SDL_GL_GetProcAddress char*>
 	^self invalidCall: _failureCode!
 
 glGetSwapInterval_interval: interval
@@ -443,7 +439,7 @@ glLoadLibrary_path: path
 	^self invalidCall: _failureCode!
 
 glMakeCurrent_window: window context: context
-	<cdecl: sdword SDL_GL_MakeCurrent SDL_Window* SDL_GLContext>
+	<cdecl: sdword SDL_GL_MakeCurrent SDL_Window* handle>
 	^self invalidCall: _failureCode!
 
 glResetAttributes
@@ -451,7 +447,7 @@ glResetAttributes
 	^self invalidCall: _failureCode!
 
 glSetAttribute_attr: attr value: value
-	<cdecl: sdword SDL_GL_SetAttribute sdword float>
+	<cdecl: sdword SDL_GL_SetAttribute sdword sdword>
 	^self invalidCall: _failureCode!
 
 glSetSwapInterval_interval: interval
@@ -535,7 +531,12 @@ quit
 	^self invalidCall: _failureCode!
 
 quitIfOpen
-	self isOpen ifTrue: [self quit]!
+	[self isOpen ifTrue: [self quit]] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: error;
+				cr]!
 
 quitSubSystem_flags: flags
 	<cdecl: void SDL_QuitSubSystem dword>
@@ -831,22 +832,21 @@ getWindowProperties_window:!public!video! !
 getWindowSize_window:w:h:!public!video! !
 getWindowSurface_window:!public!video! !
 getWindowTitle_window:!public!video! !
-glBindTexture_texture:texw:texh:!public!video! !
-glCreateContext_window:!public!video! !
-glDeleteContext_context:!public!video! !
-glExtensionSupported_extension:!public!video! !
-glGetAttribute_attr:value:!public!video! !
-glGetCurrentContext!public!video! !
-glGetCurrentWindow!public!video! !
-glGetProcAddress_proc:!public!video! !
-glGetSwapInterval_interval:!public!video! !
-glLoadLibrary_path:!public!video! !
-glMakeCurrent_window:context:!public!video! !
-glResetAttributes!public!video! !
-glSetAttribute_attr:value:!public!video! !
-glSetSwapInterval_interval:!public!video! !
-glSwapWindow_window:!public!video! !
-glUnloadLibrary!public!video! !
+glCreateContext_window:!open gl!public!video! !
+glDeleteContext_context:!open gl!public!video! !
+glExtensionSupported_extension:!open gl!public!video! !
+glGetAttribute_attr:value:!open gl!public!video! !
+glGetCurrentContext!open gl!public!video! !
+glGetCurrentWindow!open gl!public!video! !
+glGetProcAddress_proc:!open gl!public!video! !
+glGetSwapInterval_interval:!open gl!public!video! !
+glLoadLibrary_path:!open gl!public!video! !
+glMakeCurrent_window:context:!open gl!public!video! !
+glResetAttributes!open gl!public!video! !
+glSetAttribute_attr:value:!open gl!public!video! !
+glSetSwapInterval_interval:!open gl!public!video! !
+glSwapWindow_window:!open gl!public!video! !
+glUnloadLibrary!open gl!public!video! !
 hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !

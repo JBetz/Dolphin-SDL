@@ -79,7 +79,8 @@ initialize
 
 initializeLibraries
 	| resultCode |
-	resultCode := sdlLibrary init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER.
+	resultCode := sdlLibrary
+				init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL base library'].
 	resultCode := sdlTtfLibrary init.
 	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL TTF library'].

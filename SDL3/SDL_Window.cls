@@ -14,6 +14,9 @@ SDL_Window comment: ''!
 
 !SDL_Window methodsFor!
 
+aspectRatio
+	^self width asFloat / self height asFloat!
+
 createRenderer
 	| renderer |
 	renderer := self library
@@ -91,6 +94,7 @@ width
 	^self extent x! !
 
 !SDL_Window categoriesForMethods!
+aspectRatio!public! !
 createRenderer!public! !
 destroy!public! !
 extent!public! !

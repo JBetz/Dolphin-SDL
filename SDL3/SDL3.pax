@@ -73,6 +73,7 @@ package classNames
 
 package methodNames
 	add: #Color -> #asSDLColor;
+	add: #ExternalMethod -> #procAddress:;
 	add: #Rectangle -> #asSDLFRect;
 	add: #Rectangle -> #asSDLRect;
 	add: 'Rectangle class' -> #empty;
@@ -501,6 +502,18 @@ asSDLColor
 
 !Color categoriesForMethods!
 asSDLColor!public! !
+!
+
+!ExternalMethod methodsFor!
+
+procAddress: anExternalAddress 
+	"Set the address for the receiver.
+        Note: Implement for pointer function call."
+
+	self descriptorLiteral dwordAtOffset: 0 put: anExternalAddress! !
+
+!ExternalMethod categoriesForMethods!
+procAddress:!accessing!public! !
 !
 
 !Rectangle methodsFor!

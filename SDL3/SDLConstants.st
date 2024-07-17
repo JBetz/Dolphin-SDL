@@ -161,7 +161,9 @@ SDLConstants at: 'SDL_GL_ACCUM_RED_SIZE' put: 16r8!
 SDLConstants at: 'SDL_GL_ALPHA_SIZE' put: 16r3!
 SDLConstants at: 'SDL_GL_BLUE_SIZE' put: 16r2!
 SDLConstants at: 'SDL_GL_BUFFER_SIZE' put: 16r4!
+SDLConstants at: 'SDL_GL_CONTEXT_DEBUG_FLAG' put: 16r1!
 SDLConstants at: 'SDL_GL_CONTEXT_FLAGS' put: 16r13!
+SDLConstants at: 'SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG' put: 16r2!
 SDLConstants at: 'SDL_GL_CONTEXT_MAJOR_VERSION' put: 16r11!
 SDLConstants at: 'SDL_GL_CONTEXT_MINOR_VERSION' put: 16r12!
 SDLConstants at: 'SDL_GL_CONTEXT_NO_ERROR' put: 16r19!
@@ -170,7 +172,9 @@ SDLConstants at: 'SDL_GL_CONTEXT_PROFILE_CORE' put: 16r1!
 SDLConstants at: 'SDL_GL_CONTEXT_PROFILE_ES' put: 16r4!
 SDLConstants at: 'SDL_GL_CONTEXT_PROFILE_MASK' put: 16r14!
 SDLConstants at: 'SDL_GL_CONTEXT_RELEASE_BEHAVIOR' put: 16r17!
+SDLConstants at: 'SDL_GL_CONTEXT_RESET_ISOLATION_FLAG' put: 16r8!
 SDLConstants at: 'SDL_GL_CONTEXT_RESET_NOTIFICATION' put: 16r18!
+SDLConstants at: 'SDL_GL_CONTEXT_ROBUST_ACCESS_FLAG' put: 16r4!
 SDLConstants at: 'SDL_GL_DEPTH_SIZE' put: 16r6!
 SDLConstants at: 'SDL_GL_DOUBLEBUFFER' put: 16r5!
 SDLConstants at: 'SDL_GL_EGL_PLATFORM' put: 16r1B!

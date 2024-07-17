@@ -53,6 +53,9 @@ h
 
 	^bytes sdwordAtOffset: _OffsetOf_h!
 
+height
+	^self h!
+
 isSurface
 	^true!
 
@@ -125,7 +128,10 @@ userdata: anExternalAddress
 w
 	"Answer the <Integer> value of the receiver's 'w' field."
 
-	^bytes sdwordAtOffset: _OffsetOf_w! !
+	^bytes sdwordAtOffset: _OffsetOf_w!
+
+width
+	^self w! !
 
 !SDL_Surface categoriesForMethods!
 clip_rect!public! !
@@ -134,6 +140,7 @@ extent!public! !
 flags!public! !
 format!public! !
 h!public! !
+height!public! !
 isSurface!public! !
 isTexture!public! !
 list_blitmap!public! !
@@ -150,6 +157,7 @@ saveAsPNG:!public! !
 userdata!public! !
 userdata:!public! !
 w!public! !
+width!public! !
 !
 
 !SDL_Surface class methodsFor!

@@ -168,6 +168,9 @@ setWindowTitle: aString
 	title := aString ifNotNil: [aString] ifNil: [self class name asHumanPhrase].
 	window setTitle: title asUtf8String!
 
+show
+	self onCreated!
+
 top
 	^self rectangle top!
 
@@ -237,6 +240,7 @@ preferredExtent!public! !
 rectangle!public! !
 renderer:!public! !
 setWindowTitle:!accessing!public! !
+show!public! !
 top!public! !
 update!public! !
 viewport!public! !
