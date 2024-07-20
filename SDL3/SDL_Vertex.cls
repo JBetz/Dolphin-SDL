@@ -10,7 +10,7 @@ SDL_Vertex guid: (GUID fromString: '{87ebc352-9aba-4986-aceb-11e278bf9866}')!
 
 SDL_Vertex addClassConstant: '_OffsetOf_color' value: 16r8!
 SDL_Vertex addClassConstant: '_OffsetOf_position' value: 16r0!
-SDL_Vertex addClassConstant: '_OffsetOf_tex_coord' value: 16rC!
+SDL_Vertex addClassConstant: '_OffsetOf_tex_coord' value: 16r18!
 
 SDL_Vertex comment: ''!
 
@@ -19,17 +19,17 @@ SDL_Vertex comment: ''!
 !SDL_Vertex methodsFor!
 
 color
-	"Answer the <SDL_Color> value of the receiver's 'color' field."
+	"Answer the <SDL_FColor> value of the receiver's 'color' field."
 
-	^SDL_Color fromAddress: bytes yourAddress + _OffsetOf_color!
+	^SDL_FColor fromAddress: bytes yourAddress + _OffsetOf_color!
 
-color: aSDL_Color
-	"Set the receiver's 'color' field to the value of the argument, aSDL_Color"
+color: aSDL_FColor
+	"Set the receiver's 'color' field to the value of the argument, aSDL_FColor"
 
-	aSDL_Color
+	aSDL_FColor
 		replaceBytesOf: bytes
 		from: ##(_OffsetOf_color + 1)
-		to: ##(_OffsetOf_color + SDL_Color basicByteSize)
+		to: ##(_OffsetOf_color + SDL_FColor basicByteSize)
 		startingAt: 1!
 
 position
@@ -72,18 +72,18 @@ tex_coord:!**compiled accessors**!public! !
 !SDL_Vertex class methodsFor!
 
 defineFields
-	"SDL_Vertex compileDefinition
+	"SDL_Vertex compileDefinition"
 
-	typedef struct SDL_Vertex
+	"typedef struct SDL_Vertex
 	{
 	    SDL_FPoint position;        /**< Vertex position, in SDL_Renderer coordinates  */
-	    SDL_Color  color;           /**< Vertex color */
+	    SDL_FColor  color;           /**< Vertex color */
 	    SDL_FPoint tex_coord;       /**< Normalized texture coordinates, if needed */
 	} SDL_Vertex;"
 
 	self
 		defineField: #position type: (StructureField type: SDL_FPoint);
-		defineField: #color type: (StructureField type: SDL_Color);
+		defineField: #color type: (StructureField type: SDL_FColor);
 		defineField: #tex_coord type: (StructureField type: SDL_FPoint)!
 
 getFieldNames
