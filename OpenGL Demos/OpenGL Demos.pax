@@ -1,0 +1,61 @@
+﻿| package |
+package := Package name: 'OpenGL Demos'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package classNames
+	add: #CoordinateSystemsDemo;
+	add: #GLDemo;
+	add: #TextureDemo;
+	add: #TransformationDemo;
+	add: #TriangleDemo;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\LinearAlgebra\LinearAlgebra'
+	'..\OpenGL\OpenGL'
+	'..\SDL3\SDL3').
+
+package!
+
+"Class Definitions"!
+
+Application subclass: #GLDemo
+	instanceVariableNames: 'context isReady sdl sdlImage sdlTtf debugCallback gl shaderProgram vertices indices vertexArray vertexBuffer indexBuffer'
+	classVariableNames: ''
+	poolDictionaries: 'OpenGLConstants'
+	classInstanceVariableNames: ''!
+
+GLDemo subclass: #CoordinateSystemsDemo
+	instanceVariableNames: 'containerTexture smileyTexture rotation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLDemo subclass: #TextureDemo
+	instanceVariableNames: 'containerTexture'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLDemo subclass: #TransformationDemo
+	instanceVariableNames: 'containerTexture smileyTexture rotation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLDemo subclass: #TriangleDemo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"End of package definition"!
+

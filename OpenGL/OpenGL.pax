@@ -1,0 +1,98 @@
+﻿| package |
+package := Package name: 'OpenGL'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package classNames
+	add: #GLArrayBuffer;
+	add: #GLBuffer;
+	add: #GLContext;
+	add: #GLElementArrayBuffer;
+	add: #GLObject;
+	add: #GLProgram;
+	add: #GLShader;
+	add: #GLTexture;
+	add: #GLVertexArray;
+	add: #OpenGLLibrary;
+	yourself.
+
+package globalNames
+	add: #OpenGLConstants;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\SDL3\SDL3').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #GLObject
+	instanceVariableNames: 'gl handle'
+	classVariableNames: ''
+	poolDictionaries: 'OpenGLConstants'
+	classInstanceVariableNames: ''!
+
+ExternalLibrary subclass: #OpenGLLibrary
+	instanceVariableNames: ''
+	classVariableNames: 'GLErrors OpenGLExtension'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLObject subclass: #GLBuffer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLObject subclass: #GLContext
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLObject subclass: #GLProgram
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLObject subclass: #GLShader
+	instanceVariableNames: 'sourceCode'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLObject subclass: #GLTexture
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLObject subclass: #GLVertexArray
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLBuffer subclass: #GLArrayBuffer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GLBuffer subclass: #GLElementArrayBuffer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"End of package definition"!
+
