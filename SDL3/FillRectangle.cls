@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-FillCommand subclass: #FillRectangle
-	instanceVariableNames: 'rectangle'
+RenderCommand subclass: #FillRectangle
+	instanceVariableNames: 'rectangle color'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,9 +14,11 @@ FillRectangle comment: ''!
 
 !FillRectangle methodsFor!
 
-applyOffset: aPoint
-	rectangle := Rectangle origin: (rectangle origin x + aPoint x) @ (rectangle origin y + aPoint y)
-				corner: (rectangle corner x + aPoint x) @ (rectangle corner y + aPoint y)!
+color
+	^color!
+
+color: anObject
+	color := anObject!
 
 rectangle
 	^rectangle!
@@ -25,7 +27,8 @@ rectangle: anObject
 	rectangle := anObject! !
 
 !FillRectangle categoriesForMethods!
-applyOffset:!public! !
+color!accessing!public! !
+color:!accessing!public! !
 rectangle!accessing!public! !
 rectangle:!accessing!public! !
 !

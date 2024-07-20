@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-FillCommand subclass: #FillTriangle
-	instanceVariableNames: 'vertexOne vertexTwo vertexThree'
+FillGeometry subclass: #FillTriangle
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,34 +14,14 @@ FillTriangle comment: ''!
 
 !FillTriangle methodsFor!
 
-vertexOne
-	^vertexOne!
-
-vertexOne: anObject
-	vertexOne := anObject!
-
-vertexThree
-	^vertexThree!
-
-vertexThree: anObject
-	vertexThree := anObject!
-
-vertexTwo
-	^vertexTwo!
-
-vertexTwo: anObject
-	vertexTwo := anObject!
-
 vertices
-	^{vertexOne. vertexTwo. vertexThree}! !
+	^vertices!
+
+vertices: anArrayOfVertices
+	vertices := anArrayOfVertices! !
 
 !FillTriangle categoriesForMethods!
-vertexOne!accessing!public! !
-vertexOne:!accessing!public! !
-vertexThree!accessing!public! !
-vertexThree:!accessing!public! !
-vertexTwo!accessing!public! !
-vertexTwo:!accessing!public! !
 vertices!public! !
+vertices:!public! !
 !
 

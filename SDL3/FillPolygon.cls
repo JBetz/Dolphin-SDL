@@ -1,12 +1,12 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-FillCommand subclass: #FillPolygon
-	instanceVariableNames: 'points'
+RenderCommand subclass: #FillPolygon
+	instanceVariableNames: 'vertices indices'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-FillPolygon guid: (GUID fromString: '{de6ab2ee-3965-49a1-90e3-23bffc918c91}')!
+FillPolygon guid: (GUID fromString: '{c0e7715d-668a-4253-a0aa-c1448f0af2eb}')!
 
 FillPolygon comment: ''!
 
@@ -14,14 +14,22 @@ FillPolygon comment: ''!
 
 !FillPolygon methodsFor!
 
-points
-	^points!
+indices
+	^indices!
 
-points: anObject
-	points := anObject! !
+indices: anArrayOfIntegers
+	indices := anArrayOfIntegers!
+
+vertices
+	^vertices!
+
+vertices: anArrayOfVertices
+	vertices := anArrayOfVertices! !
 
 !FillPolygon categoriesForMethods!
-points!accessing!public! !
-points:!accessing!public! !
+indices!public! !
+indices:!public! !
+vertices!public! !
+vertices:!public! !
 !
 

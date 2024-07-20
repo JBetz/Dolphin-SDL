@@ -280,43 +280,32 @@ executeDrawTexture: aDrawTexture
 		source: nil
 		destination: destinationRectangle!
 
-executeFillQuadrilateral: aFillQuadrilateral
-	| color vertices indices |
-	color := (aFillQuadrilateral color ifNil: [Color white]) asSDLColor.
-	vertices := aFillQuadrilateral points collect: 
-					[:aPoint |
-					SDL_Vertex new
-						position: (SDL_FPoint new
-									x: aPoint x;
-									y: aPoint y);
-						color: color;
-						tex_coord: SDL_FPoint new].
-	indices := {0. 3. 1. 1. 2. 3} collect: [:anInteger | anInteger asSDword].
-	sdlRenderer
-		renderGeometry: nil
-		vertices: vertices
-		indices: indices!
+executeFillPolygon: aFillPolygon
+	| vertices indices |
+	vertices := aFillPolygon vertices.
+	indices := aFillPolygon indices.
+	indices
+		ifNil: [sdlRenderer renderGeometry: nil vertices: vertices]
+		ifNotNil: 
+			[sdlRenderer
+				renderGeometry: nil
+				vertices: vertices
+				indices: (indices collect: [:each | each asSDword])]!
 
 executeFillRectangle: aFillRectangle
 	aFillRectangle color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
 	aFillRectangle rectangle ifNotNil: [:aRectangle | sdlRenderer fillRectangle: aRectangle]!
 
-executeFillTriangle: aFillTriangle
-	sdlRenderer renderGeometry: nil vertices: aFillTriangle vertices!
-
-fillPolygon: anArrayOfPoint color: aColor zIndex: anInteger
+fillPolygon: anArrayOfVertices zIndex: anInteger
 	self addCommand: (FillPolygon new
-				points: anArrayOfPoint;
-				color: aColor;
+				vertices: anArrayOfVertices;
 				zIndex: anInteger)!
 
-fillQuadrilateral: anArrayOfPoint color: aColor zIndex: anInteger
-	self addCommand: (FillQuadrilateral new
-				vertexOne: anArrayOfPoint first;
-				vertexTwo: anArrayOfPoint second;
-				vertexThree: anArrayOfPoint third;
-				vertexFour: anArrayOfPoint fourth;
-				color: aColor;
+fillQuadrilateral: anArrayOfVertices zIndex: anInteger
+	self assert: [anArrayOfVertices size = 4].
+	self addCommand: (FillPolygon new
+				vertices: anArrayOfVertices;
+				indices: #(0 3 1 1 2 3);
 				zIndex: anInteger)!
 
 fillRectangle: aRectangle color: aColor zIndex: anInteger
@@ -325,19 +314,10 @@ fillRectangle: aRectangle color: aColor zIndex: anInteger
 				color: aColor;
 				zIndex: anInteger)!
 
-fillTriangle: anArrayOfPoint color: aColor zIndex: anInteger
-	self addCommand: (FillTriangle new
-				vertexOne: anArrayOfPoint first;
-				vertexTwo: anArrayOfPoint second;
-				vertexThree: anArrayOfPoint third;
-				color: aColor;
-				zIndex: anInteger)!
-
 fillTriangle: anArrayOfVertices zIndex: anInteger
-	self addCommand: (FillTriangle new
-				vertexOne: anArrayOfVertices first;
-				vertexTwo: anArrayOfVertices second;
-				vertexThree: anArrayOfVertices third;
+	self assert: [anArrayOfVertices size = 3].
+	self addCommand: (FillPolygon new
+				vertices: anArrayOfVertices;
 				zIndex: anInteger)!
 
 flush
@@ -485,13 +465,11 @@ executeDrawRectangle:!executing!private! !
 executeDrawString:!executing!private! !
 executeDrawSurface:!executing!private! !
 executeDrawTexture:!executing!private! !
-executeFillQuadrilateral:!executing!private! !
+executeFillPolygon:!executing!private! !
 executeFillRectangle:!executing!private! !
-executeFillTriangle:!executing!private! !
-fillPolygon:color:zIndex:!geometry!public! !
-fillQuadrilateral:color:zIndex:!geometry!public! !
+fillPolygon:zIndex:!geometry!public! !
+fillQuadrilateral:zIndex:!geometry!public! !
 fillRectangle:color:zIndex:!geometry!public! !
-fillTriangle:color:zIndex:!geometry!public! !
 fillTriangle:zIndex:!geometry!public! !
 flush!public! !
 forceRender:!public! !
@@ -527,9 +505,7 @@ initialize
 		at: DrawRectangle put: #executeDrawRectangle:;
 		at: DrawString put: #executeDrawString:;
 		at: FillPolygon put: #executeFillPolygon:;
-		at: FillQuadrilateral put: #executeFillQuadrilateral:;
-		at: FillRectangle put: #executeFillRectangle:;
-		at: FillTriangle put: #executeFillTriangle:!
+		at: FillRectangle put: #executeFillRectangle:!
 
 new
 	^super new initialize! !
