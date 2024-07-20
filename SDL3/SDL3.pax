@@ -32,6 +32,7 @@ package classNames
 	add: #SDL_DropEvent;
 	add: #SDL_Event;
 	add: #SDL_EventFilter;
+	add: #SDL_FColor;
 	add: #SDL_FPoint;
 	add: #SDL_FRect;
 	add: #SDL_FunctionPointer;
@@ -65,6 +66,7 @@ package classNames
 	add: #SDL3Library;
 	add: #SDL3TTFLibrary;
 	add: #SDLInputState;
+	add: #TriangleDemo;
 	add: #TTF_Font;
 	add: #TTF_Object;
 	add: #TTFFontStyle;
@@ -72,7 +74,10 @@ package classNames
 
 package methodNames
 	add: #Color -> #asSDLColor;
+	add: #Color -> #asSDLFColor;
 	add: #ExternalMethod -> #procAddress:;
+	add: #Point -> #asSDLFPoint;
+	add: #Point -> #asSDLPoint;
 	add: #Rectangle -> #asSDLFRect;
 	add: #Rectangle -> #asSDLRect;
 	add: 'Rectangle class' -> #empty;
@@ -90,9 +95,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\Desktop\Dolphin Images\Browser-39\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Desktop\Dolphin Images\Browser-39\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\..\..\Desktop\Dolphin Images\Browser-39\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
@@ -126,6 +131,12 @@ Object subclass: #TTFFontStyle
 	instanceVariableNames: 'name code'
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
+	classInstanceVariableNames: ''!
+
+Application subclass: #TriangleDemo
+	instanceVariableNames: 'vertices'
+	classVariableNames: ''
+	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Dictionary variableSubclass: #PriorityQueue
@@ -185,6 +196,12 @@ ExternalStructure subclass: #SDL_Event
 ExternalStructure subclass: #SDL_EventFilter
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_FColor
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_a _OffsetOf_b _OffsetOf_g _OffsetOf_r'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -491,10 +508,18 @@ asSDLColor
 		r: self red;
 		g: self green;
 		b: self blue;
-		a: self alpha! !
+		a: self alpha!
+
+asSDLFColor
+	^SDL_FColor new
+		r: self red / 255;
+		g: self green / 255;
+		b: self blue / 255;
+		a: self alpha / 255! !
 
 !Color categoriesForMethods!
 asSDLColor!public! !
+asSDLFColor!public! !
 !
 
 !ExternalMethod methodsFor!
@@ -507,6 +532,23 @@ procAddress: anExternalAddress
 
 !ExternalMethod categoriesForMethods!
 procAddress:!accessing!public! !
+!
+
+!Point methodsFor!
+
+asSDLFPoint
+	^SDL_FPoint new
+		x: x asFloat;
+		y: y asFloat!
+
+asSDLPoint
+	^SDL_Point new
+		x: x asInteger;
+		y: y asInteger! !
+
+!Point categoriesForMethods!
+asSDLFPoint!public! !
+asSDLPoint!public! !
 !
 
 !Rectangle methodsFor!
