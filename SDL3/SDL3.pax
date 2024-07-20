@@ -11,7 +11,6 @@ package classNames
 	add: #DrawRectangle;
 	add: #DrawString;
 	add: #DrawSurface;
-	add: #DrawText;
 	add: #DrawTexture;
 	add: #FillCommand;
 	add: #FillPolygon;
@@ -113,7 +112,7 @@ Object subclass: #RenderCommand
 
 Object subclass: #Renderer2D
 	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
-	classVariableNames: ''
+	classVariableNames: 'CommandMap'
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
 
@@ -435,8 +434,8 @@ RenderCommand subclass: #DrawRectangle
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-RenderCommand subclass: #DrawText
-	instanceVariableNames: 'color font rectangle fontSize fontStyle'
+RenderCommand subclass: #DrawString
+	instanceVariableNames: 'color font rectangle fontSize fontStyle format string'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -455,12 +454,6 @@ DrawImage subclass: #DrawSurface
 
 DrawImage subclass: #DrawTexture
 	instanceVariableNames: 'texture'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-DrawText subclass: #DrawString
-	instanceVariableNames: 'string format'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
