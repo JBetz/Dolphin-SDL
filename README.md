@@ -12,5 +12,5 @@ You might want to use Dolphin-SDL if:
 ## Getting Started
 * Install [Dolphin Smalltalk 7.2](https://github.com/dolphinsmalltalk/Dolphin)
 * Install `SDL*.pax` in a Dolphin image
-* Obtain SDL's Windows 32-bit binaries. The simplest way is to copy the DLL files in the `bin` directory of this repo. For more up to date build, you can also download release artifacts from https://github.com/JBetz/build-sdl3-win32/releases or build directly from SDL source. As soon as SDL 3.2 is released, there will be release builds published to the official SDL repo, which at that point will become recommended method.
+* Obtain SDL's Windows 32-bit binaries. The simplest way is to copy the DLL files in the `bin` directory of this repo. For more up to date build, you can also download release artifacts from https://github.com/JBetz/build-sdl3-win32/releases or build directly from SDL source. As soon as SDL 3.2 is released, there will be release builds published to the official SDL repo, which will become the recommended method.
 * Copy DLLs into the same directory as the Dolphin image
