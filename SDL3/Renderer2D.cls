@@ -302,16 +302,7 @@ executeFillRectangle: aFillRectangle
 	aFillRectangle rectangle ifNotNil: [:aRectangle | sdlRenderer fillRectangle: aRectangle]!
 
 executeFillTriangle: aFillTriangle
-	| vertices |
-	vertices := aFillTriangle points collect: 
-					[:aPoint |
-					SDL_Vertex new
-						position: (SDL_FPoint new
-									x: aPoint x;
-									y: aPoint y);
-						color: aFillTriangle color asSDLColor;
-						tex_coord: SDL_FPoint new].
-	sdlRenderer renderGeometry: nil vertices: vertices!
+	sdlRenderer renderGeometry: nil vertices: aFillTriangle vertices!
 
 fillPolygon: anArrayOfPoint color: aColor zIndex: anInteger
 	self addCommand: (FillPolygon new
@@ -340,6 +331,13 @@ fillTriangle: anArrayOfPoint color: aColor zIndex: anInteger
 				vertexTwo: anArrayOfPoint second;
 				vertexThree: anArrayOfPoint third;
 				color: aColor;
+				zIndex: anInteger)!
+
+fillTriangle: anArrayOfVertices zIndex: anInteger
+	self addCommand: (FillTriangle new
+				vertexOne: anArrayOfVertices first;
+				vertexTwo: anArrayOfVertices second;
+				vertexThree: anArrayOfVertices third;
 				zIndex: anInteger)!
 
 flush
@@ -402,6 +400,9 @@ saveTexture: aSDLTexture fileName: aString
 
 sdlRenderer: aSDL_Renderer
 	sdlRenderer := aSDL_Renderer!
+
+setDrawColor: aColor
+	sdlRenderer setDrawColor: aColor!
 
 subtractOffset: aPoint
 	offset := offset - aPoint!
@@ -491,6 +492,7 @@ fillPolygon:color:zIndex:!geometry!public! !
 fillQuadrilateral:color:zIndex:!geometry!public! !
 fillRectangle:color:zIndex:!geometry!public! !
 fillTriangle:color:zIndex:!geometry!public! !
+fillTriangle:zIndex:!geometry!public! !
 flush!public! !
 forceRender:!public! !
 initialize!public! !
@@ -502,6 +504,7 @@ present!public! !
 resetClip!public! !
 saveTexture:fileName:!images!public! !
 sdlRenderer:!accessing!public! !
+setDrawColor:!executing!private! !
 subtractOffset:!private! !
 viewport!public! !
 withClip:do:!public! !

@@ -14,9 +14,6 @@ FillTriangle comment: ''!
 
 !FillTriangle methodsFor!
 
-points
-	^{vertexOne. vertexTwo. vertexThree}!
-
 vertexOne
 	^vertexOne!
 
@@ -33,15 +30,18 @@ vertexTwo
 	^vertexTwo!
 
 vertexTwo: anObject
-	vertexTwo := anObject! !
+	vertexTwo := anObject!
+
+vertices
+	^{vertexOne. vertexTwo. vertexThree}! !
 
 !FillTriangle categoriesForMethods!
-points!public! !
 vertexOne!accessing!public! !
 vertexOne:!accessing!public! !
 vertexThree!accessing!public! !
 vertexThree:!accessing!public! !
 vertexTwo!accessing!public! !
 vertexTwo:!accessing!public! !
+vertices!public! !
 !
 
