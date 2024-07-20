@@ -19,20 +19,17 @@ initialize
 	self initializeVertices!
 
 initializeVertices
-	| vertex1 vertex2 vertex3 |
-	vertex1 := SDL_Vertex new
-				position: (400 @ 150) asSDLFPoint;
-				color: Color red asSDLFColor.
-	vertex2 := SDL_Vertex new
-				position: (200 @ 450) asSDLFPoint;
-				color: Color blue asSDLFColor.
-	vertex3 := SDL_Vertex new
-				position: (600 @ 450) asSDLFPoint;
-				color: Color green asSDLFColor.
-	vertices := Array
-				with: vertex1
-				with: vertex2
-				with: vertex3!
+	vertices := OrderedCollection new.
+	vertices
+		add: (SDL_Vertex new
+					position: (400 @ 150) asSDLFPoint;
+					color: Color red asSDLFColor);
+		add: (SDL_Vertex new
+					position: (200 @ 450) asSDLFPoint;
+					color: Color blue asSDLFColor);
+		add: (SDL_Vertex new
+					position: (600 @ 450) asSDLFPoint;
+					color: Color green asSDLFColor)!
 
 update
 	renderer
