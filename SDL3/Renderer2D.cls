@@ -2,7 +2,7 @@
 
 Object subclass: #Renderer2D
 	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
-	classVariableNames: ''
+	classVariableNames: 'CommandMap'
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
 
@@ -224,7 +224,7 @@ enable
 
 execute: aRenderCommand
 	| selector |
-	selector := aRenderCommand asSelector.
+	selector := CommandMap at: aRenderCommand class.
 	aRenderCommand clip ifNotNil: [:aRectangle | sdlRenderer setClip: aRectangle].
 	self perform: selector with: aRenderCommand.
 	aRenderCommand clip ifNotNil: [sdlRenderer resetClip]!
@@ -512,10 +512,27 @@ withoutOffsetDo:!public! !
 
 !Renderer2D class methodsFor!
 
+initialize
+	"self initialize"
+
+	CommandMap := LookupTable new.
+	CommandMap
+		at: DrawImage put: #executeDrawImage:;
+		at: DrawSurface put: #executeDrawSurface:;
+		at: DrawTexture put: #executeDrawTexture:;
+		at: DrawLine put: #executeDrawLine:;
+		at: DrawRectangle put: #executeDrawRectangle:;
+		at: DrawString put: #executeDrawString:;
+		at: FillPolygon put: #executeFillPolygon:;
+		at: FillQuadrilateral put: #executeFillQuadrilateral:;
+		at: FillRectangle put: #executeFillRectangle:;
+		at: FillTriangle put: #executeFillTriangle:!
+
 new
 	^super new initialize! !
 
 !Renderer2D class categoriesForMethods!
+initialize!public! !
 new!public! !
 !
 

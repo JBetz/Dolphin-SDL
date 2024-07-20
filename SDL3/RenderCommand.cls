@@ -14,9 +14,6 @@ RenderCommand comment: ''!
 
 !RenderCommand methodsFor!
 
-asSelector
-	^('execute' , self class name asString , ':') asSymbol!
-
 clip
 	^clip!
 
@@ -30,7 +27,6 @@ zIndex: anObject
 	zIndex := anObject! !
 
 !RenderCommand categoriesForMethods!
-asSelector!public! !
 clip!public! !
 clip:!public! !
 zIndex!public! !
