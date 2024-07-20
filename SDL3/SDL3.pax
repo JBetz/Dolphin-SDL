@@ -12,12 +12,10 @@ package classNames
 	add: #DrawString;
 	add: #DrawSurface;
 	add: #DrawTexture;
-	add: #FillCommand;
 	add: #FillPolygon;
-	add: #FillQuadrilateral;
 	add: #FillRectangle;
-	add: #FillTriangle;
 	add: #PriorityQueue;
+	add: #QuadrilateralDemo;
 	add: #RenderCommand;
 	add: #Renderer2D;
 	add: #SDL_AudioDeviceEvent;
@@ -131,6 +129,12 @@ Object subclass: #TTFFontStyle
 	instanceVariableNames: 'name code'
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
+	classInstanceVariableNames: ''!
+
+Application subclass: #QuadrilateralDemo
+	instanceVariableNames: 'vertices'
+	classVariableNames: ''
+	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Application subclass: #TriangleDemo
@@ -457,8 +461,14 @@ RenderCommand subclass: #DrawString
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-RenderCommand subclass: #FillCommand
-	instanceVariableNames: 'color'
+RenderCommand subclass: #FillPolygon
+	instanceVariableNames: 'vertices indices'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+RenderCommand subclass: #FillRectangle
+	instanceVariableNames: 'rectangle color'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -471,30 +481,6 @@ DrawImage subclass: #DrawSurface
 
 DrawImage subclass: #DrawTexture
 	instanceVariableNames: 'texture'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-FillCommand subclass: #FillPolygon
-	instanceVariableNames: 'points'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-FillCommand subclass: #FillQuadrilateral
-	instanceVariableNames: 'vertexOne vertexTwo vertexThree vertexFour'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-FillCommand subclass: #FillRectangle
-	instanceVariableNames: 'rectangle'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-FillCommand subclass: #FillTriangle
-	instanceVariableNames: 'vertexOne vertexTwo vertexThree'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
