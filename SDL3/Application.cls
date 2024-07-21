@@ -43,7 +43,7 @@ createRenderer
 
 createWindow
 	window := inputState
-				createWindow: self class name asHumanPhrase
+				createWindow: self class name asPhrase
 				extent: self calculateInitialExtent
 				flags: self windowFlags
 				for: self!
@@ -165,7 +165,7 @@ renderer: aRenderer
 setWindowTitle: aString
 	| title |
 	window ifNil: [^self].
-	title := aString ifNotNil: [aString] ifNil: [self class name asHumanPhrase].
+	title := aString ifNotNil: [aString] ifNil: [self class name asPhrase].
 	window setTitle: title asUtf8String!
 
 show
