@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 GLDemo subclass: #TransformationDemo
-	instanceVariableNames: 'containerTexture smileyTexture rotation'
+	instanceVariableNames: 'dolphinTexture rotation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -17,9 +17,7 @@ TransformationDemo comment: ''!
 render
 	| transformationMatrix |
 	gl glActiveTexture_texture: GL_TEXTURE0.
-	containerTexture bind.
-	gl glActiveTexture_texture: GL_TEXTURE1.
-	smileyTexture bind.
+	dolphinTexture bind.
 	transformationMatrix := Matrix identity: 4.
 	transformationMatrix := transformationMatrix rotateOverZAxisBy: rotation.
 	transformationMatrix := transformationMatrix rotateOverYAxisBy: rotation.
@@ -40,20 +38,20 @@ setup
 	self
 		setupVertexData;
 		setupShaderProgram;
-		setupContainerTexture;
-		setupSmileyTexture.
+		setupDolphinTexture.
 	rotation := 0!
 
-setupContainerTexture
+setupDolphinTexture
 	| imageSurface |
-	containerTexture := context generateTexture.
-	containerTexture
+	dolphinTexture := context generateTexture.
+	dolphinTexture
 		bind;
 		setIntParameter: GL_TEXTURE_WRAP_S value: GL_REPEAT;
 		setIntParameter: GL_TEXTURE_WRAP_T value: GL_REPEAT;
 		setIntParameter: GL_TEXTURE_MIN_FILTER value: GL_LINEAR;
 		setIntParameter: GL_TEXTURE_MAG_FILTER value: GL_LINEAR.
-	imageSurface := SDL_Surface fromFile: 'container.jpg'.
+	imageSurface := SDL_Surface
+				fromFile: (FileLocator installRelative localFileSpecFor: 'Resources\Dolphin7Splash.png').
 	gl
 		glTexImage2D_target: GL_TEXTURE_2D
 			level: 0
@@ -61,7 +59,7 @@ setupContainerTexture
 			width: imageSurface width
 			height: imageSurface height
 			border: 0
-			format: GL_RGB
+			format: GL_RGBA
 			type: GL_UNSIGNED_BYTE
 			data: imageSurface pixels;
 		glGenerateMipmap_target: GL_TEXTURE_2D.
@@ -96,12 +94,10 @@ in vec2 TexCoord;
 
 // texture samplers
 uniform sampler2D texture1;
-uniform sampler2D texture2;
 
 void main()
 {
-	// linearly interpolate between both textures (80% container, 20% awesomeface)
-	FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
+	FragColor = texture(texture1, TexCoord);
 }';
 		compile.
 	shaderProgram := context createProgram.
@@ -111,31 +107,6 @@ void main()
 		link.
 	vertexShader delete.
 	fragmentShader delete!
-
-setupSmileyTexture
-	| imageSurface |
-	smileyTexture := context generateTexture.
-	smileyTexture
-		bind;
-		setIntParameter: GL_TEXTURE_WRAP_S value: GL_REPEAT;
-		setIntParameter: GL_TEXTURE_WRAP_T value: GL_REPEAT;
-		setIntParameter: GL_TEXTURE_MIN_FILTER value: GL_LINEAR;
-		setIntParameter: GL_TEXTURE_MAG_FILTER value: GL_LINEAR.
-	imageSurface := SDL_Surface fromFile: 'smiley.png'.
-	gl
-		glTexImage2D_target: GL_TEXTURE_2D
-			level: 0
-			internalFormat: GL_RGB
-			width: imageSurface width
-			height: imageSurface height
-			border: 0
-			format: GL_RGBA
-			type: GL_UNSIGNED_BYTE
-			data: imageSurface pixels;
-		glGenerateMipmap_target: GL_TEXTURE_2D.
-	shaderProgram
-		use;
-		setInt: 'texture2' value: 1!
 
 setupVertexData
 	vertices := #(0.5 0.5 0.0 1.0 1.0 0.5 -0.5 0.0 1.0 0.0 -0.5 -0.5 0.0 0.0 0.0 -0.5 0.5 0.0 0.0 1.0).
@@ -170,9 +141,8 @@ setupVertexData
 !TransformationDemo categoriesForMethods!
 render!public! !
 setup!public! !
-setupContainerTexture!private! !
+setupDolphinTexture!private! !
 setupShaderProgram!private! !
-setupSmileyTexture!private! !
 setupVertexData!private! !
 !
 

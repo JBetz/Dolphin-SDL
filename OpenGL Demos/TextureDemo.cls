@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 GLDemo subclass: #TextureDemo
-	instanceVariableNames: 'containerTexture'
+	instanceVariableNames: 'dolphinTexture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -16,7 +16,7 @@ TextureDemo comment: ''!
 
 render
 	gl glActiveTexture_texture: GL_TEXTURE0.
-	containerTexture bind.
+	dolphinTexture bind.
 	shaderProgram use.
 	gl
 		glDrawElements_mode: GL_TRIANGLES
@@ -29,18 +29,19 @@ setup
 	self
 		setupVertexData;
 		setupShaderProgram;
-		setupContainerTexture!
+		setupDolphinTexture!
 
-setupContainerTexture
+setupDolphinTexture
 	| imageSurface |
-	containerTexture := context generateTexture.
-	containerTexture
+	dolphinTexture := context generateTexture.
+	dolphinTexture
 		bind;
 		setIntParameter: GL_TEXTURE_WRAP_S value: GL_REPEAT;
 		setIntParameter: GL_TEXTURE_WRAP_T value: GL_REPEAT;
 		setIntParameter: GL_TEXTURE_MIN_FILTER value: GL_LINEAR;
 		setIntParameter: GL_TEXTURE_MAG_FILTER value: GL_LINEAR.
-	imageSurface := SDL_Surface fromFile: 'container.jpg'.
+	imageSurface := SDL_Surface
+				fromFile: (FileLocator installRelative localFileSpecFor: 'Resources\Dolphin7Splash.png').
 	gl
 		glTexImage2D_target: GL_TEXTURE_2D
 			level: 0
@@ -48,7 +49,7 @@ setupContainerTexture
 			width: imageSurface width
 			height: imageSurface height
 			border: 0
-			format: GL_RGB
+			format: GL_RGBA
 			type: GL_UNSIGNED_BYTE
 			data: imageSurface pixels;
 		glGenerateMipmap_target: GL_TEXTURE_2D.
@@ -140,7 +141,7 @@ setupVertexData
 !TextureDemo categoriesForMethods!
 render!public! !
 setup!public! !
-setupContainerTexture!private! !
+setupDolphinTexture!private! !
 setupShaderProgram!private! !
 setupVertexData!private! !
 !
