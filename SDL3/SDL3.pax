@@ -15,7 +15,6 @@ package classNames
 	add: #FillPolygon;
 	add: #FillRectangle;
 	add: #PriorityQueue;
-	add: #QuadrilateralDemo;
 	add: #RenderCommand;
 	add: #Renderer2D;
 	add: #SDL_AudioDeviceEvent;
@@ -64,7 +63,7 @@ package classNames
 	add: #SDL3Library;
 	add: #SDL3TTFLibrary;
 	add: #SDLInputState;
-	add: #TriangleDemo;
+	add: #SimpleExample;
 	add: #TTF_Font;
 	add: #TTF_Object;
 	add: #TTFFontStyle;
@@ -131,14 +130,8 @@ Object subclass: #TTFFontStyle
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
-Application subclass: #QuadrilateralDemo
-	instanceVariableNames: 'vertices'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-Application subclass: #TriangleDemo
-	instanceVariableNames: 'vertices'
+Application subclass: #SimpleExample
+	instanceVariableNames: 'triangleVertices'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

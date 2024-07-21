@@ -64,6 +64,7 @@ height
 initialize
 	super initialize.
 	inputState := SDLInputState current.
+	mousePosition := 0@0.
 	isDirty := true!
 
 isDirty
