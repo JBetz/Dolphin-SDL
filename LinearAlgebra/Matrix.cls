@@ -396,13 +396,13 @@ rotate: degrees x: x y: y z: z
 				z: z / unitVector)!
 
 rotateOverXAxisBy: angle
-	^self * (Matrix xAxisRotationFor: angle)!
+	^self * (Matrix rotationOverXAxisFor: angle)!
 
 rotateOverYAxisBy: angle
-	^self * (Matrix yAxisRotationFor: angle)!
+	^self * (Matrix rotationOverYAxisFor: angle)!
 
 rotateOverZAxisBy: angle
-	^self * (Matrix zAxisRotationFor: angle)!
+	^self * (Matrix rotationOverZAxisFor: angle)!
 
 row: anInteger
 	"Answer a single-row Matrix containing only the data from the 'anInteger'th row of this Matrix"
@@ -646,14 +646,14 @@ perspectiveFor: degrees aspectRatio: aspectRatio nearPlane: nearPlane farPlane: 
 		at: 4 @ 3 put: -1;
 		at: 3 @ 4 put: (2 * farPlane * nearPlane) negated / (farPlane - nearPlane)!
 
-rotationFor: degrees vector: aVector
+rotationOver: aVector by: anInteger 
 	| unitVector x y z sin cos tan |
 	unitVector := (aVector x squared + aVector y squared + aVector z squared) sqrt.
 	x := aVector x / unitVector.
 	y := aVector y / unitVector.
 	z := aVector z / unitVector.
-	sin := degrees degreesToRadians sin.
-	cos := degrees degreesToRadians cos.
+	sin := anInteger degreesToRadians sin.
+	cos := anInteger degreesToRadians cos.
 	tan := 1.0 - cos.
 	^(Matrix identity: 4)
 		at: 1 @ 1 put: cos + (x squared * tan);
@@ -666,13 +666,41 @@ rotationFor: degrees vector: aVector
 		at: 3 @ 2 put: z * y * tan + (x * sin);
 		at: 3 @ 3 put: cos + (z squared * tan)!
 
-rotationFor: degrees x: x y: y z: z
-	^self rotationFor: degrees
-		vector: (Vector from: (Array
+rotationOverX: x y: y z: z by: anInteger
+	^self
+		rotationOver: (Vector from: (Array
 						with: x
 						with: y
 						with: z
-						with: 0.00))!
+						with: 0.00))
+		by: anInteger!
+
+rotationOverXAxisFor: degrees
+	| angle |
+	angle := degrees degreesToRadians.
+	^(Matrix identity: 4)
+		at: 2 @ 2 put: angle cos;
+		at: 2 @ 3 put: angle sin negated;
+		at: 3 @ 2 put: angle sin;
+		at: 3 @ 3 put: angle cos!
+
+rotationOverYAxisFor: degrees
+	| angle |
+	angle := degrees degreesToRadians.
+	^(Matrix identity: 4)
+		at: 1 @ 1 put: angle cos;
+		at: 1 @ 3 put: angle sin;
+		at: 3 @ 1 put: angle sin negated;
+		at: 3 @ 3 put: angle cos!
+
+rotationOverZAxisFor: degrees
+	| angle |
+	angle := degrees degreesToRadians.
+	^(Matrix identity: 4)
+		at: 1 @ 1 put: angle cos;
+		at: 1 @ 2 put: angle sin negated;
+		at: 2 @ 1 put: angle sin;
+		at: 2 @ 2 put: angle cos!
 
 scalingFor: aVector
 	^(Matrix identity: 4)
@@ -682,33 +710,6 @@ scalingFor: aVector
 
 translationFor: aVector
 	^(Matrix identity: 4) translate: aVector!
-
-xAxisRotationFor: degrees
-	| angle |
-	angle := degrees degreesToRadians.
-	^(Matrix identity: 4)
-		at: 2 @ 2 put: angle cos;
-		at: 2 @ 3 put: angle sin negated;
-		at: 3 @ 2 put: angle sin;
-		at: 3 @ 3 put: angle cos!
-
-yAxisRotationFor: degrees
-	| angle |
-	angle := degrees degreesToRadians.
-	^(Matrix identity: 4)
-		at: 1 @ 1 put: angle cos;
-		at: 1 @ 3 put: angle sin;
-		at: 3 @ 1 put: angle sin negated;
-		at: 3 @ 3 put: angle cos!
-
-zAxisRotationFor: degrees
-	| angle |
-	angle := degrees degreesToRadians.
-	^(Matrix identity: 4)
-		at: 1 @ 1 put: angle cos;
-		at: 1 @ 2 put: angle sin negated;
-		at: 2 @ 1 put: angle sin;
-		at: 2 @ 2 put: angle cos!
 
 zero: aPoint
 	"Answer a zero matrix of order 'aPoint'."
@@ -730,13 +731,13 @@ new:initializeWith:!instance creation!public! !
 newSquare:!instance creation!public! !
 ones:!instance creation!public! !
 perspectiveFor:aspectRatio:nearPlane:farPlane:!public! !
-rotationFor:vector:!instance creation!public! !
-rotationFor:x:y:z:!instance creation!public! !
+rotationOver:by:!instance creation!public! !
+rotationOverX:y:z:by:!instance creation!public! !
+rotationOverXAxisFor:!instance creation!public! !
+rotationOverYAxisFor:!instance creation!public! !
+rotationOverZAxisFor:!instance creation!public! !
 scalingFor:!public! !
 translationFor:!public! !
-xAxisRotationFor:!instance creation!public! !
-yAxisRotationFor:!instance creation!public! !
-zAxisRotationFor:!instance creation!public! !
 zero:!instance creation!public! !
 zeroSquare:!instance creation!public! !
 !
