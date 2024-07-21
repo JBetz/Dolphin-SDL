@@ -243,6 +243,7 @@ executeDrawRectangle: aDrawRectangle
 
 executeDrawString: aDrawString
 	| texture |
+	aDrawString string isEmpty ifTrue: [^self].
 	texture := self createStringTexture: aDrawString.
 	sdlRenderer
 		renderTexture: texture
