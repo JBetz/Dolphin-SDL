@@ -6,6 +6,7 @@ package paxVersion: 1;
 package classNames
 	add: #CoordinateSystemsDemo;
 	add: #GLDemo;
+	add: #Model3D;
 	add: #TextureDemo;
 	add: #TransformationDemo;
 	add: #TriangleDemo;
@@ -27,6 +28,12 @@ package!
 
 "Class Definitions"!
 
+Object subclass: #Model3D
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Application subclass: #GLDemo
 	instanceVariableNames: 'context isReady sdl sdlImage sdlTtf debugCallback gl shaderProgram vertices indices vertexArray vertexBuffer indexBuffer'
 	classVariableNames: ''
@@ -34,19 +41,19 @@ Application subclass: #GLDemo
 	classInstanceVariableNames: ''!
 
 GLDemo subclass: #CoordinateSystemsDemo
-	instanceVariableNames: 'containerTexture smileyTexture rotation'
+	instanceVariableNames: 'dolphinTexture rotation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 GLDemo subclass: #TextureDemo
-	instanceVariableNames: 'containerTexture'
+	instanceVariableNames: 'dolphinTexture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 GLDemo subclass: #TransformationDemo
-	instanceVariableNames: 'containerTexture smileyTexture rotation'
+	instanceVariableNames: 'dolphinTexture rotation'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
