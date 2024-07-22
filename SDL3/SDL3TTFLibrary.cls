@@ -154,7 +154,7 @@ wasInit!public! !
 !SDL3TTFLibrary class methodsFor!
 
 fileName
-	^'SDL3_ttf'! !
+	^FileLocator imageRelative: 'SDL3_ttf'! !
 
 !SDL3TTFLibrary class categoriesForMethods!
 fileName!public! !

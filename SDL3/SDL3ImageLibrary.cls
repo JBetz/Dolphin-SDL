@@ -54,7 +54,7 @@ savePNG_surface:file:!public! !
 !SDL3ImageLibrary class methodsFor!
 
 fileName
-	^'SDL3_image'! !
+	^FileLocator imageRelative: 'SDL3_image'! !
 
 !SDL3ImageLibrary class categoriesForMethods!
 fileName!public! !

@@ -919,7 +919,7 @@ wasInit_flags:!init!public! !
 !SDL3Library class methodsFor!
 
 fileName
-	^'SDL3'!
+	^FileLocator imageRelative: 'SDL3'!
 
 testAudio
 	| sdl resultCode audioSpec audioDeviceId audioStream |
