@@ -46,12 +46,20 @@ closeAudioDevice_devid: devid
 	<cdecl: void SDL_CloseAudioDevice dword>
 	^self invalidCall: _failureCode!
 
+copyFile_oldpath: oldpath newpath: newpath
+	<cdecl: sdword SDL_CopyFile char* char*>
+	^self invalidCall: _failureCode!
+
 createAudioStream_sourceSpec: sourceSpec destinationSpec: destinationSpec
 	<cdecl: SDL_AudioStream* SDL_CreateAudioStream SDL_AudioSpec* SDL_AudioSpec*>
 	^self invalidCall: _failureCode!
 
 createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
 	<cdecl: SDL_Cursor* SDL_CreateCursor word* word* sdword sdword sdword sdword>
+	^self invalidCall: _failureCode!
+
+createDirectory_path: path
+	<cdecl: sdword SDL_CreateDirectory char*>
 	^self invalidCall: _failureCode!
 
 createRenderer_window: window name: name flags: flags
@@ -142,6 +150,10 @@ enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter a
 	<cdecl: sdword SDL_EnterAppMainCallbacks sdword lpstr void* void* void* void*>
 	^self invalidCall: _failureCode!
 
+enumerateDirectory_path: path callback: callback userdata: userdata
+	<cdecl: sdword SDL_EnumerateDirectory char* void* void*>
+	^self invalidCall: _failureCode!
+
 flashWindow_window: window operation: operation
 	<cdecl: sdword SDL_DestroyWindow SDL_Window* dword>
 	^self invalidCall: _failureCode!
@@ -192,6 +204,10 @@ getAudioStreamProperties_stream: stream
 
 getAudioStreamQueued_stream: stream
 	<cdecl: sdword SDL_GetAudioStreamQueued SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+getBasePath
+	<cdecl: char* SDL_GetBasePath>
 	^self invalidCall: _failureCode!
 
 getCurrentAudioDriver
@@ -260,6 +276,10 @@ getNumVideoDisplays
 
 getNumVideoDrivers
 	<cdecl: sdword SDL_GetNumVideoDrivers>
+	^self invalidCall: _failureCode!
+
+getPathInfo_path: path info: info
+	<cdecl: sdword SDL_GetPathInfo char* SDL_PathInfo*>
 	^self invalidCall: _failureCode!
 
 getPerformanceCounter
@@ -332,6 +352,10 @@ getTicks
 
 getTicksNS
 	<cdecl: qword SDL_GetTicks>
+	^self invalidCall: _failureCode!
+
+getUserFolder_folder: folder
+	<cdecl: char* SDL_GetUserFolder sdword>
 	^self invalidCall: _failureCode!
 
 getVersion_ver: ver
@@ -743,8 +767,10 @@ bindAudioStreams_devid:streams:numStreams:!audio!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 clearAudioStream_stream:!audio!public! !
 closeAudioDevice_devid:!audio!public! !
+copyFile_oldpath:newpath:!file system!public! !
 createAudioStream_sourceSpec:destinationSpec:!audio!public! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
+createDirectory_path:!file system!public! !
 createRenderer_window:name:flags:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
 createSurface_width:height:format:!public!render! !
@@ -767,6 +793,7 @@ destroyTexture_texture:!public!video! !
 destroyWindow_window:!public!video! !
 displayOrientation_displayIndex:!public!video! !
 enterAppMainCallbacks_argc:argv:appInit:appIter:appEvent:appQuit:!init!public! !
+enumerateDirectory_path:callback:userdata:!file system!public! !
 flashWindow_window:operation:!public!video! !
 flushAudioStream_stream:!audio!public! !
 getAudioCaptureDevices_count:!audio!public! !
@@ -780,6 +807,7 @@ getAudioStreamFormat_stream:sourceSpec:destinationSpec:!audio!public! !
 getAudioStreamFrequencyRatio_stream:!audio!public! !
 getAudioStreamProperties_stream:!audio!public! !
 getAudioStreamQueued_stream:!audio!public! !
+getBasePath!file system!public! !
 getCurrentAudioDriver!audio!public! !
 getCurrentDisplayMode_displayID:!public! !
 getCurrentVideoDriver!public!video! !
@@ -797,6 +825,7 @@ getNumAudioDrivers!audio!public! !
 getNumDisplayModes_displayIndex:!public!video! !
 getNumVideoDisplays!public!video! !
 getNumVideoDrivers!public!video! !
+getPathInfo_path:info:!file system!public! !
 getPerformanceCounter!public!video! !
 getPerformanceFrequency!public!video! !
 getPixelFormatEnumForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
@@ -815,6 +844,7 @@ getRenderWindow_renderer:!public!render! !
 getTextureBlendMode_texture:blendMode:!public!render! !
 getTicks!public!video! !
 getTicksNS!public!video! !
+getUserFolder_folder:!file system!public! !
 getVersion_ver:!public! !
 getVideoDriver_index:!public!video! !
 getWindowBordersSize_window:top:left:bottom:right:!public!video! !
