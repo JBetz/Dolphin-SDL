@@ -274,9 +274,9 @@ Rshift:!**compiled accessors**!public! !
 !SDL_PixelFormat class methodsFor!
 
 defineFields
-	"SDL_PixelFormat compileDefinition
+	"SDL_PixelFormat compileDefinition"
 
-	typedef struct SDL_PixelFormat
+	"typedef struct SDL_PixelFormat
 	{
 	    Uint32 format;
 	    SDL_Palette *palette;
