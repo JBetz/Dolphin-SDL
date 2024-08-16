@@ -298,6 +298,10 @@ getPointDisplayIndex_point: point
 	<cdecl: sdword SDL_GetPointDisplayIndex SDL_Point*>
 	^self invalidCall: _failureCode!
 
+getPrefPath_org: org app: app
+	<cdecl: char* SDL_GetPrefPath char* char*>
+	^self invalidCall: _failureCode!
+
 getPrimaryDisplay
 	<cdecl: dword SDL_GetPrimaryDisplay>
 	^self invalidCall: _failureCode!
@@ -466,6 +470,10 @@ glMakeCurrent_window: window context: context
 	<cdecl: sdword SDL_GL_MakeCurrent SDL_Window* handle>
 	^self invalidCall: _failureCode!
 
+globDirectory_path: path pattern: pattern flags: flags count: count
+	<cdecl: char** SDL_GlobDirectory char* char* dword sdword*>
+	^self invalidCall: _failureCode!
+
 glResetAttributes
 	<cdecl: void SDL_GL_ResetAttributes>
 	^self invalidCall: _failureCode!
@@ -574,8 +582,16 @@ registerEvents_numevents: numevents
 	<cdecl: dword SDL_RegisterEvents sdword>
 	^self invalidCall: _failureCode!
 
+removePath_path: path
+	<cdecl: sdword SDL_RemovePath char*>
+	^self invalidCall: _failureCode!
+
 removeTimer_id: id
 	<cdecl: bool SDL_RemoveTimer sdword>
+	^self invalidCall: _failureCode!
+
+renamePath_oldpath: oldpath newpath: newpath
+	<cdecl: sdword SDL_RenamePath char* char*>
 	^self invalidCall: _failureCode!
 
 renderClear_renderer: renderer
@@ -830,6 +846,7 @@ getPerformanceCounter!public!video! !
 getPerformanceFrequency!public!video! !
 getPixelFormatEnumForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
 getPointDisplayIndex_point:!public!video! !
+getPrefPath_org:app:!file system!public! !
 getPrimaryDisplay!public! !
 getProperty_props:name:defaultValue:!public!video! !
 getRectDisplayIndex_rect:!public!video! !
@@ -872,6 +889,7 @@ glGetProcAddress_proc:!open gl!public!video! !
 glGetSwapInterval_interval:!open gl!public!video! !
 glLoadLibrary_path:!open gl!public!video! !
 glMakeCurrent_window:context:!open gl!public!video! !
+globDirectory_path:pattern:flags:count:!file system!public! !
 glResetAttributes!open gl!public!video! !
 glSetAttribute_attr:value:!open gl!public!video! !
 glSetSwapInterval_interval:!open gl!public!video! !
@@ -898,7 +916,9 @@ quitIfOpen!public! !
 quitSubSystem_flags:!init!public! !
 raiseWindow_window:!public!video! !
 registerEvents_numevents:!events!public! !
+removePath_path:!file system!public! !
 removeTimer_id:!public!video! !
+renamePath_oldpath:newpath:!file system!public! !
 renderClear_renderer:!public!render! !
 renderClipEnabled_renderer:!public!render! !
 renderFillRect_renderer:rect:!public!render! !
