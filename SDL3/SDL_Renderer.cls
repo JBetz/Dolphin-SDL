@@ -19,39 +19,43 @@ clear
 
 createSurfaceFrom: pixels width: width height: height pitch: pitch format: format
 	| surface |
-	surface := self checkResult: (self library
+	surface := self library
 						createSurfaceFrom_pixels: pixels
 						width: width
 						height: height
 						pitch: pitch
-						format: format).
+						format: format.
+	self checkObject: surface.
 	^surface initialize!
 
 createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format: format
 	| surface |
-	surface := self checkResult: (self library
-						createSurfaceFrom_pixels: pixels
-						width: width
-						height: height
-						pitch: pitch
-						format: format).
+	surface := self library
+				createSurfaceFrom_pixels: pixels
+				width: width
+				height: height
+				pitch: pitch
+				format: format.
+	self checkObject: surface.
 	^surface initialize!
 
 createTexture: aPoint access: anInteger
 	| texture |
-	texture := self checkResult: (self library
-						createTexture_renderer: self
-						format: SDL_PIXELFORMAT_UNKNOWN
-						access: anInteger
-						w: aPoint x asInteger
-						h: aPoint y asInteger).
+	texture := self library
+				createTexture_renderer: self
+				format: SDL_PIXELFORMAT_UNKNOWN
+				access: anInteger
+				w: aPoint x asInteger
+				h: aPoint y asInteger.
+	self checkObject: texture.
 	^texture initialize!
 
 createTextureFromSurface: aSDL_Surface
 	| texture |
-	texture := self
-				checkResult: (self library createTextureFromSurface_renderer: self surface: aSDL_Surface).
-	^texture initialize!
+	texture := self library createTextureFromSurface_renderer: self surface: aSDL_Surface.
+	self checkObject: texture.
+	^texture initialize
+!
 
 destroy
 	self library destroyRenderer_renderer: self!
@@ -76,7 +80,7 @@ getWindow
 	^self library getRenderWindow_renderer: self!
 
 present
-	self library renderPresent_renderer: self!
+	self checkResult: (self library renderPresent_renderer: self)!
 
 renderGeometry: texture vertices: vertices
 	self library
@@ -118,20 +122,20 @@ renderRectangle: aRectangle
 	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
 
 renderTexture: texture source: source destination: destination
-	self library
-		renderTexture_renderer: self
-		texture: texture
-		srcrect: (source ifNotNil: [source asSDLFRect])
-		dstrect: (destination ifNotNil: [destination asSDLFRect])!
+	self checkResult: (self library
+				renderTexture_renderer: self
+				texture: texture
+				srcrect: (source ifNotNil: [source asSDLFRect])
+				dstrect: (destination ifNotNil: [destination asSDLFRect]))!
 
 resetClip
-	self library setRenderClipRect_renderer: self rect: nil!
+	self checkResult: (self library setRenderClipRect_renderer: self rect: nil)!
 
 resetScale
 	self setScale: 1.0 @ 1.0!
 
 setClip: aRectangle
-	self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect!
+	self checkResult: (self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect)!
 
 setDrawBlendMode: anInteger
 	self library setRenderDrawBlendMode_renderer: self blendMode: anInteger!

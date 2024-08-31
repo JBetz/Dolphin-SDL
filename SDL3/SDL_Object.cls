@@ -14,11 +14,11 @@ SDL_Object comment: ''!
 
 !SDL_Object methodsFor!
 
-checkResult: anObject
-	(anObject isInteger not and: [anObject isNull]) ifTrue: [Error signal: library getError].
-	anObject ifNil: [Error signal: self library getError].
-	(anObject isInteger and: [anObject < 0]) ifTrue: [Error signal: self library getError].
-	^anObject!
+checkObject: anObject
+	anObject ifNil: [Error signal: library getError]!
+
+checkResult: aBoolean
+	aBoolean ifFalse: [Error signal: library getError]!
 
 destroy
 	self subclassResponsibility!
@@ -41,7 +41,8 @@ library
 	^library! !
 
 !SDL_Object categoriesForMethods!
-checkResult:!public! !
+checkObject:!private! !
+checkResult:!private! !
 destroy!public! !
 free!public! !
 initialize!public! !

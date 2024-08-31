@@ -27,19 +27,19 @@ getFontKerningSizeGlyphs32_font: font previousCh: previousCh ch: ch
 	^self invalidCall: _failureCode!
 
 glyphMetrics32_font: font ch: ch minx: minx maxx: maxx miny: miny maxy: maxy advance: advance
-	<cdecl: sdword TTF_GlyphMetrics32 TTF_Font* dword sdword* sdword* sdword* sdword* sdword*>
+	<cdecl: bool TTF_GlyphMetrics32 TTF_Font* dword sdword* sdword* sdword* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 init
-	<cdecl: sdword TTF_Init>
+	<cdecl: bool TTF_Init>
 	^self invalidCall: _failureCode!
 
 measureText_font: font text: text measureWidth: measureWidth extent: extent count: count
-	<cdecl: sdword TTF_MeasureText TTF_Font* lpstr sdword sdword* sdword*>
+	<cdecl: bool TTF_MeasureText TTF_Font* lpstr sdword sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 measureUTF8_font: font text: text measureWidth: measureWidth extent: extent count: count
-	<cdecl: sdword TTF_MeasureUTF8 TTF_Font* lpstr sdword sdword* sdword*>
+	<cdecl: bool TTF_MeasureUTF8 TTF_Font* lpstr sdword sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 openFont_file: file ptsize: ptsize
@@ -93,12 +93,8 @@ renderUTF8SolidWrapped_font: font text: text color: color wrapLength: wrapLength
 	<cdecl: SDL_Surface* TTF_RenderUTF8_Solid_Wrapped TTF_Font* lpstr SDL_Color dword>
 	^self invalidCall: _failureCode!
 
-setFontSDF_font: font onOff: onOff
-	<cdecl: sdword TTF_SetFontSDF TTF_Font* bool>
-	^self invalidCall: _failureCode!
-
 setFontSize_font: font ptsize: ptsize
-	<cdecl: sdword TTF_SetFontSize TTF_Font* sdword>
+	<cdecl: bool TTF_SetFontSize TTF_Font* sdword>
 	^self invalidCall: _failureCode!
 
 setFontStyle_font: font style: style
@@ -110,11 +106,11 @@ setFontWrappedAlign_font: font align: align
 	^self invalidCall: _failureCode!
 
 sizeText_font: font text: text w: w h: h
-	<cdecl: sdword TTF_SizeText TTF_Font* lpstr sdword* sdword*>
+	<cdecl: bool TTF_SizeText TTF_Font* lpstr sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 sizeUTF8_font: font text: text w: w h: h
-	<cdecl: sdword TTF_SizeUTF8 TTF_Font* lpstr sdword* sdword*>
+	<cdecl: bool TTF_SizeUTF8 TTF_Font* lpstr sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 wasInit
@@ -142,7 +138,6 @@ renderUTF8Shaded_font:text:fg:bg:!public! !
 renderUTF8ShadedWrapped_font:text:fg:bg:wrapLength:!public! !
 renderUTF8Solid_font:text:color:!public! !
 renderUTF8SolidWrapped_font:text:color:wrapLength:!public! !
-setFontSDF_font:onOff:!public! !
 setFontSize_font:ptsize:!public! !
 setFontStyle_font:style:!public! !
 setFontWrappedAlign_font:align:!public! !

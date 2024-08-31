@@ -15,7 +15,7 @@ SDL3Library comment: ''!
 !SDL3Library methodsFor!
 
 addEventWatch_filter: filter userdata: userdata
-	<cdecl: void SDL_AddEventWatch SDL_EventFilter void*>
+	<cdecl: bool SDL_AddEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 addTimer_interval: interval callback: callback param: param
@@ -27,19 +27,23 @@ audioDevicePaused_devid: devid
 	^self invalidCall: _failureCode!
 
 bindAudioStream_devid: devid stream: stream
-	<cdecl: sdword SDL_BindAudioStreams dword SDL_AudioStream*>
+	<cdecl: bool SDL_BindAudioStreams dword SDL_AudioStream*>
 	^self invalidCall: _failureCode!
 
 bindAudioStreams_devid: devid streams: streams numStreams: numStreams
-	<cdecl: sdword SDL_BindAudioStreams dword SDL_AudioStream** sdword>
+	<cdecl: bool SDL_BindAudioStreams dword SDL_AudioStream** sdword>
 	^self invalidCall: _failureCode!
 
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
-	<cdecl: sdword SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
+	<cdecl: bool SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 clearAudioStream_stream: stream
-	<cdecl: sdword SDL_ClearAudioStream SDL_AudioStream*>
+	<cdecl: bool SDL_ClearAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+clearProperty_props: props name: name
+	<cdecl: bool SDL_ClearProperty dword lpstr>
 	^self invalidCall: _failureCode!
 
 closeAudioDevice_devid: devid
@@ -47,7 +51,11 @@ closeAudioDevice_devid: devid
 	^self invalidCall: _failureCode!
 
 copyFile_oldpath: oldpath newpath: newpath
-	<cdecl: sdword SDL_CopyFile char* char*>
+	<cdecl: bool SDL_CopyFile char* char*>
+	^self invalidCall: _failureCode!
+
+copyProperties_src: src dst: dst
+	<cdecl: bool SDL_CopyProperties dword dword>
 	^self invalidCall: _failureCode!
 
 createAudioStream_sourceSpec: sourceSpec destinationSpec: destinationSpec
@@ -59,7 +67,11 @@ createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
 	^self invalidCall: _failureCode!
 
 createDirectory_path: path
-	<cdecl: sdword SDL_CreateDirectory char*>
+	<cdecl: bool SDL_CreateDirectory char*>
+	^self invalidCall: _failureCode!
+
+createProperties
+	<cdecl: dword SDL_CreateProperties>
 	^self invalidCall: _failureCode!
 
 createRenderer_window: window name: name flags: flags
@@ -95,15 +107,7 @@ createWindow_title: title w: w h: h flags: flags
 	^self invalidCall: _failureCode!
 
 createWindowAndRenderer_title: title width: width height: height windowFlags: windowFlags window: window renderer: renderer
-	<cdecl: sdword SDL_CreateWindowAndRenderer lpstr sdword sdword dword SDL_Window* SDL_Renderer*>
-	^self invalidCall: _failureCode!
-
-createWindowFrom_data: data
-	<cdecl: SDL_Window* SDL_CreateWindowFrom void*>
-	^self invalidCall: _failureCode!
-
-createWindowWithPosition_title: title x: x y: y w: w h: h flags: flags
-	<cdecl: SDL_Window* SDL_CreateWindowWithPosition lpstr sdword sdword sdword sdword dword>
+	<cdecl: bool SDL_CreateWindowAndRenderer lpstr sdword sdword dword SDL_Window* SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 delay_ms: ms
@@ -126,6 +130,10 @@ destroyCursor_cursor: cursor
 	<cdecl: void SDL_DestroyCursor SDL_Cursor*>
 	^self invalidCall: _failureCode!
 
+destroyProperties_props: props
+	<cdecl: void SDL_DestroyProperties dword>
+	^self invalidCall: _failureCode!
+
 destroyRenderer_renderer: renderer
 	<cdecl: void SDL_DestroyRenderer SDL_Renderer*>
 	^self invalidCall: _failureCode!
@@ -142,32 +150,28 @@ destroyWindow_window: window
 	<cdecl: void SDL_DestroyWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
-displayOrientation_displayIndex: displayIndex
-	<cdecl: sdword SDL_DisplayOrientation sdword>
-	^self invalidCall: _failureCode!
-
 enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter appEvent: appEvent appQuit: appQuit
 	<cdecl: sdword SDL_EnterAppMainCallbacks sdword lpstr void* void* void* void*>
 	^self invalidCall: _failureCode!
 
 enumerateDirectory_path: path callback: callback userdata: userdata
-	<cdecl: sdword SDL_EnumerateDirectory char* void* void*>
+	<cdecl: bool SDL_EnumerateDirectory char* handle void*>
+	^self invalidCall: _failureCode!
+
+enumerateProperties_props: props callback: callback userdata: userdata
+	<cdecl: bool SDL_EnumerateProperties dword void* void*>
 	^self invalidCall: _failureCode!
 
 flashWindow_window: window operation: operation
-	<cdecl: sdword SDL_DestroyWindow SDL_Window* dword>
+	<cdecl: bool SDL_DestroyWindow SDL_Window* dword>
 	^self invalidCall: _failureCode!
 
 flushAudioStream_stream: stream
-	<cdecl: sdword SDL_FlushAudioStream SDL_AudioStream*>
-	^self invalidCall: _failureCode!
-
-getAudioCaptureDevices_count: count
-	<cdecl: dword* SDL_GetAudioCaptureDevices sdword*>
+	<cdecl: bool SDL_FlushAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
 
 getAudioDeviceFormat_devid: devid spec: spec sampleFrames: sampleFrames
-	<cdecl: sdword SDL_GetAudioDeviceName dword SDL_AudioSpec* sdword*>
+	<cdecl: bool SDL_GetAudioDeviceName dword SDL_AudioSpec* sdword*>
 	^self invalidCall: _failureCode!
 
 getAudioDeviceName_devid: devid
@@ -176,10 +180,6 @@ getAudioDeviceName_devid: devid
 
 getAudioDriver_index: index
 	<cdecl: lpstr SDL_GetAudioDriver sdword>
-	^self invalidCall: _failureCode!
-
-getAudioOutputDevices_count: count
-	<cdecl: dword* SDL_GetAudioOutputDevices sdword*>
 	^self invalidCall: _failureCode!
 
 getAudioStreamAvailable_stream: stream
@@ -191,7 +191,7 @@ getAudioStreamDevice_stream: stream
 	^self invalidCall: _failureCode!
 
 getAudioStreamFormat_stream: stream sourceSpec: sourceSpec destinationSpec: destinationSpec
-	<cdecl: sdword SDL_GetAudioStreamFormat SDL_AudioStream* SDL_AudioSpec* SDL_AudioSpec*>
+	<cdecl: bool SDL_GetAudioStreamFormat SDL_AudioStream* SDL_AudioSpec* SDL_AudioSpec*>
 	^self invalidCall: _failureCode!
 
 getAudioStreamFrequencyRatio_stream: stream
@@ -210,6 +210,10 @@ getBasePath
 	<cdecl: char* SDL_GetBasePath>
 	^self invalidCall: _failureCode!
 
+getBooleanProperty_props: props name: name defaultValue: defaultValue
+	<cdecl: bool SDL_GetBooleanProperty dword lpstr bool>
+	^self invalidCall: _failureCode!
+
 getCurrentAudioDriver
 	<cdecl: lpstr SDL_GetCurrentAudioDriver>
 	^self invalidCall: _failureCode!
@@ -222,16 +226,12 @@ getCurrentVideoDriver
 	<cdecl: lpstr SDL_GetCurrentVideoDriver>
 	^self invalidCall: _failureCode!
 
-getDesktopDisplayMode_displayIndex: displayIndex mode: mode
-	<cdecl: sdword SDL_GetDesktopDisplayMode sdword SDL_DisplayMode*>
+getDesktopDisplayMode_displayIndex: displayIndex
+	<cdecl: SDL_DisplayMode* SDL_GetDesktopDisplayMode sdword>
 	^self invalidCall: _failureCode!
 
 getDisplayBounds_displayIndex: displayIndex rect: rect
-	<cdecl: sdword SDL_GetDisplayBounds sdword SDL_Rect*>
-	^self invalidCall: _failureCode!
-
-getDisplayDPI_displayIndex: displayIndex ddpi: ddpi hdpi: hdpi vdpi: vdpi
-	<cdecl: sdword SDL_GetDisplayDPI sdword float* float* float*>
+	<cdecl: bool SDL_GetDisplayBounds sdword SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getDisplayMode_displayIndex: displayIndex modeIndex: modeIndex mode: mode
@@ -247,11 +247,19 @@ getDisplays_count: count
 	^self invalidCall: _failureCode!
 
 getDisplayUsableBounds_displayIndex: displayIndex rect: rect
-	<cdecl: sdword SDL_GetDisplayUsableBounds sdword SDL_Rect*>
+	<cdecl: bool SDL_GetDisplayUsableBounds sdword SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getError
 	<cdecl: lpstr SDL_GetError>
+	^self invalidCall: _failureCode!
+
+getFloatProperty_props: props name: name defaultValue: defaultValue
+	<cdecl: float SDL_GetFloatProperty dword lpstr float>
+	^self invalidCall: _failureCode!
+
+getGlobalProperties
+	<cdecl: dword SDL_GetGlobalProperties>
 	^self invalidCall: _failureCode!
 
 getKeyboardState_numkeys: numkeys
@@ -266,12 +274,8 @@ getNumAudioDrivers
 	<cdecl: sdword SDL_GetNumAudioDrivers>
 	^self invalidCall: _failureCode!
 
-getNumDisplayModes_displayIndex: displayIndex
-	<cdecl: sdword SDL_GetNumDisplayModes sdword>
-	^self invalidCall: _failureCode!
-
-getNumVideoDisplays
-	<cdecl: sdword SDL_GetNumVideoDisplays>
+getNumberProperty_props: props name: name defaultValue: defaultValue
+	<cdecl: sqword SDL_GetNumberProperty dword lpstr sqword>
 	^self invalidCall: _failureCode!
 
 getNumVideoDrivers
@@ -279,23 +283,23 @@ getNumVideoDrivers
 	^self invalidCall: _failureCode!
 
 getPathInfo_path: path info: info
-	<cdecl: sdword SDL_GetPathInfo char* SDL_PathInfo*>
+	<cdecl: bool SDL_GetPathInfo char* SDL_PathInfo*>
 	^self invalidCall: _failureCode!
 
 getPerformanceCounter
-	<cdecl: qword SDL_GetTicks>
+	<cdecl: qword SDL_GetPerformanceCounter>
 	^self invalidCall: _failureCode!
 
 getPerformanceFrequency
-	<cdecl: qword SDL_GetTicks>
+	<cdecl: qword SDL_GetPerformanceFrequency>
 	^self invalidCall: _failureCode!
 
-getPixelFormatEnumForMasks_bpp: bpp rMask: rMask gMask: gMask bMask: bMask aMask: aMask
-	<cdecl: dword SDL_GetPixelFormatEnumForMasks sdword dword dword dword dword>
+getPixelFormatForMasks_bpp: bpp rMask: rMask gMask: gMask bMask: bMask aMask: aMask
+	<cdecl: dword SDL_GetPixelFormatForMasks sdword dword dword dword dword>
 	^self invalidCall: _failureCode!
 
-getPointDisplayIndex_point: point
-	<cdecl: sdword SDL_GetPointDisplayIndex SDL_Point*>
+getPointerProperty_props: props name: name defaultValue: defaultValue
+	<cdecl: void* SDL_GetPointerProperty dword lpstr void*>
 	^self invalidCall: _failureCode!
 
 getPrefPath_org: org app: app
@@ -304,14 +308,6 @@ getPrefPath_org: org app: app
 
 getPrimaryDisplay
 	<cdecl: dword SDL_GetPrimaryDisplay>
-	^self invalidCall: _failureCode!
-
-getProperty_props: props name: name defaultValue: defaultValue
-	<cdecl: void* SDL_GetProperty dword lpstr void*>
-	^self invalidCall: _failureCode!
-
-getRectDisplayIndex_rect: rect
-	<cdecl: sdword SDL_GetRectDisplayIndex SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 getRectIntersection_a: a b: b result: result
@@ -330,12 +326,12 @@ getRenderer_window: window
 	<cdecl: SDL_Renderer* SDL_GetRenderer SDL_Window*>
 	^self invalidCall: _failureCode!
 
-getRendererInfo_renderer: renderer info: info
-	<cdecl: sdword SDL_GetRendererInfo SDL_Renderer* SDL_RendererInfo*>
+getRendererProperties_renderer: renderer
+	<cdecl: dword SDL_GetRendererProperties SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 getRenderScale_renderer: renderer scaleX: scaleX scaleY: scaleY
-	<cdecl: sdword SDL_GetRenderScale SDL_Renderer* float* float*>
+	<cdecl: bool SDL_GetRenderScale SDL_Renderer* float* float*>
 	^self invalidCall: _failureCode!
 
 getRenderTarget_renderer: renderer
@@ -346,8 +342,20 @@ getRenderWindow_renderer: renderer
 	<cdecl: SDL_Window* SDL_GetRenderWindow SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
+getStringProperty_props: props name: name defaultValue: defaultValue
+	<cdecl: lpstr SDL_GetStringProperty dword lpstr lpstr>
+	^self invalidCall: _failureCode!
+
 getTextureBlendMode_texture: texture blendMode: blendMode
-	<cdecl: sdword SDL_GetTextureBlendMode SDL_Texture* dword*>
+	<cdecl: bool SDL_GetTextureBlendMode SDL_Texture* dword*>
+	^self invalidCall: _failureCode!
+
+getTextureProperties_texture: texture
+	<cdecl: dword SDL_GetTextureProperties SDL_Texture*>
+	^self invalidCall: _failureCode!
+
+getTextureSize_texture: texture w: w h: h
+	<cdecl: bool SDL_GetTextureSize SDL_Texture* float* float*>
 	^self invalidCall: _failureCode!
 
 getTicks
@@ -362,8 +370,8 @@ getUserFolder_folder: folder
 	<cdecl: char* SDL_GetUserFolder sdword>
 	^self invalidCall: _failureCode!
 
-getVersion_ver: ver
-	<cdecl: void SDL_GetVersion SDL_Version*>
+getVersion
+	<cdecl: sdword SDL_GetVersion>
 	^self invalidCall: _failureCode!
 
 getVideoDriver_index: index
@@ -371,15 +379,7 @@ getVideoDriver_index: index
 	^self invalidCall: _failureCode!
 
 getWindowBordersSize_window: window top: top left: left bottom: bottom right: right
-	<cdecl: sdword SDL_GetWindowBordersSize SDL_Window* sdword* sdword* sdword* sdword*>
-	^self invalidCall: _failureCode!
-
-getWindowData_window: window name: name
-	<cdecl: void* SDL_SetWindowData SDL_Window* lpstr>
-	^self invalidCall: _failureCode!
-
-getWindowDisplayIndex_window: window
-	<cdecl: sdword SDL_GetRectDisplayIndex SDL_Window*>
+	<cdecl: bool SDL_GetWindowBordersSize SDL_Window* sdword* sdword* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 getWindowFlags_window: window
@@ -434,8 +434,8 @@ glCreateContext_window: window
 	<cdecl: handle SDL_GL_CreateContext SDL_Window*>
 	^self invalidCall: _failureCode!
 
-glDeleteContext_context: context
-	<cdecl: sdword SDL_GL_DeleteContext handle>
+glDestroyContext_context: context
+	<cdecl: bool SDL_GL_DestroyContext handle>
 	^self invalidCall: _failureCode!
 
 glExtensionSupported_extension: extension
@@ -443,7 +443,7 @@ glExtensionSupported_extension: extension
 	^self invalidCall: _failureCode!
 
 glGetAttribute_attr: attr value: value
-	<cdecl: sdword SDL_GL_GetAttribute sdword sdword*>
+	<cdecl: bool SDL_GL_GetAttribute sdword sdword*>
 	^self invalidCall: _failureCode!
 
 glGetCurrentContext
@@ -459,15 +459,15 @@ glGetProcAddress_proc: proc
 	^self invalidCall: _failureCode!
 
 glGetSwapInterval_interval: interval
-	<cdecl: sdword SDL_GL_GetSwapInterval sdword*>
+	<cdecl: bool SDL_GL_GetSwapInterval sdword*>
 	^self invalidCall: _failureCode!
 
 glLoadLibrary_path: path
-	<cdecl: sdword SDL_GL_LoadLibrary char*>
+	<cdecl: bool SDL_GL_LoadLibrary char*>
 	^self invalidCall: _failureCode!
 
 glMakeCurrent_window: window context: context
-	<cdecl: sdword SDL_GL_MakeCurrent SDL_Window* handle>
+	<cdecl: bool SDL_GL_MakeCurrent SDL_Window* handle>
 	^self invalidCall: _failureCode!
 
 globDirectory_path: path pattern: pattern flags: flags count: count
@@ -479,47 +479,55 @@ glResetAttributes
 	^self invalidCall: _failureCode!
 
 glSetAttribute_attr: attr value: value
-	<cdecl: sdword SDL_GL_SetAttribute sdword sdword>
+	<cdecl: bool SDL_GL_SetAttribute sdword sdword>
 	^self invalidCall: _failureCode!
 
 glSetSwapInterval_interval: interval
-	<cdecl: sdword SDL_GL_SetSwapInterval sdword>
+	<cdecl: bool SDL_GL_SetSwapInterval sdword>
 	^self invalidCall: _failureCode!
 
 glSwapWindow_window: window
-	<cdecl: sdword SDL_GL_SwapWindow SDL_Window*>
+	<cdecl: bool SDL_GL_SwapWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 glUnloadLibrary
 	<cdecl: void SDL_GL_UnloadLibrary>
 	^self invalidCall: _failureCode!
 
+hasProperty_props: props name: name
+	<cdecl: bool SDL_HasProperty dword lpstr>
+	^self invalidCall: _failureCode!
+
 hideWindow_window: window
-	<cdecl: void SDL_HideWindow SDL_Window*>
+	<cdecl: bool SDL_HideWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 init_flags: flags
-	<cdecl: sdword SDL_Init dword>
+	<cdecl: bool SDL_Init dword>
 	^self invalidCall: _failureCode!
 
 initSubSystem_flags: flags
-	<cdecl: sdword SDL_InitSubSystem dword>
+	<cdecl: bool SDL_InitSubSystem dword>
 	^self invalidCall: _failureCode!
 
 lockAudioStream_stream: stream
-	<cdecl: sdword SDL_LockAudioStream SDL_AudioStream*>
+	<cdecl: bool SDL_LockAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+lockProperties_props: props
+	<cdecl: bool SDL_LockProperties dword>
 	^self invalidCall: _failureCode!
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<cdecl: sdword SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
+	<cdecl: bool SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
 	^self invalidCall: _failureCode!
 
 maximizeWindow_window: window
-	<cdecl: void SDL_MaximizeWindow SDL_Window*>
+	<cdecl: bool SDL_MaximizeWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 minimizeWindow_window: window
-	<cdecl: void SDL_MinimizeWindow SDL_Window*>
+	<cdecl: bool SDL_MinimizeWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 openAudioDevice_devid: devid spec: spec
@@ -531,7 +539,7 @@ openAudioDeviceStream_devid: devid spec: spec callback: callback userdata: userd
 	^self invalidCall: _failureCode!
 
 pauseAudioDevice_devid: devid
-	<cdecl: sdword SDL_PauseAudioDevice dword>
+	<cdecl: bool SDL_PauseAudioDevice dword>
 	^self invalidCall: _failureCode!
 
 peepEvents_events: events numevents: numevents action: action minType: minType maxType: maxType
@@ -539,7 +547,7 @@ peepEvents_events: events numevents: numevents action: action minType: minType m
 	^self invalidCall: _failureCode!
 
 pollEvent_event: event
-	<cdecl: sdword SDL_PollEvent SDL_Event*>
+	<cdecl: bool SDL_PollEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
 pumpEvents
@@ -547,15 +555,11 @@ pumpEvents
 	^self invalidCall: _failureCode!
 
 pushEvent_event: event
-	<cdecl: sdword SDL_PushEvent SDL_Event*>
+	<cdecl: bool SDL_PushEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
 putAudioStreamData_stream: stream buffer: buffer length: length
-	<cdecl: sdword SDL_PutAudioStreamData SDL_AudioStream* void* sdword>
-	^self invalidCall: _failureCode!
-
-queryTexture_texture: texture format: format access: access w: w h: h
-	<cdecl: sdword SDL_QueryTexture SDL_Texture* dword* sdword* sdword* sdword*>
+	<cdecl: bool SDL_PutAudioStreamData SDL_AudioStream* void* sdword>
 	^self invalidCall: _failureCode!
 
 quit
@@ -575,7 +579,7 @@ quitSubSystem_flags: flags
 	^self invalidCall: _failureCode!
 
 raiseWindow_window: window
-	<cdecl: void SDL_RaiseWindow SDL_Window*>
+	<cdecl: bool SDL_RaiseWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 registerEvents_numevents: numevents
@@ -583,7 +587,7 @@ registerEvents_numevents: numevents
 	^self invalidCall: _failureCode!
 
 removePath_path: path
-	<cdecl: sdword SDL_RemovePath char*>
+	<cdecl: bool SDL_RemovePath char*>
 	^self invalidCall: _failureCode!
 
 removeTimer_id: id
@@ -591,11 +595,11 @@ removeTimer_id: id
 	^self invalidCall: _failureCode!
 
 renamePath_oldpath: oldpath newpath: newpath
-	<cdecl: sdword SDL_RenamePath char* char*>
+	<cdecl: bool SDL_RenamePath char* char*>
 	^self invalidCall: _failureCode!
 
 renderClear_renderer: renderer
-	<cdecl: sdword SDL_RenderClear SDL_Renderer*>
+	<cdecl: bool SDL_RenderClear SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 renderClipEnabled_renderer: renderer
@@ -603,23 +607,23 @@ renderClipEnabled_renderer: renderer
 	^self invalidCall: _failureCode!
 
 renderFillRect_renderer: renderer rect: rect
-	<cdecl: sdword SDL_RenderFillRect SDL_Renderer* SDL_FRect*>
+	<cdecl: bool SDL_RenderFillRect SDL_Renderer* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 renderGeometry_renderer: renderer texture: texture vertices: vertices numVertices: numVertices indices: indices numIndices: numIndices
-	<cdecl: sdword SDL_RenderGeometry SDL_Renderer* SDL_Texture* SDL_Vertex* sdword sdword* sdword>
+	<cdecl: bool SDL_RenderGeometry SDL_Renderer* SDL_Texture* SDL_Vertex* sdword sdword* sdword>
 	^self invalidCall: _failureCode!
 
 renderLine_renderer: renderer x1: x1 y1: y1 x2: x2 y2: y2
-	<cdecl: sdword SDL_RenderLine SDL_Renderer* float float float float>
+	<cdecl: bool SDL_RenderLine SDL_Renderer* float float float float>
 	^self invalidCall: _failureCode!
 
 renderPoint_renderer: renderer x: x y: y
-	<cdecl: sdword SDL_RenderPoint SDL_Renderer* float float>
+	<cdecl: bool SDL_RenderPoint SDL_Renderer* float float>
 	^self invalidCall: _failureCode!
 
 renderPresent_renderer: renderer
-	<cdecl: sdword SDL_RenderPresent SDL_Renderer*>
+	<cdecl: bool SDL_RenderPresent SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
 renderReadPixels_renderer: renderer rect: rect
@@ -630,100 +634,112 @@ renderRect_renderer: renderer rect: rect
 	<cdecl: sdword SDL_RenderRect SDL_Renderer* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
-renderSetClipRect_renderer: renderer rect: rect
-	<cdecl: sdword SDL_RenderSetClipRect SDL_Renderer* SDL_Rect*>
-	^self invalidCall: _failureCode!
-
 renderTexture_renderer: renderer texture: texture srcrect: srcrect dstrect: dstrect
-	<cdecl: sdword SDL_RenderTexture SDL_Renderer* SDL_Texture* SDL_FRect* SDL_FRect*>
+	<cdecl: bool SDL_RenderTexture SDL_Renderer* SDL_Texture* SDL_FRect* SDL_FRect*>
 	^self invalidCall: _failureCode!
 
 restoreWindow_window: window
-	<cdecl: void SDL_RestoreWindow SDL_Window*>
+	<cdecl: bool SDL_RestoreWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 resumeAudioDevice_devid: devid
-	<cdecl: sdword SDL_ResumeAudioDevice dword>
+	<cdecl: bool SDL_ResumeAudioDevice dword>
 	^self invalidCall: _failureCode!
 
 setAudioStreamFormat_stream: stream sourceSpec: sourceSpec destinationSpec: destinationSpec
-	<cdecl: sdword SDL_SetAudioStreamFormat SDL_AudioStream* SDL_AudioSpec* SDL_AudioSpec*>
+	<cdecl: bool SDL_SetAudioStreamFormat SDL_AudioStream* SDL_AudioSpec* SDL_AudioSpec*>
+	^self invalidCall: _failureCode!
+
+setBooleanProperty_props: props name: name value: value
+	<cdecl: bool SDL_SetBooleanProperty dword lpstr bool>
 	^self invalidCall: _failureCode!
 
 setCursor_cursor: cursor
-	<cdecl: void SDL_SetCursor SDL_Cursor*>
+	<cdecl: bool SDL_SetCursor SDL_Cursor*>
 	^self invalidCall: _failureCode!
 
 setEventFilter_filter: filter userdata: userdata
 	<cdecl: void SDL_SetEventFilter SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
+setFloatProperty_props: props name: name value: value
+	<cdecl: bool SDL_SetFloatProperty dword lpstr float>
+	^self invalidCall: _failureCode!
+
 setHint_name: name value: value
 	<cdecl: bool SDL_SetHint lpstr lpstr>
 	^self invalidCall: _failureCode!
 
+setNumberProperty_props: props name: name value: value
+	<cdecl: bool SDL_GetNumberProperty dword lpstr sqword>
+	^self invalidCall: _failureCode!
+
+setPointerProperty_props: props name: name value: value
+	<cdecl: bool SDL_GetPointerProperty dword lpstr void*>
+	^self invalidCall: _failureCode!
+
+setPointerPropertyWithCleanup_props: props name: name value: value cleanup: cleanup userdata: userdata
+	<cdecl: bool SDL_GetPointerPropertyWithCleanup dword lpstr void* void* void*>
+	^self invalidCall: _failureCode!
+
 setRenderClipRect_renderer: renderer rect: rect
-	<cdecl: sdword SDL_SetRenderClipRect SDL_Renderer* SDL_Rect*>
+	<cdecl: bool SDL_SetRenderClipRect SDL_Renderer* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
 setRenderDrawBlendMode_renderer: renderer blendMode: blendMode
-	<cdecl: sdword SDL_SetRenderDrawBlendMode SDL_Renderer* dword>
+	<cdecl: bool SDL_SetRenderDrawBlendMode SDL_Renderer* dword>
 	^self invalidCall: _failureCode!
 
 setRenderDrawColor_renderer: renderer r: r g: g b: b a: a
-	<cdecl: sdword SDL_SetRenderDrawColor SDL_Renderer* byte byte byte byte>
+	<cdecl: bool SDL_SetRenderDrawColor SDL_Renderer* byte byte byte byte>
 	^self invalidCall: _failureCode!
 
 setRenderScale_renderer: renderer scaleX: scaleX scaleY: scaleY
-	<cdecl: sdword SDL_SetRenderScale SDL_Renderer* float float>
+	<cdecl: bool SDL_SetRenderScale SDL_Renderer* float float>
 	^self invalidCall: _failureCode!
 
 setRenderTarget_renderer: renderer texture: texture
-	<cdecl: sdword SDL_SetRenderTarget SDL_Renderer* SDL_Texture*>
+	<cdecl: bool SDL_SetRenderTarget SDL_Renderer* SDL_Texture*>
+	^self invalidCall: _failureCode!
+
+setStringProperty_props: props name: name value: value
+	<cdecl: lpstr SDL_SetStringProperty dword lpstr lpstr>
 	^self invalidCall: _failureCode!
 
 setTextureBlendMode_texture: texture blendMode: blendMode
-	<cdecl: sdword SDL_SetTextureBlendMode SDL_Texture* dword>
-	^self invalidCall: _failureCode!
-
-setWindowData_window: window name: name userdata: userdata
-	<cdecl: void* SDL_SetWindowData SDL_Window* lpstr void*>
+	<cdecl: bool SDL_SetTextureBlendMode SDL_Texture* dword>
 	^self invalidCall: _failureCode!
 
 setWindowFullscreen_window: window fullscreen: fullscreen
-	<cdecl: sdword SDL_SetWindowFullscreen SDL_Window* bool>
+	<cdecl: bool SDL_SetWindowFullscreen SDL_Window* bool>
 	^self invalidCall: _failureCode!
 
 setWindowIcon_window: window icon: icon
-	<cdecl: void SDL_SetWindowIcon SDL_Window* SDL_Surface*>
-	^self invalidCall: _failureCode!
-
-setWindowInputFocus_window: window
-	<cdecl: sdword SDL_SetWindowInputFocus SDL_Window*>
+	<cdecl: bool SDL_SetWindowIcon SDL_Window* SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 setWindowKeyboardGrab_window: window grabbed: grabbed
-	<cdecl: void SDL_SetWindowKeyboardGrab SDL_Window* bool>
+	<cdecl: bool SDL_SetWindowKeyboardGrab SDL_Window* bool>
 	^self invalidCall: _failureCode!
 
 setWindowPosition_window: window x: x y: y
-	<cdecl: void SDL_SetWindowPosition SDL_Window* sdword sdword>
+	<cdecl: bool SDL_SetWindowPosition SDL_Window* sdword sdword>
 	^self invalidCall: _failureCode!
 
 setWindowSize_window: window w: w h: h
-	<cdecl: void SDL_SetWindowSize SDL_Window* sdword sdword>
+	<cdecl: bool SDL_SetWindowSize SDL_Window* sdword sdword>
 	^self invalidCall: _failureCode!
 
 setWindowTitle_window: window title: title
-	<cdecl: void SDL_SetWindowTitle SDL_Window* lpstr>
+	<cdecl: bool SDL_SetWindowTitle SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
 showWindow_window: window
-	<cdecl: void SDL_ShowWindow SDL_Window*>
+	<cdecl: bool SDL_ShowWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
-startTextInput
-	<cdecl: void SDL_StartTextInput>
+startTextInput_window: window
+	<cdecl: bool SDL_StartTextInput SDL_Window*>
 	^self invalidCall: _failureCode!
 
 unbindAudioStream_stream: stream
@@ -735,43 +751,39 @@ unbindAudioStreams_streams: streams numStreams: numStreams
 	^self invalidCall: _failureCode!
 
 unlockAudioStream_stream: stream
-	<cdecl: sdword SDL_UnlockAudioStream SDL_AudioStream*>
+	<cdecl: bool SDL_UnlockAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+unlockProperties_props: props
+	<cdecl: void SDL_UnlockProperties dword>
 	^self invalidCall: _failureCode!
 
 unlockTexture_texture: texture
-	<cdecl: sdword SDL_UnlockTexture SDL_Texture*>
+	<cdecl: void SDL_UnlockTexture SDL_Texture*>
 	^self invalidCall: _failureCode!
 
 updateTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<cdecl: sdword SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
+	<cdecl: bool SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
 	^self invalidCall: _failureCode!
 
 updateWindowSurface_window: window
-	<cdecl: sdword SDL_UpdateWindowSurface SDL_Window*>
+	<cdecl: bool SDL_UpdateWindowSurface SDL_Window*>
 	^self invalidCall: _failureCode!
 
 updateWindowSurfaceRects_window: window rects: rects numrects: numrects
-	<cdecl: sdword SDL_UpdateWindowSurface SDL_Window* SDL_Rect* sdword>
-	^self invalidCall: _failureCode!
-
-videoInit_driverName: driverName
-	<cdecl: sdword SDL_VideoInit lpstr>
-	^self invalidCall: _failureCode!
-
-videoQuit
-	<cdecl: void SDL_VideoQuit>
+	<cdecl: bool SDL_UpdateWindowSurface SDL_Window* SDL_Rect* sdword>
 	^self invalidCall: _failureCode!
 
 waitEvent_event: event
-	<cdecl: sdword SDL_WaitEvent SDL_Event*>
+	<cdecl: bool SDL_WaitEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
 waitEventTimeout_event: event timeout: timeout
-	<cdecl: sdword SDL_WaitEventTimeout SDL_Event* sdword>
+	<cdecl: bool SDL_WaitEventTimeout SDL_Event* sdword>
 	^self invalidCall: _failureCode!
 
 wasInit_flags: flags
-	<cdecl: void SDL_WasInit dword>
+	<cdecl: dword SDL_WasInit dword>
 	^self invalidCall: _failureCode! !
 
 !SDL3Library categoriesForMethods!
@@ -782,11 +794,14 @@ bindAudioStream_devid:stream:!audio!public! !
 bindAudioStreams_devid:streams:numStreams:!audio!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 clearAudioStream_stream:!audio!public! !
+clearProperty_props:name:!properties!public! !
 closeAudioDevice_devid:!audio!public! !
 copyFile_oldpath:newpath:!file system!public! !
+copyProperties_src:dst:!properties!public! !
 createAudioStream_sourceSpec:destinationSpec:!audio!public! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createDirectory_path:!file system!public! !
+createProperties!properties!public! !
 createRenderer_window:name:flags:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
 createSurface_width:height:format:!public!render! !
@@ -796,27 +811,24 @@ createTexture_renderer:format:access:w:h:!public!render! !
 createTextureFromSurface_renderer:surface:!public!render! !
 createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
-createWindowFrom_data:!public!video! !
-createWindowWithPosition_title:x:y:w:h:flags:!public!video! !
 delay_ms:!public!video! !
 delayNS_ns:!public!video! !
 delEventWatch_filter:userdata:!events!public! !
 destroyAudioStream_stream:!audio!public! !
 destroyCursor_cursor:!public! !
+destroyProperties_props:!properties!public! !
 destroyRenderer_renderer:!public!render! !
 destroySurface_surface:!public! !
 destroyTexture_texture:!public!video! !
 destroyWindow_window:!public!video! !
-displayOrientation_displayIndex:!public!video! !
 enterAppMainCallbacks_argc:argv:appInit:appIter:appEvent:appQuit:!init!public! !
 enumerateDirectory_path:callback:userdata:!file system!public! !
+enumerateProperties_props:callback:userdata:!properties!public! !
 flashWindow_window:operation:!public!video! !
 flushAudioStream_stream:!audio!public! !
-getAudioCaptureDevices_count:!audio!public! !
 getAudioDeviceFormat_devid:spec:sampleFrames:!audio!public! !
 getAudioDeviceName_devid:!audio!public! !
 getAudioDriver_index:!audio!public! !
-getAudioOutputDevices_count:!audio!public! !
 getAudioStreamAvailable_stream:!audio!public! !
 getAudioStreamDevice_stream:!audio!public! !
 getAudioStreamFormat_stream:sourceSpec:destinationSpec:!audio!public! !
@@ -824,49 +836,49 @@ getAudioStreamFrequencyRatio_stream:!audio!public! !
 getAudioStreamProperties_stream:!audio!public! !
 getAudioStreamQueued_stream:!audio!public! !
 getBasePath!file system!public! !
+getBooleanProperty_props:name:defaultValue:!properties!public! !
 getCurrentAudioDriver!audio!public! !
 getCurrentDisplayMode_displayID:!public! !
 getCurrentVideoDriver!public!video! !
-getDesktopDisplayMode_displayIndex:mode:!public!video! !
+getDesktopDisplayMode_displayIndex:!public!video! !
 getDisplayBounds_displayIndex:rect:!public!video! !
-getDisplayDPI_displayIndex:ddpi:hdpi:vdpi:!public!video! !
 getDisplayMode_displayIndex:modeIndex:mode:!public!video! !
 getDisplayName_displayIndex:!public!video! !
 getDisplays_count:!public!video! !
 getDisplayUsableBounds_displayIndex:rect:!public!video! !
 getError!error!public! !
+getFloatProperty_props:name:defaultValue:!properties!public! !
+getGlobalProperties!properties!public! !
 getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
 getNumAudioDrivers!audio!public! !
-getNumDisplayModes_displayIndex:!public!video! !
-getNumVideoDisplays!public!video! !
+getNumberProperty_props:name:defaultValue:!properties!public! !
 getNumVideoDrivers!public!video! !
 getPathInfo_path:info:!file system!public! !
 getPerformanceCounter!public!video! !
 getPerformanceFrequency!public!video! !
-getPixelFormatEnumForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
-getPointDisplayIndex_point:!public!video! !
+getPixelFormatForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
+getPointerProperty_props:name:defaultValue:!properties!public! !
 getPrefPath_org:app:!file system!public! !
 getPrimaryDisplay!public! !
-getProperty_props:name:defaultValue:!public!video! !
-getRectDisplayIndex_rect:!public!video! !
 getRectIntersection_a:b:result:!public!video! !
 getRectIntersectionFloat_a:b:result:!public!video! !
 getRenderClipRect_renderer:rect:!public!render! !
 getRenderer_window:!public!render! !
-getRendererInfo_renderer:info:!public!render! !
+getRendererProperties_renderer:!public!video! !
 getRenderScale_renderer:scaleX:scaleY:!public!render! !
 getRenderTarget_renderer:!public!render! !
 getRenderWindow_renderer:!public!render! !
+getStringProperty_props:name:defaultValue:!properties!public! !
 getTextureBlendMode_texture:blendMode:!public!render! !
+getTextureProperties_texture:!public!video! !
+getTextureSize_texture:w:h:!public!render! !
 getTicks!public!video! !
 getTicksNS!public!video! !
 getUserFolder_folder:!file system!public! !
-getVersion_ver:!public! !
+getVersion!public! !
 getVideoDriver_index:!public!video! !
 getWindowBordersSize_window:top:left:bottom:right:!public!video! !
-getWindowData_window:name:!public!video! !
-getWindowDisplayIndex_window:!public!video! !
 getWindowFlags_window:!public!video! !
 getWindowFromID_id:!public!video! !
 getWindowFullscreenMode_window:!public!video! !
@@ -880,7 +892,7 @@ getWindowSize_window:w:h:!public!video! !
 getWindowSurface_window:!public!video! !
 getWindowTitle_window:!public!video! !
 glCreateContext_window:!open gl!public!video! !
-glDeleteContext_context:!open gl!public!video! !
+glDestroyContext_context:!open gl!public!video! !
 glExtensionSupported_extension:!open gl!public!video! !
 glGetAttribute_attr:value:!open gl!public!video! !
 glGetCurrentContext!open gl!public!video! !
@@ -895,10 +907,12 @@ glSetAttribute_attr:value:!open gl!public!video! !
 glSetSwapInterval_interval:!open gl!public!video! !
 glSwapWindow_window:!open gl!public!video! !
 glUnloadLibrary!open gl!public!video! !
+hasProperty_props:name:!properties!public! !
 hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
 lockAudioStream_stream:!audio!public! !
+lockProperties_props:!properties!public! !
 lockTexture_texture:rect:pixels:pitch:!public!render! !
 maximizeWindow_window:!public!video! !
 minimizeWindow_window:!public!video! !
@@ -910,7 +924,6 @@ pollEvent_event:!events!public! !
 pumpEvents!events!public! !
 pushEvent_event:!events!public! !
 putAudioStreamData_stream:buffer:length:!audio!public! !
-queryTexture_texture:format:access:w:h:!public!render! !
 quit!init!public! !
 quitIfOpen!public! !
 quitSubSystem_flags:!init!public! !
@@ -928,39 +941,41 @@ renderPoint_renderer:x:y:!public! !
 renderPresent_renderer:!public!render! !
 renderReadPixels_renderer:rect:!public!render! !
 renderRect_renderer:rect:!public!render! !
-renderSetClipRect_renderer:rect:!public!render! !
 renderTexture_renderer:texture:srcrect:dstrect:!public! !
 restoreWindow_window:!public!video! !
 resumeAudioDevice_devid:!audio!public! !
 setAudioStreamFormat_stream:sourceSpec:destinationSpec:!audio!public! !
+setBooleanProperty_props:name:value:!properties!public! !
 setCursor_cursor:!events!public! !
 setEventFilter_filter:userdata:!events!public! !
+setFloatProperty_props:name:value:!properties!public! !
 setHint_name:value:!public! !
+setNumberProperty_props:name:value:!properties!public! !
+setPointerProperty_props:name:value:!properties!public! !
+setPointerPropertyWithCleanup_props:name:value:cleanup:userdata:!properties!public! !
 setRenderClipRect_renderer:rect:!public!render! !
 setRenderDrawBlendMode_renderer:blendMode:!public!render! !
 setRenderDrawColor_renderer:r:g:b:a:!public!render! !
 setRenderScale_renderer:scaleX:scaleY:!public!render! !
 setRenderTarget_renderer:texture:!public!render! !
+setStringProperty_props:name:value:!properties!public! !
 setTextureBlendMode_texture:blendMode:!public!render! !
-setWindowData_window:name:userdata:!public!video! !
 setWindowFullscreen_window:fullscreen:!public!video! !
 setWindowIcon_window:icon:!public!video! !
-setWindowInputFocus_window:!public!video! !
 setWindowKeyboardGrab_window:grabbed:!public!video! !
 setWindowPosition_window:x:y:!public!video! !
 setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
 showWindow_window:!public!video! !
-startTextInput!public!video! !
+startTextInput_window:!public!video! !
 unbindAudioStream_stream:!audio!public! !
 unbindAudioStreams_streams:numStreams:!audio!public! !
 unlockAudioStream_stream:!audio!public! !
+unlockProperties_props:!properties!public! !
 unlockTexture_texture:!public!render! !
 updateTexture_texture:rect:pixels:pitch:!public!render! !
 updateWindowSurface_window:!public!video! !
 updateWindowSurfaceRects_window:rects:numrects:!public!video! !
-videoInit_driverName:!public!video! !
-videoQuit!public!video! !
 waitEvent_event:!events!public! !
 waitEventTimeout_event:timeout:!events!public! !
 wasInit_flags:!init!public! !

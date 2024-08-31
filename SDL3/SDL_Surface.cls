@@ -219,7 +219,7 @@ newExtent: aPoint
 	| library format |
 	library := SDL3Library default.
 	format := library
-				getPixelFormatEnumForMasks_bpp: 32
+				getPixelFormatForMasks_bpp: 32
 				rMask: 0
 				gMask: 0
 				bMask: 0

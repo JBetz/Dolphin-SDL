@@ -281,7 +281,6 @@ initialize
 		at: SDL_EVENT_WINDOW_FOCUS_GAINED put: #onWindowFocusGained:;
 		at: SDL_EVENT_WINDOW_FOCUS_LOST put: #onWindowFocusLost:;
 		at: SDL_EVENT_WINDOW_CLOSE_REQUESTED put: #onWindowCloseRequested:;
-		at: SDL_EVENT_WINDOW_TAKE_FOCUS put: #onWindowTakeFocus:;
 		at: SDL_EVENT_WINDOW_HIT_TEST put: #onWindowHitTest:;
 		at: SDL_EVENT_WINDOW_ICCPROF_CHANGED put: #onWindowIccProfileChanged:;
 		at: SDL_EVENT_WINDOW_DISPLAY_CHANGED put: #onWindowDisplayChanged:;

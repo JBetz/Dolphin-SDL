@@ -14,11 +14,11 @@ TTF_Object comment: ''!
 
 !TTF_Object methodsFor!
 
-checkResult: anObject
-	anObject
-		ifNil: [Error signal: SDL3Library default getError]
-		ifNotNil: [anObject isInteger ifTrue: [anObject = -1 ifTrue: [Error signal: SDL3Library default getError]]].
-	^anObject!
+checkObject: anObject
+	anObject ifNil: [Error signal: library getError]!
+
+checkResult: aBoolean
+	aBoolean ifFalse: [Error signal: SDL3Library default getError]!
 
 destroy
 	self subclassResponsibility!
@@ -41,7 +41,8 @@ library
 	^library! !
 
 !TTF_Object categoriesForMethods!
-checkResult:!public! !
+checkObject:!private! !
+checkResult:!private! !
 destroy!public! !
 free!public! !
 initialize!public! !

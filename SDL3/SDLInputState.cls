@@ -39,14 +39,16 @@ closeWindow: anInteger
 createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
 	self ensureMessageLoopRunning.
-	sdlLibrary startTextInput.
 	window := sdlLibrary
 				createWindow_title: aString
 				w: aPoint x
 				h: aPoint y
 				flags: anInteger.
+	window
+		initialize;
+		startTextInput.
 	windows at: window getID put: anApplication.
-	^window initialize!
+	^window!
 
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
@@ -78,14 +80,10 @@ initialize
 	keyStates := sdlLibrary getKeyboardState_numkeys: nil!
 
 initializeLibraries
-	| resultCode |
-	resultCode := sdlLibrary
-				init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER.
-	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL base library'].
-	resultCode := sdlTtfLibrary init.
-	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL TTF library'].
-	resultCode := sdlImageLibrary init_flags: 0.
-	resultCode < 0 ifTrue: [self error: 'Error when initializing SDL image library']!
+	(sdlLibrary init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
+		ifFalse: [self error: 'Error when initializing SDL base library'].
+	sdlTtfLibrary init ifFalse: [self error: 'Error when initializing SDL TTF library'].
+	sdlImageLibrary init_flags: 0!
 
 isAltKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LALT) or: [self isKeyDown: SDL_SCANCODE_RALT]!
@@ -113,7 +111,7 @@ pollEvent
 	| event result |
 	event := SDL_Event new.
 	result := sdlLibrary pollEvent_event: event.
-	^result = 0 ifTrue: [nil] ifFalse: [event]!
+	^result ifTrue: [event] ifFalse: [nil]!
 
 pumpMessages
 	

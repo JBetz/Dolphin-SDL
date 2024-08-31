@@ -21,10 +21,10 @@ destroy
 	self close!
 
 getFontKerningSizeGlyphs32Between: aCharacter and: anotherCharacter
-	^self checkResult: (self library
-				getFontKerningSizeGlyphs32_font: self
-				previousCh: aCharacter code
-				ch: anotherCharacter code)!
+	^self library
+		getFontKerningSizeGlyphs32_font: self
+		previousCh: aCharacter code
+		ch: anotherCharacter code!
 
 initialize
 	super initialize.
@@ -44,19 +44,21 @@ lookupGlyph: aCharacter color: aColor renderer: aRenderer
 
 renderGlyph32Blended: aCharacter color: aColor
 	| surface |
-	surface := self checkResult: (self library
-						renderGlyph32Blended_font: self
-						ch: aCharacter code
-						fg: aColor asSDLColor).
+	surface := self library
+				renderGlyph32Blended_font: self
+				ch: aCharacter code
+				fg: aColor asSDLColor.
+	self checkObject: surface.
 	^surface initialize!
 
 renderUTF8BlendedWrapped: aString color: aColor wrapLength: anInteger
 	| surface |
-	surface := self checkResult: (self library
-						renderUTF8BlendedWrapped_font: self
-						text: aString
-						fg: aColor asSDLColor
-						wrapLength: anInteger truncated).
+	surface := self library
+				renderUTF8BlendedWrapped_font: self
+				text: aString
+				fg: aColor asSDLColor
+				wrapLength: anInteger truncated.
+	self checkObject: surface.
 	^surface initialize!
 
 setStyle: aFontStyle

@@ -42,7 +42,7 @@ getHandle
 	| windowProperties handle |
 	windowProperties := self getProperties.
 	handle := self library
-		getProperty_props: windowProperties
+		getPointerProperty_props: windowProperties
 		name: 'SDL.window.win32.hwnd'
 		defaultValue: ExternalHandle new.
 	^handle!
@@ -72,20 +72,23 @@ height
 hide
 	self library hideWindow_window: self!
 
+raise
+	^self library raiseWindow_window: self!
+
 rectangle
 	^Rectangle origin: self getPosition extent: self getExtent!
 
 setIcon: aSDLSurface
 	^self library setWindowIcon_window: self icon: aSDLSurface!
 
-setInputFocus
-	^self library setWindowInputFocus_window: self!
-
 setTitle: aString
 	^self library setWindowTitle_window: self title: aString!
 
 show
 	self library showWindow_window: self!
+
+startTextInput
+	self checkResult: (self library startTextInput_window: self)!
 
 updateSurface
 	self library updateWindowSurface_window: self!
@@ -106,11 +109,12 @@ getProperties!public! !
 getSurface!public! !
 height!public! !
 hide!public! !
+raise!public! !
 rectangle!public! !
 setIcon:!public! !
-setInputFocus!public! !
 setTitle:!public! !
 show!public! !
+startTextInput!public! !
 updateSurface!public! !
 width!public! !
 !

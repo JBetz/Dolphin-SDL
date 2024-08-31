@@ -22,40 +22,37 @@ extent
 
 getExtent
 	| width height |
-	width := SDWORD new.
-	height := SDWORD new.
+	width := FLOAT new.
+	height := FLOAT new.
 	self library
-		queryTexture_texture: self
-		format: nil
-		access: nil
+		getTextureSize_texture: self
 		w: width
 		h: height.
 	^width value @ height value!
 
 getFormat
-	| format |
-	format := DWORD new.
-	self library
-		queryTexture_texture: self
-		format: format
-		access: nil
-		w: nil
-		h: nil.
-	^format value!
+	^self library
+		getNumberProperty_props: self getPropertyID
+		name: 'SDL.texture.create.format'
+		defaultValue: 0!
+
+getHeight
+	^self library
+		getNumberProperty_props: self getPropertyID
+		name: 'SDL.texture.create.height'
+		defaultValue: 0!
+
+getPropertyID
+	^self library getTextureProperties_texture: self!
 
 getWidth
-	| width |
-	width := SDWORD new.
-	self library
-		queryTexture_texture: self
-		format: nil
-		access: nil
-		w: width
-		h: nil.
-	^width value!
+	^self library
+		getNumberProperty_props: self getPropertyID
+		name: 'SDL.texture.create.width'
+		defaultValue: 0!
 
 isPainted
-	^isPainted ifNil: [ false ]!
+	^isPainted ifNil: [false]!
 
 isPainted: aBoolean
 	isPainted := aBoolean!
@@ -102,6 +99,8 @@ destroy!public! !
 extent!public! !
 getExtent!public! !
 getFormat!public! !
+getHeight!public! !
+getPropertyID!public! !
 getWidth!public! !
 isPainted!public! !
 isPainted:!public! !
