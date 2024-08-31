@@ -32,13 +32,13 @@ getExtent
 
 getFormat
 	^self library
-		getNumberProperty_props: self getPropertiesId
+		getNumberProperty_props: self propertiesId
 		name: 'SDL.texture.create.format'
 		defaultValue: 0!
 
 getHeight
 	^self library
-		getNumberProperty_props: self getPropertiesId
+		getNumberProperty_props: self propertiesId
 		name: 'SDL.texture.create.height'
 		defaultValue: 0!
 
@@ -47,7 +47,7 @@ getPropertiesId
 
 getWidth
 	^self library
-		getNumberProperty_props: self getPropertiesId
+		getNumberProperty_props: self propertiesId
 		name: 'SDL.texture.create.width'
 		defaultValue: 0!
 

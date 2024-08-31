@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'library'
+	instanceVariableNames: 'library propertiesId'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -37,7 +37,7 @@ getPropertiesId
 
 getProperty: aString
 	| type propertyId |
-	propertyId := self getPropertiesId.
+	propertyId := self propertiesId.
 	type := self library getPropertyType_props: propertyId name: aString.
 	type = SDL_PROPERTY_TYPE_POINTER
 		ifTrue: 
@@ -77,7 +77,11 @@ initialize
 
 library
 	library ifNil: [library := SDL3Library default].
-	^library! !
+	^library!
+
+propertiesId
+	propertiesId ifNil: [propertiesId := self getPropertiesId].
+	^propertiesId! !
 
 !SDL_Object categoriesForMethods!
 checkBooleanResult:!private! !
@@ -88,6 +92,7 @@ getPropertiesId!public! !
 getProperty:!public! !
 initialize!public! !
 library!public! !
+propertiesId!public! !
 !
 
 !SDL_Object class methodsFor!

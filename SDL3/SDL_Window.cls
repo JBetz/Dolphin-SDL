@@ -38,7 +38,7 @@ enumerateProperties
 						returnType: 'void'
 						argumentTypes: 'lpvoid dword lpstr').
 	self checkBooleanResult: (self library
-				enumerateProperties_props: self getPropertiesId
+				enumerateProperties_props: self propertiesId
 				callback: callback asParameter
 				userdata: nil).
 	callback free.
@@ -55,10 +55,9 @@ getExtent
 	^width value @ height value!
 
 getHandle
-	| windowProperties handle |
-	windowProperties := self getPropertiesId.
+	| handle |
 	handle := self library
-				getPointerProperty_props: windowProperties
+				getPointerProperty_props: self propertiesId
 				name: 'SDL.window.win32.hwnd'
 				defaultValue: ExternalHandle new.
 	^handle!
