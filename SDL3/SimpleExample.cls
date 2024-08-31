@@ -38,8 +38,11 @@ update
 	renderer
 		setDrawColor: Color white;
 		clear;
+		fillRectangle: (Rectangle origin: 0 @ 0 extent: window extent)
+			color: Color lightGray
+			zIndex: 1;
 		fillRectangle: ((Rectangle origin: 0 @ 0 extent: window extent) insetBy: 10)
-			color: Color ghostWhite
+			color: Color white
 			zIndex: 1;
 		drawString: mousePosition truncated displayString
 			rectangle: (Rectangle origin: 20 @ 20 extent: 0 @ 0)
