@@ -113,7 +113,7 @@ refcount: anInteger
 	bytes sdwordAtOffset: _OffsetOf_refcount put: anInteger!
 
 saveAsPNG: aString
-	self checkResult: (SDL3ImageLibrary default savePNG_surface: self file: aString)!
+	self checkBooleanResult: (SDL3ImageLibrary default savePNG_surface: self file: aString)!
 
 userdata
 	"Answer the <ExternalAddress> value of the receiver's 'userdata' field."

@@ -159,7 +159,7 @@ enumerateDirectory_path: path callback: callback userdata: userdata
 	^self invalidCall: _failureCode!
 
 enumerateProperties_props: props callback: callback userdata: userdata
-	<cdecl: bool SDL_EnumerateProperties dword void* void*>
+	<cdecl: bool SDL_EnumerateProperties dword lpvoid lpvoid>
 	^self invalidCall: _failureCode!
 
 flashWindow_window: window operation: operation
@@ -308,6 +308,10 @@ getPrefPath_org: org app: app
 
 getPrimaryDisplay
 	<cdecl: dword SDL_GetPrimaryDisplay>
+	^self invalidCall: _failureCode!
+
+getPropertyType_props: props name: name
+	<cdecl: dword SDL_GetPropertyType dword lpstr>
 	^self invalidCall: _failureCode!
 
 getRectIntersection_a: a b: b result: result
@@ -861,6 +865,7 @@ getPixelFormatForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
 getPointerProperty_props:name:defaultValue:!properties!public! !
 getPrefPath_org:app:!file system!public! !
 getPrimaryDisplay!public! !
+getPropertyType_props:name:!properties!public! !
 getRectIntersection_a:b:result:!public!video! !
 getRectIntersectionFloat_a:b:result:!public!video! !
 getRenderClipRect_renderer:rect:!public!render! !

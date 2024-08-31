@@ -32,22 +32,22 @@ getExtent
 
 getFormat
 	^self library
-		getNumberProperty_props: self getPropertyID
+		getNumberProperty_props: self getPropertiesId
 		name: 'SDL.texture.create.format'
 		defaultValue: 0!
 
 getHeight
 	^self library
-		getNumberProperty_props: self getPropertyID
+		getNumberProperty_props: self getPropertiesId
 		name: 'SDL.texture.create.height'
 		defaultValue: 0!
 
-getPropertyID
+getPropertiesId
 	^self library getTextureProperties_texture: self!
 
 getWidth
 	^self library
-		getNumberProperty_props: self getPropertyID
+		getNumberProperty_props: self getPropertiesId
 		name: 'SDL.texture.create.width'
 		defaultValue: 0!
 
@@ -70,7 +70,7 @@ lockRectangle: aRectangle
 	| pitch pixels |
 	pitch := SDWORD new.
 	pixels := ExternalAddress new.
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				lockTexture_texture: self
 				rect: (aRectangle ifNotNil: [aRectangle asSDLRect])
 				pixels: pixels
@@ -78,17 +78,17 @@ lockRectangle: aRectangle
 	^pixels!
 
 unlock
-	self checkResult: (self library unlockTexture_texture: self)!
+	self checkBooleanResult: (self library unlockTexture_texture: self)!
 
 updatePixels: pixels pitch: pitch
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				updateTexture_texture: self
 				rect: nil
 				pixels: pixels
 				pitch: pitch)!
 
 updateRectangle: aRectangle pixels: pixels pitch: pitch
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				updateTexture_texture: self
 				rect: aRectangle asSDLRect
 				pixels: pixels
@@ -100,7 +100,7 @@ extent!public! !
 getExtent!public! !
 getFormat!public! !
 getHeight!public! !
-getPropertyID!public! !
+getPropertiesId!public! !
 getWidth!public! !
 isPainted!public! !
 isPainted:!public! !

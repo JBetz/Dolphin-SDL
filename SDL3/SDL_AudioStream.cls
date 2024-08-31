@@ -21,21 +21,28 @@ flush
 	self library flushAudioStream_stream: self!
 
 getAudioDevice
-	^self checkResult: (self library getAudioStreamDevice_stream: self)!
+	^self checkBooleanResult: (self library getAudioStreamDevice_stream: self)!
+
+getPropertiesId
+	^self library getAudioStreamProperties_stream: self!
 
 putData: anExternalArray
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				putAudioStreamData_stream: self
 				buffer: anExternalArray yourAddress
 				length: anExternalArray byteSize)!
 
 putData: anExternalArray length: anInteger
-	self checkResult: (self library putAudioStreamData_stream: self buffer: anExternalArray yourAddress length: anInteger)! !
+	self checkBooleanResult: (self library
+				putAudioStreamData_stream: self
+				buffer: anExternalArray yourAddress
+				length: anInteger)! !
 
 !SDL_AudioStream categoriesForMethods!
 destroy!public! !
 flush!public! !
 getAudioDevice!public! !
+getPropertiesId!public! !
 putData:!public! !
 putData:length:!public! !
 !

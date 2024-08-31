@@ -14,11 +14,11 @@ SDL_Object comment: ''!
 
 !SDL_Object methodsFor!
 
-checkObject: anObject
-	anObject ifNil: [Error signal: library getError]!
-
-checkResult: aBoolean
+checkBooleanResult: aBoolean
 	aBoolean ifFalse: [Error signal: library getError]!
+
+checkObjectResult: anObject
+	anObject ifNil: [Error signal: library getError]!
 
 destroy
 	self subclassResponsibility!
@@ -32,6 +32,45 @@ free
 				cr].
 	super free!
 
+getPropertiesId
+	self subclassResponsibility!
+
+getProperty: aString
+	| type propertyId |
+	propertyId := self getPropertiesId.
+	type := self library getPropertyType_props: propertyId name: aString.
+	type = SDL_PROPERTY_TYPE_POINTER
+		ifTrue: 
+			[^self library
+				getPointerProperty_props: propertyId
+				name: aString
+				defaultValue: nil].
+	type = SDL_PROPERTY_TYPE_STRING
+		ifTrue: 
+			[^self library
+				getStringProperty_props: propertyId
+				name: aString
+				defaultValue: ''].
+	type = SDL_PROPERTY_TYPE_NUMBER
+		ifTrue: 
+			[^self library
+				getNumberProperty_props: propertyId
+				name: aString
+				defaultValue: 0].
+	type = SDL_PROPERTY_TYPE_FLOAT
+		ifTrue: 
+			[^self library
+				getFloatProperty_props: propertyId
+				name: aString
+				defaultValue: 0.0].
+	type = SDL_PROPERTY_TYPE_BOOLEAN
+		ifTrue: 
+			[^self library
+				getBooleanProperty_props: propertyId
+				name: aString
+				defaultValue: false].
+	^nil!
+
 initialize
 	super initialize.
 	self beFinalizable!
@@ -41,10 +80,12 @@ library
 	^library! !
 
 !SDL_Object categoriesForMethods!
-checkObject:!private! !
-checkResult:!private! !
+checkBooleanResult:!private! !
+checkObjectResult:!private! !
 destroy!public! !
 free!public! !
+getPropertiesId!public! !
+getProperty:!public! !
 initialize!public! !
 library!public! !
 !

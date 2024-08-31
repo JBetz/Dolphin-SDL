@@ -14,11 +14,11 @@ TTF_Object comment: ''!
 
 !TTF_Object methodsFor!
 
-checkObject: anObject
-	anObject ifNil: [Error signal: library getError]!
-
-checkResult: aBoolean
+checkBooleanResult: aBoolean
 	aBoolean ifFalse: [Error signal: SDL3Library default getError]!
+
+checkObjectResult: anObject
+	anObject ifNil: [Error signal: library getError]!
 
 destroy
 	self subclassResponsibility!
@@ -41,8 +41,8 @@ library
 	^library! !
 
 !TTF_Object categoriesForMethods!
-checkObject:!private! !
-checkResult:!private! !
+checkBooleanResult:!private! !
+checkObjectResult:!private! !
 destroy!public! !
 free!public! !
 initialize!public! !

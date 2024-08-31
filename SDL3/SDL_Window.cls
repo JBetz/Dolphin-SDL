@@ -28,6 +28,22 @@ createRenderer
 destroy
 	self library destroyWindow_window: self!
 
+enumerateProperties
+	| properties callback |
+	properties := Dictionary new.
+	callback := ExternalCallback
+				block: [:userdata :props :name | properties at: name put: (self getProperty: name)]
+				descriptor: (ExternalDescriptor
+						callingConvention: 'cdecl:'
+						returnType: 'void'
+						argumentTypes: 'lpvoid dword lpstr').
+	self checkBooleanResult: (self library
+				enumerateProperties_props: self getPropertiesId
+				callback: callback asParameter
+				userdata: nil).
+	callback free.
+	^properties!
+
 extent
 	^self getExtent!
 
@@ -40,11 +56,11 @@ getExtent
 
 getHandle
 	| windowProperties handle |
-	windowProperties := self getProperties.
+	windowProperties := self getPropertiesId.
 	handle := self library
-		getPointerProperty_props: windowProperties
-		name: 'SDL.window.win32.hwnd'
-		defaultValue: ExternalHandle new.
+				getPointerProperty_props: windowProperties
+				name: 'SDL.window.win32.hwnd'
+				defaultValue: ExternalHandle new.
 	^handle!
 
 getID
@@ -60,7 +76,7 @@ getPosition
 		y: y.
 	^x asInteger @ y asInteger!
 
-getProperties
+getPropertiesId
 	^self library getWindowProperties_window: self!
 
 getSurface
@@ -88,7 +104,7 @@ show
 	self library showWindow_window: self!
 
 startTextInput
-	self checkResult: (self library startTextInput_window: self)!
+	self checkBooleanResult: (self library startTextInput_window: self)!
 
 updateSurface
 	self library updateWindowSurface_window: self!
@@ -100,12 +116,13 @@ width
 aspectRatio!public! !
 createRenderer!public! !
 destroy!public! !
+enumerateProperties!public! !
 extent!public! !
 getExtent!public! !
 getHandle!public! !
 getID!public! !
 getPosition!public! !
-getProperties!public! !
+getPropertiesId!public! !
 getSurface!public! !
 height!public! !
 hide!public! !

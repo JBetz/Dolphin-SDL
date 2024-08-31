@@ -48,7 +48,7 @@ renderGlyph32Blended: aCharacter color: aColor
 				renderGlyph32Blended_font: self
 				ch: aCharacter code
 				fg: aColor asSDLColor.
-	self checkObject: surface.
+	self checkObjectResult: surface.
 	^surface initialize!
 
 renderUTF8BlendedWrapped: aString color: aColor wrapLength: anInteger
@@ -58,7 +58,7 @@ renderUTF8BlendedWrapped: aString color: aColor wrapLength: anInteger
 				text: aString
 				fg: aColor asSDLColor
 				wrapLength: anInteger truncated.
-	self checkObject: surface.
+	self checkObjectResult: surface.
 	^surface initialize!
 
 setStyle: aFontStyle
@@ -68,7 +68,7 @@ sizeText: aString
 	| width height |
 	width := SDWORD new.
 	height := SDWORD new.
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				sizeText_font: self
 				text: aString
 				w: width

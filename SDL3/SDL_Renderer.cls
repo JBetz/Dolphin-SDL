@@ -15,17 +15,17 @@ SDL_Renderer comment: ''!
 !SDL_Renderer methodsFor!
 
 clear
-	self checkResult: (self library renderClear_renderer: self)!
+	self checkBooleanResult: (self library renderClear_renderer: self)!
 
 createSurfaceFrom: pixels width: width height: height pitch: pitch format: format
 	| surface |
 	surface := self library
-						createSurfaceFrom_pixels: pixels
-						width: width
-						height: height
-						pitch: pitch
-						format: format.
-	self checkObject: surface.
+				createSurfaceFrom_pixels: pixels
+				width: width
+				height: height
+				pitch: pitch
+				format: format.
+	self checkObjectResult: surface.
 	^surface initialize!
 
 createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format: format
@@ -36,7 +36,7 @@ createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format
 				height: height
 				pitch: pitch
 				format: format.
-	self checkObject: surface.
+	self checkObjectResult: surface.
 	^surface initialize!
 
 createTexture: aPoint access: anInteger
@@ -47,21 +47,23 @@ createTexture: aPoint access: anInteger
 				access: anInteger
 				w: aPoint x asInteger
 				h: aPoint y asInteger.
-	self checkObject: texture.
+	self checkObjectResult: texture.
 	^texture initialize!
 
 createTextureFromSurface: aSDL_Surface
 	| texture |
 	texture := self library createTextureFromSurface_renderer: self surface: aSDL_Surface.
-	self checkObject: texture.
-	^texture initialize
-!
+	self checkObjectResult: texture.
+	^texture initialize!
 
 destroy
 	self library destroyRenderer_renderer: self!
 
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
+
+getPropertiesId
+	^self library getRendererProperties_renderer: self!
 
 getRenderTarget
 	^self library getRenderTarget_renderer: self!
@@ -70,7 +72,7 @@ getScale
 	| scaleX scaleY |
 	scaleX := FLOAT new.
 	scaleY := FLOAT new.
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				getRenderScale_renderer: self
 				scaleX: scaleX
 				scaleY: scaleY).
@@ -80,7 +82,7 @@ getWindow
 	^self library getRenderWindow_renderer: self!
 
 present
-	self checkResult: (self library renderPresent_renderer: self)!
+	self checkBooleanResult: (self library renderPresent_renderer: self)!
 
 renderGeometry: texture vertices: vertices
 	self library
@@ -115,27 +117,27 @@ renderPoint: aPoint
 		y: aPoint y!
 
 renderReadPixels: aRectangle
-	^self checkResult: (self library renderReadPixels_renderer: self
+	^self checkBooleanResult: (self library renderReadPixels_renderer: self
 				rect: (aRectangle ifNotNil: [aRectangle asSDLRect]))!
 
 renderRectangle: aRectangle
 	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
 
 renderTexture: texture source: source destination: destination
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				renderTexture_renderer: self
 				texture: texture
 				srcrect: (source ifNotNil: [source asSDLFRect])
 				dstrect: (destination ifNotNil: [destination asSDLFRect]))!
 
 resetClip
-	self checkResult: (self library setRenderClipRect_renderer: self rect: nil)!
+	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: nil)!
 
 resetScale
 	self setScale: 1.0 @ 1.0!
 
 setClip: aRectangle
-	self checkResult: (self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect)!
+	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect)!
 
 setDrawBlendMode: anInteger
 	self library setRenderDrawBlendMode_renderer: self blendMode: anInteger!
@@ -149,10 +151,10 @@ setDrawColor: aColor
 		a: aColor alpha!
 
 setRenderTarget: aSDLTexture
-	self checkResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
+	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
 
 setScale: aPoint
-	self checkResult: (self library
+	self checkBooleanResult: (self library
 				setRenderScale_renderer: self
 				scaleX: aPoint x
 				scaleY: aPoint y)! !
@@ -165,6 +167,7 @@ createTexture:access:!public! !
 createTextureFromSurface:!public! !
 destroy!public! !
 fillRectangle:!public! !
+getPropertiesId!public! !
 getRenderTarget!public! !
 getScale!public! !
 getWindow!public! !
