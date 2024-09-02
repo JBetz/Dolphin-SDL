@@ -8,12 +8,12 @@ ExternalStructure subclass: #SDL_GPUColorAttachmentInfo
 
 SDL_GPUColorAttachmentInfo guid: (GUID fromString: '{a38f12eb-a7b8-4d29-88d8-e74e11db447e}')!
 
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_clear_color' value: 16r8!
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_cyle' value: 16r20!
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_layer_or_depth_plane' value: 16r4!
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_load_op' value: 16r18!
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_mip_level' value: 16r0!
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_store_op' value: 16r1C!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_clear_color' value: 16rC!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_cyle' value: 16r24!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_layer_or_depth_plane' value: 16r8!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_load_op' value: 16r1C!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_mip_level' value: 16r4!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_store_op' value: 16r20!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_texture' value: 16r0!
 
 SDL_GPUColorAttachmentInfo comment: ''!
@@ -89,16 +89,12 @@ store_op: anInteger
 texture
 	"Answer the <SDL_GPUTexture> value of the receiver's 'texture' field."
 
-	^SDL_GPUTexture fromAddress: bytes yourAddress!
+	^SDL_GPUTexture fromAddress: (bytes intPtrAtOffset: _OffsetOf_texture)!
 
 texture: aSDL_GPUTexture
 	"Set the receiver's 'texture' field to the value of the argument, aSDL_GPUTexture"
 
-	aSDL_GPUTexture
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_texture + 1)
-		to: ##(_OffsetOf_texture + SDL_GPUTexture basicByteSize)
-		startingAt: 1! !
+	bytes uintPtrAtOffset: _OffsetOf_texture put: aSDL_GPUTexture yourAddress! !
 
 !SDL_GPUColorAttachmentInfo categoriesForMethods!
 clear_color!**compiled accessors**!public! !
@@ -123,7 +119,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #texture type: (StructureField type: SDL_GPUTexture);
+		defineField: #texture type: (PointerField type: SDL_GPUTexture);
 		defineField: #mip_level type: DWORDField new;
 		defineField: #layer_or_depth_plane type: DWORDField new;
 		defineField: #clear_color type: (StructureField type: SDL_FColor);
@@ -132,7 +128,7 @@ defineFields
 		defineField: #cyle type: BOOLField new!
 
 getFieldNames
-	^#(#mip_level #texture #layer_or_depth_plane #clear_color #load_op #store_op #cyle)! !
+	^#(#texture #mip_level #layer_or_depth_plane #clear_color #load_op #store_op #cyle)! !
 
 !SDL_GPUColorAttachmentInfo class categoriesForMethods!
 defineFields!public! !

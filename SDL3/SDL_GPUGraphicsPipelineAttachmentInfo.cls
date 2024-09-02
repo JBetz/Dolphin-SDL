@@ -8,10 +8,10 @@ ExternalStructure subclass: #SDL_GPUGraphicsPipelineAttachmentInfo
 
 SDL_GPUGraphicsPipelineAttachmentInfo guid: (GUID fromString: '{6f2a9a23-c657-4185-bb4e-604c026e7048}')!
 
-SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_color_attachment_count' value: 16r0!
+SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_color_attachment_count' value: 16r4!
 SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_color_attachment_descriptions' value: 16r0!
-SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_depth_stencil_format' value: 16r8!
-SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_has_depth_stencil_attachment' value: 16r4!
+SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_depth_stencil_format' value: 16rC!
+SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_has_depth_stencil_attachment' value: 16r8!
 
 SDL_GPUGraphicsPipelineAttachmentInfo comment: ''!
 
@@ -32,16 +32,14 @@ color_attachment_count: anInteger
 color_attachment_descriptions
 	"Answer the <SDL_GPUColorAttachmentDescription> value of the receiver's 'color_attachment_descriptions' field."
 
-	^SDL_GPUColorAttachmentDescription fromAddress: bytes yourAddress!
+	^SDL_GPUColorAttachmentDescription
+		fromAddress: (bytes intPtrAtOffset: _OffsetOf_color_attachment_descriptions)!
 
 color_attachment_descriptions: aSDL_GPUColorAttachmentDescription
 	"Set the receiver's 'color_attachment_descriptions' field to the value of the argument, aSDL_GPUColorAttachmentDescription"
 
-	aSDL_GPUColorAttachmentDescription
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_color_attachment_descriptions + 1)
-		to: ##(_OffsetOf_color_attachment_descriptions + SDL_GPUColorAttachmentDescription basicByteSize)
-		startingAt: 1!
+	bytes uintPtrAtOffset: _OffsetOf_color_attachment_descriptions
+		put: aSDL_GPUColorAttachmentDescription yourAddress!
 
 depth_stencil_format
 	"Answer the <Integer> value of the receiver's 'depth_stencil_format' field."
@@ -80,14 +78,13 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #color_attachment_descriptions
-			type: (StructureField type: SDL_GPUColorAttachmentDescription);
+		defineField: #color_attachment_descriptions type: (PointerField type: SDL_GPUColorAttachmentDescription);
 		defineField: #color_attachment_count type: DWORDField new;
 		defineField: #has_depth_stencil_attachment type: BOOLField new;
 		defineField: #depth_stencil_format type: DWORDField new!
 
 getFieldNames
-	^#(#color_attachment_count #color_attachment_descriptions #has_depth_stencil_attachment #depth_stencil_format)! !
+	^#(#color_attachment_descriptions #color_attachment_count #has_depth_stencil_attachment #depth_stencil_format)! !
 
 !SDL_GPUGraphicsPipelineAttachmentInfo class categoriesForMethods!
 defineFields!public! !

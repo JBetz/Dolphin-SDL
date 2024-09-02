@@ -18,14 +18,18 @@ SDL_GPUColorAttachmentDescription comment: ''!
 !SDL_GPUColorAttachmentDescription methodsFor!
 
 blend_state
-	"Answer the <Integer> value of the receiver's 'blend_state' field."
+	"Answer the <SDL_GPUColorAttachmentBlendState> value of the receiver's 'blend_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_blend_state!
+	^SDL_GPUColorAttachmentBlendState fromAddress: bytes yourAddress + _OffsetOf_blend_state!
 
-blend_state: anInteger
-	"Set the receiver's 'blend_state' field to the value of the argument, anInteger"
+blend_state: aSDL_GPUColorAttachmentBlendState
+	"Set the receiver's 'blend_state' field to the value of the argument, aSDL_GPUColorAttachmentBlendState"
 
-	bytes dwordAtOffset: _OffsetOf_blend_state put: anInteger!
+	aSDL_GPUColorAttachmentBlendState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_blend_state + 1)
+		to: ##(_OffsetOf_blend_state + SDL_GPUColorAttachmentBlendState basicByteSize)
+		startingAt: 1!
 
 format
 	"Answer the <Integer> value of the receiver's 'format' field."
@@ -51,7 +55,7 @@ defineFields
 
 	self
 		defineField: #format type: DWORDField new;
-		defineField: #blend_state type: DWORDField new!
+		defineField: #blend_state type: (StructureField type: SDL_GPUColorAttachmentBlendState)!
 
 getFieldNames
 	^#(#format #blend_state)! !
