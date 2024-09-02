@@ -34,7 +34,7 @@ loadShader: aString stage: anInteger
 	| codeSize code shaderCreateInfo shader |
 	codeSize := DWORD new.
 	code := self library loadFile_file: aString datasize: codeSize.
-	self checkObjectResult: code.
+	code isNull ifTrue: [self error: self library getError].
 	shaderCreateInfo := SDL_GPUShaderCreateInfo new.
 	shaderCreateInfo
 		code: code;
