@@ -206,16 +206,7 @@ defineFields
 		defineField: #map type: (PointerField type: SDL_BlitMap);
 		defineField: #refcount type: SDWORDField new!
 
-fromFile: aString
-	| surface |
-	surface := SDL3ImageLibrary default load_file: aString.
-	surface isNull ifTrue: [Error signal: SDL3Library default getError].
-	^surface initialize!
-
-getFieldNames
-	^#(#flags #format #w #h #pitch #pixels #userdata #locked #list_blitmap #clip_rect #map #refcount)!
-
-newExtent: aPoint
+extent: aPoint
 	| library format |
 	library := SDL3Library default.
 	format := library
@@ -227,12 +218,21 @@ newExtent: aPoint
 	^library
 		createSurface_width: aPoint x
 		height: aPoint y
-		format: format! !
+		format: format!
+
+fromFile: aString
+	| surface |
+	surface := SDL3ImageLibrary default load_file: aString.
+	surface isNull ifTrue: [Error signal: SDL3Library default getError].
+	^surface initialize!
+
+getFieldNames
+	^#(#flags #format #w #h #pitch #pixels #userdata #locked #list_blitmap #clip_rect #map #refcount)! !
 
 !SDL_Surface class categoriesForMethods!
 defineFields!public! !
+extent:!public! !
 fromFile:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
-newExtent:!public! !
 !
 
