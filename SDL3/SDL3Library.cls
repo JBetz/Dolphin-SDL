@@ -439,7 +439,7 @@ getGlobalProperties
 	^self invalidCall: _failureCode!
 
 getGPUDriver_device: device
-	<cdecl: SDL_GPUDriver* SDL_GetGPUDriver SDL_GPUDevice*>
+	<cdecl: dword SDL_GetGPUDriver SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
 
 getGPUSwapchainTextureFormat_device: device window: window

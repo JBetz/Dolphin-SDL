@@ -54,7 +54,6 @@ package classNames
 	add: #SDL_GPUDepthStencilState;
 	add: #SDL_GPUDepthStencilValue;
 	add: #SDL_GPUDevice;
-	add: #SDL_GPUDriver;
 	add: #SDL_GPUFence;
 	add: #SDL_GPUGraphicsPipeline;
 	add: #SDL_GPUGraphicsPipelineAttachmentInfo;
@@ -705,12 +704,6 @@ SDL_Object subclass: #SDL_GPUCopyPass
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUDevice
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUDriver
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
