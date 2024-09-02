@@ -97,10 +97,14 @@ propertiesId!public! !
 
 !SDL_Object class methodsFor!
 
+checkObjectResult: anObject
+	anObject ifNil: [Error signal: SDL3Library default getError]!
+
 new
 	^super new initialize! !
 
 !SDL_Object class categoriesForMethods!
+checkObjectResult:!private! !
 new!public! !
 !
 
