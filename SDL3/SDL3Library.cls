@@ -170,7 +170,7 @@ createGPUDeviceWithProperties_props: props
 	<cdecl: SDL_GPUDevice* SDL_CreateGPUDeviceWithProperties dword>
 	^self invalidCall: _failureCode!
 
-createGPUGraphicsPipeline_device: device pipelineCreateInfo: computePipelineCreateInfo
+createGPUGraphicsPipeline_device: device pipelineCreateInfo: pipelineCreateInfo
 	<cdecl: SDL_GPUGraphicsPipeline* SDL_CreateGPUGraphicsPipeline SDL_GPUDevice* SDL_GPUGraphicsPipelineCreateInfo*>
 	^self invalidCall: _failureCode!
 
