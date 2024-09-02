@@ -8,14 +8,14 @@ ExternalStructure subclass: #SDL_GPUGraphicsPipelineCreateInfo
 
 SDL_GPUGraphicsPipelineCreateInfo guid: (GUID fromString: '{8d1eb090-e3d3-4cef-9972-3595e38c3da3}')!
 
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_attachment_info' value: 16r1C!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_blend_constants' value: 16r20!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_depth_stencil_state' value: 16r18!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_attachment_info' value: 16r74!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_blend_constants' value: 16r80!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_depth_stencil_state' value: 16r58!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_fragment_shader' value: 16r4!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_multisample_state' value: 16r14!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_primitive_type' value: 16rC!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_props' value: 16r30!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_rasterizer_state' value: 16r10!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_multisample_state' value: 16r50!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_primitive_type' value: 16r30!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_props' value: 16r90!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_rasterizer_state' value: 16r34!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_vertex_input_state' value: 16r8!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_vertex_shader' value: 16r0!
 
@@ -26,14 +26,18 @@ SDL_GPUGraphicsPipelineCreateInfo comment: ''!
 !SDL_GPUGraphicsPipelineCreateInfo methodsFor!
 
 attachment_info
-	"Answer the <Integer> value of the receiver's 'attachment_info' field."
+	"Answer the <SDL_GPUGraphicsPipelineAttachmentInfo> value of the receiver's 'attachment_info' field."
 
-	^bytes dwordAtOffset: _OffsetOf_attachment_info!
+	^SDL_GPUGraphicsPipelineAttachmentInfo fromAddress: bytes yourAddress + _OffsetOf_attachment_info!
 
-attachment_info: anInteger
-	"Set the receiver's 'attachment_info' field to the value of the argument, anInteger"
+attachment_info: aSDL_GPUGraphicsPipelineAttachmentInfo
+	"Set the receiver's 'attachment_info' field to the value of the argument, aSDL_GPUGraphicsPipelineAttachmentInfo"
 
-	bytes dwordAtOffset: _OffsetOf_attachment_info put: anInteger!
+	aSDL_GPUGraphicsPipelineAttachmentInfo
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_attachment_info + 1)
+		to: ##(_OffsetOf_attachment_info + SDL_GPUGraphicsPipelineAttachmentInfo basicByteSize)
+		startingAt: 1!
 
 blend_constants
 	"Answer the <FLOATArray> value of the receiver's 'blend_constants' field."
@@ -52,14 +56,18 @@ blend_constants: aFLOATArray
 		startingAt: 1!
 
 depth_stencil_state
-	"Answer the <Integer> value of the receiver's 'depth_stencil_state' field."
+	"Answer the <SDL_GPUDepthStencilState> value of the receiver's 'depth_stencil_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_depth_stencil_state!
+	^SDL_GPUDepthStencilState fromAddress: bytes yourAddress + _OffsetOf_depth_stencil_state!
 
-depth_stencil_state: anInteger
-	"Set the receiver's 'depth_stencil_state' field to the value of the argument, anInteger"
+depth_stencil_state: aSDL_GPUDepthStencilState
+	"Set the receiver's 'depth_stencil_state' field to the value of the argument, aSDL_GPUDepthStencilState"
 
-	bytes dwordAtOffset: _OffsetOf_depth_stencil_state put: anInteger!
+	aSDL_GPUDepthStencilState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_depth_stencil_state + 1)
+		to: ##(_OffsetOf_depth_stencil_state + SDL_GPUDepthStencilState basicByteSize)
+		startingAt: 1!
 
 fragment_shader
 	"Answer the <SDL_GPUShader> value of the receiver's 'fragment_shader' field."
@@ -72,14 +80,18 @@ fragment_shader: aSDL_GPUShader
 	bytes uintPtrAtOffset: _OffsetOf_fragment_shader put: aSDL_GPUShader yourAddress!
 
 multisample_state
-	"Answer the <Integer> value of the receiver's 'multisample_state' field."
+	"Answer the <SDL_GPUMultisampleState> value of the receiver's 'multisample_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_multisample_state!
+	^SDL_GPUMultisampleState fromAddress: bytes yourAddress + _OffsetOf_multisample_state!
 
-multisample_state: anInteger
-	"Set the receiver's 'multisample_state' field to the value of the argument, anInteger"
+multisample_state: aSDL_GPUMultisampleState
+	"Set the receiver's 'multisample_state' field to the value of the argument, aSDL_GPUMultisampleState"
 
-	bytes dwordAtOffset: _OffsetOf_multisample_state put: anInteger!
+	aSDL_GPUMultisampleState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_multisample_state + 1)
+		to: ##(_OffsetOf_multisample_state + SDL_GPUMultisampleState basicByteSize)
+		startingAt: 1!
 
 primitive_type
 	"Answer the <Integer> value of the receiver's 'primitive_type' field."
@@ -102,24 +114,32 @@ props: anInteger
 	bytes dwordAtOffset: _OffsetOf_props put: anInteger!
 
 rasterizer_state
-	"Answer the <Integer> value of the receiver's 'rasterizer_state' field."
+	"Answer the <SDL_GPURasterizerState> value of the receiver's 'rasterizer_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_rasterizer_state!
+	^SDL_GPURasterizerState fromAddress: bytes yourAddress + _OffsetOf_rasterizer_state!
 
-rasterizer_state: anInteger
-	"Set the receiver's 'rasterizer_state' field to the value of the argument, anInteger"
+rasterizer_state: aSDL_GPURasterizerState
+	"Set the receiver's 'rasterizer_state' field to the value of the argument, aSDL_GPURasterizerState"
 
-	bytes dwordAtOffset: _OffsetOf_rasterizer_state put: anInteger!
+	aSDL_GPURasterizerState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_rasterizer_state + 1)
+		to: ##(_OffsetOf_rasterizer_state + SDL_GPURasterizerState basicByteSize)
+		startingAt: 1!
 
 vertex_input_state
-	"Answer the <Integer> value of the receiver's 'vertex_input_state' field."
+	"Answer the <SDL_GPUVertexInputState> value of the receiver's 'vertex_input_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_vertex_input_state!
+	^SDL_GPUVertexInputState fromAddress: bytes yourAddress + _OffsetOf_vertex_input_state!
 
-vertex_input_state: anInteger
-	"Set the receiver's 'vertex_input_state' field to the value of the argument, anInteger"
+vertex_input_state: aSDL_GPUVertexInputState
+	"Set the receiver's 'vertex_input_state' field to the value of the argument, aSDL_GPUVertexInputState"
 
-	bytes dwordAtOffset: _OffsetOf_vertex_input_state put: anInteger!
+	aSDL_GPUVertexInputState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_vertex_input_state + 1)
+		to: ##(_OffsetOf_vertex_input_state + SDL_GPUVertexInputState basicByteSize)
+		startingAt: 1!
 
 vertex_shader
 	"Answer the <SDL_GPUShader> value of the receiver's 'vertex_shader' field."
@@ -162,12 +182,12 @@ defineFields
 	self
 		defineField: #vertex_shader type: (PointerField type: SDL_GPUShader);
 		defineField: #fragment_shader type: (PointerField type: SDL_GPUShader);
-		defineField: #vertex_input_state type: DWORDField new;
+		defineField: #vertex_input_state type: (StructureField type: SDL_GPUVertexInputState);
 		defineField: #primitive_type type: DWORDField new;
-		defineField: #rasterizer_state type: DWORDField new;
-		defineField: #multisample_state type: DWORDField new;
-		defineField: #depth_stencil_state type: DWORDField new;
-		defineField: #attachment_info type: DWORDField new;
+		defineField: #rasterizer_state type: (StructureField type: SDL_GPURasterizerState);
+		defineField: #multisample_state type: (StructureField type: SDL_GPUMultisampleState);
+		defineField: #depth_stencil_state type: (StructureField type: SDL_GPUDepthStencilState);
+		defineField: #attachment_info type: (StructureField type: SDL_GPUGraphicsPipelineAttachmentInfo);
 		defineField: #blend_constants type: (ArrayField type: FLOATArray length: 4);
 		defineField: #props type: DWORDField new!
 
