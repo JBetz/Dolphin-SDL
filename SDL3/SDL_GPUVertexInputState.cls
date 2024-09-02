@@ -30,28 +30,24 @@ vertex_attribute_count: anInteger
 	bytes dwordAtOffset: _OffsetOf_vertex_attribute_count put: anInteger!
 
 vertex_attributes
-	"Answer the <ExternalArray> value of the receiver's 'vertex_attributes' field."
+	"Answer the <SDL_GPUVertexAttribute> value of the receiver's 'vertex_attributes' field."
 
-	^ExternalArray fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_attributes)
-		length: self vertex_attribute_count!
+	^SDL_GPUVertexAttribute fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_attributes)!
 
-vertex_attributes: anExternalArray
-	"Set the receiver's 'vertex_attributes' field to the value of the argument, anExternalArray"
+vertex_attributes: aSDL_GPUVertexAttribute
+	"Set the receiver's 'vertex_attributes' field to the value of the argument, aSDL_GPUVertexAttribute"
 
-	bytes uintPtrAtOffset: _OffsetOf_vertex_attributes put: anExternalArray yourAddress.
-	self vertex_attribute_count: anExternalArray size!
+	bytes uintPtrAtOffset: _OffsetOf_vertex_attributes put: aSDL_GPUVertexAttribute yourAddress!
 
 vertex_binding
-	"Answer the <ExternalArray> value of the receiver's 'vertex_binding' field."
+	"Answer the <SDL_GPUVertexBinding> value of the receiver's 'vertex_binding' field."
 
-	^ExternalArray fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_binding)
-		length: self vertex_binding_count!
+	^SDL_GPUVertexBinding fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_binding)!
 
-vertex_binding: anExternalArray
-	"Set the receiver's 'vertex_binding' field to the value of the argument, anExternalArray"
+vertex_binding: aSDL_GPUVertexBinding
+	"Set the receiver's 'vertex_binding' field to the value of the argument, aSDL_GPUVertexBinding"
 
-	bytes uintPtrAtOffset: _OffsetOf_vertex_binding put: anExternalArray yourAddress.
-	self vertex_binding_count: anExternalArray size!
+	bytes uintPtrAtOffset: _OffsetOf_vertex_binding put: aSDL_GPUVertexBinding yourAddress!
 
 vertex_binding_count
 	"Answer the <Integer> value of the receiver's 'vertex_binding_count' field."

@@ -56,12 +56,12 @@ color_blend_op: anInteger
 color_write_mask
 	"Answer the <Integer> value of the receiver's 'color_write_mask' field."
 
-	^bytes dwordAtOffset: _OffsetOf_color_write_mask!
+	^bytes byteAtOffset: _OffsetOf_color_write_mask!
 
 color_write_mask: anInteger
 	"Set the receiver's 'color_write_mask' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_color_write_mask put: anInteger!
+	bytes byteAtOffset: _OffsetOf_color_write_mask put: anInteger!
 
 dst_alpha_blend_factor
 	"Answer the <Integer> value of the receiver's 'dst_alpha_blend_factor' field."
@@ -135,7 +135,7 @@ defineFields
 		defineField: #src_alpha_blend_factor type: DWORDField new;
 		defineField: #dst_alpha_blend_factor type: DWORDField new;
 		defineField: #alpha_blend_op type: DWORDField new;
-		defineField: #color_write_mask type: DWORDField new!
+		defineField: #color_write_mask type: BYTEField new!
 
 getFieldNames
 	^#(#blend_enable #src_color_blend_factor #dst_color_blend_factor #color_blend_op #src_alpha_blend_factor #dst_alpha_blend_factor #alpha_blend_op #color_write_mask)! !

@@ -9,14 +9,14 @@ ExternalStructure subclass: #SDL_GPUDepthStencilState
 SDL_GPUDepthStencilState guid: (GUID fromString: '{053b30c9-878b-48a1-83a1-61c2ae729580}')!
 
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_back_stencil_state' value: 16r10!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_mask' value: 16r18!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_mask' value: 16r30!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_op' value: 16r8!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_depth_test_enable' value: 16r0!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_depth_write_enable' value: 16r4!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_front_stencil_state' value: 16r14!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_reference' value: 16r1A!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_front_stencil_state' value: 16r20!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_reference' value: 16r32!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_stencil_test_enable' value: 16rC!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_write_mask' value: 16r19!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_write_mask' value: 16r31!
 
 SDL_GPUDepthStencilState comment: ''!
 
@@ -25,14 +25,18 @@ SDL_GPUDepthStencilState comment: ''!
 !SDL_GPUDepthStencilState methodsFor!
 
 back_stencil_state
-	"Answer the <Integer> value of the receiver's 'back_stencil_state' field."
+	"Answer the <SDL_GPUStencilOpState> value of the receiver's 'back_stencil_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_back_stencil_state!
+	^SDL_GPUStencilOpState fromAddress: bytes yourAddress + _OffsetOf_back_stencil_state!
 
-back_stencil_state: anInteger
-	"Set the receiver's 'back_stencil_state' field to the value of the argument, anInteger"
+back_stencil_state: aSDL_GPUStencilOpState
+	"Set the receiver's 'back_stencil_state' field to the value of the argument, aSDL_GPUStencilOpState"
 
-	bytes dwordAtOffset: _OffsetOf_back_stencil_state put: anInteger!
+	aSDL_GPUStencilOpState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_back_stencil_state + 1)
+		to: ##(_OffsetOf_back_stencil_state + SDL_GPUStencilOpState basicByteSize)
+		startingAt: 1!
 
 compare_mask
 	"Answer the <Integer> value of the receiver's 'compare_mask' field."
@@ -75,14 +79,18 @@ depth_write_enable: aBoolean
 	bytes dwordAtOffset: _OffsetOf_depth_write_enable put: aBoolean asParameter!
 
 front_stencil_state
-	"Answer the <Integer> value of the receiver's 'front_stencil_state' field."
+	"Answer the <SDL_GPUStencilOpState> value of the receiver's 'front_stencil_state' field."
 
-	^bytes dwordAtOffset: _OffsetOf_front_stencil_state!
+	^SDL_GPUStencilOpState fromAddress: bytes yourAddress + _OffsetOf_front_stencil_state!
 
-front_stencil_state: anInteger
-	"Set the receiver's 'front_stencil_state' field to the value of the argument, anInteger"
+front_stencil_state: aSDL_GPUStencilOpState
+	"Set the receiver's 'front_stencil_state' field to the value of the argument, aSDL_GPUStencilOpState"
 
-	bytes dwordAtOffset: _OffsetOf_front_stencil_state put: anInteger!
+	aSDL_GPUStencilOpState
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_front_stencil_state + 1)
+		to: ##(_OffsetOf_front_stencil_state + SDL_GPUStencilOpState basicByteSize)
+		startingAt: 1!
 
 reference
 	"Answer the <Integer> value of the receiver's 'reference' field."
@@ -145,8 +153,8 @@ defineFields
 		defineField: #depth_write_enable type: BOOLField new;
 		defineField: #compare_op type: DWORDField new;
 		defineField: #stencil_test_enable type: BOOLField new;
-		defineField: #back_stencil_state type: DWORDField new;
-		defineField: #front_stencil_state type: DWORDField new;
+		defineField: #back_stencil_state type: (StructureField type: SDL_GPUStencilOpState);
+		defineField: #front_stencil_state type: (StructureField type: SDL_GPUStencilOpState);
 		defineField: #compare_mask type: BYTEField new;
 		defineField: #write_mask type: BYTEField new;
 		defineField: #reference type: BYTEField new!
