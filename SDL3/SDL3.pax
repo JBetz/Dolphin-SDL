@@ -5,6 +5,7 @@ package paxVersion: 1;
 
 package classNames
 	add: #Application;
+	add: #BasicTriangleExample;
 	add: #DrawBezierCurve;
 	add: #DrawImage;
 	add: #DrawLine;
@@ -14,6 +15,7 @@ package classNames
 	add: #DrawTexture;
 	add: #FillPolygon;
 	add: #FillRectangle;
+	add: #GPUExample;
 	add: #PriorityQueue;
 	add: #RenderCommand;
 	add: #Renderer2D;
@@ -180,8 +182,20 @@ Object subclass: #TTFFontStyle
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
+Application subclass: #GPUExample
+	instanceVariableNames: 'gpuDevice'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Application subclass: #SimpleExample
 	instanceVariableNames: 'triangleVertices'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GPUExample subclass: #BasicTriangleExample
+	instanceVariableNames: 'fillPipeline linePipeline'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -333,12 +347,6 @@ ExternalStructure subclass: #SDL_GPUDepthStencilState
 ExternalStructure subclass: #SDL_GPUDepthStencilValue
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_depth _OffsetOf_stencil'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ExternalStructure subclass: #SDL_GPUDevice
-	instanceVariableNames: ''
-	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -691,6 +699,12 @@ SDL_Object subclass: #SDL_GPUComputePipeline
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUCopyPass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUDevice
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
