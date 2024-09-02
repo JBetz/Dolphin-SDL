@@ -170,6 +170,10 @@ createGPUDeviceWithProperties_props: props
 	<cdecl: SDL_GPUDevice* SDL_CreateGPUDeviceWithProperties dword>
 	^self invalidCall: _failureCode!
 
+createGPUGraphicsPipeline_device: device pipelineCreateInfo: computePipelineCreateInfo
+	<cdecl: SDL_GPUGraphicsPipeline* SDL_CreateGPUGraphicsPipeline SDL_GPUDevice* SDL_GPUGraphicsPipelineCreateInfo*>
+	^self invalidCall: _failureCode!
+
 createGPUSampler_device: device samplerCreateInfo: samplerCreateInfo
 	<cdecl: SDL_GPUSampler* SDL_CreateGPUSampler SDL_GPUDevice* SDL_GPUSamplerCreateInfo*>
 	^self invalidCall: _failureCode!
@@ -710,6 +714,10 @@ insertGPUDebugLabel_commandBuffer: commandBuffer text: text
 	<cdecl: void SDL_InsertGPUDebugLabel SDL_GPUCommandBuffer* lpstr>
 	^self invalidCall: _failureCode!
 
+loadFile_file: file datasize: datasize
+	<cdecl: lpvoid SDL_LoadFile lpstr dword*>
+	^self invalidCall: _failureCode!
+
 lockAudioStream_stream: stream
 	<cdecl: bool SDL_LockAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
@@ -1150,6 +1158,7 @@ createGPUBuffer_device:bufferCreateInfo:!gpu!public! !
 createGPUComputePipeline_device:computePipelineCreateInfo:!gpu!public! !
 createGPUDevice_formatFlags:debugMode:name:!gpu!public! !
 createGPUDeviceWithProperties_props:!gpu!public! !
+createGPUGraphicsPipeline_device:pipelineCreateInfo:!gpu!public! !
 createGPUSampler_device:samplerCreateInfo:!gpu!public! !
 createGPUShader_device:shaderCreateInfo:!gpu!public! !
 createGPUTexture_device:textureCreateInfo:!gpu!public! !
@@ -1285,6 +1294,7 @@ hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
 insertGPUDebugLabel_commandBuffer:text:!gpu!public! !
+loadFile_file:datasize:!io stream!public! !
 lockAudioStream_stream:!audio!public! !
 lockProperties_props:!properties!public! !
 lockTexture_texture:rect:pixels:pitch:!public!render! !
