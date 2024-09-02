@@ -24,9 +24,9 @@ render!
 
 setup
 	| shadersPath vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription |
-	shadersPath := FileLocator imageRelative: 'Content/Shaders/Compiled'.
-	vertexShader := gpuDevice loadVertexShader: shadersPath , '/RawTriangle.vert.spv'.
-	fragmentShader := gpuDevice loadFragmentShader: shadersPath , '/SolidColor.frag.spv'.
+	shadersPath := FileLocator imageRelative: 'Content\Shaders\Compiled\'.
+	vertexShader := gpuDevice loadVertexShader: shadersPath , 'RawTriangle.vert.spv'.
+	fragmentShader := gpuDevice loadFragmentShader: shadersPath , 'SolidColor.frag.spv'.
 	graphicsPipelineCreateInfo := SDL_GPUGraphicsPipelineCreateInfo new.
 	colorAttachmentDescription := SDL_GPUColorAttachmentDescription new.
 	colorAttachmentDescription format: (gpuDevice getSwapchainTextureFormat: window).
