@@ -34,6 +34,55 @@ package classNames
 	add: #SDL_FRect;
 	add: #SDL_FunctionPointer;
 	add: #SDL_GLContext;
+	add: #SDL_GPUBlitRegion;
+	add: #SDL_GPUBuffer;
+	add: #SDL_GPUBufferBinding;
+	add: #SDL_GPUBufferCreateInfo;
+	add: #SDL_GPUBufferLocation;
+	add: #SDL_GPUBufferRegion;
+	add: #SDL_GPUColorAttachmentBlendState;
+	add: #SDL_GPUColorAttachmentDescription;
+	add: #SDL_GPUColorAttachmentInfo;
+	add: #SDL_GPUCommandBuffer;
+	add: #SDL_GPUComputePass;
+	add: #SDL_GPUComputePipeline;
+	add: #SDL_GPUComputePipelineCreateInfo;
+	add: #SDL_GPUCopyPass;
+	add: #SDL_GPUDepthStencilAttachmentInfo;
+	add: #SDL_GPUDepthStencilState;
+	add: #SDL_GPUDepthStencilValue;
+	add: #SDL_GPUDevice;
+	add: #SDL_GPUDriver;
+	add: #SDL_GPUFence;
+	add: #SDL_GPUGraphicsPipeline;
+	add: #SDL_GPUGraphicsPipelineAttachmentInfo;
+	add: #SDL_GPUGraphicsPipelineCreateInfo;
+	add: #SDL_GPUIndexedIndirectDrawCommand;
+	add: #SDL_GPUIndirectDispatchCommand;
+	add: #SDL_GPUIndirectDrawCommand;
+	add: #SDL_GPUMultisampleState;
+	add: #SDL_GPURasterizerState;
+	add: #SDL_GPURenderPass;
+	add: #SDL_GPUSampler;
+	add: #SDL_GPUSamplerCreateInfo;
+	add: #SDL_GPUShader;
+	add: #SDL_GPUShaderCreateInfo;
+	add: #SDL_GPUStencilOpState;
+	add: #SDL_GPUStorageBufferWriteOnlyBinding;
+	add: #SDL_GPUStorageTextureWriteOnlyBinding;
+	add: #SDL_GPUTexture;
+	add: #SDL_GPUTextureCreateInfo;
+	add: #SDL_GPUTextureLocation;
+	add: #SDL_GPUTextureRegion;
+	add: #SDL_GPUTextureSamplerBinding;
+	add: #SDL_GPUTextureTransferInfo;
+	add: #SDL_GPUTransferBuffer;
+	add: #SDL_GPUTransferBufferCreateInfo;
+	add: #SDL_GPUTransferBufferLocation;
+	add: #SDL_GPUVertexAttribute;
+	add: #SDL_GPUVertexBinding;
+	add: #SDL_GPUVertexInputState;
+	add: #SDL_GPUViewport;
 	add: #SDL_KeyboardEvent;
 	add: #SDL_Keysym;
 	add: #SDL_MouseButtonEvent;
@@ -215,6 +264,222 @@ ExternalStructure subclass: #SDL_FRect
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+ExternalStructure subclass: #SDL_GPUBlitRegion
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_h _OffsetOf_layer_or_depth_plane _OffsetOf_mip_level _OffsetOf_texture _OffsetOf_w _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUBufferBinding
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_buffer _OffsetOf_offset'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUBufferCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage_flags'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUBufferLocation
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_buffer _OffsetOf_offset'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUBufferRegion
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_buffer _OffsetOf_offset _OffsetOf_size'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUColorAttachmentBlendState
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_blend_enable _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blend_factor _OffsetOf_dst_color_blend_factor _OffsetOf_src_alpha_blend_factor _OffsetOf_src_color_blend_factor'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUColorAttachmentDescription
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_blend_state _OffsetOf_format'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUColorAttachmentInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cyle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUComputePipelineCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entry_point_name _OffsetOf_format _OffsetOf_props _OffsetOf_read_only_storage_buffer_count _OffsetOf_read_only_storage_texture_count _OffsetOf_thread_count_x _OffsetOf_thread_count_y _OffsetOf_thread_count_z _OffsetOf_uniform_buffer_count _OffsetOf_write_only_storage_buffer_count _OffsetOf_write_only_storage_texture_count'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUDepthStencilAttachmentInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cyle _OffsetOf_depth_stencil_clear_value _OffsetOf_load_op _OffsetOf_stencil_load_op _OffsetOf_stencil_store_op _OffsetOf_store_op _OffsetOf_texture'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUDepthStencilState
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_back_stencil_state _OffsetOf_compare_mask _OffsetOf_compare_op _OffsetOf_depth_test_enable _OffsetOf_depth_write_enable _OffsetOf_front_stencil_state _OffsetOf_reference _OffsetOf_stencil_test_enable _OffsetOf_write_mask'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUDepthStencilValue
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_depth _OffsetOf_stencil'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUDevice
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUGraphicsPipelineAttachmentInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_color_attachment_count _OffsetOf_color_attachment_descriptions _OffsetOf_depth_stencil_format _OffsetOf_has_depth_stencil_attachment'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUGraphicsPipelineCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_attachment_info _OffsetOf_blend_constants _OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUIndexedIndirectDrawCommand
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_first_instance _OffsetOf_index_count _OffsetOf_instance_count _OffsetOf_vertex_count _OffsetOf_vertex_offset'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUIndirectDispatchCommand
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_group_count_x _OffsetOf_group_count_y _OffsetOf_group_count_z'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUIndirectDrawCommand
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_first_instance _OffsetOf_first_vertex _OffsetOf_instance_count _OffsetOf_vertex_count'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUMultisampleState
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_sample_count _OffsetOf_sample_mask'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPURasterizerState
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_enable _OffsetOf_depth_bias_slope_factor _OffsetOf_fill_mode _OffsetOf_front_face'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUSamplerCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_address_mode_u _OffsetOf_address_mode_v _OffsetOf_address_mode_w _OffsetOf_anisotropy_enable _OffsetOf_compare_enable _OffsetOf_compare_op _OffsetOf_mag_filter _OffsetOf_max_anisotropy _OffsetOf_max_lod _OffsetOf_min_filter _OffsetOf_min_lod _OffsetOf_mip_lod_bias _OffsetOf_mip_map_mode _OffsetOf_props'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUShaderCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entry_point_name _OffsetOf_format _OffsetOf_props _OffsetOf_sampler_count _OffsetOf_stage _OffsetOf_storage_buffer_count _OffsetOf_storage_texture_count _OffsetOf_uniform_buffer_count'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUStencilOpState
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_compare_op _OffsetOf_depth_fail_op _OffsetOf_fail_op _OffsetOf_pass_op'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUStorageBufferWriteOnlyBinding
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_buffer _OffsetOf_cycle'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUStorageTextureWriteOnlyBinding
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cycle _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_texture'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTextureCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_format _OffsetOf_height _OffsetOf_layer_count_or_depth _OffsetOf_level_count _OffsetOf_props _OffsetOf_sample_count _OffsetOf_type _OffsetOf_usage_flags _OffsetOf_width'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTextureLocation
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_layer _OffsetOf_mip_level _OffsetOf_texture _OffsetOf_x _OffsetOf_y _OffsetOf_z'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTextureRegion
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_d _OffsetOf_h _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_texture _OffsetOf_w _OffsetOf_x _OffsetOf_y _OffsetOf_z'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTextureSamplerBinding
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_sampler _OffsetOf_texture'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTextureTransferInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_image_height _OffsetOf_image_pitch _OffsetOf_offset _OffsetOf_transfer_buffer'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTransferBufferCreateInfo
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage_flags'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUTransferBufferLocation
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_offset _OffsetOf_transfer_buffer'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUVertexAttribute
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_binding _OffsetOf_format _OffsetOf_location _OffsetOf_offset'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUVertexBinding
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_binding _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_stride'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUVertexInputState
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_vertex_attribute_count _OffsetOf_vertex_attributes _OffsetOf_vertex_binding _OffsetOf_vertex_binding_count'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUViewport
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_h _OffsetOf_max_depth _OffsetOf_min_depth _OffsetOf_w _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 ExternalStructure subclass: #SDL_Keysym
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_mod _OffsetOf_scancode _OffsetOf_sym _OffsetOf_unused'
@@ -222,7 +487,7 @@ ExternalStructure subclass: #SDL_Keysym
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'library'
+	instanceVariableNames: 'library propertiesId'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -397,6 +662,84 @@ SDL_Object subclass: #SDL_AudioStream
 
 SDL_Object subclass: #SDL_Cursor
 	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUBuffer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUCommandBuffer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUComputePass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUComputePipeline
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUCopyPass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUDriver
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUFence
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUGraphicsPipeline
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPURenderPass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUSampler
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUShader
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUTexture
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_GPUTransferBuffer
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

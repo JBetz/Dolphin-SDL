@@ -14,6 +14,14 @@ SDL3Library comment: ''!
 
 !SDL3Library methodsFor!
 
+acquireGPUCommandBuffer_device: device
+	<cdecl: SDL_GPUCommandBuffer* SDL_AcquireGPUCommandBuffer SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
+acquireGPUSwapchainTexture_commandBuffer: commandBuffer window: window pWidth: pWidth pHeight: pHeight
+	<cdecl: SDL_GPUTexture* SDL_AcquireGPUSwapchainTexture SDL_GPUCommandBuffer* SDL_Window* dword* dword*>
+	^self invalidCall: _failureCode!
+
 addEventWatch_filter: filter userdata: userdata
 	<cdecl: bool SDL_AddEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
@@ -26,6 +34,18 @@ audioDevicePaused_devid: devid
 	<cdecl: bool SDL_AudioDevicePaused dword>
 	^self invalidCall: _failureCode!
 
+beginGPUComputePass_commandBuffer: commandBuffer storageTextureBindings: storageTextureBindings storageTextureBindingCount: storageTextureBindingCount storageBufferBindings: storageBufferBindings storageBufferBindingCount: storageBufferBindingCount
+	<cdecl: SDL_GPUComputePass* SDL_BeginGPUComputePass SDL_GPUCommandBuffer* SDL_GPUStorageTextureWriteOnlyBinding* dword SDL_GPUStorageBufferWriteOnlyBinding dword>
+	^self invalidCall: _failureCode!
+
+beginGPUCopyPass_commandBuffer: commandBuffer
+	<cdecl: SDL_GPUCopyPass* SDL_BeginGPUCopyPass SDL_GPUCommandBuffer*>
+	^self invalidCall: _failureCode!
+
+beginGPURenderPass_commandBuffer: commandBuffer colorAttachmentInfos: colorAttachmentInfos colorAttachmentCount: colorAttachmentCount depthStencilAttachmentInfo: depthStencilAttachmentInfo
+	<cdecl: SDL_GPURenderPass* SDL_BeginGPURenderPass SDL_GPUCommandBuffer* SDL_GPUColorAttachmentInfo* dword SDL_GPUDepthStencilAttachmentInfo*>
+	^self invalidCall: _failureCode!
+
 bindAudioStream_devid: devid stream: stream
 	<cdecl: bool SDL_BindAudioStreams dword SDL_AudioStream*>
 	^self invalidCall: _failureCode!
@@ -34,8 +54,64 @@ bindAudioStreams_devid: devid streams: streams numStreams: numStreams
 	<cdecl: bool SDL_BindAudioStreams dword SDL_AudioStream** sdword>
 	^self invalidCall: _failureCode!
 
+bindGPUComputePipeline_computePass: computePass computePipeline: computePipeline
+	<cdecl: void SDL_BindGPUComputePipeline SDL_GPUComputePass* SDL_GPUComputePipeline*>
+	^self invalidCall: _failureCode!
+
+bindGPUComputeStorageBuffers_computePass: computePass firstSlot: firstSlot storageBuffers: storageBuffers bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUComputeStorageBuffers SDL_GPUComputePass* dword SDL_GPUBuffer** dword>
+	^self invalidCall: _failureCode!
+
+bindGPUComputeStorageTextures_computePass: computePass firstSlot: firstSlot storageTextures: storageTextures bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUComputStorageTextures SDL_GPUComputePass* dword SDL_GPUTexture** dword>
+	^self invalidCall: _failureCode!
+
+bindGPUFragmentSamplers_renderPass: renderPass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUFragmentSamplers SDL_GPURenderPass* dword SDL_GPUTextureSamplerBinding* dword>
+	^self invalidCall: _failureCode!
+
+bindGPUFragmentStorageBuffers_renderPass: renderPass firstSlot: firstSlot storageBuffers: storageBuffers bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUFragmentStorageBuffers SDL_GPURenderPass* dword SDL_GPUBuffer** dword>
+	^self invalidCall: _failureCode!
+
+bindGPUFragmentStorageTextures_renderPass: renderPass firstSlot: firstSlot storageTextures: storageTextures bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUFragmentStorageTextures SDL_GPURenderPass* dword SDL_GPUTexture** dword>
+	^self invalidCall: _failureCode!
+
+bindGPUGraphicsPipeline_renderPass: renderPass graphicsPipeline: graphicsPipeline
+	<cdecl: void SDL_BindGPUGraphicsPipeline SDL_GPURenderPass* SDL_GPUGraphicsPipeline*>
+	^self invalidCall: _failureCode!
+
+bindGPUIndexBuffer_renderPass: renderPass pBinding: pBinding indexElementSize: indexElementSize
+	<cdecl: void SDL_BindGPUIndexBuffer SDL_GPURenderPass* SDL_GPUBufferBinding* dword>
+	^self invalidCall: _failureCode!
+
+bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding pBindings: pBindings bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUVertexBuffers SDL_GPURenderPass* dword SDL_GPUBufferBinding* dword>
+	^self invalidCall: _failureCode!
+
+bindGPUVertexSamplers_renderPass: renderPass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUVertexSamplers SDL_GPURenderPass* dword SDL_GPUTextureSamplerBinding* dword>
+	^self invalidCall: _failureCode!
+
+bindGPUVertexStorageBuffers_renderPass: renderPass firstSlot: firstSlot storageBuffers: storageBuffers bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUVertexStorageBuffers SDL_GPURenderPass* dword SDL_GPUBuffer** dword>
+	^self invalidCall: _failureCode!
+
+bindGPUVertexStorageTextures_renderPass: renderPass firstSlot: firstSlot storageTextures: storageTextures bindingCount: bindingCount
+	<cdecl: void SDL_BindGPUVertexStorageTextures SDL_GPURenderPass* dword SDL_GPUTexture** dword>
+	^self invalidCall: _failureCode!
+
+blitGPUTexture_commandBuffer: commandBuffer source: source destination: destination flipMode: flipMode filterMode: filterMode cycle: cycle
+	<cdecl: void SDL_BlitGPU SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* dword dword bool>
+	^self invalidCall: _failureCode!
+
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
 	<cdecl: bool SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
+claimWindowForGPUDevice_device: device window: window
+	<cdecl: bool SDL_ClaimWindowForGPUDevice SDL_GPUDevice* SDL_Window*>
 	^self invalidCall: _failureCode!
 
 clearAudioStream_stream: stream
@@ -54,6 +130,14 @@ copyFile_oldpath: oldpath newpath: newpath
 	<cdecl: bool SDL_CopyFile char* char*>
 	^self invalidCall: _failureCode!
 
+copyGPUBufferToBuffer_copyPass: copyPass source: source destination: destination size: size cycle: cycle
+	<cdecl: void SDL_CopyGPUBufferToBuffer SDL_GPUCopyPass* SDL_GPUBufferLocation* SDL_GPUBufferLocation* dword bool>
+	^self invalidCall: _failureCode!
+
+copyGPUTextureToTexture_copyPass: copyPass source: source destination: destination w: w h: h d: d cycle: cycle
+	<cdecl: void SDL_CopyGPUTextureToTexture SDL_GPUCopyPass* SDL_GPUTextureLocation* SDL_GPUTextureLocation* dword dword dword bool>
+	^self invalidCall: _failureCode!
+
 copyProperties_src: src dst: dst
 	<cdecl: bool SDL_CopyProperties dword dword>
 	^self invalidCall: _failureCode!
@@ -68,6 +152,38 @@ createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
 
 createDirectory_path: path
 	<cdecl: bool SDL_CreateDirectory char*>
+	^self invalidCall: _failureCode!
+
+createGPUBuffer_device: device bufferCreateInfo: bufferCreateInfo
+	<cdecl: SDL_GPUBuffer* SDL_CreateGPUBuffer SDL_GPUDevice* SDL_GPUBufferCreateInfo*>
+	^self invalidCall: _failureCode!
+
+createGPUComputePipeline_device: device computePipelineCreateInfo: computePipelineCreateInfo
+	<cdecl: SDL_GPUComputePipeline* SDL_CreateGPUComputePipeline SDL_GPUDevice* SDL_GPUComputePipelineCreateInfo*>
+	^self invalidCall: _failureCode!
+
+createGPUDevice_formatFlags: formatFlags debugMode: debugMode name: name
+	<cdecl: SDL_GPUDevice* SDL_CreateGPUDevice dword bool lpstr>
+	^self invalidCall: _failureCode!
+
+createGPUDeviceWithProperties_props: props
+	<cdecl: SDL_GPUDevice* SDL_CreateGPUDeviceWithProperties dword>
+	^self invalidCall: _failureCode!
+
+createGPUSampler_device: device samplerCreateInfo: samplerCreateInfo
+	<cdecl: SDL_GPUSampler* SDL_CreateGPUSampler SDL_GPUDevice* SDL_GPUSamplerCreateInfo*>
+	^self invalidCall: _failureCode!
+
+createGPUShader_device: device shaderCreateInfo: shaderCreateInfo
+	<cdecl: SDL_GPUShader* SDL_CreateGPUShader SDL_GPUDevice* SDL_GPUShaderCreateInfo*>
+	^self invalidCall: _failureCode!
+
+createGPUTexture_device: device textureCreateInfo: textureCreateInfo
+	<cdecl: SDL_GPUTexture* SDL_CreateGPUTexture SDL_GPUDevice* SDL_GPUTextureCreateInfo*>
+	^self invalidCall: _failureCode!
+
+createGPUTransferBuffer_device: device transferBufferCreateInfo: transferBufferCreateInfo
+	<cdecl: SDL_GPUTransferBuffer* SDL_CreateGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBufferCreateInfo*>
 	^self invalidCall: _failureCode!
 
 createProperties
@@ -118,16 +234,16 @@ delayNS_ns: ns
 	<cdecl: void SDL_DelayNS qword>
 	^self invalidCall: _failureCode!
 
-delEventWatch_filter: filter userdata: userdata
-	<cdecl: void SDL_DelEventWatch SDL_EventFilter void*>
-	^self invalidCall: _failureCode!
-
 destroyAudioStream_stream: stream
 	<cdecl: void SDL_DestroyAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
 
 destroyCursor_cursor: cursor
 	<cdecl: void SDL_DestroyCursor SDL_Cursor*>
+	^self invalidCall: _failureCode!
+
+destroyGPUDevice_device: device
+	<cdecl: void SDL_DestroyGPUDevice SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
 
 destroyProperties_props: props
@@ -150,6 +266,50 @@ destroyWindow_window: window
 	<cdecl: void SDL_DestroyWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
+dispatchGPUCompute_computePass: computePass groupCountX: groupCountX groupCountY: groupCountY groupCountZ: groupCountZ
+	<cdecl: void SDL_DispatchGPUCompute SDL_GPUComputePass* dword dword dword>
+	^self invalidCall: _failureCode!
+
+dispatchGPUComputeIndirect_computePass: computePass buffer: buffer offsetInBytes: offsetInBytes
+	<cdecl: void SDL_DispatchGPUComputeIndirect SDL_GPUComputePass* SDL_GPUBuffer* dword>
+	^self invalidCall: _failureCode!
+
+downloadFromGPUBuffer_copyPass: copyPass source: source destination: destionation
+	<cdecl: void SDL_DownloadFromGPUBuffer SDL_GPUCopyPass* SDL_GPUBufferRegion* SDL_GPUTransferBufferLocation*>
+	^self invalidCall: _failureCode!
+
+downloadFromGPUTexture_copyPass: copyPass source: source destination: destination
+	<cdecl: void SDL_DownloadFromGPUTexture SDL_GPUCopyPass* SDL_GPUTextureRegion* SDL_GPUTextureTransferInfo*>
+	^self invalidCall: _failureCode!
+
+drawGPUIndexedPrimitives_renderPass: renderPass indexCount: indexCount instanceCount: instanceCount firstIndex: firstIndex vertexOffset: vertexOffset firstIntance: firstInstance
+	<cdecl: void SDL_DrawGPUIndexedPrimitives SDL_GPURenderPass* dword dword dword sdword dword>
+	^self invalidCall: _failureCode!
+
+drawGPUIndexedPrimitivesIndirect_renderPass: renderPass buffer: buffer offsetInBytes: offsetInBytes drawCount: drawCount stride: stride
+	<cdecl: void SDL_DrawGPUIndexedPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword dword>
+	^self invalidCall: _failureCode!
+
+drawGPUPrimitives_renderPass: renderPass vertexCount: vertexCount instanceCount: instanceCount firstVertex: firstVertex firstInstance: firstInstance
+	<cdecl: void SDL_DrawGPUPrimitives SDL_GPURenderPass* dword dword dword dword>
+	^self invalidCall: _failureCode!
+
+drawGPUPrimitivesIndirect_renderPass: renderPass buffer: buffer offsetInBytes: offsetInBytes drawCount: drawCount stride: stride
+	<cdecl: void SDL_DrawGPUPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword dword>
+	^self invalidCall: _failureCode!
+
+endGPUComputePass_computePass: computePass
+	<cdecl: void SDL_EndGPUComputePass SDL_GPUComputePass*>
+	^self invalidCall: _failureCode!
+
+endGPUCopyPass_copyPass: copyPass
+	<cdecl: void SDL_EndGPUCopyPass SDL_GPUCopyPass*>
+	^self invalidCall: _failureCode!
+
+endGPURenderPass_renderPass: renderPass
+	<cdecl: void SDL_EndGPURenderPass SDL_GPURenderPass*>
+	^self invalidCall: _failureCode!
+
 enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter appEvent: appEvent appQuit: appQuit
 	<cdecl: sdword SDL_EnterAppMainCallbacks sdword lpstr void* void* void* void*>
 	^self invalidCall: _failureCode!
@@ -168,6 +328,18 @@ flashWindow_window: window operation: operation
 
 flushAudioStream_stream: stream
 	<cdecl: bool SDL_FlushAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+gdkResumeGPU_device: device
+	<cdecl: void SDL_GDKResumeGPU SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
+gdkSuspendGPU_device: device
+	<cdecl: void SDL_GDKSuspendGPU SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
+generateMipmapsForGPUTexture_commandBuffer: commandBuffer texture: texture
+	<cdecl: void SDL_GenerateMipmapsForGPUTexture SDL_GPUCommandBuffer* SDL_GPUTexture*>
 	^self invalidCall: _failureCode!
 
 getAudioDeviceFormat_devid: devid spec: spec sampleFrames: sampleFrames
@@ -260,6 +432,14 @@ getFloatProperty_props: props name: name defaultValue: defaultValue
 
 getGlobalProperties
 	<cdecl: dword SDL_GetGlobalProperties>
+	^self invalidCall: _failureCode!
+
+getGPUDriver_device: device
+	<cdecl: SDL_GPUDriver* SDL_GetGPUDriver SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
+getGPUSwapchainTextureFormat_device: device window: window
+	<cdecl: dword SDL_GetGPUSwapchainTextureFormat SDL_GPUDevice* SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getKeyboardState_numkeys: numkeys
@@ -498,6 +678,18 @@ glUnloadLibrary
 	<cdecl: void SDL_GL_UnloadLibrary>
 	^self invalidCall: _failureCode!
 
+gpuTextureFormatTexelBlockSize_textureFormat: textureFormat
+	<cdecl: dword SDL_GPUTextureFormatTexelBlockSize dword>
+	^self invalidCall: _failureCode!
+
+gpuTextureSupportsFormat_device: device format: format type: type usage: usage
+	<cdecl: bool SDL_GPUTextureSupportsFormat SDL_GPUDevice* dword dword dword>
+	^self invalidCall: _failureCode!
+
+gpuTextureSupportsSampleCount_device: device format: format sampleCount: sampleCount
+	<cdecl: bool SDL_GPUTextureSupportsSampleCount SDL_GPUDevice* dword dword>
+	^self invalidCall: _failureCode!
+
 hasProperty_props: props name: name
 	<cdecl: bool SDL_HasProperty dword lpstr>
 	^self invalidCall: _failureCode!
@@ -514,6 +706,10 @@ initSubSystem_flags: flags
 	<cdecl: bool SDL_InitSubSystem dword>
 	^self invalidCall: _failureCode!
 
+insertGPUDebugLabel_commandBuffer: commandBuffer text: text 
+	<cdecl: void SDL_InsertGPUDebugLabel SDL_GPUCommandBuffer* lpstr>
+	^self invalidCall: _failureCode!
+
 lockAudioStream_stream: stream
 	<cdecl: bool SDL_LockAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
@@ -524,6 +720,10 @@ lockProperties_props: props
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
 	<cdecl: bool SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
+	^self invalidCall: _failureCode!
+
+mapGPUTransferBuffer_device: device transferBuffer: transferBuffer cycle: cycle 
+	<cdecl: void SDL_MapGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer* bool>
 	^self invalidCall: _failureCode!
 
 maximizeWindow_window: window
@@ -554,6 +754,10 @@ pollEvent_event: event
 	<cdecl: bool SDL_PollEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
+popGPUDebugGroup_commandBuffer: commandBuffer 
+	<cdecl: void SDL_PopGPUDebugGroup SDL_GPUCommandBuffer*>
+	^self invalidCall: _failureCode!
+
 pumpEvents
 	<cdecl: void SDL_PumpEvents>
 	^self invalidCall: _failureCode!
@@ -562,8 +766,28 @@ pushEvent_event: event
 	<cdecl: bool SDL_PushEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
+pushGPUComputeUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data dataLengthInBytes: dataLengthInBytes 
+	<cdecl: void SDL_PushGPUComputeUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
+	^self invalidCall: _failureCode!
+
+pushGPUDebugGroup_commandBuffer: commandBuffer name: name
+	<cdecl: void SDL_PushGPUDebugGroup SDL_GPUCommandBuffer* lpstr>
+	^self invalidCall: _failureCode!
+
+pushGPUFragmentUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data dataLengthInBytes: dataLengthInBytes 
+	<cdecl: void SDL_PushGPUFragmentUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
+	^self invalidCall: _failureCode!
+
+pushGPUVertexUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data dataLengthInBytes: dataLengthInBytes 
+	<cdecl: void SDL_PushGPUVertexUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
+	^self invalidCall: _failureCode!
+
 putAudioStreamData_stream: stream buffer: buffer length: length
 	<cdecl: bool SDL_PutAudioStreamData SDL_AudioStream* void* sdword>
+	^self invalidCall: _failureCode!
+
+queryGPUFence_device: device fence: fence
+	<cdecl: bool SDL_QueryGPUFence SDL_GPUDevice* SDL_GPUFence*>
 	^self invalidCall: _failureCode!
 
 quit
@@ -588,6 +812,46 @@ raiseWindow_window: window
 
 registerEvents_numevents: numevents
 	<cdecl: dword SDL_RegisterEvents sdword>
+	^self invalidCall: _failureCode!
+
+releaseGPUBuffer_device: device buffer: buffer
+	<cdecl: void SDL_ReleaseGPUBuffer SDL_GPUDevice* SDL_GPUBuffer*>
+	^self invalidCall: _failureCode!
+
+releaseGPUComputePipeline_device: device computePipeline: computePipeline
+	<cdecl: void SDL_ReleaseGPUComputePipeline SDL_GPUDevice* SDL_GPUComputePipeline*>
+	^self invalidCall: _failureCode!
+
+releaseGPUFence_device: device fence: fence
+	<cdecl: void SDL_ReleaseGPUFence SDL_GPUDevice* SDL_GPUFence*>
+	^self invalidCall: _failureCode!
+
+releaseGPUGraphicsPipeline_device: device graphicsPipeline: graphicsPipeline
+	<cdecl: void SDL_ReleaseGPUGraphicsPipeline SDL_GPUDevice* SDL_GPUGraphicsPipeline*>
+	^self invalidCall: _failureCode!
+
+releaseGPUSampler_device: device sampler: sampler
+	<cdecl: void SDL_ReleaseGPUSampler SDL_GPUDevice* SDL_GPUSampler*>
+	^self invalidCall: _failureCode!
+
+releaseGPUShader_device: device shader: shader
+	<cdecl: void SDL_ReleaseGPUShader SDL_GPUDevice* SDL_GPUShader*>
+	^self invalidCall: _failureCode!
+
+releaseGPUTexture_device: device texture: texture
+	<cdecl: void SDL_ReleaseGPUTexture SDL_GPUDevice* SDL_GPUTexture*>
+	^self invalidCall: _failureCode!
+
+releaseGPUTransferBuffer_device: device transferBuffer: transferBuffer
+	<cdecl: void SDL_ReleaseGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer*>
+	^self invalidCall: _failureCode!
+
+releaseWindowFromGPUDevice_device: device window: window
+	<cdecl: bool SDL_ReleaseWindowFromGPUDevice SDL_GPUDevice* SDL_Window*>
+	^self invalidCall: _failureCode!
+
+removeEventWatch_filter: filter userdata: userdata
+	<cdecl: void SDL_RemoveEventWatch SDL_EventFilter void*>
 	^self invalidCall: _failureCode!
 
 removePath_path: path
@@ -670,6 +934,26 @@ setFloatProperty_props: props name: name value: value
 	<cdecl: bool SDL_SetFloatProperty dword lpstr float>
 	^self invalidCall: _failureCode!
 
+setGPUBufferName_device: device buffer: buffer text: text
+	<cdecl: void SDL_SetGPUBufferName SDL_GPUDevice* SDL_GPUBuffer* lpstr>
+	^self invalidCall: _failureCode!
+
+setGPUScissor_renderPass: renderPass scissor: scissor
+	<cdecl: void SDL_SetGPUScissor SDL_GPURenderPass* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
+setGPUSwapchainParameters_device: device window: window swapchainComposition: swapchainComposition presentMode: presentMode
+	<cdecl: bool SDL_SetGPUSwapchainParameters SDL_GPUDevice* SDL_Window* dword dword>
+	^self invalidCall: _failureCode!
+
+setGPUTextureName_device: device texture: texture text: text
+	<cdecl: void SDL_SetGPUTextureName SDL_GPUDevice* SDL_Texture* lpstr>
+	^self invalidCall: _failureCode!
+
+setGPUViewport_renderPass: renderPass viewport: viewport
+	<cdecl: void SDL_SetGPUViewport SDL_GPURenderPass* SDL_GPUViewport*>
+	^self invalidCall: _failureCode!
+
 setHint_name: name value: value
 	<cdecl: bool SDL_SetHint lpstr lpstr>
 	^self invalidCall: _failureCode!
@@ -746,6 +1030,14 @@ startTextInput_window: window
 	<cdecl: bool SDL_StartTextInput SDL_Window*>
 	^self invalidCall: _failureCode!
 
+submitGPUCommandBuffer_commandBuffer: commandBuffer
+	<cdecl: void SDL_SubmitGPUCommandBuffer SDL_GPUCommandBuffer*>
+	^self invalidCall: _failureCode!
+
+submitGPUCommandBufferAndAcquireFence_commandBuffer: commandBuffer
+	<cdecl: SDL_GPUFence* SDL_SubmitGPUCommandBufferAndAcquireFence SDL_GPUCommandBuffer*>
+	^self invalidCall: _failureCode!
+
 unbindAudioStream_stream: stream
 	<cdecl: void SDL_UnbindAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
@@ -766,6 +1058,10 @@ unlockTexture_texture: texture
 	<cdecl: void SDL_UnlockTexture SDL_Texture*>
 	^self invalidCall: _failureCode!
 
+unmapGPUTransferBuffer_device: device transferBuffer: transferBuffer 
+	<cdecl: void SDL_UnmapGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer*>
+	^self invalidCall: _failureCode!
+
 updateTexture_texture: texture rect: rect pixels: pixels pitch: pitch
 	<cdecl: bool SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
 	^self invalidCall: _failureCode!
@@ -778,6 +1074,14 @@ updateWindowSurfaceRects_window: window rects: rects numrects: numrects
 	<cdecl: bool SDL_UpdateWindowSurface SDL_Window* SDL_Rect* sdword>
 	^self invalidCall: _failureCode!
 
+uploadToGPUBuffer_copyPass: copyPass source: source destination: destination cycle: cycle 
+	<cdecl: void SDL_UploadToGPUBuffer SDL_GPUCopyPass* SDL_GPUTransferBufferLocation* SDL_GPUBufferRegion* bool>
+	^self invalidCall: _failureCode!
+
+uploadToGPUTexture_copyPass: copyPass source: source destination: destination cycle: cycle
+	<cdecl: void SDL_UploadToGPUTexture SDL_GPUCopyPass* SDL_GPUTextureTransferInfo* SDL_GPUTextureRegion* bool>
+	^self invalidCall: _failureCode!
+
 waitEvent_event: event
 	<cdecl: bool SDL_WaitEvent SDL_Event*>
 	^self invalidCall: _failureCode!
@@ -786,25 +1090,70 @@ waitEventTimeout_event: event timeout: timeout
 	<cdecl: bool SDL_WaitEventTimeout SDL_Event* sdword>
 	^self invalidCall: _failureCode!
 
+waitForGPUFences_device: device waitAll: waitAll pFences: pFences fenceCount: fenceCount
+	<cdecl: void SDL_WaitForGPUFences SDL_GPUDevice* bool SDL_GPUFence** dword>
+	^self invalidCall: _failureCode!
+
+waitForGPUIdle_device: device
+	<cdecl: void SDL_WaitForGPUIdle SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
 wasInit_flags: flags
 	<cdecl: dword SDL_WasInit dword>
+	^self invalidCall: _failureCode!
+
+windowSupportsGPUPresentMode_device: device window: window presentMode: presentMode
+	<cdecl: bool SDL_WindowSupportsGPUPresentMode SDL_GPUDevice* SDL_Window* dword>
+	^self invalidCall: _failureCode!
+
+windowSupportsGPUSwapchainComposition_device: device window: window swapchainComposition: swapchainComposition
+	<cdecl: bool SDL_WindowSupportsGPUSwapchainComposition SDL_GPUDevice* SDL_Window* dword>
 	^self invalidCall: _failureCode! !
 
 !SDL3Library categoriesForMethods!
+acquireGPUCommandBuffer_device:!gpu!public! !
+acquireGPUSwapchainTexture_commandBuffer:window:pWidth:pHeight:!gpu!public! !
 addEventWatch_filter:userdata:!events!public! !
 addTimer_interval:callback:param:!public!video! !
 audioDevicePaused_devid:!audio!public! !
+beginGPUComputePass_commandBuffer:storageTextureBindings:storageTextureBindingCount:storageBufferBindings:storageBufferBindingCount:!gpu!public! !
+beginGPUCopyPass_commandBuffer:!gpu!public! !
+beginGPURenderPass_commandBuffer:colorAttachmentInfos:colorAttachmentCount:depthStencilAttachmentInfo:!gpu!public! !
 bindAudioStream_devid:stream:!audio!public! !
 bindAudioStreams_devid:streams:numStreams:!audio!public! !
+bindGPUComputePipeline_computePass:computePipeline:!gpu!public! !
+bindGPUComputeStorageBuffers_computePass:firstSlot:storageBuffers:bindingCount:!gpu!public! !
+bindGPUComputeStorageTextures_computePass:firstSlot:storageTextures:bindingCount:!gpu!public! !
+bindGPUFragmentSamplers_renderPass:firstSlot:textureSamplerBindings:bindingCount:!gpu!public! !
+bindGPUFragmentStorageBuffers_renderPass:firstSlot:storageBuffers:bindingCount:!gpu!public! !
+bindGPUFragmentStorageTextures_renderPass:firstSlot:storageTextures:bindingCount:!gpu!public! !
+bindGPUGraphicsPipeline_renderPass:graphicsPipeline:!gpu!public! !
+bindGPUIndexBuffer_renderPass:pBinding:indexElementSize:!gpu!public! !
+bindGPUVertexBuffers_renderPass:firstBinding:pBindings:bindingCount:!gpu!public! !
+bindGPUVertexSamplers_renderPass:firstSlot:textureSamplerBindings:bindingCount:!gpu!public! !
+bindGPUVertexStorageBuffers_renderPass:firstSlot:storageBuffers:bindingCount:!gpu!public! !
+bindGPUVertexStorageTextures_renderPass:firstSlot:storageTextures:bindingCount:!gpu!public! !
+blitGPUTexture_commandBuffer:source:destination:flipMode:filterMode:cycle:!gpu!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
+claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
 clearProperty_props:name:!properties!public! !
 closeAudioDevice_devid:!audio!public! !
 copyFile_oldpath:newpath:!file system!public! !
+copyGPUBufferToBuffer_copyPass:source:destination:size:cycle:!gpu!public! !
+copyGPUTextureToTexture_copyPass:source:destination:w:h:d:cycle:!gpu!public! !
 copyProperties_src:dst:!properties!public! !
 createAudioStream_sourceSpec:destinationSpec:!audio!public! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createDirectory_path:!file system!public! !
+createGPUBuffer_device:bufferCreateInfo:!gpu!public! !
+createGPUComputePipeline_device:computePipelineCreateInfo:!gpu!public! !
+createGPUDevice_formatFlags:debugMode:name:!gpu!public! !
+createGPUDeviceWithProperties_props:!gpu!public! !
+createGPUSampler_device:samplerCreateInfo:!gpu!public! !
+createGPUShader_device:shaderCreateInfo:!gpu!public! !
+createGPUTexture_device:textureCreateInfo:!gpu!public! !
+createGPUTransferBuffer_device:transferBufferCreateInfo:!gpu!public! !
 createProperties!properties!public! !
 createRenderer_window:name:flags:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
@@ -817,19 +1166,33 @@ createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
 delay_ms:!public!video! !
 delayNS_ns:!public!video! !
-delEventWatch_filter:userdata:!events!public! !
 destroyAudioStream_stream:!audio!public! !
 destroyCursor_cursor:!public! !
+destroyGPUDevice_device:!gpu!public! !
 destroyProperties_props:!properties!public! !
 destroyRenderer_renderer:!public!render! !
 destroySurface_surface:!public! !
 destroyTexture_texture:!public!video! !
 destroyWindow_window:!public!video! !
+dispatchGPUCompute_computePass:groupCountX:groupCountY:groupCountZ:!gpu!public! !
+dispatchGPUComputeIndirect_computePass:buffer:offsetInBytes:!gpu!public! !
+downloadFromGPUBuffer_copyPass:source:destination:!gpu!public! !
+downloadFromGPUTexture_copyPass:source:destination:!gpu!public! !
+drawGPUIndexedPrimitives_renderPass:indexCount:instanceCount:firstIndex:vertexOffset:firstIntance:!gpu!public! !
+drawGPUIndexedPrimitivesIndirect_renderPass:buffer:offsetInBytes:drawCount:stride:!gpu!public! !
+drawGPUPrimitives_renderPass:vertexCount:instanceCount:firstVertex:firstInstance:!gpu!public! !
+drawGPUPrimitivesIndirect_renderPass:buffer:offsetInBytes:drawCount:stride:!gpu!public! !
+endGPUComputePass_computePass:!gpu!public! !
+endGPUCopyPass_copyPass:!gpu!public! !
+endGPURenderPass_renderPass:!gpu!public! !
 enterAppMainCallbacks_argc:argv:appInit:appIter:appEvent:appQuit:!init!public! !
 enumerateDirectory_path:callback:userdata:!file system!public! !
 enumerateProperties_props:callback:userdata:!properties!public! !
 flashWindow_window:operation:!public!video! !
 flushAudioStream_stream:!audio!public! !
+gdkResumeGPU_device:!gpu!public! !
+gdkSuspendGPU_device:!gpu!public! !
+generateMipmapsForGPUTexture_commandBuffer:texture:!gpu!public! !
 getAudioDeviceFormat_devid:spec:sampleFrames:!audio!public! !
 getAudioDeviceName_devid:!audio!public! !
 getAudioDriver_index:!audio!public! !
@@ -853,6 +1216,8 @@ getDisplayUsableBounds_displayIndex:rect:!public!video! !
 getError!error!public! !
 getFloatProperty_props:name:defaultValue:!properties!public! !
 getGlobalProperties!properties!public! !
+getGPUDriver_device:!gpu!public! !
+getGPUSwapchainTextureFormat_device:window:!gpu!public! !
 getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
 getNumAudioDrivers!audio!public! !
@@ -912,13 +1277,18 @@ glSetAttribute_attr:value:!open gl!public!video! !
 glSetSwapInterval_interval:!open gl!public!video! !
 glSwapWindow_window:!open gl!public!video! !
 glUnloadLibrary!open gl!public!video! !
+gpuTextureFormatTexelBlockSize_textureFormat:!gpu!public! !
+gpuTextureSupportsFormat_device:format:type:usage:!gpu!public! !
+gpuTextureSupportsSampleCount_device:format:sampleCount:!gpu!public! !
 hasProperty_props:name:!properties!public! !
 hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
+insertGPUDebugLabel_commandBuffer:text:!gpu!public! !
 lockAudioStream_stream:!audio!public! !
 lockProperties_props:!properties!public! !
 lockTexture_texture:rect:pixels:pitch:!public!render! !
+mapGPUTransferBuffer_device:transferBuffer:cycle:!gpu!public! !
 maximizeWindow_window:!public!video! !
 minimizeWindow_window:!public!video! !
 openAudioDevice_devid:spec:!audio!public! !
@@ -926,14 +1296,30 @@ openAudioDeviceStream_devid:spec:callback:userdata:!audio!public! !
 pauseAudioDevice_devid:!audio!public! !
 peepEvents_events:numevents:action:minType:maxType:!events!public! !
 pollEvent_event:!events!public! !
+popGPUDebugGroup_commandBuffer:!gpu!public! !
 pumpEvents!events!public! !
 pushEvent_event:!events!public! !
+pushGPUComputeUniformData_commandBuffer:slotIndex:data:dataLengthInBytes:!gpu!public! !
+pushGPUDebugGroup_commandBuffer:name:!gpu!public! !
+pushGPUFragmentUniformData_commandBuffer:slotIndex:data:dataLengthInBytes:!gpu!public! !
+pushGPUVertexUniformData_commandBuffer:slotIndex:data:dataLengthInBytes:!gpu!public! !
 putAudioStreamData_stream:buffer:length:!audio!public! !
+queryGPUFence_device:fence:!gpu!public! !
 quit!init!public! !
 quitIfOpen!public! !
 quitSubSystem_flags:!init!public! !
 raiseWindow_window:!public!video! !
 registerEvents_numevents:!events!public! !
+releaseGPUBuffer_device:buffer:!gpu!public! !
+releaseGPUComputePipeline_device:computePipeline:!gpu!public! !
+releaseGPUFence_device:fence:!gpu!public! !
+releaseGPUGraphicsPipeline_device:graphicsPipeline:!gpu!public! !
+releaseGPUSampler_device:sampler:!gpu!public! !
+releaseGPUShader_device:shader:!gpu!public! !
+releaseGPUTexture_device:texture:!gpu!public! !
+releaseGPUTransferBuffer_device:transferBuffer:!gpu!public! !
+releaseWindowFromGPUDevice_device:window:!gpu!public! !
+removeEventWatch_filter:userdata:!events!public! !
 removePath_path:!file system!public! !
 removeTimer_id:!public!video! !
 renamePath_oldpath:newpath:!file system!public! !
@@ -954,6 +1340,11 @@ setBooleanProperty_props:name:value:!properties!public! !
 setCursor_cursor:!events!public! !
 setEventFilter_filter:userdata:!events!public! !
 setFloatProperty_props:name:value:!properties!public! !
+setGPUBufferName_device:buffer:text:!gpu!public! !
+setGPUScissor_renderPass:scissor:!gpu!public! !
+setGPUSwapchainParameters_device:window:swapchainComposition:presentMode:!gpu!public! !
+setGPUTextureName_device:texture:text:!gpu!public! !
+setGPUViewport_renderPass:viewport:!gpu!public! !
 setHint_name:value:!public! !
 setNumberProperty_props:name:value:!properties!public! !
 setPointerProperty_props:name:value:!properties!public! !
@@ -973,17 +1364,26 @@ setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
 showWindow_window:!public!video! !
 startTextInput_window:!public!video! !
+submitGPUCommandBuffer_commandBuffer:!gpu!public! !
+submitGPUCommandBufferAndAcquireFence_commandBuffer:!gpu!public! !
 unbindAudioStream_stream:!audio!public! !
 unbindAudioStreams_streams:numStreams:!audio!public! !
 unlockAudioStream_stream:!audio!public! !
 unlockProperties_props:!properties!public! !
 unlockTexture_texture:!public!render! !
+unmapGPUTransferBuffer_device:transferBuffer:!gpu!public! !
 updateTexture_texture:rect:pixels:pitch:!public!render! !
 updateWindowSurface_window:!public!video! !
 updateWindowSurfaceRects_window:rects:numrects:!public!video! !
+uploadToGPUBuffer_copyPass:source:destination:cycle:!gpu!public! !
+uploadToGPUTexture_copyPass:source:destination:cycle:!gpu!public! !
 waitEvent_event:!events!public! !
 waitEventTimeout_event:timeout:!events!public! !
+waitForGPUFences_device:waitAll:pFences:fenceCount:!gpu!public! !
+waitForGPUIdle_device:!gpu!public! !
 wasInit_flags:!init!public! !
+windowSupportsGPUPresentMode_device:window:presentMode:!gpu!public! !
+windowSupportsGPUSwapchainComposition_device:window:swapchainComposition:!gpu!public! !
 !
 
 !SDL3Library class methodsFor!
