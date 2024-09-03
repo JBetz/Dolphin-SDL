@@ -6,6 +6,8 @@ package paxVersion: 1;
 package classNames
 	add: #Application;
 	add: #BasicTriangleExample;
+	add: #Clear3DSliceExample;
+	add: #ClearScreenExample;
 	add: #DrawBezierCurve;
 	add: #DrawImage;
 	add: #DrawLine;
@@ -199,6 +201,18 @@ GPUExample subclass: #BasicTriangleExample
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+GPUExample subclass: #Clear3DSliceExample
+	instanceVariableNames: 'texture3D'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GPUExample subclass: #ClearScreenExample
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Dictionary variableSubclass: #PriorityQueue
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -321,7 +335,7 @@ ExternalStructure subclass: #SDL_GPUColorAttachmentDescription
 
 ExternalStructure subclass: #SDL_GPUColorAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cyle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cycle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -477,7 +491,7 @@ ExternalStructure subclass: #SDL_GPUVertexBinding
 
 ExternalStructure subclass: #SDL_GPUVertexInputState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_vertex_attribute_count _OffsetOf_vertex_attributes _OffsetOf_vertex_binding _OffsetOf_vertex_binding_count'
+	classVariableNames: '_OffsetOf_vertex_attribute_count _OffsetOf_vertex_attributes _OffsetOf_vertex_binding_count _OffsetOf_vertex_bindings'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

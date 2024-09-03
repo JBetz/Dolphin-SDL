@@ -90,10 +90,18 @@ defineFields
 		defineField: #a type: FLOATField new!
 
 getFieldNames
-	^#(#r #g #b #a)! !
+	^#(#r #g #b #a)!
+
+r: r g: g b: b a: a
+	^self new
+		r: r;
+		g: g;
+		b: b;
+		a: a! !
 
 !SDL_FColor class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+r:g:b:a:!public! !
 !
 

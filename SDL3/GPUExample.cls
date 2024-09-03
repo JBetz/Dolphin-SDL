@@ -31,14 +31,13 @@ createGPUDevice
 	gpuDevice := SDL_GPUDevice formatFlags: shaderFormatFlags!
 
 onCreated
-	self
-		createWindow;
-		createGPUDevice.
-	gpuDevice claimWindow: window.
 	self setup!
 
 setup
-	self subclassResponsibility! !
+	self
+		createWindow;
+		createGPUDevice.
+	gpuDevice claimWindow: window! !
 
 !GPUExample categoriesForMethods!
 close!public! !
@@ -46,5 +45,14 @@ closeGPUDevice!public! !
 createGPUDevice!public! !
 onCreated!public! !
 setup!public! !
+!
+
+!GPUExample class methodsFor!
+
+preferredExtent
+	^640@480! !
+
+!GPUExample class categoriesForMethods!
+preferredExtent!public! !
 !
 

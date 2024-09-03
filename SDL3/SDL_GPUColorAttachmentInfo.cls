@@ -2,14 +2,14 @@
 
 ExternalStructure subclass: #SDL_GPUColorAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cyle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cycle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUColorAttachmentInfo guid: (GUID fromString: '{a38f12eb-a7b8-4d29-88d8-e74e11db447e}')!
 
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_clear_color' value: 16rC!
-SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_cyle' value: 16r24!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_cycle' value: 16r24!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_layer_or_depth_plane' value: 16r8!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_load_op' value: 16r1C!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_mip_level' value: 16r4!
@@ -36,15 +36,15 @@ clear_color: aSDL_FColor
 		to: ##(_OffsetOf_clear_color + SDL_FColor basicByteSize)
 		startingAt: 1!
 
-cyle
-	"Answer the <Boolean> value of the receiver's 'cyle' field."
+cycle
+	"Answer the <Boolean> value of the receiver's 'cycle' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_cyle) asBoolean!
+	^(bytes dwordAtOffset: _OffsetOf_cycle) asBoolean!
 
-cyle: aBoolean
-	"Set the receiver's 'cyle' field to the value of the argument, aBoolean"
+cycle: aBoolean
+	"Set the receiver's 'cycle' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_cyle put: aBoolean asParameter!
+	bytes dwordAtOffset: _OffsetOf_cycle put: aBoolean asParameter!
 
 layer_or_depth_plane
 	"Answer the <Integer> value of the receiver's 'layer_or_depth_plane' field."
@@ -99,8 +99,8 @@ texture: aSDL_GPUTexture
 !SDL_GPUColorAttachmentInfo categoriesForMethods!
 clear_color!**compiled accessors**!public! !
 clear_color:!**compiled accessors**!public! !
-cyle!**compiled accessors**!public! !
-cyle:!**compiled accessors**!public! !
+cycle!**compiled accessors**!public! !
+cycle:!**compiled accessors**!public! !
 layer_or_depth_plane!**compiled accessors**!public! !
 layer_or_depth_plane:!**compiled accessors**!public! !
 load_op!**compiled accessors**!public! !
@@ -125,10 +125,10 @@ defineFields
 		defineField: #clear_color type: (StructureField type: SDL_FColor);
 		defineField: #load_op type: DWORDField new;
 		defineField: #store_op type: DWORDField new;
-		defineField: #cyle type: BOOLField new!
+		defineField: #cycle type: BOOLField new!
 
 getFieldNames
-	^#(#texture #mip_level #layer_or_depth_plane #clear_color #load_op #store_op #cyle)! !
+	^#(#texture #mip_level #layer_or_depth_plane #clear_color #load_op #store_op #cycle)! !
 
 !SDL_GPUColorAttachmentInfo class categoriesForMethods!
 defineFields!public! !

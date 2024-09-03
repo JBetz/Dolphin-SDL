@@ -103,7 +103,7 @@ bindGPUVertexStorageTextures_renderPass: renderPass firstSlot: firstSlot storage
 	^self invalidCall: _failureCode!
 
 blitGPUTexture_commandBuffer: commandBuffer source: source destination: destination flipMode: flipMode filterMode: filterMode cycle: cycle
-	<cdecl: void SDL_BlitGPU SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* dword dword bool>
+	<cdecl: void SDL_BlitGPUTexture SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* dword dword bool>
 	^self invalidCall: _failureCode!
 
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect

@@ -12,3 +12,12 @@ SDL_GPURenderPass comment: ''!
 
 !SDL_GPURenderPass categoriesForClass!External-Data-Structured! !
 
+!SDL_GPURenderPass methodsFor!
+
+end
+	self library endGPURenderPass_renderPass: self! !
+
+!SDL_GPURenderPass categoriesForMethods!
+end!public! !
+!
+

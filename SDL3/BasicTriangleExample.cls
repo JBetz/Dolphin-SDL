@@ -20,10 +20,13 @@ close
 		releaseGraphicsPipeline: linePipeline.
 	super close!
 
-render!
+render
+	| commandBuffer |
+	commandBuffer := gpuDevice acquireCommandBuffer.!
 
 setup
 	| shadersPath vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription |
+	super setup.
 	shadersPath := FileLocator imageRelative: 'Content\Shaders\Compiled\'.
 	vertexShader := gpuDevice loadVertexShader: shadersPath , 'RawTriangle.vert.spv'.
 	fragmentShader := gpuDevice loadFragmentShader: shadersPath , 'SolidColor.frag.spv'.

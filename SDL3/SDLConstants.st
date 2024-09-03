@@ -152,6 +152,9 @@ SDLConstants at: 'SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED' put: 16r207!
 SDLConstants at: 'SDL_EVENT_WINDOW_RESIZED' put: 16r206!
 SDLConstants at: 'SDL_EVENT_WINDOW_RESTORED' put: 16r20B!
 SDLConstants at: 'SDL_EVENT_WINDOW_SHOWN' put: 16r202!
+SDLConstants at: 'SDL_FLIP_HORIZONTAL' put: 16r1!
+SDLConstants at: 'SDL_FLIP_NONE' put: 16r0!
+SDLConstants at: 'SDL_FLIP_VERTICAL' put: 16r2!
 SDLConstants at: 'SDL_FOLDER_DESKTOP' put: 16r1!
 SDLConstants at: 'SDL_FOLDER_DOCUMENTS' put: 16r2!
 SDLConstants at: 'SDL_FOLDER_DOWNLOADS' put: 16r3!

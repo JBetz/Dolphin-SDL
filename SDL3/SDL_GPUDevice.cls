@@ -14,6 +14,12 @@ SDL_GPUDevice comment: ''!
 
 !SDL_GPUDevice methodsFor!
 
+acquireCommandBuffer
+	| commandBuffer |
+	commandBuffer := self library acquireGPUCommandBuffer_device: self.
+	self checkObjectResult: commandBuffer.
+	^commandBuffer!
+
 claimWindow: aWindow
 	self checkBooleanResult: (self library claimWindowForGPUDevice_device: self window: aWindow)!
 
@@ -23,6 +29,12 @@ createGraphicsPipeline: aGraphicsPipelineCreateInfo
 				pipelineCreateInfo: aGraphicsPipelineCreateInfo.
 	self checkObjectResult: graphicsPipeline.
 	^graphicsPipeline!
+
+createTexture: aTextureCreateInfo
+	| texture |
+	texture := self library createGPUTexture_device: self textureCreateInfo: aTextureCreateInfo.
+	self checkObjectResult: texture.
+	^texture!
 
 getSwapchainTextureFormat: aWindow
 	^self library getGPUSwapchainTextureFormat_device: self window: aWindow!
@@ -59,18 +71,24 @@ releaseGraphicsPipeline: aGPUGraphicsPipeline
 releaseShader: aGPUShader
 	self library releaseGPUShader_device: self shader: aGPUShader!
 
+releaseTexture: aGPUTexture
+	self library releaseGPUTexture_device: self texture: aGPUTexture!
+
 releaseWindow: aWindow
 	self checkBooleanResult: (self library releaseWindowFromGPUDevice_device: self window: aWindow)! !
 
 !SDL_GPUDevice categoriesForMethods!
+acquireCommandBuffer!public! !
 claimWindow:!public! !
 createGraphicsPipeline:!public! !
+createTexture:!public! !
 getSwapchainTextureFormat:!public! !
 loadFragmentShader:!public! !
 loadShader:stage:!private! !
 loadVertexShader:!public! !
 releaseGraphicsPipeline:!public! !
 releaseShader:!public! !
+releaseTexture:!public! !
 releaseWindow:!public! !
 !
 
