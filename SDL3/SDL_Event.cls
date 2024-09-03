@@ -9,7 +9,7 @@ ExternalStructure subclass: #SDL_Event
 SDL_Event guid: (GUID fromString: '{22d4884c-5d9e-40fd-a7e0-f86f85f39969}')!
 
 SDL_Event addClassConstant: '_OffsetOf_common' value: 16r0!
-SDL_Event addClassConstant: '_OffsetOf_padding' value: 16r1DC!
+SDL_Event addClassConstant: '_OffsetOf_padding' value: 16r55C!
 SDL_Event addClassConstant: '_OffsetOf_union_button' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_display' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_edit' value: 16r0!

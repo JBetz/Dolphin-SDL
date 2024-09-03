@@ -2,18 +2,19 @@
 
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_key _OffsetOf_mod _OffsetOf_raw _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_scancode _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
 SDL_KeyboardEvent guid: (GUID fromString: '{b0932b16-56bc-43d2-9018-7c53e25f208b}')!
 
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_keysym' value: 16r1C!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding2' value: 16r1A!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_padding3' value: 16r1B!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_repeat' value: 16r19!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_key' value: 16r1C!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_mod' value: 16r20!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_raw' value: 16r22!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_repeat' value: 16r25!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
-SDL_KeyboardEvent addClassConstant: '_OffsetOf_state' value: 16r18!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_scancode' value: 16r18!
+SDL_KeyboardEvent addClassConstant: '_OffsetOf_state' value: 16r24!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_type' value: 16r0!
 SDL_KeyboardEvent addClassConstant: '_OffsetOf_which' value: 16r14!
@@ -41,7 +42,7 @@ isCapsLock
 	^SDL_SCANCODE_CAPSLOCK = self scanCode!
 
 isCapsLockActive
-	^(self keysym mod bitAnd: SDL_KMOD_CAPS) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_CAPS) asBoolean!
 
 isCapsLockDown
 	^SDLInputState current isCapsLockDown!
@@ -80,19 +81,19 @@ isLeftAlt
 	^self scanCode = SDL_SCANCODE_LALT!
 
 isLeftAltDown
-	^(self keysym mod bitAnd: SDL_KMOD_LALT) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_LALT) asBoolean!
 
 isLeftCtrl
 	^self scanCode = SDL_SCANCODE_LCTRL!
 
 isLeftCtrlDown
-	^(self keysym mod bitAnd: SDL_KMOD_LCTRL) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_LCTRL) asBoolean!
 
 isLeftShift
 	^self scanCode = SDL_SCANCODE_LSHIFT!
 
 isLeftShiftDown
-	^(self keysym mod bitAnd: SDL_KMOD_LSHIFT) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_LSHIFT) asBoolean!
 
 isLetter
 	^self keyCode >= SDLK_a & (self keyCode <= SDLK_z)!
@@ -104,7 +105,7 @@ isModifierDown
 	^self isShiftDown or: [self isCtrlDown or: [self isAltDown or: [self isCapsLockDown]]]!
 
 isNumLockActive 
-	^(self keysym mod bitAnd: SDL_KMOD_NUM) asBoolean not!
+	^(self key bitAnd: SDL_KMOD_NUM) asBoolean not!
 
 isPunctuation
 	^self keyCode >= SDLK_SPACE & (self keyCode <= SDLK_EXCLAIM)
@@ -120,19 +121,19 @@ isRightAlt
 	^self scanCode = SDL_SCANCODE_RALT!
 
 isRightAltDown
-	^(self keysym mod bitAnd: SDL_KMOD_RALT) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_RALT) asBoolean!
 
 isRightCtrl
 	^self scanCode = SDL_SCANCODE_RCTRL!
 
 isRightCtrlDown
-	^(self keysym mod bitAnd: SDL_KMOD_RCTRL) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_RCTRL) asBoolean!
 
 isRightShift
 	^self scanCode = SDL_SCANCODE_RSHIFT!
 
 isRightShiftDown
-	^(self keysym mod bitAnd: SDL_KMOD_RSHIFT) asBoolean!
+	^(self mod bitAnd: SDL_KMOD_RSHIFT) asBoolean!
 
 isSecondModifier
 	(self isLeftCtrl
@@ -175,22 +176,38 @@ isUppercase
 isValidTextInput
 	^self isDigit | self isLetter | self isPunctuation!
 
+key
+	"Answer the <Integer> value of the receiver's 'key' field."
+
+	^bytes dwordAtOffset: _OffsetOf_key!
+
+key: anInteger
+	"Set the receiver's 'key' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_key put: anInteger!
+
 keyCode
-	^self keysym sym!
+	^self key!
 
-keysym
-	"Answer the <SDL_Keysym> value of the receiver's 'keysym' field."
+mod
+	"Answer the <Integer> value of the receiver's 'mod' field."
 
-	^SDL_Keysym fromAddress: bytes yourAddress + _OffsetOf_keysym!
+	^bytes wordAtOffset: _OffsetOf_mod!
 
-keysym: aSDL_Keysym
-	"Set the receiver's 'keysym' field to the value of the argument, aSDL_Keysym"
+mod: anInteger
+	"Set the receiver's 'mod' field to the value of the argument, anInteger"
 
-	aSDL_Keysym
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_keysym + 1)
-		to: ##(_OffsetOf_keysym + SDL_Keysym basicByteSize)
-		startingAt: 1!
+	bytes wordAtOffset: _OffsetOf_mod put: anInteger!
+
+raw
+	"Answer the <Integer> value of the receiver's 'raw' field."
+
+	^bytes wordAtOffset: _OffsetOf_raw!
+
+raw: anInteger
+	"Set the receiver's 'raw' field to the value of the argument, anInteger"
+
+	bytes wordAtOffset: _OffsetOf_raw put: anInteger!
 
 repeat
 	"Answer the <Integer> value of the receiver's 'repeat' field."
@@ -202,8 +219,18 @@ repeat: anInteger
 
 	bytes byteAtOffset: _OffsetOf_repeat put: anInteger!
 
+scancode
+	"Answer the <Integer> value of the receiver's 'scancode' field."
+
+	^bytes dwordAtOffset: _OffsetOf_scancode!
+
 scanCode
-	^self keysym scancode!
+	^self scancode!
+
+scancode: anInteger
+	"Set the receiver's 'scancode' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_scancode put: anInteger!
 
 state
 	"Answer the <Integer> value of the receiver's 'state' field."
@@ -257,15 +284,15 @@ windowID: anInteger
 
 windowsAlphabetKeyCode
 	| diff |
-	diff := self keysym sym - SDLK_a.
+	diff := self keyCode - SDLK_a.
 	^$A asInteger + diff!
 
 windowsFunctionKeyCode
-	^112 + (self keysym sym - 1073741882)!
+	^112 + (self sym - 1073741882)!
 
 windowsKeyCode
 	| sdlKeyCode |
-	sdlKeyCode := self keysym sym.
+	sdlKeyCode := self keyCode.
 	(sdlKeyCode >= SDLK_a and: [sdlKeyCode <= SDLK_z]) ifTrue: [^self windowsAlphabetKeyCode].
 	(sdlKeyCode >= SDLK_0 and: [sdlKeyCode <= SDLK_9]) ifTrue: [^self windowsNumberRowCode].
 	(sdlKeyCode >= SDLK_F1 and: [sdlKeyCode <= SDLK_F12]) ifTrue: [^self windowsFunctionKeyCode].
@@ -273,12 +300,12 @@ windowsKeyCode
 
 windowsNumberRowCode
 	| diff |
-	diff := self keysym sym - SDLK_0.
+	diff := self key - SDLK_0.
 	^48 + diff!
 
 windowsSpecialKeyCode
 	| sdlKeyCode windowsKeyCode |
-	sdlKeyCode := self keysym sym.
+	sdlKeyCode := self key.
 	sdlKeyCode = SDLK_SPACE ifTrue: [windowsKeyCode := 32].
 	sdlKeyCode = SDLK_BACKSPACE ifTrue: [windowsKeyCode := 8].
 	sdlKeyCode = SDLK_TAB ifTrue: [windowsKeyCode := 9].
@@ -377,12 +404,18 @@ isSystemKey!public! !
 isUp!public! !
 isUppercase!public! !
 isValidTextInput!public! !
+key!**compiled accessors**!public! !
+key:!**compiled accessors**!public! !
 keyCode!public! !
-keysym!**compiled accessors**!public! !
-keysym:!**compiled accessors**!public! !
+mod!**compiled accessors**!public! !
+mod:!**compiled accessors**!public! !
+raw!**compiled accessors**!public! !
+raw:!**compiled accessors**!public! !
 repeat!**compiled accessors**!public! !
 repeat:!**compiled accessors**!public! !
+scancode!**compiled accessors**!public! !
 scanCode!public! !
+scancode:!**compiled accessors**!public! !
 state!**compiled accessors**!public! !
 state:!**compiled accessors**!public! !
 timestamp!**compiled accessors**!public! !
@@ -403,20 +436,21 @@ windowsSpecialKeyCode!private! !
 !SDL_KeyboardEvent class methodsFor!
 
 defineFields
-	"SDL_KeyboardEvent compileDefinition"
-	
+	"self compileDefinition"
+
 	"typedef struct SDL_KeyboardEvent
 	{
-	    Uint32 type;        /**< ::SDL_KEYDOWN or ::SDL_KEYUP */
+	    SDL_EventType type;     /**< SDL_EVENT_KEY_DOWN or SDL_EVENT_KEY_UP */
 	    Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    SDL_WindowID windowID;    /**< The window with keyboard focus, if any */
-	    SDL_KeyboardID which; /**< The keyboard instance id, or 0 if unknown or virtual */
-	    Uint8 state;        /**< ::SDL_PRESSED or ::SDL_RELEASED */
-	    Uint8 repeat;       /**< Non-zero if this is a key repeat */
-	    Uint8 padding2;
-	    Uint8 padding3;
-	    SDL_Keysym keysym;  /**< The key that was pressed or released */
+	    Uint64 timestamp;       /**< In nanoseconds, populated using SDL_GetTicksNS() */
+	    SDL_WindowID windowID;  /**< The window with keyboard focus, if any */
+	    SDL_KeyboardID which;   /**< The keyboard instance id, or 0 if unknown or virtual */
+	    SDL_Scancode scancode;  /**< SDL physical key code */
+	    SDL_Keycode key;        /**< SDL virtual key code */
+	    SDL_Keymod mod;         /**< current key modifiers */
+	    Uint16 raw;             /**< The platform dependent scancode for this event */
+	    Uint8 state;            /**< SDL_PRESSED or SDL_RELEASED */
+	    Uint8 repeat;           /**< Non-zero if this is a key repeat */
 	} SDL_KeyboardEvent;"
 
 	self
@@ -425,14 +459,15 @@ defineFields
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #which type: DWORDField new;
+		defineField: #scancode type: DWORDField new;
+		defineField: #key type: DWORDField new;
+		defineField: #mod type: WORDField new;
+		defineField: #raw type: WORDField new;
 		defineField: #state type: BYTEField new;
-		defineField: #repeat type: BYTEField new;
-		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #padding3 type: BYTEField new beFiller;
-		defineField: #keysym type: (StructureField type: SDL_Keysym)!
+		defineField: #repeat type: BYTEField new!
 
 getFieldNames
-	^#(#type #timestamp #windowID #which #state #repeat #keysym)! !
+	^#(#type #timestamp #windowID #which #scancode #key #mod #raw #state #repeat)! !
 
 !SDL_KeyboardEvent class categoriesForMethods!
 defineFields!public! !
