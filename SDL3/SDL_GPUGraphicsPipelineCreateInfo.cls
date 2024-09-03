@@ -96,12 +96,12 @@ multisample_state: aSDL_GPUMultisampleState
 primitive_type
 	"Answer the <Integer> value of the receiver's 'primitive_type' field."
 
-	^bytes dwordAtOffset: _OffsetOf_primitive_type!
+	^bytes sdwordAtOffset: _OffsetOf_primitive_type!
 
 primitive_type: anInteger
 	"Set the receiver's 'primitive_type' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_primitive_type put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_primitive_type put: anInteger!
 
 props
 	"Answer the <Integer> value of the receiver's 'props' field."
@@ -183,7 +183,7 @@ defineFields
 		defineField: #vertex_shader type: (PointerField type: SDL_GPUShader);
 		defineField: #fragment_shader type: (PointerField type: SDL_GPUShader);
 		defineField: #vertex_input_state type: (StructureField type: SDL_GPUVertexInputState);
-		defineField: #primitive_type type: DWORDField new;
+		defineField: #primitive_type type: SDWORDField new;
 		defineField: #rasterizer_state type: (StructureField type: SDL_GPURasterizerState);
 		defineField: #multisample_state type: (StructureField type: SDL_GPUMultisampleState);
 		defineField: #depth_stencil_state type: (StructureField type: SDL_GPUDepthStencilState);

@@ -32,12 +32,12 @@ binding: anInteger
 input_rate
 	"Answer the <Integer> value of the receiver's 'input_rate' field."
 
-	^bytes dwordAtOffset: _OffsetOf_input_rate!
+	^bytes sdwordAtOffset: _OffsetOf_input_rate!
 
 input_rate: anInteger
 	"Set the receiver's 'input_rate' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_input_rate put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_input_rate put: anInteger!
 
 instance_step_rate
 	"Answer the <Integer> value of the receiver's 'instance_step_rate' field."
@@ -78,7 +78,7 @@ defineFields
 	self
 		defineField: #binding type: DWORDField new;
 		defineField: #stride type: DWORDField new;
-		defineField: #input_rate type: DWORDField new;
+		defineField: #input_rate type: SDWORDField new;
 		defineField: #instance_step_rate type: DWORDField new!
 
 getFieldNames

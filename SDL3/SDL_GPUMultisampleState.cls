@@ -20,12 +20,12 @@ SDL_GPUMultisampleState comment: ''!
 sample_count
 	"Answer the <Integer> value of the receiver's 'sample_count' field."
 
-	^bytes dwordAtOffset: _OffsetOf_sample_count!
+	^bytes sdwordAtOffset: _OffsetOf_sample_count!
 
 sample_count: anInteger
 	"Set the receiver's 'sample_count' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_sample_count put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_sample_count put: anInteger!
 
 sample_mask
 	"Answer the <Integer> value of the receiver's 'sample_mask' field."
@@ -50,7 +50,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #sample_count type: DWORDField new;
+		defineField: #sample_count type: SDWORDField new;
 		defineField: #sample_mask type: DWORDField new!
 
 getFieldNames

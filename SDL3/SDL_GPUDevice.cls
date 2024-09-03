@@ -23,6 +23,13 @@ acquireCommandBuffer
 claimWindow: aWindow
 	self checkBooleanResult: (self library claimWindowForGPUDevice_device: self window: aWindow)!
 
+createComputePipeline: aComputePipelineCreateInfo
+	| computePipeline |
+	computePipeline := self library createGPUComputePipeline_device: self
+				computePipelineCreateInfo: aComputePipelineCreateInfo.
+	self checkObjectResult: computePipeline.
+	^computePipeline!
+
 createGraphicsPipeline: aGraphicsPipelineCreateInfo
 	| graphicsPipeline |
 	graphicsPipeline := self library createGPUGraphicsPipeline_device: self
@@ -65,11 +72,17 @@ loadShader: aString stage: anInteger
 loadVertexShader: aString
 	^self loadShader: aString stage: SDL_GPU_SHADERSTAGE_VERTEX!
 
+releaseComputePipeline: aComputePipeline
+	self library releaseGPUComputePipeline_device: self computePipeline: aComputePipeline!
+
 releaseGraphicsPipeline: aGPUGraphicsPipeline
 	self library releaseGPUGraphicsPipeline_device: self graphicsPipeline: aGPUGraphicsPipeline!
 
 releaseShader: aGPUShader
 	self library releaseGPUShader_device: self shader: aGPUShader!
+
+releaseTexture: aGPUTexture
+	self library releaseGPUTexture_device: self texture: aGPUTexture!
 
 releaseWindow: aWindow
 	self checkBooleanResult: (self library releaseWindowFromGPUDevice_device: self window: aWindow)! !
@@ -77,14 +90,17 @@ releaseWindow: aWindow
 !SDL_GPUDevice categoriesForMethods!
 acquireCommandBuffer!public! !
 claimWindow:!public! !
+createComputePipeline:!public! !
 createGraphicsPipeline:!public! !
 createTexture:!public! !
 getSwapchainTextureFormat:!public! !
 loadFragmentShader:!public! !
 loadShader:stage:!private! !
 loadVertexShader:!public! !
+releaseComputePipeline:!public! !
 releaseGraphicsPipeline:!public! !
 releaseShader:!public! !
+releaseTexture:!public! !
 releaseWindow:!public! !
 !
 

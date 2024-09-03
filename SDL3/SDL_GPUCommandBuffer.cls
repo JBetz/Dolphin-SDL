@@ -14,15 +14,29 @@ SDL_GPUCommandBuffer comment: ''!
 
 !SDL_GPUCommandBuffer methodsFor!
 
-acquireSwapchainTexture: aWindow width: aDWORD height: anotherDWORD
-	| swapchainTexture |
+acquireSwapchainTexture: aWindow
+	| swapchainTexture width height |
+	width := DWORD new.
+	height := DWORD new.
 	swapchainTexture := self library
 				acquireGPUSwapchainTexture_commandBuffer: self
 				window: aWindow
-				pWidth: aDWORD
-				pHeight: anotherDWORD.
+				pWidth: width
+				pHeight: height.
 	self checkObjectResult: swapchainTexture.
+	swapchainTexture extent: width value @ height value.
 	^swapchainTexture!
+
+beginComputePass: aStorageTextureWriteOnlyBinding
+	| computePass |
+	computePass := self library
+				beginGPUComputePass_commandBuffer: self
+				storageTextureBindings: aStorageTextureWriteOnlyBinding
+				storageTextureBindingCount: 1
+				storageBufferBindings: nil
+				storageBufferBindingCount: 0.
+	self checkObjectResult: computePass.
+	^computePass!
 
 beginRenderPass: aColorAttachmentInfo
 	| renderPass |
@@ -35,21 +49,34 @@ beginRenderPass: aColorAttachmentInfo
 	^renderPass!
 
 blitTexture: aGPUTexture destination: anotherGPUTexture
+	self blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: SDL_GPU_FILTER_NEAREST!
+
+blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: anInteger
 	self library
 		blitGPUTexture_commandBuffer: self
 		source: aGPUTexture
 		destination: anotherGPUTexture
 		flipMode: SDL_FLIP_NONE
-		filterMode: SDL_GPU_FILTER_NEAREST
+		filterMode: anInteger
 		cycle: false!
+
+pushComputeUniformData: data
+	self library
+		pushGPUComputeUniformData_commandBuffer: self
+		slotIndex: 0
+		data: data
+		dataLengthInBytes: data byteSize!
 
 submit
 	self library submitGPUCommandBuffer_commandBuffer: self! !
 
 !SDL_GPUCommandBuffer categoriesForMethods!
-acquireSwapchainTexture:width:height:!public! !
+acquireSwapchainTexture:!public! !
+beginComputePass:!public! !
 beginRenderPass:!public! !
 blitTexture:destination:!public! !
+blitTexture:destination:filterMode:!public! !
+pushComputeUniformData:!public! !
 submit!public! !
 !
 

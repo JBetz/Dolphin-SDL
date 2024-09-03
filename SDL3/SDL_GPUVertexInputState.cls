@@ -30,14 +30,18 @@ vertex_attribute_count: anInteger
 	bytes dwordAtOffset: _OffsetOf_vertex_attribute_count put: anInteger!
 
 vertex_attributes
-	"Answer the <SDL_GPUVertexAttribute> value of the receiver's 'vertex_attributes' field."
+	"Answer the <StructureArray> value of the receiver's 'vertex_attributes' field."
 
-	^SDL_GPUVertexAttribute fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_attributes)!
+	^StructureArray
+		fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_attributes)
+		length: self vertex_attribute_count
+		elementClass: SDL_GPUVertexAttribute!
 
-vertex_attributes: aSDL_GPUVertexAttribute
-	"Set the receiver's 'vertex_attributes' field to the value of the argument, aSDL_GPUVertexAttribute"
+vertex_attributes: aStructureArray
+	"Set the receiver's 'vertex_attributes' field to the value of the argument, aStructureArray"
 
-	bytes uintPtrAtOffset: _OffsetOf_vertex_attributes put: aSDL_GPUVertexAttribute yourAddress!
+	bytes uintPtrAtOffset: _OffsetOf_vertex_attributes put: aStructureArray yourAddress.
+	self vertex_attribute_count: aStructureArray size!
 
 vertex_binding_count
 	"Answer the <Integer> value of the receiver's 'vertex_binding_count' field."
@@ -50,14 +54,18 @@ vertex_binding_count: anInteger
 	bytes dwordAtOffset: _OffsetOf_vertex_binding_count put: anInteger!
 
 vertex_bindings
-	"Answer the <SDL_GPUVertexBinding> value of the receiver's 'vertex_bindings' field."
+	"Answer the <StructureArray> value of the receiver's 'vertex_bindings' field."
 
-	^SDL_GPUVertexBinding fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_bindings)!
+	^StructureArray
+		fromAddress: (bytes intPtrAtOffset: _OffsetOf_vertex_bindings)
+		length: self vertex_binding_count
+		elementClass: SDL_GPUVertexBinding!
 
-vertex_bindings: aSDL_GPUVertexBinding
-	"Set the receiver's 'vertex_bindings' field to the value of the argument, aSDL_GPUVertexBinding"
+vertex_bindings: aStructureArray
+	"Set the receiver's 'vertex_bindings' field to the value of the argument, aStructureArray"
 
-	bytes uintPtrAtOffset: _OffsetOf_vertex_bindings put: aSDL_GPUVertexBinding yourAddress! !
+	bytes uintPtrAtOffset: _OffsetOf_vertex_bindings put: aStructureArray yourAddress.
+	self vertex_binding_count: aStructureArray size! !
 
 !SDL_GPUVertexInputState categoriesForMethods!
 vertex_attribute_count!**compiled accessors**!public! !
@@ -76,9 +84,9 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #vertex_bindings type: (PointerField type: SDL_GPUVertexBinding);
+		defineField: #vertex_bindings type: (StructureArrayPointerField type: SDL_GPUVertexBinding lengthField: #vertex_binding_count);
 		defineField: #vertex_binding_count type: DWORDField new;
-		defineField: #vertex_attributes type: (PointerField type: SDL_GPUVertexAttribute);
+		defineField: #vertex_attributes type: (StructureArrayPointerField type: SDL_GPUVertexAttribute lengthField: #vertex_attribute_count);
 		defineField: #vertex_attribute_count type: DWORDField new!
 
 getFieldNames

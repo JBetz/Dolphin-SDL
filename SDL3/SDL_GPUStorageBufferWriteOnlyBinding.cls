@@ -9,7 +9,7 @@ ExternalStructure subclass: #SDL_GPUStorageBufferWriteOnlyBinding
 SDL_GPUStorageBufferWriteOnlyBinding guid: (GUID fromString: '{58883d3c-9fe8-49e2-95f3-cbd2bab51e5f}')!
 
 SDL_GPUStorageBufferWriteOnlyBinding addClassConstant: '_OffsetOf_buffer' value: 16r0!
-SDL_GPUStorageBufferWriteOnlyBinding addClassConstant: '_OffsetOf_cycle' value: 16r0!
+SDL_GPUStorageBufferWriteOnlyBinding addClassConstant: '_OffsetOf_cycle' value: 16r4!
 
 SDL_GPUStorageBufferWriteOnlyBinding comment: ''!
 
@@ -20,16 +20,12 @@ SDL_GPUStorageBufferWriteOnlyBinding comment: ''!
 buffer
 	"Answer the <SDL_GPUBuffer> value of the receiver's 'buffer' field."
 
-	^SDL_GPUBuffer fromAddress: bytes yourAddress!
+	^SDL_GPUBuffer fromAddress: (bytes intPtrAtOffset: _OffsetOf_buffer)!
 
 buffer: aSDL_GPUBuffer
 	"Set the receiver's 'buffer' field to the value of the argument, aSDL_GPUBuffer"
 
-	aSDL_GPUBuffer
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_buffer + 1)
-		to: ##(_OffsetOf_buffer + SDL_GPUBuffer basicByteSize)
-		startingAt: 1!
+	bytes uintPtrAtOffset: _OffsetOf_buffer put: aSDL_GPUBuffer yourAddress!
 
 cycle
 	"Answer the <Boolean> value of the receiver's 'cycle' field."
@@ -54,7 +50,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #buffer type: (StructureField type: SDL_GPUBuffer);
+		defineField: #buffer type: (PointerField type: SDL_GPUBuffer);
 		defineField: #cycle type: BOOLField new!
 
 getFieldNames

@@ -26,12 +26,12 @@ SDL_GPUColorAttachmentBlendState comment: ''!
 alpha_blend_op
 	"Answer the <Integer> value of the receiver's 'alpha_blend_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_alpha_blend_op!
+	^bytes sdwordAtOffset: _OffsetOf_alpha_blend_op!
 
 alpha_blend_op: anInteger
 	"Set the receiver's 'alpha_blend_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_alpha_blend_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_alpha_blend_op put: anInteger!
 
 blend_enable
 	"Answer the <Boolean> value of the receiver's 'blend_enable' field."
@@ -46,12 +46,12 @@ blend_enable: aBoolean
 color_blend_op
 	"Answer the <Integer> value of the receiver's 'color_blend_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_color_blend_op!
+	^bytes sdwordAtOffset: _OffsetOf_color_blend_op!
 
 color_blend_op: anInteger
 	"Set the receiver's 'color_blend_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_color_blend_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_color_blend_op put: anInteger!
 
 color_write_mask
 	"Answer the <Integer> value of the receiver's 'color_write_mask' field."
@@ -66,42 +66,42 @@ color_write_mask: anInteger
 dst_alpha_blend_factor
 	"Answer the <Integer> value of the receiver's 'dst_alpha_blend_factor' field."
 
-	^bytes dwordAtOffset: _OffsetOf_dst_alpha_blend_factor!
+	^bytes sdwordAtOffset: _OffsetOf_dst_alpha_blend_factor!
 
 dst_alpha_blend_factor: anInteger
 	"Set the receiver's 'dst_alpha_blend_factor' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_dst_alpha_blend_factor put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_dst_alpha_blend_factor put: anInteger!
 
 dst_color_blend_factor
 	"Answer the <Integer> value of the receiver's 'dst_color_blend_factor' field."
 
-	^bytes dwordAtOffset: _OffsetOf_dst_color_blend_factor!
+	^bytes sdwordAtOffset: _OffsetOf_dst_color_blend_factor!
 
 dst_color_blend_factor: anInteger
 	"Set the receiver's 'dst_color_blend_factor' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_dst_color_blend_factor put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_dst_color_blend_factor put: anInteger!
 
 src_alpha_blend_factor
 	"Answer the <Integer> value of the receiver's 'src_alpha_blend_factor' field."
 
-	^bytes dwordAtOffset: _OffsetOf_src_alpha_blend_factor!
+	^bytes sdwordAtOffset: _OffsetOf_src_alpha_blend_factor!
 
 src_alpha_blend_factor: anInteger
 	"Set the receiver's 'src_alpha_blend_factor' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_src_alpha_blend_factor put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_src_alpha_blend_factor put: anInteger!
 
 src_color_blend_factor
 	"Answer the <Integer> value of the receiver's 'src_color_blend_factor' field."
 
-	^bytes dwordAtOffset: _OffsetOf_src_color_blend_factor!
+	^bytes sdwordAtOffset: _OffsetOf_src_color_blend_factor!
 
 src_color_blend_factor: anInteger
 	"Set the receiver's 'src_color_blend_factor' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_src_color_blend_factor put: anInteger! !
+	bytes sdwordAtOffset: _OffsetOf_src_color_blend_factor put: anInteger! !
 
 !SDL_GPUColorAttachmentBlendState categoriesForMethods!
 alpha_blend_op!**compiled accessors**!public! !
@@ -129,12 +129,12 @@ defineFields
 
 	self
 		defineField: #blend_enable type: BOOLField new;
-		defineField: #src_color_blend_factor type: DWORDField new;
-		defineField: #dst_color_blend_factor type: DWORDField new;
-		defineField: #color_blend_op type: DWORDField new;
-		defineField: #src_alpha_blend_factor type: DWORDField new;
-		defineField: #dst_alpha_blend_factor type: DWORDField new;
-		defineField: #alpha_blend_op type: DWORDField new;
+		defineField: #src_color_blend_factor type: SDWORDField new;
+		defineField: #dst_color_blend_factor type: SDWORDField new;
+		defineField: #color_blend_op type: SDWORDField new;
+		defineField: #src_alpha_blend_factor type: SDWORDField new;
+		defineField: #dst_alpha_blend_factor type: SDWORDField new;
+		defineField: #alpha_blend_op type: SDWORDField new;
 		defineField: #color_write_mask type: BYTEField new!
 
 getFieldNames

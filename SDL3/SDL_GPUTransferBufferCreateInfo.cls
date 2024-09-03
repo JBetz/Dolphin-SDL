@@ -41,12 +41,12 @@ size_in_bytes: anInteger
 usage_flags
 	"Answer the <Integer> value of the receiver's 'usage_flags' field."
 
-	^bytes dwordAtOffset: _OffsetOf_usage_flags!
+	^bytes sdwordAtOffset: _OffsetOf_usage_flags!
 
 usage_flags: anInteger
 	"Set the receiver's 'usage_flags' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_usage_flags put: anInteger! !
+	bytes sdwordAtOffset: _OffsetOf_usage_flags put: anInteger! !
 
 !SDL_GPUTransferBufferCreateInfo categoriesForMethods!
 props!**compiled accessors**!public! !
@@ -63,7 +63,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #usage_flags type: DWORDField new;
+		defineField: #usage_flags type: SDWORDField new;
 		defineField: #size_in_bytes type: DWORDField new;
 		defineField: #props type: DWORDField new!
 

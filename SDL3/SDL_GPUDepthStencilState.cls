@@ -51,12 +51,12 @@ compare_mask: anInteger
 compare_op
 	"Answer the <Integer> value of the receiver's 'compare_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_compare_op!
+	^bytes sdwordAtOffset: _OffsetOf_compare_op!
 
 compare_op: anInteger
 	"Set the receiver's 'compare_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_compare_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_compare_op put: anInteger!
 
 depth_test_enable
 	"Answer the <Boolean> value of the receiver's 'depth_test_enable' field."
@@ -151,7 +151,7 @@ defineFields
 	self
 		defineField: #depth_test_enable type: BOOLField new;
 		defineField: #depth_write_enable type: BOOLField new;
-		defineField: #compare_op type: DWORDField new;
+		defineField: #compare_op type: SDWORDField new;
 		defineField: #stencil_test_enable type: BOOLField new;
 		defineField: #back_stencil_state type: (StructureField type: SDL_GPUStencilOpState);
 		defineField: #front_stencil_state type: (StructureField type: SDL_GPUStencilOpState);

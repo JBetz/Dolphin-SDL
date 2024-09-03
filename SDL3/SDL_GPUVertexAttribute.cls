@@ -32,12 +32,12 @@ binding: anInteger
 format
 	"Answer the <Integer> value of the receiver's 'format' field."
 
-	^bytes dwordAtOffset: _OffsetOf_format!
+	^bytes sdwordAtOffset: _OffsetOf_format!
 
 format: anInteger
 	"Set the receiver's 'format' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_format put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_format put: anInteger!
 
 location
 	"Answer the <Integer> value of the receiver's 'location' field."
@@ -78,7 +78,7 @@ defineFields
 	self
 		defineField: #location type: DWORDField new;
 		defineField: #binding type: DWORDField new;
-		defineField: #format type: DWORDField new;
+		defineField: #format type: SDWORDField new;
 		defineField: #offset type: DWORDField new!
 
 getFieldNames

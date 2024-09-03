@@ -12,3 +12,20 @@ SDL_GPUComputePass comment: ''!
 
 !SDL_GPUComputePass categoriesForClass!External-Data-Structured! !
 
+!SDL_GPUComputePass methodsFor!
+
+bindComputePipeline: aComputePipeline
+	self library bindGPUComputePipeline_computePass: self computePipeline: aComputePipeline!
+
+dispatchComputeToX: x y: y z: z
+	self library dispatchGPUCompute_computePass: self groupCountX: x groupCountY: y groupCountZ: z!
+
+end
+	self library endGPUComputePass_computePass: self! !
+
+!SDL_GPUComputePass categoriesForMethods!
+bindComputePipeline:!public! !
+dispatchComputeToX:y:z:!public! !
+end!public! !
+!
+

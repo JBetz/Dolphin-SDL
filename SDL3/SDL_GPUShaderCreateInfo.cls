@@ -88,12 +88,12 @@ sampler_count: anInteger
 stage
 	"Answer the <Integer> value of the receiver's 'stage' field."
 
-	^bytes dwordAtOffset: _OffsetOf_stage!
+	^bytes sdwordAtOffset: _OffsetOf_stage!
 
 stage: anInteger
 	"Set the receiver's 'stage' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_stage put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_stage put: anInteger!
 
 storage_buffer_count
 	"Answer the <Integer> value of the receiver's 'storage_buffer_count' field."
@@ -158,7 +158,7 @@ defineFields
 		defineField: #code type: (PointerField type: BYTE);
 		defineField: #entry_point_name type: (PointerField type: Utf8String);
 		defineField: #format type: DWORDField new;
-		defineField: #stage type: DWORDField new;
+		defineField: #stage type: SDWORDField new;
 		defineField: #sampler_count type: DWORDField new;
 		defineField: #storage_texture_count type: DWORDField new;
 		defineField: #storage_buffer_count type: DWORDField new;

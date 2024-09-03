@@ -35,7 +35,7 @@ audioDevicePaused_devid: devid
 	^self invalidCall: _failureCode!
 
 beginGPUComputePass_commandBuffer: commandBuffer storageTextureBindings: storageTextureBindings storageTextureBindingCount: storageTextureBindingCount storageBufferBindings: storageBufferBindings storageBufferBindingCount: storageBufferBindingCount
-	<cdecl: SDL_GPUComputePass* SDL_BeginGPUComputePass SDL_GPUCommandBuffer* SDL_GPUStorageTextureWriteOnlyBinding* dword SDL_GPUStorageBufferWriteOnlyBinding dword>
+	<cdecl: SDL_GPUComputePass* SDL_BeginGPUComputePass SDL_GPUCommandBuffer* SDL_GPUStorageTextureWriteOnlyBinding* dword SDL_GPUStorageBufferWriteOnlyBinding* dword>
 	^self invalidCall: _failureCode!
 
 beginGPUCopyPass_commandBuffer: commandBuffer
@@ -83,7 +83,7 @@ bindGPUGraphicsPipeline_renderPass: renderPass graphicsPipeline: graphicsPipelin
 	^self invalidCall: _failureCode!
 
 bindGPUIndexBuffer_renderPass: renderPass pBinding: pBinding indexElementSize: indexElementSize
-	<cdecl: void SDL_BindGPUIndexBuffer SDL_GPURenderPass* SDL_GPUBufferBinding* dword>
+	<cdecl: void SDL_BindGPUIndexBuffer SDL_GPURenderPass* SDL_GPUBufferBinding* sdword>
 	^self invalidCall: _failureCode!
 
 bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding pBindings: pBindings bindingCount: bindingCount
@@ -103,7 +103,7 @@ bindGPUVertexStorageTextures_renderPass: renderPass firstSlot: firstSlot storage
 	^self invalidCall: _failureCode!
 
 blitGPUTexture_commandBuffer: commandBuffer source: source destination: destination flipMode: flipMode filterMode: filterMode cycle: cycle
-	<cdecl: void SDL_BlitGPUTexture SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* dword dword bool>
+	<cdecl: void SDL_BlitGPUTexture SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* sdword sdword bool>
 	^self invalidCall: _failureCode!
 
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
@@ -443,7 +443,7 @@ getGPUDriver_device: device
 	^self invalidCall: _failureCode!
 
 getGPUSwapchainTextureFormat_device: device window: window
-	<cdecl: dword SDL_GetGPUSwapchainTextureFormat SDL_GPUDevice* SDL_Window*>
+	<cdecl: sdword SDL_GetGPUSwapchainTextureFormat SDL_GPUDevice* SDL_Window*>
 	^self invalidCall: _failureCode!
 
 getKeyboardState_numkeys: numkeys
@@ -607,7 +607,11 @@ getWindowProperties_window: window
 	^self invalidCall: _failureCode!
 
 getWindowSize_window: window w: w h: h
-	<cdecl: void SDL_GetWindowSize SDL_Window* sdword* sdword*>
+	<cdecl: bool SDL_GetWindowSize SDL_Window* sdword* sdword*>
+	^self invalidCall: _failureCode!
+
+getWindowSizeInPixels_window: window w: w h: h
+	<cdecl: bool SDL_GetWindowSizeInPixels SDL_Window* sdword* sdword*>
 	^self invalidCall: _failureCode!
 
 getWindowSurface_window: window
@@ -687,11 +691,11 @@ gpuTextureFormatTexelBlockSize_textureFormat: textureFormat
 	^self invalidCall: _failureCode!
 
 gpuTextureSupportsFormat_device: device format: format type: type usage: usage
-	<cdecl: bool SDL_GPUTextureSupportsFormat SDL_GPUDevice* dword dword dword>
+	<cdecl: bool SDL_GPUTextureSupportsFormat SDL_GPUDevice* sdword sdword dword>
 	^self invalidCall: _failureCode!
 
 gpuTextureSupportsSampleCount_device: device format: format sampleCount: sampleCount
-	<cdecl: bool SDL_GPUTextureSupportsSampleCount SDL_GPUDevice* dword dword>
+	<cdecl: bool SDL_GPUTextureSupportsSampleCount SDL_GPUDevice* sdword sdword>
 	^self invalidCall: _failureCode!
 
 hasProperty_props: props name: name
@@ -951,7 +955,7 @@ setGPUScissor_renderPass: renderPass scissor: scissor
 	^self invalidCall: _failureCode!
 
 setGPUSwapchainParameters_device: device window: window swapchainComposition: swapchainComposition presentMode: presentMode
-	<cdecl: bool SDL_SetGPUSwapchainParameters SDL_GPUDevice* SDL_Window* dword dword>
+	<cdecl: bool SDL_SetGPUSwapchainParameters SDL_GPUDevice* SDL_Window* sdword sdword>
 	^self invalidCall: _failureCode!
 
 setGPUTextureName_device: device texture: texture text: text
@@ -1268,6 +1272,7 @@ getWindowPixelFormat_window:!public!video! !
 getWindowPosition_window:x:y:!public!video! !
 getWindowProperties_window:!public!video! !
 getWindowSize_window:w:h:!public!video! !
+getWindowSizeInPixels_window:w:h:!public!video! !
 getWindowSurface_window:!public!video! !
 getWindowTitle_window:!public!video! !
 glCreateContext_window:!open gl!public!video! !

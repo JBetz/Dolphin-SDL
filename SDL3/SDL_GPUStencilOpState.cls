@@ -22,42 +22,42 @@ SDL_GPUStencilOpState comment: ''!
 compare_op
 	"Answer the <Integer> value of the receiver's 'compare_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_compare_op!
+	^bytes sdwordAtOffset: _OffsetOf_compare_op!
 
 compare_op: anInteger
 	"Set the receiver's 'compare_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_compare_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_compare_op put: anInteger!
 
 depth_fail_op
 	"Answer the <Integer> value of the receiver's 'depth_fail_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_depth_fail_op!
+	^bytes sdwordAtOffset: _OffsetOf_depth_fail_op!
 
 depth_fail_op: anInteger
 	"Set the receiver's 'depth_fail_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_depth_fail_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_depth_fail_op put: anInteger!
 
 fail_op
 	"Answer the <Integer> value of the receiver's 'fail_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_fail_op!
+	^bytes sdwordAtOffset: _OffsetOf_fail_op!
 
 fail_op: anInteger
 	"Set the receiver's 'fail_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_fail_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_fail_op put: anInteger!
 
 pass_op
 	"Answer the <Integer> value of the receiver's 'pass_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_pass_op!
+	^bytes sdwordAtOffset: _OffsetOf_pass_op!
 
 pass_op: anInteger
 	"Set the receiver's 'pass_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_pass_op put: anInteger! !
+	bytes sdwordAtOffset: _OffsetOf_pass_op put: anInteger! !
 
 !SDL_GPUStencilOpState categoriesForMethods!
 compare_op!**compiled accessors**!public! !
@@ -76,10 +76,10 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #fail_op type: DWORDField new;
-		defineField: #pass_op type: DWORDField new;
-		defineField: #depth_fail_op type: DWORDField new;
-		defineField: #compare_op type: DWORDField new!
+		defineField: #fail_op type: SDWORDField new;
+		defineField: #pass_op type: SDWORDField new;
+		defineField: #depth_fail_op type: SDWORDField new;
+		defineField: #compare_op type: SDWORDField new!
 
 getFieldNames
 	^#(#fail_op #pass_op #depth_fail_op #compare_op)! !

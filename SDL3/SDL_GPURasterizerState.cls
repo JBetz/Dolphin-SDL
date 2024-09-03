@@ -25,12 +25,12 @@ SDL_GPURasterizerState comment: ''!
 cull_mode
 	"Answer the <Integer> value of the receiver's 'cull_mode' field."
 
-	^bytes dwordAtOffset: _OffsetOf_cull_mode!
+	^bytes sdwordAtOffset: _OffsetOf_cull_mode!
 
 cull_mode: anInteger
 	"Set the receiver's 'cull_mode' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_cull_mode put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_cull_mode put: anInteger!
 
 depth_bias_clamp
 	"Answer the <Float> value of the receiver's 'depth_bias_clamp' field."
@@ -75,22 +75,22 @@ depth_bias_slope_factor: aFloat
 fill_mode
 	"Answer the <Integer> value of the receiver's 'fill_mode' field."
 
-	^bytes dwordAtOffset: _OffsetOf_fill_mode!
+	^bytes sdwordAtOffset: _OffsetOf_fill_mode!
 
 fill_mode: anInteger
 	"Set the receiver's 'fill_mode' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_fill_mode put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_fill_mode put: anInteger!
 
 front_face
 	"Answer the <Integer> value of the receiver's 'front_face' field."
 
-	^bytes dwordAtOffset: _OffsetOf_front_face!
+	^bytes sdwordAtOffset: _OffsetOf_front_face!
 
 front_face: anInteger
 	"Set the receiver's 'front_face' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_front_face put: anInteger! !
+	bytes sdwordAtOffset: _OffsetOf_front_face put: anInteger! !
 
 !SDL_GPURasterizerState categoriesForMethods!
 cull_mode!**compiled accessors**!public! !
@@ -115,9 +115,9 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #fill_mode type: DWORDField new;
-		defineField: #cull_mode type: DWORDField new;
-		defineField: #front_face type: DWORDField new;
+		defineField: #fill_mode type: SDWORDField new;
+		defineField: #cull_mode type: SDWORDField new;
+		defineField: #front_face type: SDWORDField new;
 		defineField: #depth_bias_enable type: BOOLField new;
 		defineField: #depth_bias_constant_factor type: FLOATField new;
 		defineField: #depth_bias_clamp type: FLOATField new;

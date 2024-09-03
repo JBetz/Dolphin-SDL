@@ -27,12 +27,12 @@ SDL_GPUTextureCreateInfo comment: ''!
 format
 	"Answer the <Integer> value of the receiver's 'format' field."
 
-	^bytes dwordAtOffset: _OffsetOf_format!
+	^bytes sdwordAtOffset: _OffsetOf_format!
 
 format: anInteger
 	"Set the receiver's 'format' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_format put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_format put: anInteger!
 
 height
 	"Answer the <Integer> value of the receiver's 'height' field."
@@ -77,22 +77,22 @@ props: anInteger
 sample_count
 	"Answer the <Integer> value of the receiver's 'sample_count' field."
 
-	^bytes dwordAtOffset: _OffsetOf_sample_count!
+	^bytes sdwordAtOffset: _OffsetOf_sample_count!
 
 sample_count: anInteger
 	"Set the receiver's 'sample_count' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_sample_count put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_sample_count put: anInteger!
 
 type
 	"Answer the <Integer> value of the receiver's 'type' field."
 
-	^bytes dwordAtOffset: _OffsetOf_type!
+	^bytes sdwordAtOffset: _OffsetOf_type!
 
 type: anInteger
 	"Set the receiver's 'type' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_type put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_type put: anInteger!
 
 usage_flags
 	"Answer the <Integer> value of the receiver's 'usage_flags' field."
@@ -141,14 +141,14 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #type type: DWORDField new;
-		defineField: #format type: DWORDField new;
+		defineField: #type type: SDWORDField new;
+		defineField: #format type: SDWORDField new;
 		defineField: #usage_flags type: DWORDField new;
 		defineField: #width type: DWORDField new;
 		defineField: #height type: DWORDField new;
 		defineField: #layer_count_or_depth type: DWORDField new;
 		defineField: #level_count type: DWORDField new;
-		defineField: #sample_count type: DWORDField new;
+		defineField: #sample_count type: SDWORDField new;
 		defineField: #props type: DWORDField new!
 
 getFieldNames

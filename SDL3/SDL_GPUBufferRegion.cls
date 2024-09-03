@@ -9,8 +9,8 @@ ExternalStructure subclass: #SDL_GPUBufferRegion
 SDL_GPUBufferRegion guid: (GUID fromString: '{7468eff6-12f7-4931-8785-dbb63d9bb65f}')!
 
 SDL_GPUBufferRegion addClassConstant: '_OffsetOf_buffer' value: 16r0!
-SDL_GPUBufferRegion addClassConstant: '_OffsetOf_offset' value: 16r0!
-SDL_GPUBufferRegion addClassConstant: '_OffsetOf_size' value: 16r4!
+SDL_GPUBufferRegion addClassConstant: '_OffsetOf_offset' value: 16r4!
+SDL_GPUBufferRegion addClassConstant: '_OffsetOf_size' value: 16r8!
 
 SDL_GPUBufferRegion comment: ''!
 
@@ -21,16 +21,12 @@ SDL_GPUBufferRegion comment: ''!
 buffer
 	"Answer the <SDL_GPUBuffer> value of the receiver's 'buffer' field."
 
-	^SDL_GPUBuffer fromAddress: bytes yourAddress!
+	^SDL_GPUBuffer fromAddress: (bytes intPtrAtOffset: _OffsetOf_buffer)!
 
 buffer: aSDL_GPUBuffer
 	"Set the receiver's 'buffer' field to the value of the argument, aSDL_GPUBuffer"
 
-	aSDL_GPUBuffer
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_buffer + 1)
-		to: ##(_OffsetOf_buffer + SDL_GPUBuffer basicByteSize)
-		startingAt: 1!
+	bytes uintPtrAtOffset: _OffsetOf_buffer put: aSDL_GPUBuffer yourAddress!
 
 offset
 	"Answer the <Integer> value of the receiver's 'offset' field."
@@ -67,7 +63,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #buffer type: (StructureField type: SDL_GPUBuffer);
+		defineField: #buffer type: (PointerField type: SDL_GPUBuffer);
 		defineField: #offset type: DWORDField new;
 		defineField: #size type: DWORDField new!
 

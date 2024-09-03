@@ -32,32 +32,32 @@ SDL_GPUSamplerCreateInfo comment: ''!
 address_mode_u
 	"Answer the <Integer> value of the receiver's 'address_mode_u' field."
 
-	^bytes dwordAtOffset: _OffsetOf_address_mode_u!
+	^bytes sdwordAtOffset: _OffsetOf_address_mode_u!
 
 address_mode_u: anInteger
 	"Set the receiver's 'address_mode_u' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_address_mode_u put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_address_mode_u put: anInteger!
 
 address_mode_v
 	"Answer the <Integer> value of the receiver's 'address_mode_v' field."
 
-	^bytes dwordAtOffset: _OffsetOf_address_mode_v!
+	^bytes sdwordAtOffset: _OffsetOf_address_mode_v!
 
 address_mode_v: anInteger
 	"Set the receiver's 'address_mode_v' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_address_mode_v put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_address_mode_v put: anInteger!
 
 address_mode_w
 	"Answer the <Integer> value of the receiver's 'address_mode_w' field."
 
-	^bytes dwordAtOffset: _OffsetOf_address_mode_w!
+	^bytes sdwordAtOffset: _OffsetOf_address_mode_w!
 
 address_mode_w: anInteger
 	"Set the receiver's 'address_mode_w' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_address_mode_w put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_address_mode_w put: anInteger!
 
 anisotropy_enable
 	"Answer the <Boolean> value of the receiver's 'anisotropy_enable' field."
@@ -82,12 +82,12 @@ compare_enable: aBoolean
 compare_op
 	"Answer the <Integer> value of the receiver's 'compare_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_compare_op!
+	^bytes sdwordAtOffset: _OffsetOf_compare_op!
 
 compare_op: anInteger
 	"Set the receiver's 'compare_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_compare_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_compare_op put: anInteger!
 
 mag_filter
 	"Answer the <Integer> value of the receiver's 'mag_filter' field."
@@ -152,12 +152,12 @@ mip_lod_bias: aFloat
 mip_map_mode
 	"Answer the <Integer> value of the receiver's 'mip_map_mode' field."
 
-	^bytes dwordAtOffset: _OffsetOf_mip_map_mode!
+	^bytes sdwordAtOffset: _OffsetOf_mip_map_mode!
 
 mip_map_mode: anInteger
 	"Set the receiver's 'mip_map_mode' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_mip_map_mode put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_mip_map_mode put: anInteger!
 
 props
 	"Answer the <Integer> value of the receiver's 'props' field."
@@ -208,15 +208,15 @@ defineFields
 	self
 		defineField: #min_filter type: DWORDField new;
 		defineField: #mag_filter type: DWORDField new;
-		defineField: #mip_map_mode type: DWORDField new;
-		defineField: #address_mode_u type: DWORDField new;
-		defineField: #address_mode_v type: DWORDField new;
-		defineField: #address_mode_w type: DWORDField new;
+		defineField: #mip_map_mode type: SDWORDField new;
+		defineField: #address_mode_u type: SDWORDField new;
+		defineField: #address_mode_v type: SDWORDField new;
+		defineField: #address_mode_w type: SDWORDField new;
 		defineField: #mip_lod_bias type: FLOATField new;
 		defineField: #anisotropy_enable type: BOOLField new;
 		defineField: #max_anisotropy type: FLOATField new;
 		defineField: #compare_enable type: BOOLField new;
-		defineField: #compare_op type: DWORDField new;
+		defineField: #compare_op type: SDWORDField new;
 		defineField: #min_lod type: FLOATField new;
 		defineField: #max_lod type: FLOATField new;
 		defineField: #props type: DWORDField new!

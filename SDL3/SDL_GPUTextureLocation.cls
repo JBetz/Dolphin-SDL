@@ -8,12 +8,12 @@ ExternalStructure subclass: #SDL_GPUTextureLocation
 
 SDL_GPUTextureLocation guid: (GUID fromString: '{7eb8a21e-4da4-4f05-92c7-eabd43abf202}')!
 
-SDL_GPUTextureLocation addClassConstant: '_OffsetOf_layer' value: 16r4!
-SDL_GPUTextureLocation addClassConstant: '_OffsetOf_mip_level' value: 16r0!
+SDL_GPUTextureLocation addClassConstant: '_OffsetOf_layer' value: 16r8!
+SDL_GPUTextureLocation addClassConstant: '_OffsetOf_mip_level' value: 16r4!
 SDL_GPUTextureLocation addClassConstant: '_OffsetOf_texture' value: 16r0!
-SDL_GPUTextureLocation addClassConstant: '_OffsetOf_x' value: 16r8!
-SDL_GPUTextureLocation addClassConstant: '_OffsetOf_y' value: 16rC!
-SDL_GPUTextureLocation addClassConstant: '_OffsetOf_z' value: 16r10!
+SDL_GPUTextureLocation addClassConstant: '_OffsetOf_x' value: 16rC!
+SDL_GPUTextureLocation addClassConstant: '_OffsetOf_y' value: 16r10!
+SDL_GPUTextureLocation addClassConstant: '_OffsetOf_z' value: 16r14!
 
 SDL_GPUTextureLocation comment: ''!
 
@@ -44,16 +44,12 @@ mip_level: anInteger
 texture
 	"Answer the <SDL_GPUTexture> value of the receiver's 'texture' field."
 
-	^SDL_GPUTexture fromAddress: bytes yourAddress!
+	^SDL_GPUTexture fromAddress: (bytes intPtrAtOffset: _OffsetOf_texture)!
 
 texture: aSDL_GPUTexture
 	"Set the receiver's 'texture' field to the value of the argument, aSDL_GPUTexture"
 
-	aSDL_GPUTexture
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_texture + 1)
-		to: ##(_OffsetOf_texture + SDL_GPUTexture basicByteSize)
-		startingAt: 1!
+	bytes uintPtrAtOffset: _OffsetOf_texture put: aSDL_GPUTexture yourAddress!
 
 x
 	"Answer the <Integer> value of the receiver's 'x' field."
@@ -106,7 +102,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #texture type: (StructureField type: SDL_GPUTexture);
+		defineField: #texture type: (PointerField type: SDL_GPUTexture);
 		defineField: #mip_level type: DWORDField new;
 		defineField: #layer type: DWORDField new;
 		defineField: #x type: DWORDField new;
@@ -114,7 +110,7 @@ defineFields
 		defineField: #z type: DWORDField new!
 
 getFieldNames
-	^#(#mip_level #texture #layer #x #y #z)! !
+	^#(#texture #mip_level #layer #x #y #z)! !
 
 !SDL_GPUTextureLocation class categoriesForMethods!
 defineFields!public! !

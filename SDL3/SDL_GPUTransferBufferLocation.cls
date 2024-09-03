@@ -8,7 +8,7 @@ ExternalStructure subclass: #SDL_GPUTransferBufferLocation
 
 SDL_GPUTransferBufferLocation guid: (GUID fromString: '{7138f35d-7060-4416-a728-00f10e48baa7}')!
 
-SDL_GPUTransferBufferLocation addClassConstant: '_OffsetOf_offset' value: 16r0!
+SDL_GPUTransferBufferLocation addClassConstant: '_OffsetOf_offset' value: 16r4!
 SDL_GPUTransferBufferLocation addClassConstant: '_OffsetOf_transfer_buffer' value: 16r0!
 
 SDL_GPUTransferBufferLocation comment: ''!
@@ -30,16 +30,12 @@ offset: anInteger
 transfer_buffer
 	"Answer the <SDL_GPUTransferBuffer> value of the receiver's 'transfer_buffer' field."
 
-	^SDL_GPUTransferBuffer fromAddress: bytes yourAddress!
+	^SDL_GPUTransferBuffer fromAddress: (bytes intPtrAtOffset: _OffsetOf_transfer_buffer)!
 
 transfer_buffer: aSDL_GPUTransferBuffer
 	"Set the receiver's 'transfer_buffer' field to the value of the argument, aSDL_GPUTransferBuffer"
 
-	aSDL_GPUTransferBuffer
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_transfer_buffer + 1)
-		to: ##(_OffsetOf_transfer_buffer + SDL_GPUTransferBuffer basicByteSize)
-		startingAt: 1! !
+	bytes uintPtrAtOffset: _OffsetOf_transfer_buffer put: aSDL_GPUTransferBuffer yourAddress! !
 
 !SDL_GPUTransferBufferLocation categoriesForMethods!
 offset!**compiled accessors**!public! !
@@ -54,11 +50,11 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #transfer_buffer type: (StructureField type: SDL_GPUTransferBuffer);
+		defineField: #transfer_buffer type: (PointerField type: SDL_GPUTransferBuffer);
 		defineField: #offset type: DWORDField new!
 
 getFieldNames
-	^#(#offset #transfer_buffer)! !
+	^#(#transfer_buffer #offset)! !
 
 !SDL_GPUTransferBufferLocation class categoriesForMethods!
 defineFields!public! !

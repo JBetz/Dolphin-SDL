@@ -59,12 +59,12 @@ layer_or_depth_plane: anInteger
 load_op
 	"Answer the <Integer> value of the receiver's 'load_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_load_op!
+	^bytes sdwordAtOffset: _OffsetOf_load_op!
 
 load_op: anInteger
 	"Set the receiver's 'load_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_load_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_load_op put: anInteger!
 
 mip_level
 	"Answer the <Integer> value of the receiver's 'mip_level' field."
@@ -79,12 +79,12 @@ mip_level: anInteger
 store_op
 	"Answer the <Integer> value of the receiver's 'store_op' field."
 
-	^bytes dwordAtOffset: _OffsetOf_store_op!
+	^bytes sdwordAtOffset: _OffsetOf_store_op!
 
 store_op: anInteger
 	"Set the receiver's 'store_op' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_store_op put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_store_op put: anInteger!
 
 texture
 	"Answer the <SDL_GPUTexture> value of the receiver's 'texture' field."
@@ -123,8 +123,8 @@ defineFields
 		defineField: #mip_level type: DWORDField new;
 		defineField: #layer_or_depth_plane type: DWORDField new;
 		defineField: #clear_color type: (StructureField type: SDL_FColor);
-		defineField: #load_op type: DWORDField new;
-		defineField: #store_op type: DWORDField new;
+		defineField: #load_op type: SDWORDField new;
+		defineField: #store_op type: SDWORDField new;
 		defineField: #cycle type: BOOLField new!
 
 getFieldNames

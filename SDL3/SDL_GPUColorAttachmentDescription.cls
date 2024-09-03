@@ -34,12 +34,12 @@ blend_state: aSDL_GPUColorAttachmentBlendState
 format
 	"Answer the <Integer> value of the receiver's 'format' field."
 
-	^bytes dwordAtOffset: _OffsetOf_format!
+	^bytes sdwordAtOffset: _OffsetOf_format!
 
 format: anInteger
 	"Set the receiver's 'format' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_format put: anInteger! !
+	bytes sdwordAtOffset: _OffsetOf_format put: anInteger! !
 
 !SDL_GPUColorAttachmentDescription categoriesForMethods!
 blend_state!**compiled accessors**!public! !
@@ -54,7 +54,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #format type: DWORDField new;
+		defineField: #format type: SDWORDField new;
 		defineField: #blend_state type: (StructureField type: SDL_GPUColorAttachmentBlendState)!
 
 getFieldNames

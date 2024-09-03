@@ -9,7 +9,7 @@ ExternalStructure subclass: #SDL_GPUBufferBinding
 SDL_GPUBufferBinding guid: (GUID fromString: '{2e90a074-8ec5-4c9c-ae65-9d65cecbdb15}')!
 
 SDL_GPUBufferBinding addClassConstant: '_OffsetOf_buffer' value: 16r0!
-SDL_GPUBufferBinding addClassConstant: '_OffsetOf_offset' value: 16r0!
+SDL_GPUBufferBinding addClassConstant: '_OffsetOf_offset' value: 16r4!
 
 SDL_GPUBufferBinding comment: ''!
 
@@ -20,16 +20,12 @@ SDL_GPUBufferBinding comment: ''!
 buffer
 	"Answer the <SDL_GPUBuffer> value of the receiver's 'buffer' field."
 
-	^SDL_GPUBuffer fromAddress: bytes yourAddress!
+	^SDL_GPUBuffer fromAddress: (bytes intPtrAtOffset: _OffsetOf_buffer)!
 
 buffer: aSDL_GPUBuffer
 	"Set the receiver's 'buffer' field to the value of the argument, aSDL_GPUBuffer"
 
-	aSDL_GPUBuffer
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_buffer + 1)
-		to: ##(_OffsetOf_buffer + SDL_GPUBuffer basicByteSize)
-		startingAt: 1!
+	bytes uintPtrAtOffset: _OffsetOf_buffer put: aSDL_GPUBuffer yourAddress!
 
 offset
 	"Answer the <Integer> value of the receiver's 'offset' field."
@@ -54,7 +50,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #buffer type: (StructureField type: SDL_GPUBuffer);
+		defineField: #buffer type: (PointerField type: SDL_GPUBuffer);
 		defineField: #offset type: DWORDField new!
 
 getFieldNames
