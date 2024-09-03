@@ -15,10 +15,10 @@ SDL_Object comment: ''!
 !SDL_Object methodsFor!
 
 checkBooleanResult: aBoolean
-	aBoolean ifFalse: [Error signal: library getError]!
+	aBoolean ifFalse: [Error signal: self library getError]!
 
 checkObjectResult: anObject
-	anObject ifNil: [Error signal: library getError]!
+	anObject ifNil: [Error signal: self library getError]!
 
 destroy
 	self subclassResponsibility!

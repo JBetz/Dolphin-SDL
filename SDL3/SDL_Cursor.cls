@@ -23,14 +23,14 @@ makeCurrent
 name
 	^name!
 
-name: anObject
-	name := anObject! !
+name: aSymbol
+	name := aSymbol! !
 
 !SDL_Cursor categoriesForMethods!
 destroy!public! !
 makeCurrent!public! !
-name!**compiled accessors**!accessing!public! !
-name:!**compiled accessors**!accessing!public! !
+name!public! !
+name:!public! !
 !
 
 !SDL_Cursor class methodsFor!

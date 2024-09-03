@@ -33,12 +33,12 @@ hinstance
 subsystem
 	"Answer the <Integer> value of the receiver's 'subsystem' field."
 
-	^bytes sdwordAtOffset: _OffsetOf_subsystem!
+	^bytes dwordAtOffset: _OffsetOf_subsystem!
 
 subsystem: anInteger
 	"Set the receiver's 'subsystem' field to the value of the argument, anInteger"
 
-	bytes sdwordAtOffset: _OffsetOf_subsystem put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_subsystem put: anInteger!
 
 version
 	"Answer the <SDL_Version> value of the receiver's 'version' field."
@@ -55,9 +55,9 @@ version: aSDL_Version
 		startingAt: 1!
 
 window
-	"Answer the <Integer> value of the receiver's 'window' field."
+	"Answer the <ExternalHandle> value of the receiver's 'window' field."
 
-	^bytes uintPtrAtOffset: _OffsetOf_window!
+	^ExternalHandle fromAddress: (bytes intPtrAtOffset: _OffsetOf_window)!
 
 window: anExternalHandle
 	"Set the receiver's 'window' field to the value of the argument, anExternalHandle"

@@ -28,14 +28,14 @@ closeGPUDevice
 createGPUDevice
 	| shaderFormatFlags |
 	shaderFormatFlags := SDL_GPU_SHADERFORMAT_SPIRV.
-	gpuDevice := SDL_GPUDevice formatFlags: shaderFormatFlags.
-	gpuDevice claimWindow: window!
+	gpuDevice := SDL_GPUDevice formatFlags: shaderFormatFlags!
 
 onCreated
 	self
 		createWindow;
-		createGPUDevice;
-		setup!
+		createGPUDevice.
+	gpuDevice claimWindow: window.
+	self setup!
 
 setup
 	self subclassResponsibility! !
