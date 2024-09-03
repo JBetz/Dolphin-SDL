@@ -17,12 +17,9 @@ ClearScreenExample comment: ''!
 update
 	| commandBuffer width height swapchainTexture colorAttachmentInfo renderPass |
 	commandBuffer := gpuDevice acquireCommandBuffer.
-	width := DWORD new.
-	height := DWORD new.
-	swapchainTexture := commandBuffer
-				acquireSwapchainTexture: window
-				width: width
-				height: height.
+	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
+	width := swapchainTexture width.
+	height := swapchainTexture height.
 	colorAttachmentInfo := SDL_GPUColorAttachmentInfo new.
 	colorAttachmentInfo
 		texture: swapchainTexture;

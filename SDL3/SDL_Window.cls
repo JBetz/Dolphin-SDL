@@ -78,6 +78,16 @@ getPosition
 getPropertiesId
 	^self library getWindowProperties_window: self!
 
+getSizeInPixels
+	| width height |
+	width := SDWORD new.
+	height := SDWORD new.
+	self checkBooleanResult: (self library
+				getWindowSizeInPixels_window: self
+				w: width
+				h: height).
+	^width value @ height value!
+
 getSurface
 	^self library getWindowSurface_window: self!
 
@@ -122,6 +132,7 @@ getHandle!public! !
 getID!public! !
 getPosition!public! !
 getPropertiesId!public! !
+getSizeInPixels!public! !
 getSurface!public! !
 height!public! !
 hide!public! !

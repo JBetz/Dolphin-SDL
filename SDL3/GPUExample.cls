@@ -26,9 +26,7 @@ closeGPUDevice
 	gpuDevice := nil!
 
 createGPUDevice
-	| shaderFormatFlags |
-	shaderFormatFlags := SDL_GPU_SHADERFORMAT_SPIRV.
-	gpuDevice := SDL_GPUDevice formatFlags: shaderFormatFlags!
+	gpuDevice := SDL_GPUDevice formatFlags: SDL_GPU_SHADERFORMAT_SPIRV!
 
 onCreated
 	self setup!
@@ -37,7 +35,10 @@ setup
 	self
 		createWindow;
 		createGPUDevice.
-	gpuDevice claimWindow: window! !
+	gpuDevice claimWindow: window!
+
+shadersPath
+	^FileLocator imageRelative: 'Content\Shaders\Compiled\'! !
 
 !GPUExample categoriesForMethods!
 close!public! !
@@ -45,6 +46,7 @@ closeGPUDevice!public! !
 createGPUDevice!public! !
 onCreated!public! !
 setup!public! !
+shadersPath!public! !
 !
 
 !GPUExample class methodsFor!

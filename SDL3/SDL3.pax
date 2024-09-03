@@ -9,6 +9,7 @@ package classNames
 	add: #Clear3DSliceExample;
 	add: #ClearScreenExample;
 	add: #ClearScreenMultiWindowExample;
+	add: #ComputeUniformsExample;
 	add: #DrawBezierCurve;
 	add: #DrawImage;
 	add: #DrawLine;
@@ -19,6 +20,7 @@ package classNames
 	add: #FillPolygon;
 	add: #FillRectangle;
 	add: #GPUExample;
+	add: #GradientUniforms;
 	add: #PriorityQueue;
 	add: #RenderCommand;
 	add: #Renderer2D;
@@ -88,7 +90,6 @@ package classNames
 	add: #SDL_GPUVertexInputState;
 	add: #SDL_GPUViewport;
 	add: #SDL_KeyboardEvent;
-	add: #SDL_Keysym;
 	add: #SDL_MouseButtonEvent;
 	add: #SDL_MouseMotionEvent;
 	add: #SDL_MouseWheelEvent;
@@ -155,7 +156,7 @@ package!
 "Class Definitions"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState isReady'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -220,6 +221,12 @@ GPUExample subclass: #ClearScreenMultiWindowExample
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+GPUExample subclass: #ComputeUniformsExample
+	instanceVariableNames: 'gradientPipeline gradientRenderTexture gradientUniformValues width height'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 Dictionary variableSubclass: #PriorityQueue
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -241,6 +248,12 @@ ExternalLibrary subclass: #SDL3Library
 ExternalLibrary subclass: #SDL3TTFLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #GradientUniforms
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_time'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -508,12 +521,6 @@ ExternalStructure subclass: #SDL_GPUViewport
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #SDL_Keysym
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_mod _OffsetOf_scancode _OffsetOf_sym _OffsetOf_unused'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 ExternalStructure subclass: #SDL_Object
 	instanceVariableNames: 'library propertiesId'
 	classVariableNames: ''
@@ -618,7 +625,7 @@ SDL_Event subclass: #SDL_DropEvent
 
 SDL_Event subclass: #SDL_KeyboardEvent
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_keysym _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
+	classVariableNames: '_OffsetOf_key _OffsetOf_mod _OffsetOf_raw _OffsetOf_repeat _OffsetOf_reserved _OffsetOf_scancode _OffsetOf_state _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
@@ -761,7 +768,7 @@ SDL_Object subclass: #SDL_GPUShader
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUTexture
-	instanceVariableNames: ''
+	instanceVariableNames: 'extent'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

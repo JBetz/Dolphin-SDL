@@ -16,20 +16,22 @@ BasicTriangleExample comment: ''!
 
 close
 	gpuDevice
-		releaseGraphicsPipeline: fillPipeline;
-		releaseGraphicsPipeline: linePipeline.
+		ifNotNil: 
+			[gpuDevice
+				releaseGraphicsPipeline: fillPipeline;
+				releaseGraphicsPipeline: linePipeline].
 	super close!
 
 render
 	| commandBuffer |
-	commandBuffer := gpuDevice acquireCommandBuffer.!
+	commandBuffer := gpuDevice acquireCommandBuffer.
+	commandBuffer submit!
 
 setup
-	| shadersPath vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription |
+	| vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription |
 	super setup.
-	shadersPath := FileLocator imageRelative: 'Content\Shaders\Compiled\'.
-	vertexShader := gpuDevice loadVertexShader: shadersPath , 'RawTriangle.vert.spv'.
-	fragmentShader := gpuDevice loadFragmentShader: shadersPath , 'SolidColor.frag.spv'.
+	vertexShader := gpuDevice loadVertexShader: self shadersPath , 'RawTriangle.vert.spv'.
+	fragmentShader := gpuDevice loadFragmentShader: self shadersPath , 'SolidColor.frag.spv'.
 	graphicsPipelineCreateInfo := SDL_GPUGraphicsPipelineCreateInfo new.
 	colorAttachmentDescription := SDL_GPUColorAttachmentDescription new.
 	colorAttachmentDescription format: (gpuDevice getSwapchainTextureFormat: window).
@@ -43,15 +45,21 @@ setup
 		dst_color_blend_factor: SDL_GPU_BLENDFACTOR_ZERO;
 		dst_alpha_blend_factor: SDL_GPU_BLENDFACTOR_ZERO.
 	graphicsPipelineCreateInfo attachment_info
-		color_attachment_descriptions: colorAttachmentDescription yourAddress.
-	graphicsPipelineCreateInfo multisample_state sample_mask: 16rFFFF.
+		color_attachment_descriptions: (StructureArray with: colorAttachmentDescription).
+	graphicsPipelineCreateInfo multisample_state
+		sample_count: SDL_GPU_SAMPLECOUNT_1;
+		sample_mask: 16rFFFF.
 	graphicsPipelineCreateInfo
 		primitive_type: SDL_GPU_PRIMITIVETYPE_TRIANGLELIST;
 		vertex_shader: vertexShader;
 		fragment_shader: fragmentShader.
 	graphicsPipelineCreateInfo rasterizer_state fill_mode: SDL_GPU_FILLMODE_FILL.
 	fillPipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
-	graphicsPipelineCreateInfo rasterizer_state fill_mode: SDL_GPU_FILLMODE_LINE.
+	graphicsPipelineCreateInfo rasterizer_state
+		fill_mode: SDL_GPU_FILLMODE_LINE;
+		cull_mode: SDL_GPU_CULLMODE_NONE;
+		front_face: SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE;
+		depth_bias_enable: false.
 	linePipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
 	gpuDevice
 		releaseShader: vertexShader;

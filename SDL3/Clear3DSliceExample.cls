@@ -28,16 +28,11 @@ setup
 						usage_flags: SDL_GPU_TEXTUREUSAGE_COLOR_TARGET_BIT | SDL_GPU_TEXTUREUSAGE_SAMPLER_BIT).!
 
 update
-	| commandBuffer width height swapchainTexture renderPass |
+	| commandBuffer swapchainTexture width height renderPass |
 	commandBuffer := gpuDevice acquireCommandBuffer.
-	width := DWORD new.
-	height := DWORD new.
-	swapchainTexture := commandBuffer
-				acquireSwapchainTexture: window
-				width: width
-				height: height.
-	width := width value.
-	height := height value.
+	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
+	width := swapchainTexture width.
+	height := swapchainTexture height.
 	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
 						texture: texture3D;
 						cycle: true;

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState isReady'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -65,7 +65,8 @@ initialize
 	super initialize.
 	inputState := SDLInputState current.
 	mousePosition := 0@0.
-	isDirty := true!
+	isDirty := true.
+	isReady := false!
 
 isDirty
 	^isDirty!
@@ -163,6 +164,9 @@ rectangle
 renderer: aRenderer
 	renderer := aRenderer!
 
+sdl
+	^SDL3Library default!
+
 setWindowTitle: aString
 	| title |
 	window ifNil: [^self].
@@ -240,6 +244,7 @@ origin!public! !
 preferredExtent!public! !
 rectangle!public! !
 renderer:!public! !
+sdl!private! !
 setWindowTitle:!accessing!public! !
 show!public! !
 top!public! !
