@@ -71,9 +71,6 @@ releaseGraphicsPipeline: aGPUGraphicsPipeline
 releaseShader: aGPUShader
 	self library releaseGPUShader_device: self shader: aGPUShader!
 
-releaseTexture: aGPUTexture
-	self library releaseGPUTexture_device: self texture: aGPUTexture!
-
 releaseWindow: aWindow
 	self checkBooleanResult: (self library releaseWindowFromGPUDevice_device: self window: aWindow)! !
 
@@ -88,7 +85,6 @@ loadShader:stage:!private! !
 loadVertexShader:!public! !
 releaseGraphicsPipeline:!public! !
 releaseShader:!public! !
-releaseTexture:!public! !
 releaseWindow:!public! !
 !
 

@@ -14,10 +14,6 @@ Clear3DSliceExample comment: ''!
 
 !Clear3DSliceExample methodsFor!
 
-close
-	gpuDevice releaseTexture: texture3D.
-	super close!
-
 setup
 	| swapchainFormat |
 	super setup.
@@ -40,7 +36,6 @@ update
 				acquireSwapchainTexture: window
 				width: width
 				height: height.
-	swapchainTexture ifNil: [^self].
 	width := width value.
 	height := height value.
 	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
@@ -111,7 +106,6 @@ update
 	commandBuffer submit! !
 
 !Clear3DSliceExample categoriesForMethods!
-close!public! !
 setup!public! !
 update!public! !
 !

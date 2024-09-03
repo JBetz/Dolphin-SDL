@@ -8,13 +8,13 @@ ExternalStructure subclass: #SDL_GPUBlitRegion
 
 SDL_GPUBlitRegion guid: (GUID fromString: '{5bde7d4f-47a5-4e3e-b2a6-d8ccd8b8ad67}')!
 
-SDL_GPUBlitRegion addClassConstant: '_OffsetOf_h' value: 16r14!
-SDL_GPUBlitRegion addClassConstant: '_OffsetOf_layer_or_depth_plane' value: 16r4!
-SDL_GPUBlitRegion addClassConstant: '_OffsetOf_mip_level' value: 16r0!
+SDL_GPUBlitRegion addClassConstant: '_OffsetOf_h' value: 16r18!
+SDL_GPUBlitRegion addClassConstant: '_OffsetOf_layer_or_depth_plane' value: 16r8!
+SDL_GPUBlitRegion addClassConstant: '_OffsetOf_mip_level' value: 16r4!
 SDL_GPUBlitRegion addClassConstant: '_OffsetOf_texture' value: 16r0!
-SDL_GPUBlitRegion addClassConstant: '_OffsetOf_w' value: 16r10!
-SDL_GPUBlitRegion addClassConstant: '_OffsetOf_x' value: 16r8!
-SDL_GPUBlitRegion addClassConstant: '_OffsetOf_y' value: 16rC!
+SDL_GPUBlitRegion addClassConstant: '_OffsetOf_w' value: 16r14!
+SDL_GPUBlitRegion addClassConstant: '_OffsetOf_x' value: 16rC!
+SDL_GPUBlitRegion addClassConstant: '_OffsetOf_y' value: 16r10!
 
 SDL_GPUBlitRegion comment: ''!
 
@@ -55,16 +55,12 @@ mip_level: anInteger
 texture
 	"Answer the <SDL_GPUTexture> value of the receiver's 'texture' field."
 
-	^SDL_GPUTexture fromAddress: bytes yourAddress!
+	^SDL_GPUTexture fromAddress: (bytes intPtrAtOffset: _OffsetOf_texture)!
 
 texture: aSDL_GPUTexture
 	"Set the receiver's 'texture' field to the value of the argument, aSDL_GPUTexture"
 
-	aSDL_GPUTexture
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_texture + 1)
-		to: ##(_OffsetOf_texture + SDL_GPUTexture basicByteSize)
-		startingAt: 1!
+	bytes uintPtrAtOffset: _OffsetOf_texture put: aSDL_GPUTexture yourAddress!
 
 w
 	"Answer the <Integer> value of the receiver's 'w' field."
@@ -119,7 +115,7 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #texture type: (StructureField type: SDL_GPUTexture);
+		defineField: #texture type: (PointerField type: SDL_GPUTexture);
 		defineField: #mip_level type: DWORDField new;
 		defineField: #layer_or_depth_plane type: DWORDField new;
 		defineField: #x type: DWORDField new;
@@ -128,7 +124,7 @@ defineFields
 		defineField: #h type: DWORDField new!
 
 getFieldNames
-	^#(#mip_level #texture #layer_or_depth_plane #x #y #w #h)! !
+	^#(#texture #mip_level #layer_or_depth_plane #x #y #w #h)! !
 
 !SDL_GPUBlitRegion class categoriesForMethods!
 defineFields!public! !
