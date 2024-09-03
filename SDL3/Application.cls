@@ -43,7 +43,7 @@ createRenderer
 
 createWindow
 	window := inputState
-				createWindow: self class name asPhrase
+				createWindow: self class name
 				extent: self calculateInitialExtent
 				flags: self windowFlags
 				for: self!

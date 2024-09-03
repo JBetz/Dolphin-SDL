@@ -8,6 +8,7 @@ package classNames
 	add: #BasicTriangleExample;
 	add: #Clear3DSliceExample;
 	add: #ClearScreenExample;
+	add: #ClearScreenMultiWindowExample;
 	add: #DrawBezierCurve;
 	add: #DrawImage;
 	add: #DrawLine;
@@ -209,6 +210,12 @@ GPUExample subclass: #Clear3DSliceExample
 
 GPUExample subclass: #ClearScreenExample
 	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GPUExample subclass: #ClearScreenMultiWindowExample
+	instanceVariableNames: 'secondWindow'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
