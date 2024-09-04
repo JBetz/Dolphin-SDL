@@ -43,6 +43,13 @@ createTexture: aTextureCreateInfo
 	self checkObjectResult: texture.
 	^texture!
 
+createTransferBuffer: aTransferBufferCreateInfo
+	| transferBuffer |
+	transferBuffer := self library createGPUTransferBuffer_device: self
+				transferBufferCreateInfo: aTransferBufferCreateInfo.
+	self checkObjectResult: transferBuffer.
+	^transferBuffer!
+
 getSwapchainTextureFormat: aWindow
 	^self library getGPUSwapchainTextureFormat_device: self window: aWindow!
 
@@ -72,6 +79,9 @@ loadShader: aString stage: anInteger
 loadVertexShader: aString
 	^self loadShader: aString stage: SDL_GPU_SHADERSTAGE_VERTEX!
 
+mapTransferBuffer: aTransferBuffer
+	^self library mapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer cycle: false!
+
 releaseComputePipeline: aComputePipeline
 	self library releaseGPUComputePipeline_device: self computePipeline: aComputePipeline!
 
@@ -84,8 +94,14 @@ releaseShader: aGPUShader
 releaseTexture: aGPUTexture
 	self library releaseGPUTexture_device: self texture: aGPUTexture!
 
+releaseTransferBuffer: aGPUTransferBuffer
+	self library releaseGPUTransferBuffer_device: self transferBuffer: aGPUTransferBuffer!
+
 releaseWindow: aWindow
-	self checkBooleanResult: (self library releaseWindowFromGPUDevice_device: self window: aWindow)! !
+	self checkBooleanResult: (self library releaseWindowFromGPUDevice_device: self window: aWindow)!
+
+unmapTransferBuffer: aTransferBuffer
+	self library unmapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer! !
 
 !SDL_GPUDevice categoriesForMethods!
 acquireCommandBuffer!public! !
@@ -93,15 +109,19 @@ claimWindow:!public! !
 createComputePipeline:!public! !
 createGraphicsPipeline:!public! !
 createTexture:!public! !
+createTransferBuffer:!public! !
 getSwapchainTextureFormat:!public! !
 loadFragmentShader:!public! !
 loadShader:stage:!private! !
 loadVertexShader:!public! !
+mapTransferBuffer:!public! !
 releaseComputePipeline:!public! !
 releaseGraphicsPipeline:!public! !
 releaseShader:!public! !
 releaseTexture:!public! !
+releaseTransferBuffer:!public! !
 releaseWindow:!public! !
+unmapTransferBuffer:!public! !
 !
 
 !SDL_GPUDevice class methodsFor!

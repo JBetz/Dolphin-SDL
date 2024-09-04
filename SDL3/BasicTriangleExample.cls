@@ -28,7 +28,7 @@ render
 	commandBuffer submit!
 
 setup
-	| vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription |
+	| vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription colorAttachmentDescriptions |
 	super setup.
 	vertexShader := gpuDevice loadVertexShader: self shadersPath , 'RawTriangle.vert.spv'.
 	fragmentShader := gpuDevice loadFragmentShader: self shadersPath , 'SolidColor.frag.spv'.
@@ -44,8 +44,8 @@ setup
 		src_alpha_blend_factor: SDL_GPU_BLENDFACTOR_ONE;
 		dst_color_blend_factor: SDL_GPU_BLENDFACTOR_ZERO;
 		dst_alpha_blend_factor: SDL_GPU_BLENDFACTOR_ZERO.
-	graphicsPipelineCreateInfo attachment_info
-		color_attachment_descriptions: (StructureArray with: colorAttachmentDescription).
+	colorAttachmentDescriptions := StructureArray with: colorAttachmentDescription.
+	graphicsPipelineCreateInfo attachment_info color_attachment_descriptions: colorAttachmentDescriptions.
 	graphicsPipelineCreateInfo multisample_state
 		sample_count: SDL_GPU_SAMPLECOUNT_1;
 		sample_mask: 16rFFFF.
@@ -53,13 +53,13 @@ setup
 		primitive_type: SDL_GPU_PRIMITIVETYPE_TRIANGLELIST;
 		vertex_shader: vertexShader;
 		fragment_shader: fragmentShader.
-	graphicsPipelineCreateInfo rasterizer_state fill_mode: SDL_GPU_FILLMODE_FILL.
-	fillPipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
 	graphicsPipelineCreateInfo rasterizer_state
-		fill_mode: SDL_GPU_FILLMODE_LINE;
+		fill_mode: SDL_GPU_FILLMODE_FILL;
 		cull_mode: SDL_GPU_CULLMODE_NONE;
 		front_face: SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE;
 		depth_bias_enable: false.
+	fillPipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
+	graphicsPipelineCreateInfo rasterizer_state fill_mode: SDL_GPU_FILLMODE_LINE.
 	linePipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
 	gpuDevice
 		releaseShader: vertexShader;

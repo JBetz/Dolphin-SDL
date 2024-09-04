@@ -12,3 +12,20 @@ SDL_GPUCopyPass comment: ''!
 
 !SDL_GPUCopyPass categoriesForClass!External-Data-Structured! !
 
+!SDL_GPUCopyPass methodsFor!
+
+end
+	self library endGPUCopyPass_copyPass: self!
+
+uploadToTexture: aGPUTextureTransferInfo destination: aGPUTextureRegion
+	self library
+		uploadToGPUTexture_copyPass: self
+		source: aGPUTextureTransferInfo
+		destination: aGPUTextureRegion
+		cycle: false! !
+
+!SDL_GPUCopyPass categoriesForMethods!
+end!public! !
+uploadToTexture:destination:!public! !
+!
+

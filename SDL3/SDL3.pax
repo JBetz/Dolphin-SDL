@@ -19,6 +19,7 @@ package classNames
 	add: #DrawTexture;
 	add: #FillPolygon;
 	add: #FillRectangle;
+	add: #GenerateMipmapsExample;
 	add: #GPUExample;
 	add: #GradientUniforms;
 	add: #PriorityQueue;
@@ -223,6 +224,12 @@ GPUExample subclass: #ClearScreenMultiWindowExample
 
 GPUExample subclass: #ComputeUniformsExample
 	instanceVariableNames: 'gradientPipeline gradientRenderTexture gradientUniformValues width height'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GPUExample subclass: #GenerateMipmapsExample
+	instanceVariableNames: 'mipmapTexture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -487,7 +494,7 @@ ExternalStructure subclass: #SDL_GPUTextureTransferInfo
 
 ExternalStructure subclass: #SDL_GPUTransferBufferCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage_flags'
+	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -787,7 +794,7 @@ SDL_Object subclass: #SDL_Renderer
 
 SDL_Object subclass: #SDL_Surface
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_clip_rect _OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_list_blitmap _OffsetOf_locked _OffsetOf_map _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_userdata _OffsetOf_w'
+	classVariableNames: '_OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_internal _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

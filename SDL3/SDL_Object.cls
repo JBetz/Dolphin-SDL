@@ -18,7 +18,7 @@ checkBooleanResult: aBoolean
 	aBoolean ifFalse: [Error signal: self library getError]!
 
 checkObjectResult: anObject
-	anObject ifNil: [Error signal: self library getError]!
+	anObject isNull ifTrue: [Error signal: self library getError]!
 
 destroy
 	self subclassResponsibility!

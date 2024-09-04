@@ -28,6 +28,9 @@ closeGPUDevice
 createGPUDevice
 	gpuDevice := SDL_GPUDevice formatFlags: SDL_GPU_SHADERFORMAT_SPIRV!
 
+imagesPath
+	^FileLocator imageRelative: 'Content\Images\'!
+
 onCreated
 	self setup!
 
@@ -44,6 +47,7 @@ shadersPath
 close!public! !
 closeGPUDevice!public! !
 createGPUDevice!public! !
+imagesPath!public! !
 onCreated!public! !
 setup!public! !
 shadersPath!public! !

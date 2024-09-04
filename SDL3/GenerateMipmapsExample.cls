@@ -1,0 +1,89 @@
+﻿"Filed out from Dolphin Smalltalk"!
+
+GPUExample subclass: #GenerateMipmapsExample
+	instanceVariableNames: 'mipmapTexture'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GenerateMipmapsExample guid: (GUID fromString: '{4199c48e-787b-4e9c-9224-1903cd64a7bd}')!
+
+GenerateMipmapsExample comment: ''!
+
+!GenerateMipmapsExample categoriesForClass!Kernel-Objects! !
+
+!GenerateMipmapsExample methodsFor!
+
+close
+	gpuDevice releaseTexture: mipmapTexture.
+	super close!
+
+setup
+	| byteCount textureTransferBuffer textureTransferData imageSurface commandBuffer copyPass |
+	super setup.
+	mipmapTexture := gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
+						type: SDL_GPU_TEXTURETYPE_2D;
+						format: SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM;
+						usage_flags: SDL_GPU_TEXTUREUSAGE_SAMPLER_BIT | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET_BIT;
+						width: 32;
+						height: 32;
+						layer_count_or_depth: 1;
+						level_count: 3).
+	byteCount := 32 * 32 * 4.
+	textureTransferBuffer := gpuDevice createTransferBuffer: (SDL_GPUTransferBufferCreateInfo new
+						usage: SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD;
+						size_in_bytes: byteCount).
+	textureTransferData := gpuDevice mapTransferBuffer: textureTransferBuffer.
+	imageSurface := SDL_Surface fromBMPFile: self imagesPath , 'cube0.bmp'.
+	imageSurface format ~= SDL_PIXELFORMAT_ABGR8888
+		ifTrue: 
+			[| newImageSurface |
+			newImageSurface := imageSurface convertPixelFormat: SDL_PIXELFORMAT_ABGR8888.
+			imageSurface := newImageSurface].
+	KernelLibrary default
+		copyMemory: textureTransferData
+		source: imageSurface pixels
+		length: byteCount.
+	imageSurface destroy.
+	gpuDevice unmapTransferBuffer: textureTransferBuffer.
+	commandBuffer := gpuDevice acquireCommandBuffer.
+	copyPass := commandBuffer beginCopyPass.
+	copyPass uploadToTexture: (SDL_GPUTextureTransferInfo new transfer_buffer: textureTransferBuffer)
+		destination: (SDL_GPUTextureRegion new
+				texture: mipmapTexture;
+				w: 32;
+				h: 32;
+				d: 1).
+	copyPass end.
+	commandBuffer generateMipmapsForTexture: mipmapTexture.
+	commandBuffer submit.
+	gpuDevice releaseTransferBuffer: textureTransferBuffer.
+	isReady := true!
+
+update
+	| commandBuffer swapchainTexture |
+	isReady ifFalse: [^self].
+	commandBuffer := gpuDevice acquireCommandBuffer.
+	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
+	swapchainTexture isNull
+		ifFalse: 
+			[| width height |
+			width := swapchainTexture width.
+			height := swapchainTexture height.
+			commandBuffer blitTexture: (SDL_GPUBlitRegion new
+						texture: mipmapTexture;
+						w: 8;
+						h: 8;
+						mip_level: 2)
+				destination: (SDL_GPUBlitRegion new
+						texture: swapchainTexture;
+						w: width;
+						h: height)].
+	commandBuffer submit! !
+
+!GenerateMipmapsExample categoriesForMethods!
+close!public! !
+setup!public! !
+update!public! !
+!
+

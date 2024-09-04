@@ -23,7 +23,6 @@ acquireSwapchainTexture: aWindow
 				window: aWindow
 				pWidth: width
 				pHeight: height.
-	self checkObjectResult: swapchainTexture.
 	swapchainTexture extent: width value @ height value.
 	^swapchainTexture!
 
@@ -37,6 +36,13 @@ beginComputePass: aStorageTextureWriteOnlyBinding
 				storageBufferBindingCount: 0.
 	self checkObjectResult: computePass.
 	^computePass!
+
+beginCopyPass
+	| copyPass |
+	copyPass := self library
+				beginGPUCopyPass_commandBuffer: self .
+	self checkObjectResult: copyPass.
+	^copyPass!
 
 beginRenderPass: aColorAttachmentInfo
 	| renderPass |
@@ -60,6 +66,9 @@ blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: anInteger
 		filterMode: anInteger
 		cycle: false!
 
+generateMipmapsForTexture: aGPUTexture
+	self library generateMipmapsForGPUTexture_commandBuffer: self texture: aGPUTexture!
+
 pushComputeUniformData: data
 	self library
 		pushGPUComputeUniformData_commandBuffer: self
@@ -73,9 +82,11 @@ submit
 !SDL_GPUCommandBuffer categoriesForMethods!
 acquireSwapchainTexture:!public! !
 beginComputePass:!public! !
+beginCopyPass!public! !
 beginRenderPass:!public! !
 blitTexture:destination:!public! !
 blitTexture:destination:filterMode:!public! !
+generateMipmapsForTexture:!public! !
 pushComputeUniformData:!public! !
 submit!public! !
 !

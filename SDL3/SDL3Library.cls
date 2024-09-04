@@ -126,6 +126,10 @@ closeAudioDevice_devid: devid
 	<cdecl: void SDL_CloseAudioDevice dword>
 	^self invalidCall: _failureCode!
 
+convertSurface_surface: surface format: format
+	<cdecl: SDL_Surface* SDL_ConvertSurface SDL_Surface* sdword>
+	^self invalidCall: _failureCode!
+
 copyFile_oldpath: oldpath newpath: newpath
 	<cdecl: bool SDL_CopyFile char* char*>
 	^self invalidCall: _failureCode!
@@ -718,6 +722,10 @@ insertGPUDebugLabel_commandBuffer: commandBuffer text: text
 	<cdecl: void SDL_InsertGPUDebugLabel SDL_GPUCommandBuffer* lpstr>
 	^self invalidCall: _failureCode!
 
+loadBMP_file: file
+	<cdecl: SDL_Surface* SDL_LoadBMP lpstr>
+	^self invalidCall: _failureCode!
+
 loadFile_file: file datasize: datasize
 	<cdecl: lpvoid SDL_LoadFile lpstr dword*>
 	^self invalidCall: _failureCode!
@@ -735,7 +743,7 @@ lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
 	^self invalidCall: _failureCode!
 
 mapGPUTransferBuffer_device: device transferBuffer: transferBuffer cycle: cycle 
-	<cdecl: void SDL_MapGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer* bool>
+	<cdecl: lpvoid SDL_MapGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer* bool>
 	^self invalidCall: _failureCode!
 
 maximizeWindow_window: window
@@ -1151,6 +1159,7 @@ claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
 clearProperty_props:name:!properties!public! !
 closeAudioDevice_devid:!audio!public! !
+convertSurface_surface:format:!properties!public! !
 copyFile_oldpath:newpath:!file system!public! !
 copyGPUBufferToBuffer_copyPass:source:destination:size:cycle:!gpu!public! !
 copyGPUTextureToTexture_copyPass:source:destination:w:h:d:cycle:!gpu!public! !
@@ -1299,6 +1308,7 @@ hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
 insertGPUDebugLabel_commandBuffer:text:!gpu!public! !
+loadBMP_file:!io stream!public! !
 loadFile_file:datasize:!io stream!public! !
 lockAudioStream_stream:!audio!public! !
 lockProperties_props:!properties!public! !

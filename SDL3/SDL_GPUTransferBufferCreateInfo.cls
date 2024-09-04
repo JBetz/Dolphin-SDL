@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUTransferBufferCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage_flags'
+	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -10,7 +10,7 @@ SDL_GPUTransferBufferCreateInfo guid: (GUID fromString: '{ab57cf1e-5de0-491a-a64
 
 SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_props' value: 16r8!
 SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_size_in_bytes' value: 16r4!
-SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_usage_flags' value: 16r0!
+SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_usage' value: 16r0!
 
 SDL_GPUTransferBufferCreateInfo comment: ''!
 
@@ -38,23 +38,23 @@ size_in_bytes: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_size_in_bytes put: anInteger!
 
-usage_flags
-	"Answer the <Integer> value of the receiver's 'usage_flags' field."
+usage
+	"Answer the <Integer> value of the receiver's 'usage' field."
 
-	^bytes sdwordAtOffset: _OffsetOf_usage_flags!
+	^bytes sdwordAtOffset: _OffsetOf_usage!
 
-usage_flags: anInteger
-	"Set the receiver's 'usage_flags' field to the value of the argument, anInteger"
+usage: anInteger
+	"Set the receiver's 'usage' field to the value of the argument, anInteger"
 
-	bytes sdwordAtOffset: _OffsetOf_usage_flags put: anInteger! !
+	bytes sdwordAtOffset: _OffsetOf_usage put: anInteger! !
 
 !SDL_GPUTransferBufferCreateInfo categoriesForMethods!
 props!**compiled accessors**!public! !
 props:!**compiled accessors**!public! !
 size_in_bytes!**compiled accessors**!public! !
 size_in_bytes:!**compiled accessors**!public! !
-usage_flags!**compiled accessors**!public! !
-usage_flags:!**compiled accessors**!public! !
+usage!**compiled accessors**!public! !
+usage:!**compiled accessors**!public! !
 !
 
 !SDL_GPUTransferBufferCreateInfo class methodsFor!
@@ -63,12 +63,12 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #usage_flags type: SDWORDField new;
+		defineField: #usage type: SDWORDField new;
 		defineField: #size_in_bytes type: DWORDField new;
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#usage_flags #size_in_bytes #props)! !
+	^#(#usage #size_in_bytes #props)! !
 
 !SDL_GPUTransferBufferCreateInfo class categoriesForMethods!
 defineFields!public! !

@@ -31,73 +31,75 @@ update
 	| commandBuffer swapchainTexture width height renderPass |
 	commandBuffer := gpuDevice acquireCommandBuffer.
 	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
-	width := swapchainTexture width.
-	height := swapchainTexture height.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
-						texture: texture3D;
-						cycle: true;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: (SDL_FColor
-									r: 1.0
-									g: 0.0
-									b: 0.0
-									a: 1.0);
-						layer_or_depth_plane: 0).
-	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
-						texture: texture3D;
-						cycle: false;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: (SDL_FColor
-									r: 0.0
-									g: 1.0
-									b: 0.0
-									a: 1.0);
-						layer_or_depth_plane: 1).
-	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
-						texture: texture3D;
-						cycle: false;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: (SDL_FColor
-									r: 0.0
-									g: 0.0
-									b: 1.0
-									a: 1.0);
-						layer_or_depth_plane: 2).
-	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
-						texture: texture3D;
-						cycle: false;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: (SDL_FColor
-									r: 1.0
-									g: 0.0
-									b: 1.0
-									a: 1.0);
-						layer_or_depth_plane: 3).
-	renderPass end.
-	0 to: 3
-		do: 
-			[:i |
-			| destX destY |
-			destX := i % 2 * (width / 2).
-			destY := i > 2 ifTrue: [height / 2] ifFalse: [0].
-			commandBuffer blitTexture: (SDL_GPUBlitRegion new
-						texture: texture3D;
-						layer_or_depth_plane: i;
-						w: 64;
-						h: 64)
-				destination: (SDL_GPUBlitRegion new
-						texture: swapchainTexture;
-						x: destX;
-						y: destY;
-						w: width / 2;
-						h: height / 2)].
+	swapchainTexture isNull
+		ifFalse: 
+			[width := swapchainTexture width.
+			height := swapchainTexture height.
+			renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+								texture: texture3D;
+								cycle: true;
+								load_op: SDL_GPU_LOADOP_CLEAR;
+								store_op: SDL_GPU_STOREOP_STORE;
+								clear_color: (SDL_FColor
+											r: 1.0
+											g: 0.0
+											b: 0.0
+											a: 1.0);
+								layer_or_depth_plane: 0).
+			renderPass end.
+			renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+								texture: texture3D;
+								cycle: false;
+								load_op: SDL_GPU_LOADOP_CLEAR;
+								store_op: SDL_GPU_STOREOP_STORE;
+								clear_color: (SDL_FColor
+											r: 0.0
+											g: 1.0
+											b: 0.0
+											a: 1.0);
+								layer_or_depth_plane: 1).
+			renderPass end.
+			renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+								texture: texture3D;
+								cycle: false;
+								load_op: SDL_GPU_LOADOP_CLEAR;
+								store_op: SDL_GPU_STOREOP_STORE;
+								clear_color: (SDL_FColor
+											r: 0.0
+											g: 0.0
+											b: 1.0
+											a: 1.0);
+								layer_or_depth_plane: 2).
+			renderPass end.
+			renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+								texture: texture3D;
+								cycle: false;
+								load_op: SDL_GPU_LOADOP_CLEAR;
+								store_op: SDL_GPU_STOREOP_STORE;
+								clear_color: (SDL_FColor
+											r: 1.0
+											g: 0.0
+											b: 1.0
+											a: 1.0);
+								layer_or_depth_plane: 3).
+			renderPass end.
+			0 to: 3
+				do: 
+					[:i |
+					| destX destY |
+					destX := i % 2 * (width / 2).
+					destY := i > 2 ifTrue: [height / 2] ifFalse: [0].
+					commandBuffer blitTexture: (SDL_GPUBlitRegion new
+								texture: texture3D;
+								layer_or_depth_plane: i;
+								w: 64;
+								h: 64)
+						destination: (SDL_GPUBlitRegion new
+								texture: swapchainTexture;
+								x: destX;
+								y: destY;
+								w: width / 2;
+								h: height / 2)]].
 	commandBuffer submit! !
 
 !Clear3DSliceExample categoriesForMethods!
