@@ -954,12 +954,20 @@ setFloatProperty_props: props name: name value: value
 	<cdecl: bool SDL_SetFloatProperty dword lpstr float>
 	^self invalidCall: _failureCode!
 
+setGPUBlendConstants_renderPass: renderPass blendConstants: blendConstants
+	<cdecl: void SDL_SetGPUBlendConstants SDL_GPURenderPass* SDL_FColor*>
+	^self invalidCall: _failureCode!
+
 setGPUBufferName_device: device buffer: buffer text: text
 	<cdecl: void SDL_SetGPUBufferName SDL_GPUDevice* SDL_GPUBuffer* lpstr>
 	^self invalidCall: _failureCode!
 
 setGPUScissor_renderPass: renderPass scissor: scissor
 	<cdecl: void SDL_SetGPUScissor SDL_GPURenderPass* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
+setGPUStencilReference_renderPass: renderPass reference: reference
+	<cdecl: void SDL_SetGPUStencilReference SDL_GPURenderPass* word>
 	^self invalidCall: _failureCode!
 
 setGPUSwapchainParameters_device: device window: window swapchainComposition: swapchainComposition presentMode: presentMode
@@ -1365,8 +1373,10 @@ setBooleanProperty_props:name:value:!properties!public! !
 setCursor_cursor:!events!public! !
 setEventFilter_filter:userdata:!events!public! !
 setFloatProperty_props:name:value:!properties!public! !
+setGPUBlendConstants_renderPass:blendConstants:!gpu!public! !
 setGPUBufferName_device:buffer:text:!gpu!public! !
 setGPUScissor_renderPass:scissor:!gpu!public! !
+setGPUStencilReference_renderPass:reference:!gpu!public! !
 setGPUSwapchainParameters_device:window:swapchainComposition:presentMode:!gpu!public! !
 setGPUTextureName_device:texture:text:!gpu!public! !
 setGPUViewport_renderPass:viewport:!gpu!public! !
