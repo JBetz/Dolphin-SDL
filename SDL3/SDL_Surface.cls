@@ -101,7 +101,7 @@ width
 	^self w! !
 
 !SDL_Surface categoriesForMethods!
-convertPixelFormat:!**compiled accessors**!public! !
+convertPixelFormat:!public! !
 destroy!public! !
 extent!public! !
 flags!**compiled accessors**!public! !
