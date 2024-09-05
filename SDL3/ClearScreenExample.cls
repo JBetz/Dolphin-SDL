@@ -14,27 +14,23 @@ ClearScreenExample comment: ''!
 
 !ClearScreenExample methodsFor!
 
-update
-	| commandBuffer swapchainTexture colorAttachmentInfo renderPass |
-	commandBuffer := gpuDevice acquireCommandBuffer.
-	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
-	swapchainTexture isNull
-		ifFalse: 
-			[colorAttachmentInfo := SDL_GPUColorAttachmentInfo new.
-			colorAttachmentInfo
-				texture: swapchainTexture;
-				clear_color: (SDL_FColor
-							r: 0.01
-							g: 0.01
-							b: 0.4
-							a: 1.0);
-				load_op: SDL_GPU_LOADOP_CLEAR;
-				store_op: SDL_GPU_STOREOP_STORE.
-			renderPass := commandBuffer beginRenderPass: colorAttachmentInfo.
-			renderPass end].
-	commandBuffer submit! !
+renderOn: aGPUTexture
+	| colorAttachmentInfo renderPass |
+	colorAttachmentInfo := SDL_GPUColorAttachmentInfo new.
+	colorAttachmentInfo
+		texture: aGPUTexture;
+		clear_color: Color gray asSDLFColor;
+		load_op: SDL_GPU_LOADOP_CLEAR;
+		store_op: SDL_GPU_STOREOP_STORE.
+	renderPass := commandBuffer beginRenderPass: colorAttachmentInfo.
+	renderPass end!
+
+setup
+	super setup.
+	isReady := true! !
 
 !ClearScreenExample categoriesForMethods!
-update!public! !
+renderOn:!public! !
+setup!public! !
 !
 

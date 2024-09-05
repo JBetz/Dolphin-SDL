@@ -20,24 +20,46 @@ close
 		releaseTexture: gradientRenderTexture.
 	super close!
 
+renderOn: aGPUTexture
+	| computePass |
+	gradientUniformValues time: gradientUniformValues time + 0.01.
+	computePass := commandBuffer beginComputePass: (SDL_GPUStorageTextureWriteOnlyBinding new
+						texture: gradientRenderTexture;
+						cycle: true).
+	computePass bindComputePipeline: gradientPipeline.
+	commandBuffer pushComputeUniformData: gradientUniformValues.
+	computePass
+		dispatchComputeToX: width / 8
+			y: height / 8
+			z: 1;
+		end.
+	commandBuffer
+		blitTexture: (SDL_GPUBlitRegion new
+				texture: gradientRenderTexture;
+				w: width;
+				h: height)
+		destination: (SDL_GPUBlitRegion new
+				texture: aGPUTexture;
+				w: width;
+				h: height)
+		filterMode: SDL_GPU_FILTER_LINEAR!
+
 setup
-	| codeSize code computePipelineCreateInfo windowPixelSize |
+	| codeSize code windowPixelSize |
 	super setup.
 	codeSize := DWORD new.
 	code := self sdl loadFile_file: self shadersPath , 'GradientTexture.comp.spv' datasize: codeSize.
 	code isNull ifTrue: [self error: self sdl getError].
-	computePipelineCreateInfo := SDL_GPUComputePipelineCreateInfo new.
-	computePipelineCreateInfo
-		code: code;
-		code_size: codeSize;
-		entry_point_name: 'main';
-		format: SDL_GPU_SHADERFORMAT_SPIRV;
-		write_only_storage_texture_count: 1;
-		uniform_buffer_count: 1;
-		thread_count_x: 8;
-		thread_count_y: 8;
-		thread_count_z: 1.
-	gradientPipeline := gpuDevice createComputePipeline: computePipelineCreateInfo.
+	gradientPipeline := gpuDevice createComputePipeline: (SDL_GPUComputePipelineCreateInfo new
+						code: code;
+						code_size: codeSize;
+						entry_point_name: 'main';
+						format: SDL_GPU_SHADERFORMAT_SPIRV;
+						write_only_storage_texture_count: 1;
+						uniform_buffer_count: 1;
+						thread_count_x: 8;
+						thread_count_y: 8;
+						thread_count_z: 1).
 	windowPixelSize := window getSizeInPixels.
 	width := windowPixelSize x.
 	height := windowPixelSize y.
@@ -50,42 +72,11 @@ setup
 						level_count: 1;
 						usage_flags: SDL_GPU_TEXTUREUSAGE_SAMPLER_BIT | SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE_BIT).
 	gradientUniformValues := GradientUniforms new.
-	isReady := true!
-
-update
-	| commandBuffer swapchainTexture |
-	isReady ifFalse: [^self].
-	gradientUniformValues time: gradientUniformValues time + 0.01.
-	commandBuffer := gpuDevice acquireCommandBuffer.
-	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
-	swapchainTexture isNull
-		ifFalse: 
-			[| computePass |
-			computePass := commandBuffer beginComputePass: (SDL_GPUStorageTextureWriteOnlyBinding new
-								texture: gradientRenderTexture;
-								cycle: true).
-			computePass bindComputePipeline: gradientPipeline.
-			commandBuffer pushComputeUniformData: gradientUniformValues.
-			computePass
-				dispatchComputeToX: width / 8
-					y: height / 8
-					z: 1;
-				end.
-			commandBuffer
-				blitTexture: (SDL_GPUBlitRegion new
-						texture: gradientRenderTexture;
-						w: width;
-						h: height)
-				destination: (SDL_GPUBlitRegion new
-						texture: swapchainTexture;
-						w: width;
-						h: height)
-				filterMode: SDL_GPU_FILTER_LINEAR].
-	commandBuffer submit! !
+	isReady := true! !
 
 !ComputeUniformsExample categoriesForMethods!
 close!public! !
+renderOn:!public! !
 setup!public! !
-update!public! !
 !
 

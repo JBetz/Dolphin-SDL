@@ -22,10 +22,17 @@ close
 				releaseGraphicsPipeline: linePipeline].
 	super close!
 
-render
-	| commandBuffer |
-	commandBuffer := gpuDevice acquireCommandBuffer.
-	commandBuffer submit!
+renderOn: aGPUTexture
+	| renderPass |
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+						texture: aGPUTexture;
+						clear_color: Color black asSDLFColor;
+						load_op: SDL_GPU_LOADOP_CLEAR;
+						store_op: SDL_GPU_STOREOP_STORE).
+	renderPass
+		bindGraphicsPipeline: fillPipeline;
+		drawPrimitives: 3 instanceCount: 1;
+		end!
 
 setup
 	| vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription colorAttachmentDescriptions |
@@ -45,29 +52,25 @@ setup
 		dst_color_blend_factor: SDL_GPU_BLENDFACTOR_ZERO;
 		dst_alpha_blend_factor: SDL_GPU_BLENDFACTOR_ZERO.
 	colorAttachmentDescriptions := StructureArray with: colorAttachmentDescription.
-	graphicsPipelineCreateInfo attachment_info color_attachment_descriptions: colorAttachmentDescriptions.
-	graphicsPipelineCreateInfo multisample_state
-		sample_count: SDL_GPU_SAMPLECOUNT_1;
-		sample_mask: 16rFFFF.
+	graphicsPipelineCreateInfo attachment_info
+		color_attachment_descriptions: colorAttachmentDescriptions.
+	graphicsPipelineCreateInfo multisample_state sample_mask: 16rFFFF.
 	graphicsPipelineCreateInfo
 		primitive_type: SDL_GPU_PRIMITIVETYPE_TRIANGLELIST;
 		vertex_shader: vertexShader;
 		fragment_shader: fragmentShader.
-	graphicsPipelineCreateInfo rasterizer_state
-		fill_mode: SDL_GPU_FILLMODE_FILL;
-		cull_mode: SDL_GPU_CULLMODE_NONE;
-		front_face: SDL_GPU_FRONTFACE_COUNTER_CLOCKWISE;
-		depth_bias_enable: false.
+	graphicsPipelineCreateInfo rasterizer_state fill_mode: SDL_GPU_FILLMODE_FILL.
 	fillPipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
 	graphicsPipelineCreateInfo rasterizer_state fill_mode: SDL_GPU_FILLMODE_LINE.
 	linePipeline := gpuDevice createGraphicsPipeline: graphicsPipelineCreateInfo.
 	gpuDevice
 		releaseShader: vertexShader;
-		releaseShader: fragmentShader! !
+		releaseShader: fragmentShader.
+	isReady := true! !
 
 !BasicTriangleExample categoriesForMethods!
 close!public! !
-render!public! !
+renderOn:!public! !
 setup!public! !
 !
 

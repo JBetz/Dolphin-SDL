@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Application subclass: #GPUExample
-	instanceVariableNames: 'gpuDevice'
+	instanceVariableNames: 'gpuDevice commandBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -34,6 +34,9 @@ imagesPath
 onCreated
 	self setup!
 
+renderOn: aGPUTexture
+	self subclassResponsibility!
+
 setup
 	self
 		createWindow;
@@ -41,7 +44,15 @@ setup
 	gpuDevice claimWindow: window!
 
 shadersPath
-	^FileLocator imageRelative: 'Content\Shaders\Compiled\'! !
+	^FileLocator imageRelative: 'Content\Shaders\Compiled\'!
+
+update
+	| swapchainTexture |
+	isReady ifFalse: [^self].
+	commandBuffer := gpuDevice acquireCommandBuffer.
+	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
+	swapchainTexture isNull ifFalse: [self renderOn: swapchainTexture].
+	commandBuffer submit! !
 
 !GPUExample categoriesForMethods!
 close!public! !
@@ -49,8 +60,10 @@ closeGPUDevice!public! !
 createGPUDevice!public! !
 imagesPath!public! !
 onCreated!public! !
+renderOn:!public! !
 setup!public! !
 shadersPath!public! !
+update!public! !
 !
 
 !GPUExample class methodsFor!

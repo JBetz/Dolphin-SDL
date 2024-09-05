@@ -21,6 +21,24 @@ close
 	secondWindow := nil.
 	super close!
 
+renderOn: aGPUTexture
+	| renderPass secondSwapchainTexture |
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+						texture: aGPUTexture;
+						clear_color: Color lightGray asSDLFColor;
+						load_op: SDL_GPU_LOADOP_CLEAR;
+						store_op: SDL_GPU_STOREOP_STORE).
+	renderPass end.
+	secondSwapchainTexture := commandBuffer acquireSwapchainTexture: secondWindow.
+	secondSwapchainTexture isNull
+		ifFalse: 
+			[renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+								texture: secondSwapchainTexture;
+								clear_color: Color gray asSDLFColor;
+								load_op: SDL_GPU_LOADOP_CLEAR;
+								store_op: SDL_GPU_STOREOP_STORE).
+			renderPass end]!
+
 setup
 	super setup.
 	secondWindow := inputState
@@ -28,51 +46,12 @@ setup
 				extent: self calculateInitialExtent
 				flags: self windowFlags
 				for: self.
-	gpuDevice claimWindow: secondWindow!
-
-update
-	| commandBuffer width height swapchainTexture renderPass |
-	secondWindow ifNil: [^self].
-	commandBuffer := gpuDevice acquireCommandBuffer.
-	width := DWORD new.
-	height := DWORD new.
-	swapchainTexture := commandBuffer
-				acquireSwapchainTexture: window
-				width: width
-				height: height.
-	swapchainTexture isNull
-		ifFalse: 
-			[renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
-								texture: swapchainTexture;
-								clear_color: (SDL_FColor
-											r: 0.3
-											g: 0.4
-											b: 0.5
-											a: 1.0);
-								load_op: SDL_GPU_LOADOP_CLEAR;
-								store_op: SDL_GPU_STOREOP_STORE).
-			renderPass end].
-	swapchainTexture := commandBuffer
-				acquireSwapchainTexture: secondWindow
-				width: width
-				height: height.
-	swapchainTexture isNull
-		ifFalse: 
-			[renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
-								texture: swapchainTexture;
-								clear_color: (SDL_FColor
-											r: 1.0
-											g: 0.5
-											b: 0.6
-											a: 1.0);
-								load_op: SDL_GPU_LOADOP_CLEAR;
-								store_op: SDL_GPU_STOREOP_STORE).
-			renderPass end].
-	commandBuffer submit! !
+	gpuDevice claimWindow: secondWindow.
+	isReady := true! !
 
 !ClearScreenMultiWindowExample categoriesForMethods!
 close!public! !
+renderOn:!public! !
 setup!public! !
-update!public! !
 !
 

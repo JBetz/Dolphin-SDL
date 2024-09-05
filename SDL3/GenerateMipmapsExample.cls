@@ -18,8 +18,22 @@ close
 	gpuDevice releaseTexture: mipmapTexture.
 	super close!
 
+renderOn: aGPUTexture
+	| width height |
+	width := aGPUTexture width.
+	height := aGPUTexture height.
+	commandBuffer blitTexture: (SDL_GPUBlitRegion new
+				texture: mipmapTexture;
+				w: 8;
+				h: 8;
+				mip_level: 2)
+		destination: (SDL_GPUBlitRegion new
+				texture: aGPUTexture;
+				w: width;
+				h: height)!
+
 setup
-	| byteCount textureTransferBuffer textureTransferData imageSurface commandBuffer copyPass |
+	| byteCount textureTransferBuffer textureTransferData imageSurface copyPass |
 	super setup.
 	mipmapTexture := gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
 						type: SDL_GPU_TEXTURETYPE_2D;
@@ -58,32 +72,11 @@ setup
 	commandBuffer generateMipmapsForTexture: mipmapTexture.
 	commandBuffer submit.
 	gpuDevice releaseTransferBuffer: textureTransferBuffer.
-	isReady := true!
-
-update
-	| commandBuffer swapchainTexture |
-	isReady ifFalse: [^self].
-	commandBuffer := gpuDevice acquireCommandBuffer.
-	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
-	swapchainTexture isNull
-		ifFalse: 
-			[| width height |
-			width := swapchainTexture width.
-			height := swapchainTexture height.
-			commandBuffer blitTexture: (SDL_GPUBlitRegion new
-						texture: mipmapTexture;
-						w: 8;
-						h: 8;
-						mip_level: 2)
-				destination: (SDL_GPUBlitRegion new
-						texture: swapchainTexture;
-						w: width;
-						h: height)].
-	commandBuffer submit! !
+	isReady := true! !
 
 !GenerateMipmapsExample categoriesForMethods!
 close!public! !
+renderOn:!public! !
 setup!public! !
-update!public! !
 !
 
