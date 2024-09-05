@@ -6,6 +6,7 @@ package paxVersion: 1;
 package classNames
 	add: #Application;
 	add: #BasicTriangleExample;
+	add: #BlitMirrorExample;
 	add: #Clear3DSliceExample;
 	add: #ClearScreenExample;
 	add: #ClearScreenMultiWindowExample;
@@ -187,7 +188,7 @@ Object subclass: #TTFFontStyle
 	classInstanceVariableNames: ''!
 
 Application subclass: #GPUExample
-	instanceVariableNames: 'gpuDevice'
+	instanceVariableNames: 'gpuDevice commandBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -200,6 +201,12 @@ Application subclass: #SimpleExample
 
 GPUExample subclass: #BasicTriangleExample
 	instanceVariableNames: 'fillPipeline linePipeline'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+GPUExample subclass: #BlitMirrorExample
+	instanceVariableNames: 'texture textureWidth textureHeight'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -350,7 +357,7 @@ ExternalStructure subclass: #SDL_GPUBufferRegion
 
 ExternalStructure subclass: #SDL_GPUColorAttachmentBlendState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_blend_enable _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blend_factor _OffsetOf_dst_color_blend_factor _OffsetOf_src_alpha_blend_factor _OffsetOf_src_color_blend_factor'
+	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_blend_enable _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blend_factor _OffsetOf_dst_color_blend_factor _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_src_alpha_blend_factor _OffsetOf_src_color_blend_factor'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -362,7 +369,7 @@ ExternalStructure subclass: #SDL_GPUColorAttachmentDescription
 
 ExternalStructure subclass: #SDL_GPUColorAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cycle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cycle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_store_op _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -374,31 +381,31 @@ ExternalStructure subclass: #SDL_GPUComputePipelineCreateInfo
 
 ExternalStructure subclass: #SDL_GPUDepthStencilAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cyle _OffsetOf_depth_stencil_clear_value _OffsetOf_load_op _OffsetOf_stencil_load_op _OffsetOf_stencil_store_op _OffsetOf_store_op _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_cyle _OffsetOf_depth_stencil_clear_value _OffsetOf_load_op _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_stencil_load_op _OffsetOf_stencil_store_op _OffsetOf_store_op _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUDepthStencilState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_back_stencil_state _OffsetOf_compare_mask _OffsetOf_compare_op _OffsetOf_depth_test_enable _OffsetOf_depth_write_enable _OffsetOf_front_stencil_state _OffsetOf_reference _OffsetOf_stencil_test_enable _OffsetOf_write_mask'
+	classVariableNames: '_OffsetOf_back_stencil_state _OffsetOf_compare_mask _OffsetOf_compare_op _OffsetOf_depth_test_enable _OffsetOf_depth_write_enable _OffsetOf_front_stencil_state _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_stencil_test_enable _OffsetOf_write_mask'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUDepthStencilValue
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_depth _OffsetOf_stencil'
+	classVariableNames: '_OffsetOf_depth _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_stencil'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUGraphicsPipelineAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_color_attachment_count _OffsetOf_color_attachment_descriptions _OffsetOf_depth_stencil_format _OffsetOf_has_depth_stencil_attachment'
+	classVariableNames: '_OffsetOf_color_attachment_count _OffsetOf_color_attachment_descriptions _OffsetOf_depth_stencil_format _OffsetOf_has_depth_stencil_attachment _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUGraphicsPipelineCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_attachment_info _OffsetOf_blend_constants _OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
+	classVariableNames: '_OffsetOf_attachment_info _OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -428,13 +435,13 @@ ExternalStructure subclass: #SDL_GPUMultisampleState
 
 ExternalStructure subclass: #SDL_GPURasterizerState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_enable _OffsetOf_depth_bias_slope_factor _OffsetOf_fill_mode _OffsetOf_front_face'
+	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_enable _OffsetOf_depth_bias_slope_factor _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUSamplerCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_address_mode_u _OffsetOf_address_mode_v _OffsetOf_address_mode_w _OffsetOf_anisotropy_enable _OffsetOf_compare_enable _OffsetOf_compare_op _OffsetOf_mag_filter _OffsetOf_max_anisotropy _OffsetOf_max_lod _OffsetOf_min_filter _OffsetOf_min_lod _OffsetOf_mip_lod_bias _OffsetOf_mip_map_mode _OffsetOf_props'
+	classVariableNames: '_OffsetOf_address_mode_u _OffsetOf_address_mode_v _OffsetOf_address_mode_w _OffsetOf_anisotropy_enable _OffsetOf_compare_enable _OffsetOf_compare_op _OffsetOf_mag_filter _OffsetOf_max_anisotropy _OffsetOf_max_lod _OffsetOf_min_filter _OffsetOf_min_lod _OffsetOf_mip_lod_bias _OffsetOf_mip_map_mode _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_props'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -452,13 +459,13 @@ ExternalStructure subclass: #SDL_GPUStencilOpState
 
 ExternalStructure subclass: #SDL_GPUStorageBufferWriteOnlyBinding
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_buffer _OffsetOf_cycle'
+	classVariableNames: '_OffsetOf_buffer _OffsetOf_cycle _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUStorageTextureWriteOnlyBinding
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cycle _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_cycle _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
