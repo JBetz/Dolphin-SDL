@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUColorAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cycle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_store_op _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_clear_color _OffsetOf_cycle _OffsetOf_layer_or_depth_plane _OffsetOf_load_op _OffsetOf_mip_level _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_store_op _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -13,6 +13,9 @@ SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_cycle' value: 16r24!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_layer_or_depth_plane' value: 16r8!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_load_op' value: 16r1C!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_mip_level' value: 16r4!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_padding1' value: 16r25!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_padding2' value: 16r26!
+SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_padding3' value: 16r27!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_store_op' value: 16r20!
 SDL_GPUColorAttachmentInfo addClassConstant: '_OffsetOf_texture' value: 16r0!
 
@@ -39,12 +42,12 @@ clear_color: aSDL_FColor
 cycle
 	"Answer the <Boolean> value of the receiver's 'cycle' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_cycle) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_cycle) asBoolean!
 
 cycle: aBoolean
 	"Set the receiver's 'cycle' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_cycle put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_cycle put: aBoolean asParameter!
 
 layer_or_depth_plane
 	"Answer the <Integer> value of the receiver's 'layer_or_depth_plane' field."
@@ -125,7 +128,10 @@ defineFields
 		defineField: #clear_color type: (StructureField type: SDL_FColor);
 		defineField: #load_op type: SDWORDField new;
 		defineField: #store_op type: SDWORDField new;
-		defineField: #cycle type: BOOLField new!
+		defineField: #cycle type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#texture #mip_level #layer_or_depth_plane #clear_color #load_op #store_op #cycle)! !

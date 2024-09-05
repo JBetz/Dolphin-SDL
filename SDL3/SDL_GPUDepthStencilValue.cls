@@ -2,13 +2,16 @@
 
 ExternalStructure subclass: #SDL_GPUDepthStencilValue
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_depth _OffsetOf_stencil'
+	classVariableNames: '_OffsetOf_depth _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_stencil'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUDepthStencilValue guid: (GUID fromString: '{d56e4932-eccd-450d-a2ef-8bdb8a2b31e9}')!
 
 SDL_GPUDepthStencilValue addClassConstant: '_OffsetOf_depth' value: 16r0!
+SDL_GPUDepthStencilValue addClassConstant: '_OffsetOf_padding1' value: 16r5!
+SDL_GPUDepthStencilValue addClassConstant: '_OffsetOf_padding2' value: 16r6!
+SDL_GPUDepthStencilValue addClassConstant: '_OffsetOf_padding3' value: 16r7!
 SDL_GPUDepthStencilValue addClassConstant: '_OffsetOf_stencil' value: 16r4!
 
 SDL_GPUDepthStencilValue comment: ''!
@@ -30,12 +33,12 @@ depth: aFloat
 stencil
 	"Answer the <Integer> value of the receiver's 'stencil' field."
 
-	^bytes wordAtOffset: _OffsetOf_stencil!
+	^bytes byteAtOffset: _OffsetOf_stencil!
 
 stencil: anInteger
 	"Set the receiver's 'stencil' field to the value of the argument, anInteger"
 
-	bytes wordAtOffset: _OffsetOf_stencil put: anInteger! !
+	bytes byteAtOffset: _OffsetOf_stencil put: anInteger! !
 
 !SDL_GPUDepthStencilValue categoriesForMethods!
 depth!**compiled accessors**!public! !
@@ -51,7 +54,10 @@ defineFields
 
 	self
 		defineField: #depth type: FLOATField new;
-		defineField: #stencil type: WORDField new!
+		defineField: #stencil type: BYTEField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#depth #stencil)! !

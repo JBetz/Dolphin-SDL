@@ -2,18 +2,21 @@
 
 ExternalStructure subclass: #SDL_GPUDepthStencilAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cyle _OffsetOf_depth_stencil_clear_value _OffsetOf_load_op _OffsetOf_stencil_load_op _OffsetOf_stencil_store_op _OffsetOf_store_op _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_cyle _OffsetOf_depth_stencil_clear_value _OffsetOf_load_op _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_stencil_load_op _OffsetOf_stencil_store_op _OffsetOf_store_op _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUDepthStencilAttachmentInfo guid: (GUID fromString: '{8ba0b12c-e8f0-44b6-bca3-04793a379e8b}')!
 
-SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_cyle' value: 16r1C!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_cyle' value: 16r20!
 SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_depth_stencil_clear_value' value: 16r4!
-SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_load_op' value: 16rC!
-SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_stencil_load_op' value: 16r14!
-SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_stencil_store_op' value: 16r18!
-SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_store_op' value: 16r10!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_load_op' value: 16r10!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_padding1' value: 16r21!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_padding2' value: 16r22!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_padding3' value: 16r23!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_stencil_load_op' value: 16r18!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_stencil_store_op' value: 16r1C!
+SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_store_op' value: 16r14!
 SDL_GPUDepthStencilAttachmentInfo addClassConstant: '_OffsetOf_texture' value: 16r0!
 
 SDL_GPUDepthStencilAttachmentInfo comment: ''!
@@ -25,12 +28,12 @@ SDL_GPUDepthStencilAttachmentInfo comment: ''!
 cyle
 	"Answer the <Boolean> value of the receiver's 'cyle' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_cyle) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_cyle) asBoolean!
 
 cyle: aBoolean
 	"Set the receiver's 'cyle' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_cyle put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_cyle put: aBoolean asParameter!
 
 depth_stencil_clear_value
 	"Answer the <SDL_GPUDepthStencilValue> value of the receiver's 'depth_stencil_clear_value' field."
@@ -125,7 +128,10 @@ defineFields
 		defineField: #store_op type: SDWORDField new;
 		defineField: #stencil_load_op type: SDWORDField new;
 		defineField: #stencil_store_op type: SDWORDField new;
-		defineField: #cyle type: BOOLField new!
+		defineField: #cyle type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#texture #depth_stencil_clear_value #load_op #store_op #stencil_load_op #stencil_store_op #cyle)! !

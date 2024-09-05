@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUStorageTextureWriteOnlyBinding
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cycle _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_texture'
+	classVariableNames: '_OffsetOf_cycle _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_texture'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -11,6 +11,9 @@ SDL_GPUStorageTextureWriteOnlyBinding guid: (GUID fromString: '{aaaeecfe-a5d6-4f
 SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_cycle' value: 16rC!
 SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_layer' value: 16r8!
 SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_mip_level' value: 16r4!
+SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_padding1' value: 16rD!
+SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_padding2' value: 16rE!
+SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_padding3' value: 16rF!
 SDL_GPUStorageTextureWriteOnlyBinding addClassConstant: '_OffsetOf_texture' value: 16r0!
 
 SDL_GPUStorageTextureWriteOnlyBinding comment: ''!
@@ -22,12 +25,12 @@ SDL_GPUStorageTextureWriteOnlyBinding comment: ''!
 cycle
 	"Answer the <Boolean> value of the receiver's 'cycle' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_cycle) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_cycle) asBoolean!
 
 cycle: aBoolean
 	"Set the receiver's 'cycle' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_cycle put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_cycle put: aBoolean asParameter!
 
 layer
 	"Answer the <Integer> value of the receiver's 'layer' field."
@@ -79,7 +82,10 @@ defineFields
 		defineField: #texture type: (PointerField type: SDL_GPUTexture);
 		defineField: #mip_level type: DWORDField new;
 		defineField: #layer type: DWORDField new;
-		defineField: #cycle type: BOOLField new!
+		defineField: #cycle type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#texture #mip_level #layer #cycle)! !

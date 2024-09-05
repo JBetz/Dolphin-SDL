@@ -2,19 +2,18 @@
 
 ExternalStructure subclass: #SDL_GPUGraphicsPipelineCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_attachment_info _OffsetOf_blend_constants _OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
+	classVariableNames: '_OffsetOf_attachment_info _OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUGraphicsPipelineCreateInfo guid: (GUID fromString: '{8d1eb090-e3d3-4cef-9972-3595e38c3da3}')!
 
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_attachment_info' value: 16r74!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_blend_constants' value: 16r84!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_attachment_info' value: 16r6C!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_depth_stencil_state' value: 16r40!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_fragment_shader' value: 16r4!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_multisample_state' value: 16r38!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_primitive_type' value: 16r18!
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_props' value: 16r94!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_props' value: 16r7C!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_rasterizer_state' value: 16r1C!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_vertex_input_state' value: 16r8!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_vertex_shader' value: 16r0!
@@ -37,22 +36,6 @@ attachment_info: aSDL_GPUGraphicsPipelineAttachmentInfo
 		replaceBytesOf: bytes
 		from: ##(_OffsetOf_attachment_info + 1)
 		to: ##(_OffsetOf_attachment_info + SDL_GPUGraphicsPipelineAttachmentInfo basicByteSize)
-		startingAt: 1!
-
-blend_constants
-	"Answer the <FLOATArray> value of the receiver's 'blend_constants' field."
-
-	^FLOATArray fromAddress: bytes yourAddress + _OffsetOf_blend_constants length: 4!
-
-blend_constants: aFLOATArray
-	"Set the receiver's 'blend_constants' field to the value of the argument, aFLOATArray"
-
-	| size |
-	size := aFLOATArray byteSize min: ##(4 * FLOATArray elementSize).
-	aFLOATArray
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_blend_constants + 1)
-		to: _OffsetOf_blend_constants + size
 		startingAt: 1!
 
 depth_stencil_state
@@ -154,8 +137,6 @@ vertex_shader: aSDL_GPUShader
 !SDL_GPUGraphicsPipelineCreateInfo categoriesForMethods!
 attachment_info!**compiled accessors**!public! !
 attachment_info:!**compiled accessors**!public! !
-blend_constants!**compiled accessors**!public! !
-blend_constants:!**compiled accessors**!public! !
 depth_stencil_state!**compiled accessors**!public! !
 depth_stencil_state:!**compiled accessors**!public! !
 fragment_shader!**compiled accessors**!public! !
@@ -188,11 +169,10 @@ defineFields
 		defineField: #multisample_state type: (StructureField type: SDL_GPUMultisampleState);
 		defineField: #depth_stencil_state type: (StructureField type: SDL_GPUDepthStencilState);
 		defineField: #attachment_info type: (StructureField type: SDL_GPUGraphicsPipelineAttachmentInfo);
-		defineField: #blend_constants type: (ArrayField type: FLOATArray length: 4);
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#vertex_shader #fragment_shader #vertex_input_state #primitive_type #rasterizer_state #multisample_state #depth_stencil_state #attachment_info #blend_constants #props)! !
+	^#(#vertex_shader #fragment_shader #vertex_input_state #primitive_type #rasterizer_state #multisample_state #depth_stencil_state #attachment_info #props)! !
 
 !SDL_GPUGraphicsPipelineCreateInfo class categoriesForMethods!
 defineFields!public! !

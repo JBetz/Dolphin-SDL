@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPURasterizerState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_enable _OffsetOf_depth_bias_slope_factor _OffsetOf_fill_mode _OffsetOf_front_face'
+	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_enable _OffsetOf_depth_bias_slope_factor _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -15,6 +15,9 @@ SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_enable' value: 16
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_slope_factor' value: 16r18!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_fill_mode' value: 16r0!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_front_face' value: 16r8!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding1' value: 16rD!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding2' value: 16rE!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding3' value: 16rF!
 
 SDL_GPURasterizerState comment: ''!
 
@@ -55,12 +58,12 @@ depth_bias_constant_factor: aFloat
 depth_bias_enable
 	"Answer the <Boolean> value of the receiver's 'depth_bias_enable' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_depth_bias_enable) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_depth_bias_enable) asBoolean!
 
 depth_bias_enable: aBoolean
 	"Set the receiver's 'depth_bias_enable' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_depth_bias_enable put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_depth_bias_enable put: aBoolean asParameter!
 
 depth_bias_slope_factor
 	"Answer the <Float> value of the receiver's 'depth_bias_slope_factor' field."
@@ -118,7 +121,10 @@ defineFields
 		defineField: #fill_mode type: SDWORDField new;
 		defineField: #cull_mode type: SDWORDField new;
 		defineField: #front_face type: SDWORDField new;
-		defineField: #depth_bias_enable type: BOOLField new;
+		defineField: #depth_bias_enable type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller;
 		defineField: #depth_bias_constant_factor type: FLOATField new;
 		defineField: #depth_bias_clamp type: FLOATField new;
 		defineField: #depth_bias_slope_factor type: FLOATField new!

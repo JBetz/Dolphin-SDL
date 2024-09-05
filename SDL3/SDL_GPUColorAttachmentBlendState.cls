@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUColorAttachmentBlendState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_blend_enable _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blend_factor _OffsetOf_dst_color_blend_factor _OffsetOf_src_alpha_blend_factor _OffsetOf_src_color_blend_factor'
+	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_blend_enable _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blend_factor _OffsetOf_dst_color_blend_factor _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_src_alpha_blend_factor _OffsetOf_src_color_blend_factor'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -14,6 +14,9 @@ SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_color_blend_op' va
 SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_color_write_mask' value: 16r1C!
 SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_dst_alpha_blend_factor' value: 16r14!
 SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_dst_color_blend_factor' value: 16r8!
+SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_padding1' value: 16r1!
+SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_padding2' value: 16r2!
+SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_padding3' value: 16r3!
 SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_src_alpha_blend_factor' value: 16r10!
 SDL_GPUColorAttachmentBlendState addClassConstant: '_OffsetOf_src_color_blend_factor' value: 16r4!
 
@@ -36,12 +39,12 @@ alpha_blend_op: anInteger
 blend_enable
 	"Answer the <Boolean> value of the receiver's 'blend_enable' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_blend_enable) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_blend_enable) asBoolean!
 
 blend_enable: aBoolean
 	"Set the receiver's 'blend_enable' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_blend_enable put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_blend_enable put: aBoolean asParameter!
 
 color_blend_op
 	"Answer the <Integer> value of the receiver's 'color_blend_op' field."
@@ -128,7 +131,10 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #blend_enable type: BOOLField new;
+		defineField: #blend_enable type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller;
 		defineField: #src_color_blend_factor type: SDWORDField new;
 		defineField: #dst_color_blend_factor type: SDWORDField new;
 		defineField: #color_blend_op type: SDWORDField new;

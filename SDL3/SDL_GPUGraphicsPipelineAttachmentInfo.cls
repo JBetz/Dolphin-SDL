@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUGraphicsPipelineAttachmentInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_color_attachment_count _OffsetOf_color_attachment_descriptions _OffsetOf_depth_stencil_format _OffsetOf_has_depth_stencil_attachment'
+	classVariableNames: '_OffsetOf_color_attachment_count _OffsetOf_color_attachment_descriptions _OffsetOf_depth_stencil_format _OffsetOf_has_depth_stencil_attachment _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -12,6 +12,9 @@ SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_color_attachm
 SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_color_attachment_descriptions' value: 16r0!
 SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_depth_stencil_format' value: 16rC!
 SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_has_depth_stencil_attachment' value: 16r8!
+SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_padding1' value: 16r9!
+SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_padding2' value: 16rA!
+SDL_GPUGraphicsPipelineAttachmentInfo addClassConstant: '_OffsetOf_padding3' value: 16rB!
 
 SDL_GPUGraphicsPipelineAttachmentInfo comment: ''!
 
@@ -56,12 +59,12 @@ depth_stencil_format: anInteger
 has_depth_stencil_attachment
 	"Answer the <Boolean> value of the receiver's 'has_depth_stencil_attachment' field."
 
-	^(bytes dwordAtOffset: _OffsetOf_has_depth_stencil_attachment) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_has_depth_stencil_attachment) asBoolean!
 
 has_depth_stencil_attachment: aBoolean
 	"Set the receiver's 'has_depth_stencil_attachment' field to the value of the argument, aBoolean"
 
-	bytes dwordAtOffset: _OffsetOf_has_depth_stencil_attachment put: aBoolean asParameter! !
+	bytes byteAtOffset: _OffsetOf_has_depth_stencil_attachment put: aBoolean asParameter! !
 
 !SDL_GPUGraphicsPipelineAttachmentInfo categoriesForMethods!
 color_attachment_count!**compiled accessors**!public! !
@@ -84,7 +87,10 @@ defineFields
 			type: (StructureArrayPointerField type: SDL_GPUColorAttachmentDescription
 					lengthField: #color_attachment_count);
 		defineField: #color_attachment_count type: SDWORDField new;
-		defineField: #has_depth_stencil_attachment type: BOOLField new;
+		defineField: #has_depth_stencil_attachment type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller;
 		defineField: #depth_stencil_format type: SDWORDField new!
 
 getFieldNames

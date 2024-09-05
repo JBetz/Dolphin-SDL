@@ -14,10 +14,23 @@ SDL_GPURenderPass comment: ''!
 
 !SDL_GPURenderPass methodsFor!
 
+bindGraphicsPipeline: aGPUGraphicsPipeline
+	self library bindGPUGraphicsPipeline_renderPass: self graphicsPipeline: aGPUGraphicsPipeline!
+
+drawPrimitives: vertexCount instanceCount: instanceCount
+	self library
+		drawGPUPrimitives_renderPass: self
+		vertexCount: vertexCount
+		instanceCount: instanceCount
+		firstVertex: 0
+		firstInstance: 0!
+
 end
 	self library endGPURenderPass_renderPass: self! !
 
 !SDL_GPURenderPass categoriesForMethods!
+bindGraphicsPipeline:!public! !
+drawPrimitives:instanceCount:!public! !
 end!public! !
 !
 
