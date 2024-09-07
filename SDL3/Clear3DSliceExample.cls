@@ -18,7 +18,7 @@ renderOn: aGPUTexture
 	| width height renderPass |
 	width := aGPUTexture width.
 	height := aGPUTexture height.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
 						texture: texture3D;
 						cycle: true;
 						load_op: SDL_GPU_LOADOP_CLEAR;
@@ -26,7 +26,7 @@ renderOn: aGPUTexture
 						clear_color: Color red asSDLFColor;
 						layer_or_depth_plane: 0).
 	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
 						texture: texture3D;
 						cycle: false;
 						load_op: SDL_GPU_LOADOP_CLEAR;
@@ -34,7 +34,7 @@ renderOn: aGPUTexture
 						clear_color: Color green asSDLFColor;
 						layer_or_depth_plane: 1).
 	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
 						texture: texture3D;
 						cycle: false;
 						load_op: SDL_GPU_LOADOP_CLEAR;
@@ -42,7 +42,7 @@ renderOn: aGPUTexture
 						clear_color: Color blue asSDLFColor;
 						layer_or_depth_plane: 2).
 	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
 						texture: texture3D;
 						cycle: false;
 						load_op: SDL_GPU_LOADOP_CLEAR;
@@ -78,8 +78,8 @@ setup
 						width: 64;
 						height: 64;
 						layer_count_or_depth: 4;
-						level_count: 1;
-						usage_flags: SDL_GPU_TEXTUREUSAGE_COLOR_TARGET_BIT | SDL_GPU_TEXTUREUSAGE_SAMPLER_BIT).
+						num_levels: 1;
+						usage: SDL_GPU_TEXTUREUSAGE_COLOR_TARGET | SDL_GPU_TEXTUREUSAGE_SAMPLER).
 	isReady := true! !
 
 !Clear3DSliceExample categoriesForMethods!

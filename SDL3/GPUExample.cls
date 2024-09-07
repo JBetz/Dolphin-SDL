@@ -48,7 +48,7 @@ shadersPath
 
 update
 	| swapchainTexture |
-	isReady ifFalse: [^self].
+	(isReady not or: [gpuDevice isNil]) ifTrue: [^self].
 	commandBuffer := gpuDevice acquireCommandBuffer.
 	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
 	swapchainTexture isNull ifFalse: [self renderOn: swapchainTexture].

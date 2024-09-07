@@ -16,15 +16,13 @@ BasicTriangleExample comment: ''!
 
 close
 	gpuDevice
-		ifNotNil: 
-			[gpuDevice
-				releaseGraphicsPipeline: fillPipeline;
-				releaseGraphicsPipeline: linePipeline].
+		releaseGraphicsPipeline: fillPipeline;
+		releaseGraphicsPipeline: linePipeline.
 	super close!
 
 renderOn: aGPUTexture
 	| renderPass |
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorAttachmentInfo new
+	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
 						texture: aGPUTexture;
 						clear_color: Color black asSDLFColor;
 						load_op: SDL_GPU_LOADOP_CLEAR;
@@ -35,25 +33,25 @@ renderOn: aGPUTexture
 		end!
 
 setup
-	| vertexShader fragmentShader graphicsPipelineCreateInfo colorAttachmentDescription colorAttachmentDescriptions |
+	| vertexShader fragmentShader graphicsPipelineCreateInfo colorTargetDescription colorTargetDescriptions |
 	super setup.
 	vertexShader := gpuDevice loadVertexShader: self shadersPath , 'RawTriangle.vert.spv'.
 	fragmentShader := gpuDevice loadFragmentShader: self shadersPath , 'SolidColor.frag.spv'.
 	graphicsPipelineCreateInfo := SDL_GPUGraphicsPipelineCreateInfo new.
-	colorAttachmentDescription := SDL_GPUColorAttachmentDescription new.
-	colorAttachmentDescription format: (gpuDevice getSwapchainTextureFormat: window).
-	colorAttachmentDescription blend_state
-		blend_enable: true;
+	colorTargetDescription := SDL_GPUColorTargetDescription new.
+	colorTargetDescription format: (gpuDevice getSwapchainTextureFormat: window).
+	colorTargetDescription blend_state
+		enable_blend: true;
 		alpha_blend_op: SDL_GPU_BLENDOP_ADD;
 		color_blend_op: SDL_GPU_BLENDOP_ADD;
 		color_write_mask: 16rF;
-		src_color_blend_factor: SDL_GPU_BLENDFACTOR_ONE;
-		src_alpha_blend_factor: SDL_GPU_BLENDFACTOR_ONE;
-		dst_color_blend_factor: SDL_GPU_BLENDFACTOR_ZERO;
-		dst_alpha_blend_factor: SDL_GPU_BLENDFACTOR_ZERO.
-	colorAttachmentDescriptions := StructureArray with: colorAttachmentDescription.
-	graphicsPipelineCreateInfo attachment_info
-		color_attachment_descriptions: colorAttachmentDescriptions.
+		src_color_blendfactor: SDL_GPU_BLENDFACTOR_ONE;
+		src_alpha_blendfactor: SDL_GPU_BLENDFACTOR_ONE;
+		dst_color_blendfactor: SDL_GPU_BLENDFACTOR_ZERO;
+		dst_alpha_blendfactor: SDL_GPU_BLENDFACTOR_ZERO.
+	colorTargetDescriptions := StructureArray with: colorTargetDescription.
+	graphicsPipelineCreateInfo target_info
+		color_target_descriptions: colorTargetDescriptions.
 	graphicsPipelineCreateInfo multisample_state sample_mask: 16rFFFF.
 	graphicsPipelineCreateInfo
 		primitive_type: SDL_GPU_PRIMITIVETYPE_TRIANGLELIST;

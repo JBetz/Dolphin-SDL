@@ -38,7 +38,7 @@ setup
 	mipmapTexture := gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
 						type: SDL_GPU_TEXTURETYPE_2D;
 						format: SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM;
-						usage_flags: SDL_GPU_TEXTUREUSAGE_SAMPLER_BIT | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET_BIT;
+						usage_flags: SDL_GPU_TEXTUREUSAGE_SAMPLER | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET;
 						width: 32;
 						height: 32;
 						layer_count_or_depth: 1;

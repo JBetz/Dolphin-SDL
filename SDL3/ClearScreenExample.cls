@@ -15,14 +15,14 @@ ClearScreenExample comment: ''!
 !ClearScreenExample methodsFor!
 
 renderOn: aGPUTexture
-	| colorAttachmentInfo renderPass |
-	colorAttachmentInfo := SDL_GPUColorAttachmentInfo new.
-	colorAttachmentInfo
+	| colorTargetInfo renderPass |
+	colorTargetInfo := SDL_GPUColorTargetInfo new.
+	colorTargetInfo
 		texture: aGPUTexture;
 		clear_color: Color gray asSDLFColor;
 		load_op: SDL_GPU_LOADOP_CLEAR;
 		store_op: SDL_GPU_STOREOP_STORE.
-	renderPass := commandBuffer beginRenderPass: colorAttachmentInfo.
+	renderPass := commandBuffer beginRenderPass: colorTargetInfo.
 	renderPass end!
 
 setup

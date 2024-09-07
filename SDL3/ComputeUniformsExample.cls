@@ -53,13 +53,13 @@ setup
 	gradientPipeline := gpuDevice createComputePipeline: (SDL_GPUComputePipelineCreateInfo new
 						code: code;
 						code_size: codeSize;
-						entry_point_name: 'main';
+						entrypoint: 'main';
 						format: SDL_GPU_SHADERFORMAT_SPIRV;
-						write_only_storage_texture_count: 1;
-						uniform_buffer_count: 1;
-						thread_count_x: 8;
-						thread_count_y: 8;
-						thread_count_z: 1).
+						num_write_only_storage_textures: 1;
+						num_uniform_buffers: 1;
+						threadcount_x: 8;
+						threadcount_y: 8;
+						threadcount_z: 1).
 	windowPixelSize := window getSizeInPixels.
 	width := windowPixelSize x.
 	height := windowPixelSize y.
@@ -69,8 +69,8 @@ setup
 						width: width;
 						height: height;
 						layer_count_or_depth: 1;
-						level_count: 1;
-						usage_flags: SDL_GPU_TEXTUREUSAGE_SAMPLER_BIT | SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE_BIT).
+						num_levels: 1;
+						usage: SDL_GPU_TEXTUREUSAGE_SAMPLER | SDL_GPU_TEXTUREUSAGE_COMPUTE_STORAGE_WRITE).
 	gradientUniformValues := GradientUniforms new.
 	isReady := true! !
 
