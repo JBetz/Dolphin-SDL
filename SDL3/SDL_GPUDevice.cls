@@ -23,30 +23,43 @@ acquireCommandBuffer
 claimWindow: aWindow
 	self checkBooleanResult: (self library claimWindowForGPUDevice_device: self window: aWindow)!
 
+createBuffer: aBufferCreateInfo
+	| buffer |
+	buffer := self library createGPUBuffer_device: self createinfo: aBufferCreateInfo.
+	self checkObjectResult: buffer.
+	^buffer!
+
 createComputePipeline: aComputePipelineCreateInfo
 	| computePipeline |
 	computePipeline := self library createGPUComputePipeline_device: self
-				computePipelineCreateInfo: aComputePipelineCreateInfo.
+				createinfo: aComputePipelineCreateInfo.
 	self checkObjectResult: computePipeline.
 	^computePipeline!
 
 createGraphicsPipeline: aGraphicsPipelineCreateInfo
 	| graphicsPipeline |
 	graphicsPipeline := self library createGPUGraphicsPipeline_device: self
-				pipelineCreateInfo: aGraphicsPipelineCreateInfo.
+				createinfo: aGraphicsPipelineCreateInfo.
 	self checkObjectResult: graphicsPipeline.
 	^graphicsPipeline!
 
+createSampler: aSamplerCreateInfo
+	| sampler |
+	sampler := self library createGPUSampler_device: self createinfo: aSamplerCreateInfo.
+	self checkObjectResult: sampler.
+	^sampler!
+
 createTexture: aTextureCreateInfo
 	| texture |
-	texture := self library createGPUTexture_device: self textureCreateInfo: aTextureCreateInfo.
+	texture := self library createGPUTexture_device: self createinfo: aTextureCreateInfo.
 	self checkObjectResult: texture.
+	texture extent: aTextureCreateInfo extent.
 	^texture!
 
 createTransferBuffer: aTransferBufferCreateInfo
 	| transferBuffer |
 	transferBuffer := self library createGPUTransferBuffer_device: self
-				transferBufferCreateInfo: aTransferBufferCreateInfo.
+				createinfo: aTransferBufferCreateInfo.
 	self checkObjectResult: transferBuffer.
 	^transferBuffer!
 
@@ -54,9 +67,24 @@ getSwapchainTextureFormat: aWindow
 	^self library getGPUSwapchainTextureFormat_device: self window: aWindow!
 
 loadFragmentShader: aString
-	^self loadShader: aString stage: SDL_GPU_SHADERSTAGE_FRAGMENT!
+	^self
+		loadShader: aString
+		stage: SDL_GPU_SHADERSTAGE_FRAGMENT
+		samplerCount: 0
+		uniformBufferCount: 0
+		storageBufferCount: 0
+		storageTextureCount: 0!
 
-loadShader: aString stage: anInteger
+loadFragmentShader: aString samplerCount: anInteger
+	^self
+		loadShader: aString
+		stage: SDL_GPU_SHADERSTAGE_FRAGMENT
+		samplerCount: anInteger
+		uniformBufferCount: 0
+		storageBufferCount: 0
+		storageTextureCount: 0!
+
+loadShader: aString stage: stage samplerCount: samplerCount uniformBufferCount: uniformBufferCount storageBufferCount: storageBufferCount storageTextureCount: storageTextureCount
 	| codeSize code shaderCreateInfo shader |
 	codeSize := DWORD new.
 	code := self library loadFile_file: aString datasize: codeSize.
@@ -65,28 +93,49 @@ loadShader: aString stage: anInteger
 	shaderCreateInfo
 		code: code;
 		code_size: codeSize;
-		entry_point_name: 'main';
+		entrypoint: 'main';
 		format: SDL_GPU_SHADERFORMAT_SPIRV;
-		stage: anInteger;
-		sampler_count: 0;
-		uniform_buffer_count: 0;
-		storage_buffer_count: 0;
-		storage_texture_count: 0.
-	shader := self library createGPUShader_device: self shaderCreateInfo: shaderCreateInfo.
+		stage: stage;
+		num_samplers: samplerCount;
+		num_uniform_buffers: uniformBufferCount;
+		num_storage_buffers: storageBufferCount;
+		num_storage_textures: storageTextureCount.
+	shader := self library createGPUShader_device: self createinfo: shaderCreateInfo.
 	self checkObjectResult: shader.
 	^shader!
 
 loadVertexShader: aString
-	^self loadShader: aString stage: SDL_GPU_SHADERSTAGE_VERTEX!
+	^self
+		loadShader: aString
+		stage: SDL_GPU_SHADERSTAGE_VERTEX
+		samplerCount: 0
+		uniformBufferCount: 0
+		storageBufferCount: 0
+		storageTextureCount: 0!
+
+loadVertexShader: aString uniformBufferCount: anInteger
+	^self
+		loadShader: aString
+		stage: SDL_GPU_SHADERSTAGE_VERTEX
+		samplerCount: 0
+		uniformBufferCount: anInteger
+		storageBufferCount: 0
+		storageTextureCount: 0!
 
 mapTransferBuffer: aTransferBuffer
 	^self library mapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer cycle: false!
+
+releaseBuffer: aGPUBuffer
+	self library releaseGPUBuffer_device: self buffer: aGPUBuffer!
 
 releaseComputePipeline: aComputePipeline
 	self library releaseGPUComputePipeline_device: self computePipeline: aComputePipeline!
 
 releaseGraphicsPipeline: aGPUGraphicsPipeline
 	self library releaseGPUGraphicsPipeline_device: self graphicsPipeline: aGPUGraphicsPipeline!
+
+releaseSampler: aGPUSampler
+	self library releaseGPUSampler_device: self sampler: aGPUSampler!
 
 releaseShader: aGPUShader
 	self library releaseGPUShader_device: self shader: aGPUShader!
@@ -106,17 +155,23 @@ unmapTransferBuffer: aTransferBuffer
 !SDL_GPUDevice categoriesForMethods!
 acquireCommandBuffer!public! !
 claimWindow:!public! !
+createBuffer:!public! !
 createComputePipeline:!public! !
 createGraphicsPipeline:!public! !
+createSampler:!public! !
 createTexture:!public! !
 createTransferBuffer:!public! !
 getSwapchainTextureFormat:!public! !
 loadFragmentShader:!public! !
-loadShader:stage:!private! !
+loadFragmentShader:samplerCount:!public! !
+loadShader:stage:samplerCount:uniformBufferCount:storageBufferCount:storageTextureCount:!private! !
 loadVertexShader:!public! !
+loadVertexShader:uniformBufferCount:!public! !
 mapTransferBuffer:!public! !
+releaseBuffer:!public! !
 releaseComputePipeline:!public! !
 releaseGraphicsPipeline:!public! !
+releaseSampler:!public! !
 releaseShader:!public! !
 releaseTexture:!public! !
 releaseTransferBuffer:!public! !

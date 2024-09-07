@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUDepthStencilState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_back_stencil_state _OffsetOf_compare_mask _OffsetOf_compare_op _OffsetOf_depth_test_enable _OffsetOf_depth_write_enable _OffsetOf_front_stencil_state _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_stencil_test_enable _OffsetOf_write_mask'
+	classVariableNames: '_OffsetOf_back_stencil_state _OffsetOf_compare_mask _OffsetOf_compare_op _OffsetOf_enable_depth_test _OffsetOf_enable_depth_write _OffsetOf_enable_stencil_test _OffsetOf_front_stencil_state _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_write_mask'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -11,13 +11,13 @@ SDL_GPUDepthStencilState guid: (GUID fromString: '{053b30c9-878b-48a1-83a1-61c2a
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_back_stencil_state' value: 16r8!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_mask' value: 16r28!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_op' value: 16r4!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_depth_test_enable' value: 16r0!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_depth_write_enable' value: 16r1!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_depth_test' value: 16r0!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_depth_write' value: 16r1!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_stencil_test' value: 16r2!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_front_stencil_state' value: 16r18!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding1' value: 16r3!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding2' value: 16r2A!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding3' value: 16r2B!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_stencil_test_enable' value: 16r2!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_write_mask' value: 16r29!
 
 SDL_GPUDepthStencilState comment: ''!
@@ -60,25 +60,35 @@ compare_op: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_compare_op put: anInteger!
 
-depth_test_enable
-	"Answer the <Boolean> value of the receiver's 'depth_test_enable' field."
+enable_depth_test
+	"Answer the <Boolean> value of the receiver's 'enable_depth_test' field."
 
-	^(bytes byteAtOffset: _OffsetOf_depth_test_enable) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_enable_depth_test) asBoolean!
 
-depth_test_enable: aBoolean
-	"Set the receiver's 'depth_test_enable' field to the value of the argument, aBoolean"
+enable_depth_test: aBoolean
+	"Set the receiver's 'enable_depth_test' field to the value of the argument, aBoolean"
 
-	bytes byteAtOffset: _OffsetOf_depth_test_enable put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_enable_depth_test put: aBoolean asParameter!
 
-depth_write_enable
-	"Answer the <Boolean> value of the receiver's 'depth_write_enable' field."
+enable_depth_write
+	"Answer the <Boolean> value of the receiver's 'enable_depth_write' field."
 
-	^(bytes byteAtOffset: _OffsetOf_depth_write_enable) asBoolean!
+	^(bytes byteAtOffset: _OffsetOf_enable_depth_write) asBoolean!
 
-depth_write_enable: aBoolean
-	"Set the receiver's 'depth_write_enable' field to the value of the argument, aBoolean"
+enable_depth_write: aBoolean
+	"Set the receiver's 'enable_depth_write' field to the value of the argument, aBoolean"
 
-	bytes byteAtOffset: _OffsetOf_depth_write_enable put: aBoolean asParameter!
+	bytes byteAtOffset: _OffsetOf_enable_depth_write put: aBoolean asParameter!
+
+enable_stencil_test
+	"Answer the <Boolean> value of the receiver's 'enable_stencil_test' field."
+
+	^(bytes byteAtOffset: _OffsetOf_enable_stencil_test) asBoolean!
+
+enable_stencil_test: aBoolean
+	"Set the receiver's 'enable_stencil_test' field to the value of the argument, aBoolean"
+
+	bytes byteAtOffset: _OffsetOf_enable_stencil_test put: aBoolean asParameter!
 
 front_stencil_state
 	"Answer the <SDL_GPUStencilOpState> value of the receiver's 'front_stencil_state' field."
@@ -93,16 +103,6 @@ front_stencil_state: aSDL_GPUStencilOpState
 		from: ##(_OffsetOf_front_stencil_state + 1)
 		to: ##(_OffsetOf_front_stencil_state + SDL_GPUStencilOpState basicByteSize)
 		startingAt: 1!
-
-stencil_test_enable
-	"Answer the <Boolean> value of the receiver's 'stencil_test_enable' field."
-
-	^(bytes byteAtOffset: _OffsetOf_stencil_test_enable) asBoolean!
-
-stencil_test_enable: aBoolean
-	"Set the receiver's 'stencil_test_enable' field to the value of the argument, aBoolean"
-
-	bytes byteAtOffset: _OffsetOf_stencil_test_enable put: aBoolean asParameter!
 
 write_mask
 	"Answer the <Integer> value of the receiver's 'write_mask' field."
@@ -121,14 +121,14 @@ compare_mask!**compiled accessors**!public! !
 compare_mask:!**compiled accessors**!public! !
 compare_op!**compiled accessors**!public! !
 compare_op:!**compiled accessors**!public! !
-depth_test_enable!**compiled accessors**!public! !
-depth_test_enable:!**compiled accessors**!public! !
-depth_write_enable!**compiled accessors**!public! !
-depth_write_enable:!**compiled accessors**!public! !
+enable_depth_test!**compiled accessors**!public! !
+enable_depth_test:!**compiled accessors**!public! !
+enable_depth_write!**compiled accessors**!public! !
+enable_depth_write:!**compiled accessors**!public! !
+enable_stencil_test!**compiled accessors**!public! !
+enable_stencil_test:!**compiled accessors**!public! !
 front_stencil_state!**compiled accessors**!public! !
 front_stencil_state:!**compiled accessors**!public! !
-stencil_test_enable!**compiled accessors**!public! !
-stencil_test_enable:!**compiled accessors**!public! !
 write_mask!**compiled accessors**!public! !
 write_mask:!**compiled accessors**!public! !
 !
@@ -139,9 +139,9 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #depth_test_enable type: BOOLEANField new;
-		defineField: #depth_write_enable type: BOOLEANField new;
-		defineField: #stencil_test_enable type: BOOLEANField new;
+		defineField: #enable_depth_test type: BOOLEANField new;
+		defineField: #enable_depth_write type: BOOLEANField new;
+		defineField: #enable_stencil_test type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #compare_op type: SDWORDField new;
 		defineField: #back_stencil_state type: (StructureField type: SDL_GPUStencilOpState);
@@ -152,7 +152,7 @@ defineFields
 		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
-	^#(#depth_test_enable #depth_write_enable #stencil_test_enable #compare_op #back_stencil_state #front_stencil_state #compare_mask #write_mask)! !
+	^#(#enable_depth_test #enable_depth_write #enable_stencil_test #compare_op #back_stencil_state #front_stencil_state #compare_mask #write_mask)! !
 
 !SDL_GPUDepthStencilState class categoriesForMethods!
 defineFields!public! !

@@ -99,7 +99,7 @@ y:!**compiled accessors**!public! !
 !SDL_GPUViewport class methodsFor!
 
 defineFields
-	"SDL_GPUViewport compileDefinition"
+	"self compileDefinition"
 
 	self
 		defineField: #x type: FLOATField new;

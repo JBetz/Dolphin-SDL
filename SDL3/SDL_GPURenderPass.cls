@@ -20,8 +20,8 @@ bindGraphicsPipeline: aGPUGraphicsPipeline
 drawPrimitives: vertexCount instanceCount: instanceCount
 	self library
 		drawGPUPrimitives_renderPass: self
-		vertexCount: vertexCount
-		instanceCount: instanceCount
+		numVertices: vertexCount
+		numInstances: instanceCount
 		firstVertex: 0
 		firstInstance: 0!
 

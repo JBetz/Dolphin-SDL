@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPURasterizerState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_enable _OffsetOf_depth_bias_slope_factor _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
+	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_slope_factor _OffsetOf_enable_depth_bias _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -11,8 +11,8 @@ SDL_GPURasterizerState guid: (GUID fromString: '{112ba98a-9f41-406a-809a-d7c4bd4
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_cull_mode' value: 16r4!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_clamp' value: 16r14!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_constant_factor' value: 16r10!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_enable' value: 16rC!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_slope_factor' value: 16r18!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_enable_depth_bias' value: 16rC!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_fill_mode' value: 16r0!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_front_face' value: 16r8!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding1' value: 16rD!
@@ -55,16 +55,6 @@ depth_bias_constant_factor: aFloat
 
 	bytes floatAtOffset: _OffsetOf_depth_bias_constant_factor put: aFloat!
 
-depth_bias_enable
-	"Answer the <Boolean> value of the receiver's 'depth_bias_enable' field."
-
-	^(bytes byteAtOffset: _OffsetOf_depth_bias_enable) asBoolean!
-
-depth_bias_enable: aBoolean
-	"Set the receiver's 'depth_bias_enable' field to the value of the argument, aBoolean"
-
-	bytes byteAtOffset: _OffsetOf_depth_bias_enable put: aBoolean asParameter!
-
 depth_bias_slope_factor
 	"Answer the <Float> value of the receiver's 'depth_bias_slope_factor' field."
 
@@ -74,6 +64,16 @@ depth_bias_slope_factor: aFloat
 	"Set the receiver's 'depth_bias_slope_factor' field to the value of the argument, aFloat"
 
 	bytes floatAtOffset: _OffsetOf_depth_bias_slope_factor put: aFloat!
+
+enable_depth_bias
+	"Answer the <Boolean> value of the receiver's 'enable_depth_bias' field."
+
+	^(bytes byteAtOffset: _OffsetOf_enable_depth_bias) asBoolean!
+
+enable_depth_bias: aBoolean
+	"Set the receiver's 'enable_depth_bias' field to the value of the argument, aBoolean"
+
+	bytes byteAtOffset: _OffsetOf_enable_depth_bias put: aBoolean asParameter!
 
 fill_mode
 	"Answer the <Integer> value of the receiver's 'fill_mode' field."
@@ -102,10 +102,10 @@ depth_bias_clamp!**compiled accessors**!public! !
 depth_bias_clamp:!**compiled accessors**!public! !
 depth_bias_constant_factor!**compiled accessors**!public! !
 depth_bias_constant_factor:!**compiled accessors**!public! !
-depth_bias_enable!**compiled accessors**!public! !
-depth_bias_enable:!**compiled accessors**!public! !
 depth_bias_slope_factor!**compiled accessors**!public! !
 depth_bias_slope_factor:!**compiled accessors**!public! !
+enable_depth_bias!**compiled accessors**!public! !
+enable_depth_bias:!**compiled accessors**!public! !
 fill_mode!**compiled accessors**!public! !
 fill_mode:!**compiled accessors**!public! !
 front_face!**compiled accessors**!public! !
@@ -121,7 +121,7 @@ defineFields
 		defineField: #fill_mode type: SDWORDField new;
 		defineField: #cull_mode type: SDWORDField new;
 		defineField: #front_face type: SDWORDField new;
-		defineField: #depth_bias_enable type: BOOLEANField new;
+		defineField: #enable_depth_bias type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #padding2 type: BYTEField new beFiller;
 		defineField: #padding3 type: BYTEField new beFiller;
@@ -130,7 +130,7 @@ defineFields
 		defineField: #depth_bias_slope_factor type: FLOATField new!
 
 getFieldNames
-	^#(#fill_mode #cull_mode #front_face #depth_bias_enable #depth_bias_constant_factor #depth_bias_clamp #depth_bias_slope_factor)! !
+	^#(#fill_mode #cull_mode #front_face #enable_depth_bias #depth_bias_constant_factor #depth_bias_clamp #depth_bias_slope_factor)! !
 
 !SDL_GPURasterizerState class categoriesForMethods!
 defineFields!public! !

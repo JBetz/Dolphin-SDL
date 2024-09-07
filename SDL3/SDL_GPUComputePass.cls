@@ -18,7 +18,11 @@ bindComputePipeline: aComputePipeline
 	self library bindGPUComputePipeline_computePass: self computePipeline: aComputePipeline!
 
 dispatchComputeToX: x y: y z: z
-	self library dispatchGPUCompute_computePass: self groupCountX: x groupCountY: y groupCountZ: z!
+	self library
+		dispatchGPUCompute_computePass: self
+		groupcountX: x
+		groupcountY: y
+		groupcountZ: z!
 
 end
 	self library endGPUComputePass_computePass: self! !

@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUIndirectDrawCommand
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_first_instance _OffsetOf_first_vertex _OffsetOf_instance_count _OffsetOf_vertex_count'
+	classVariableNames: '_OffsetOf_first_instance _OffsetOf_first_vertex _OffsetOf_num_instances _OffsetOf_num_vertices'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -10,8 +10,8 @@ SDL_GPUIndirectDrawCommand guid: (GUID fromString: '{539f6da4-a478-4d05-873c-af2
 
 SDL_GPUIndirectDrawCommand addClassConstant: '_OffsetOf_first_instance' value: 16rC!
 SDL_GPUIndirectDrawCommand addClassConstant: '_OffsetOf_first_vertex' value: 16r8!
-SDL_GPUIndirectDrawCommand addClassConstant: '_OffsetOf_instance_count' value: 16r4!
-SDL_GPUIndirectDrawCommand addClassConstant: '_OffsetOf_vertex_count' value: 16r0!
+SDL_GPUIndirectDrawCommand addClassConstant: '_OffsetOf_num_instances' value: 16r4!
+SDL_GPUIndirectDrawCommand addClassConstant: '_OffsetOf_num_vertices' value: 16r0!
 
 SDL_GPUIndirectDrawCommand comment: ''!
 
@@ -39,35 +39,35 @@ first_vertex: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_first_vertex put: anInteger!
 
-instance_count
-	"Answer the <Integer> value of the receiver's 'instance_count' field."
+num_instances
+	"Answer the <Integer> value of the receiver's 'num_instances' field."
 
-	^bytes dwordAtOffset: _OffsetOf_instance_count!
+	^bytes dwordAtOffset: _OffsetOf_num_instances!
 
-instance_count: anInteger
-	"Set the receiver's 'instance_count' field to the value of the argument, anInteger"
+num_instances: anInteger
+	"Set the receiver's 'num_instances' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_instance_count put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_num_instances put: anInteger!
 
-vertex_count
-	"Answer the <Integer> value of the receiver's 'vertex_count' field."
+num_vertices
+	"Answer the <Integer> value of the receiver's 'num_vertices' field."
 
-	^bytes dwordAtOffset: _OffsetOf_vertex_count!
+	^bytes dwordAtOffset: _OffsetOf_num_vertices!
 
-vertex_count: anInteger
-	"Set the receiver's 'vertex_count' field to the value of the argument, anInteger"
+num_vertices: anInteger
+	"Set the receiver's 'num_vertices' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_vertex_count put: anInteger! !
+	bytes dwordAtOffset: _OffsetOf_num_vertices put: anInteger! !
 
 !SDL_GPUIndirectDrawCommand categoriesForMethods!
 first_instance!**compiled accessors**!public! !
 first_instance:!**compiled accessors**!public! !
 first_vertex!**compiled accessors**!public! !
 first_vertex:!**compiled accessors**!public! !
-instance_count!**compiled accessors**!public! !
-instance_count:!**compiled accessors**!public! !
-vertex_count!**compiled accessors**!public! !
-vertex_count:!**compiled accessors**!public! !
+num_instances!**compiled accessors**!public! !
+num_instances:!**compiled accessors**!public! !
+num_vertices!**compiled accessors**!public! !
+num_vertices:!**compiled accessors**!public! !
 !
 
 !SDL_GPUIndirectDrawCommand class methodsFor!
@@ -76,13 +76,13 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #vertex_count type: DWORDField new;
-		defineField: #instance_count type: DWORDField new;
+		defineField: #num_vertices type: DWORDField new;
+		defineField: #num_instances type: DWORDField new;
 		defineField: #first_vertex type: DWORDField new;
 		defineField: #first_instance type: DWORDField new!
 
 getFieldNames
-	^#(#vertex_count #instance_count #first_vertex #first_instance)! !
+	^#(#num_vertices #num_instances #first_vertex #first_instance)! !
 
 !SDL_GPUIndirectDrawCommand class categoriesForMethods!
 defineFields!public! !

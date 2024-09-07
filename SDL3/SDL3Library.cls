@@ -18,7 +18,7 @@ acquireGPUCommandBuffer_device: device
 	<cdecl: SDL_GPUCommandBuffer* SDL_AcquireGPUCommandBuffer SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
 
-acquireGPUSwapchainTexture_commandBuffer: commandBuffer window: window pWidth: pWidth pHeight: pHeight
+acquireGPUSwapchainTexture_commandBuffer: commandBuffer window: window w: w h: h
 	<cdecl: SDL_GPUTexture* SDL_AcquireGPUSwapchainTexture SDL_GPUCommandBuffer* SDL_Window* dword* dword*>
 	^self invalidCall: _failureCode!
 
@@ -34,7 +34,7 @@ audioDevicePaused_devid: devid
 	<cdecl: bool SDL_AudioDevicePaused dword>
 	^self invalidCall: _failureCode!
 
-beginGPUComputePass_commandBuffer: commandBuffer storageTextureBindings: storageTextureBindings storageTextureBindingCount: storageTextureBindingCount storageBufferBindings: storageBufferBindings storageBufferBindingCount: storageBufferBindingCount
+beginGPUComputePass_commandBuffer: commandBuffer storageTextureBindings: storageTextureBindings numStorageTextureBindings: numStorageTextureBindings storageBufferBindings: storageBufferBindings numStorageBufferBindings: numStorageBufferBindings
 	<cdecl: SDL_GPUComputePass* SDL_BeginGPUComputePass SDL_GPUCommandBuffer* SDL_GPUStorageTextureWriteOnlyBinding* dword SDL_GPUStorageBufferWriteOnlyBinding* dword>
 	^self invalidCall: _failureCode!
 
@@ -42,8 +42,8 @@ beginGPUCopyPass_commandBuffer: commandBuffer
 	<cdecl: SDL_GPUCopyPass* SDL_BeginGPUCopyPass SDL_GPUCommandBuffer*>
 	^self invalidCall: _failureCode!
 
-beginGPURenderPass_commandBuffer: commandBuffer colorAttachmentInfos: colorAttachmentInfos colorAttachmentCount: colorAttachmentCount depthStencilAttachmentInfo: depthStencilAttachmentInfo
-	<cdecl: SDL_GPURenderPass* SDL_BeginGPURenderPass SDL_GPUCommandBuffer* SDL_GPUColorAttachmentInfo* dword SDL_GPUDepthStencilAttachmentInfo*>
+beginGPURenderPass_commandBuffer: commandBuffer colorTargetInfos: colorTargetInfos numColorTargets: numColorTargets depthStencilTargetInfo: depthStencilTargetInfo
+	<cdecl: SDL_GPURenderPass* SDL_BeginGPURenderPass SDL_GPUCommandBuffer* SDL_GPUColorTargetInfo* dword SDL_GPUDepthStencilTargetInfo*>
 	^self invalidCall: _failureCode!
 
 bindAudioStream_devid: devid stream: stream
@@ -58,23 +58,23 @@ bindGPUComputePipeline_computePass: computePass computePipeline: computePipeline
 	<cdecl: void SDL_BindGPUComputePipeline SDL_GPUComputePass* SDL_GPUComputePipeline*>
 	^self invalidCall: _failureCode!
 
-bindGPUComputeStorageBuffers_computePass: computePass firstSlot: firstSlot storageBuffers: storageBuffers bindingCount: bindingCount
+bindGPUComputeStorageBuffers_computePass: computePass firstSlot: firstSlot storageBuffers: storageBuffers numBindings: numBindings
 	<cdecl: void SDL_BindGPUComputeStorageBuffers SDL_GPUComputePass* dword SDL_GPUBuffer** dword>
 	^self invalidCall: _failureCode!
 
-bindGPUComputeStorageTextures_computePass: computePass firstSlot: firstSlot storageTextures: storageTextures bindingCount: bindingCount
+bindGPUComputeStorageTextures_computePass: computePass firstSlot: firstSlot storageTextures: storageTextures numBindings: numBindings
 	<cdecl: void SDL_BindGPUComputStorageTextures SDL_GPUComputePass* dword SDL_GPUTexture** dword>
 	^self invalidCall: _failureCode!
 
-bindGPUFragmentSamplers_renderPass: renderPass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings bindingCount: bindingCount
+bindGPUFragmentSamplers_renderPass: renderPass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings numBindings: numBindings
 	<cdecl: void SDL_BindGPUFragmentSamplers SDL_GPURenderPass* dword SDL_GPUTextureSamplerBinding* dword>
 	^self invalidCall: _failureCode!
 
-bindGPUFragmentStorageBuffers_renderPass: renderPass firstSlot: firstSlot storageBuffers: storageBuffers bindingCount: bindingCount
+bindGPUFragmentStorageBuffers_renderPass: renderPass firstSlot: firstSlot storageBuffers: storageBuffers numBindings: numBindings
 	<cdecl: void SDL_BindGPUFragmentStorageBuffers SDL_GPURenderPass* dword SDL_GPUBuffer** dword>
 	^self invalidCall: _failureCode!
 
-bindGPUFragmentStorageTextures_renderPass: renderPass firstSlot: firstSlot storageTextures: storageTextures bindingCount: bindingCount
+bindGPUFragmentStorageTextures_renderPass: renderPass firstSlot: firstSlot storageTextures: storageTextures numBindings: numBindings
 	<cdecl: void SDL_BindGPUFragmentStorageTextures SDL_GPURenderPass* dword SDL_GPUTexture** dword>
 	^self invalidCall: _failureCode!
 
@@ -82,27 +82,27 @@ bindGPUGraphicsPipeline_renderPass: renderPass graphicsPipeline: graphicsPipelin
 	<cdecl: void SDL_BindGPUGraphicsPipeline SDL_GPURenderPass* SDL_GPUGraphicsPipeline*>
 	^self invalidCall: _failureCode!
 
-bindGPUIndexBuffer_renderPass: renderPass pBinding: pBinding indexElementSize: indexElementSize
+bindGPUIndexBuffer_renderPass: renderPass binding: binding indexElementSize: indexElementSize
 	<cdecl: void SDL_BindGPUIndexBuffer SDL_GPURenderPass* SDL_GPUBufferBinding* sdword>
 	^self invalidCall: _failureCode!
 
-bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding pBindings: pBindings bindingCount: bindingCount
+bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding pBindings: pBindings numBindings: numBindings
 	<cdecl: void SDL_BindGPUVertexBuffers SDL_GPURenderPass* dword SDL_GPUBufferBinding* dword>
 	^self invalidCall: _failureCode!
 
-bindGPUVertexSamplers_renderPass: renderPass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings bindingCount: bindingCount
+bindGPUVertexSamplers_renderPass: renderPass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings numBindings: numBindings
 	<cdecl: void SDL_BindGPUVertexSamplers SDL_GPURenderPass* dword SDL_GPUTextureSamplerBinding* dword>
 	^self invalidCall: _failureCode!
 
-bindGPUVertexStorageBuffers_renderPass: renderPass firstSlot: firstSlot storageBuffers: storageBuffers bindingCount: bindingCount
+bindGPUVertexStorageBuffers_renderPass: renderPass firstSlot: firstSlot storageBuffers: storageBuffers numBindings: numBindings
 	<cdecl: void SDL_BindGPUVertexStorageBuffers SDL_GPURenderPass* dword SDL_GPUBuffer** dword>
 	^self invalidCall: _failureCode!
 
-bindGPUVertexStorageTextures_renderPass: renderPass firstSlot: firstSlot storageTextures: storageTextures bindingCount: bindingCount
+bindGPUVertexStorageTextures_renderPass: renderPass firstSlot: firstSlot storageTextures: storageTextures numBindings: numBindings
 	<cdecl: void SDL_BindGPUVertexStorageTextures SDL_GPURenderPass* dword SDL_GPUTexture** dword>
 	^self invalidCall: _failureCode!
 
-blitGPUTexture_commandBuffer: commandBuffer source: source destination: destination flipMode: flipMode filterMode: filterMode cycle: cycle
+blitGPUTexture_commandBuffer: commandBuffer source: source destination: destination flipMode: flipMode filter: filter cycle: cycle
 	<cdecl: void SDL_BlitGPUTexture SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* sdword sdword bool>
 	^self invalidCall: _failureCode!
 
@@ -158,11 +158,11 @@ createDirectory_path: path
 	<cdecl: bool SDL_CreateDirectory char*>
 	^self invalidCall: _failureCode!
 
-createGPUBuffer_device: device bufferCreateInfo: bufferCreateInfo
+createGPUBuffer_device: device createinfo: createinfo
 	<cdecl: SDL_GPUBuffer* SDL_CreateGPUBuffer SDL_GPUDevice* SDL_GPUBufferCreateInfo*>
 	^self invalidCall: _failureCode!
 
-createGPUComputePipeline_device: device computePipelineCreateInfo: computePipelineCreateInfo
+createGPUComputePipeline_device: device createinfo: createinfo
 	<cdecl: SDL_GPUComputePipeline* SDL_CreateGPUComputePipeline SDL_GPUDevice* SDL_GPUComputePipelineCreateInfo*>
 	^self invalidCall: _failureCode!
 
@@ -174,23 +174,23 @@ createGPUDeviceWithProperties_props: props
 	<cdecl: SDL_GPUDevice* SDL_CreateGPUDeviceWithProperties dword>
 	^self invalidCall: _failureCode!
 
-createGPUGraphicsPipeline_device: device pipelineCreateInfo: pipelineCreateInfo
+createGPUGraphicsPipeline_device: device createinfo: createinfo
 	<cdecl: SDL_GPUGraphicsPipeline* SDL_CreateGPUGraphicsPipeline SDL_GPUDevice* SDL_GPUGraphicsPipelineCreateInfo*>
 	^self invalidCall: _failureCode!
 
-createGPUSampler_device: device samplerCreateInfo: samplerCreateInfo
+createGPUSampler_device: device createinfo: samplerCreateInfo
 	<cdecl: SDL_GPUSampler* SDL_CreateGPUSampler SDL_GPUDevice* SDL_GPUSamplerCreateInfo*>
 	^self invalidCall: _failureCode!
 
-createGPUShader_device: device shaderCreateInfo: shaderCreateInfo
+createGPUShader_device: device createinfo: createinfo
 	<cdecl: SDL_GPUShader* SDL_CreateGPUShader SDL_GPUDevice* SDL_GPUShaderCreateInfo*>
 	^self invalidCall: _failureCode!
 
-createGPUTexture_device: device textureCreateInfo: textureCreateInfo
+createGPUTexture_device: device createinfo: createinfo
 	<cdecl: SDL_GPUTexture* SDL_CreateGPUTexture SDL_GPUDevice* SDL_GPUTextureCreateInfo*>
 	^self invalidCall: _failureCode!
 
-createGPUTransferBuffer_device: device transferBufferCreateInfo: transferBufferCreateInfo
+createGPUTransferBuffer_device: device createinfo: createinfo
 	<cdecl: SDL_GPUTransferBuffer* SDL_CreateGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBufferCreateInfo*>
 	^self invalidCall: _failureCode!
 
@@ -274,11 +274,11 @@ destroyWindow_window: window
 	<cdecl: void SDL_DestroyWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
-dispatchGPUCompute_computePass: computePass groupCountX: groupCountX groupCountY: groupCountY groupCountZ: groupCountZ
+dispatchGPUCompute_computePass: computePass groupcountX: groupcountX groupcountY: groupcountY groupcountZ: groupcountZ
 	<cdecl: void SDL_DispatchGPUCompute SDL_GPUComputePass* dword dword dword>
 	^self invalidCall: _failureCode!
 
-dispatchGPUComputeIndirect_computePass: computePass buffer: buffer offsetInBytes: offsetInBytes
+dispatchGPUComputeIndirect_computePass: computePass buffer: buffer offset: offset
 	<cdecl: void SDL_DispatchGPUComputeIndirect SDL_GPUComputePass* SDL_GPUBuffer* dword>
 	^self invalidCall: _failureCode!
 
@@ -290,19 +290,19 @@ downloadFromGPUTexture_copyPass: copyPass source: source destination: destinatio
 	<cdecl: void SDL_DownloadFromGPUTexture SDL_GPUCopyPass* SDL_GPUTextureRegion* SDL_GPUTextureTransferInfo*>
 	^self invalidCall: _failureCode!
 
-drawGPUIndexedPrimitives_renderPass: renderPass indexCount: indexCount instanceCount: instanceCount firstIndex: firstIndex vertexOffset: vertexOffset firstIntance: firstInstance
+drawGPUIndexedPrimitives_renderPass: renderPass numIndices: numIndices numInstances: numInstances firstIndex: firstIndex vertexOffset: vertexOffset firstIntance: firstInstance
 	<cdecl: void SDL_DrawGPUIndexedPrimitives SDL_GPURenderPass* dword dword dword sdword dword>
 	^self invalidCall: _failureCode!
 
-drawGPUIndexedPrimitivesIndirect_renderPass: renderPass buffer: buffer offsetInBytes: offsetInBytes drawCount: drawCount stride: stride
+drawGPUIndexedPrimitivesIndirect_renderPass: renderPass buffer: buffer offset: offset drawCount: drawCount pitch: pitch
 	<cdecl: void SDL_DrawGPUIndexedPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword dword>
 	^self invalidCall: _failureCode!
 
-drawGPUPrimitives_renderPass: renderPass vertexCount: vertexCount instanceCount: instanceCount firstVertex: firstVertex firstInstance: firstInstance
+drawGPUPrimitives_renderPass: renderPass numVertices: numVertices numInstances: numInstances firstVertex: firstVertex firstInstance: firstInstance
 	<cdecl: void SDL_DrawGPUPrimitives SDL_GPURenderPass* dword dword dword dword>
 	^self invalidCall: _failureCode!
 
-drawGPUPrimitivesIndirect_renderPass: renderPass buffer: buffer offsetInBytes: offsetInBytes drawCount: drawCount stride: stride
+drawGPUPrimitivesIndirect_renderPass: renderPass buffer: buffer offset: offset drawCount: drawCount pitch: pitch
 	<cdecl: void SDL_DrawGPUPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword dword>
 	^self invalidCall: _failureCode!
 
@@ -690,7 +690,7 @@ glUnloadLibrary
 	<cdecl: void SDL_GL_UnloadLibrary>
 	^self invalidCall: _failureCode!
 
-gpuTextureFormatTexelBlockSize_textureFormat: textureFormat
+gpuTextureFormatTexelBlockSize_format: format
 	<cdecl: dword SDL_GPUTextureFormatTexelBlockSize dword>
 	^self invalidCall: _failureCode!
 
@@ -786,7 +786,7 @@ pushEvent_event: event
 	<cdecl: bool SDL_PushEvent SDL_Event*>
 	^self invalidCall: _failureCode!
 
-pushGPUComputeUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data dataLengthInBytes: dataLengthInBytes 
+pushGPUComputeUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data length: length
 	<cdecl: void SDL_PushGPUComputeUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
 	^self invalidCall: _failureCode!
 
@@ -794,11 +794,11 @@ pushGPUDebugGroup_commandBuffer: commandBuffer name: name
 	<cdecl: void SDL_PushGPUDebugGroup SDL_GPUCommandBuffer* lpstr>
 	^self invalidCall: _failureCode!
 
-pushGPUFragmentUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data dataLengthInBytes: dataLengthInBytes 
+pushGPUFragmentUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data length: length
 	<cdecl: void SDL_PushGPUFragmentUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
 	^self invalidCall: _failureCode!
 
-pushGPUVertexUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data dataLengthInBytes: dataLengthInBytes 
+pushGPUVertexUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data length: length
 	<cdecl: void SDL_PushGPUVertexUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
 	^self invalidCall: _failureCode!
 
@@ -1118,7 +1118,7 @@ waitEventTimeout_event: event timeout: timeout
 	<cdecl: bool SDL_WaitEventTimeout SDL_Event* sdword>
 	^self invalidCall: _failureCode!
 
-waitForGPUFences_device: device waitAll: waitAll pFences: pFences fenceCount: fenceCount
+waitForGPUFences_device: device waitAll: waitAll fences: fences numFences: numFences
 	<cdecl: void SDL_WaitForGPUFences SDL_GPUDevice* bool SDL_GPUFence** dword>
 	^self invalidCall: _failureCode!
 
@@ -1140,28 +1140,28 @@ windowSupportsGPUSwapchainComposition_device: device window: window swapchainCom
 
 !SDL3Library categoriesForMethods!
 acquireGPUCommandBuffer_device:!gpu!public! !
-acquireGPUSwapchainTexture_commandBuffer:window:pWidth:pHeight:!gpu!public! !
+acquireGPUSwapchainTexture_commandBuffer:window:w:h:!gpu!public! !
 addEventWatch_filter:userdata:!events!public! !
 addTimer_interval:callback:param:!public!video! !
 audioDevicePaused_devid:!audio!public! !
-beginGPUComputePass_commandBuffer:storageTextureBindings:storageTextureBindingCount:storageBufferBindings:storageBufferBindingCount:!gpu!public! !
+beginGPUComputePass_commandBuffer:storageTextureBindings:numStorageTextureBindings:storageBufferBindings:numStorageBufferBindings:!gpu!public! !
 beginGPUCopyPass_commandBuffer:!gpu!public! !
-beginGPURenderPass_commandBuffer:colorAttachmentInfos:colorAttachmentCount:depthStencilAttachmentInfo:!gpu!public! !
+beginGPURenderPass_commandBuffer:colorTargetInfos:numColorTargets:depthStencilTargetInfo:!gpu!public! !
 bindAudioStream_devid:stream:!audio!public! !
 bindAudioStreams_devid:streams:numStreams:!audio!public! !
 bindGPUComputePipeline_computePass:computePipeline:!gpu!public! !
-bindGPUComputeStorageBuffers_computePass:firstSlot:storageBuffers:bindingCount:!gpu!public! !
-bindGPUComputeStorageTextures_computePass:firstSlot:storageTextures:bindingCount:!gpu!public! !
-bindGPUFragmentSamplers_renderPass:firstSlot:textureSamplerBindings:bindingCount:!gpu!public! !
-bindGPUFragmentStorageBuffers_renderPass:firstSlot:storageBuffers:bindingCount:!gpu!public! !
-bindGPUFragmentStorageTextures_renderPass:firstSlot:storageTextures:bindingCount:!gpu!public! !
+bindGPUComputeStorageBuffers_computePass:firstSlot:storageBuffers:numBindings:!gpu!public! !
+bindGPUComputeStorageTextures_computePass:firstSlot:storageTextures:numBindings:!gpu!public! !
+bindGPUFragmentSamplers_renderPass:firstSlot:textureSamplerBindings:numBindings:!gpu!public! !
+bindGPUFragmentStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!gpu!public! !
+bindGPUFragmentStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
 bindGPUGraphicsPipeline_renderPass:graphicsPipeline:!gpu!public! !
-bindGPUIndexBuffer_renderPass:pBinding:indexElementSize:!gpu!public! !
-bindGPUVertexBuffers_renderPass:firstBinding:pBindings:bindingCount:!gpu!public! !
-bindGPUVertexSamplers_renderPass:firstSlot:textureSamplerBindings:bindingCount:!gpu!public! !
-bindGPUVertexStorageBuffers_renderPass:firstSlot:storageBuffers:bindingCount:!gpu!public! !
-bindGPUVertexStorageTextures_renderPass:firstSlot:storageTextures:bindingCount:!gpu!public! !
-blitGPUTexture_commandBuffer:source:destination:flipMode:filterMode:cycle:!gpu!public! !
+bindGPUIndexBuffer_renderPass:binding:indexElementSize:!gpu!public! !
+bindGPUVertexBuffers_renderPass:firstBinding:pBindings:numBindings:!gpu!public! !
+bindGPUVertexSamplers_renderPass:firstSlot:textureSamplerBindings:numBindings:!gpu!public! !
+bindGPUVertexStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!gpu!public! !
+bindGPUVertexStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
+blitGPUTexture_commandBuffer:source:destination:flipMode:filter:cycle:!gpu!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
@@ -1175,15 +1175,15 @@ copyProperties_src:dst:!properties!public! !
 createAudioStream_sourceSpec:destinationSpec:!audio!public! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createDirectory_path:!file system!public! !
-createGPUBuffer_device:bufferCreateInfo:!gpu!public! !
-createGPUComputePipeline_device:computePipelineCreateInfo:!gpu!public! !
+createGPUBuffer_device:createinfo:!gpu!public! !
+createGPUComputePipeline_device:createinfo:!gpu!public! !
 createGPUDevice_formatFlags:debugMode:name:!gpu!public! !
 createGPUDeviceWithProperties_props:!gpu!public! !
-createGPUGraphicsPipeline_device:pipelineCreateInfo:!gpu!public! !
-createGPUSampler_device:samplerCreateInfo:!gpu!public! !
-createGPUShader_device:shaderCreateInfo:!gpu!public! !
-createGPUTexture_device:textureCreateInfo:!gpu!public! !
-createGPUTransferBuffer_device:transferBufferCreateInfo:!gpu!public! !
+createGPUGraphicsPipeline_device:createinfo:!gpu!public! !
+createGPUSampler_device:createinfo:!gpu!public! !
+createGPUShader_device:createinfo:!gpu!public! !
+createGPUTexture_device:createinfo:!gpu!public! !
+createGPUTransferBuffer_device:createinfo:!gpu!public! !
 createProperties!properties!public! !
 createRenderer_window:name:flags:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
@@ -1204,14 +1204,14 @@ destroyRenderer_renderer:!public!render! !
 destroySurface_surface:!public! !
 destroyTexture_texture:!public!video! !
 destroyWindow_window:!public!video! !
-dispatchGPUCompute_computePass:groupCountX:groupCountY:groupCountZ:!gpu!public! !
-dispatchGPUComputeIndirect_computePass:buffer:offsetInBytes:!gpu!public! !
+dispatchGPUCompute_computePass:groupcountX:groupcountY:groupcountZ:!gpu!public! !
+dispatchGPUComputeIndirect_computePass:buffer:offset:!gpu!public! !
 downloadFromGPUBuffer_copyPass:source:destination:!gpu!public! !
 downloadFromGPUTexture_copyPass:source:destination:!gpu!public! !
-drawGPUIndexedPrimitives_renderPass:indexCount:instanceCount:firstIndex:vertexOffset:firstIntance:!gpu!public! !
-drawGPUIndexedPrimitivesIndirect_renderPass:buffer:offsetInBytes:drawCount:stride:!gpu!public! !
-drawGPUPrimitives_renderPass:vertexCount:instanceCount:firstVertex:firstInstance:!gpu!public! !
-drawGPUPrimitivesIndirect_renderPass:buffer:offsetInBytes:drawCount:stride:!gpu!public! !
+drawGPUIndexedPrimitives_renderPass:numIndices:numInstances:firstIndex:vertexOffset:firstIntance:!gpu!public! !
+drawGPUIndexedPrimitivesIndirect_renderPass:buffer:offset:drawCount:pitch:!gpu!public! !
+drawGPUPrimitives_renderPass:numVertices:numInstances:firstVertex:firstInstance:!gpu!public! !
+drawGPUPrimitivesIndirect_renderPass:buffer:offset:drawCount:pitch:!gpu!public! !
 endGPUComputePass_computePass:!gpu!public! !
 endGPUCopyPass_copyPass:!gpu!public! !
 endGPURenderPass_renderPass:!gpu!public! !
@@ -1308,7 +1308,7 @@ glSetAttribute_attr:value:!open gl!public!video! !
 glSetSwapInterval_interval:!open gl!public!video! !
 glSwapWindow_window:!open gl!public!video! !
 glUnloadLibrary!open gl!public!video! !
-gpuTextureFormatTexelBlockSize_textureFormat:!gpu!public! !
+gpuTextureFormatTexelBlockSize_format:!gpu!public! !
 gpuTextureSupportsFormat_device:format:type:usage:!gpu!public! !
 gpuTextureSupportsSampleCount_device:format:sampleCount:!gpu!public! !
 hasProperty_props:name:!properties!public! !
@@ -1332,10 +1332,10 @@ pollEvent_event:!events!public! !
 popGPUDebugGroup_commandBuffer:!gpu!public! !
 pumpEvents!events!public! !
 pushEvent_event:!events!public! !
-pushGPUComputeUniformData_commandBuffer:slotIndex:data:dataLengthInBytes:!gpu!public! !
+pushGPUComputeUniformData_commandBuffer:slotIndex:data:length:!gpu!public! !
 pushGPUDebugGroup_commandBuffer:name:!gpu!public! !
-pushGPUFragmentUniformData_commandBuffer:slotIndex:data:dataLengthInBytes:!gpu!public! !
-pushGPUVertexUniformData_commandBuffer:slotIndex:data:dataLengthInBytes:!gpu!public! !
+pushGPUFragmentUniformData_commandBuffer:slotIndex:data:length:!gpu!public! !
+pushGPUVertexUniformData_commandBuffer:slotIndex:data:length:!gpu!public! !
 putAudioStreamData_stream:buffer:length:!audio!public! !
 queryGPUFence_device:fence:!gpu!public! !
 quit!init!public! !
@@ -1414,7 +1414,7 @@ uploadToGPUBuffer_copyPass:source:destination:cycle:!gpu!public! !
 uploadToGPUTexture_copyPass:source:destination:cycle:!gpu!public! !
 waitEvent_event:!events!public! !
 waitEventTimeout_event:timeout:!events!public! !
-waitForGPUFences_device:waitAll:pFences:fenceCount:!gpu!public! !
+waitForGPUFences_device:waitAll:fences:numFences:!gpu!public! !
 waitForGPUIdle_device:!gpu!public! !
 wasInit_flags:!init!public! !
 windowSupportsGPUPresentMode_device:window:presentMode:!gpu!public! !

@@ -2,15 +2,15 @@
 
 ExternalStructure subclass: #SDL_GPUBufferCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage_flags'
+	classVariableNames: '_OffsetOf_props _OffsetOf_size _OffsetOf_usage'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUBufferCreateInfo guid: (GUID fromString: '{5b61c20c-1c79-4152-a6ee-31871e2de075}')!
 
 SDL_GPUBufferCreateInfo addClassConstant: '_OffsetOf_props' value: 16r8!
-SDL_GPUBufferCreateInfo addClassConstant: '_OffsetOf_size_in_bytes' value: 16r4!
-SDL_GPUBufferCreateInfo addClassConstant: '_OffsetOf_usage_flags' value: 16r0!
+SDL_GPUBufferCreateInfo addClassConstant: '_OffsetOf_size' value: 16r4!
+SDL_GPUBufferCreateInfo addClassConstant: '_OffsetOf_usage' value: 16r0!
 
 SDL_GPUBufferCreateInfo comment: ''!
 
@@ -28,33 +28,33 @@ props: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_props put: anInteger!
 
-size_in_bytes
-	"Answer the <Integer> value of the receiver's 'size_in_bytes' field."
+size
+	"Answer the <Integer> value of the receiver's 'size' field."
 
-	^bytes dwordAtOffset: _OffsetOf_size_in_bytes!
+	^bytes dwordAtOffset: _OffsetOf_size!
 
-size_in_bytes: anInteger
-	"Set the receiver's 'size_in_bytes' field to the value of the argument, anInteger"
+size: anInteger
+	"Set the receiver's 'size' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_size_in_bytes put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_size put: anInteger!
 
-usage_flags
-	"Answer the <Integer> value of the receiver's 'usage_flags' field."
+usage
+	"Answer the <Integer> value of the receiver's 'usage' field."
 
-	^bytes dwordAtOffset: _OffsetOf_usage_flags!
+	^bytes dwordAtOffset: _OffsetOf_usage!
 
-usage_flags: anInteger
-	"Set the receiver's 'usage_flags' field to the value of the argument, anInteger"
+usage: anInteger
+	"Set the receiver's 'usage' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_usage_flags put: anInteger! !
+	bytes dwordAtOffset: _OffsetOf_usage put: anInteger! !
 
 !SDL_GPUBufferCreateInfo categoriesForMethods!
 props!**compiled accessors**!public! !
 props:!**compiled accessors**!public! !
-size_in_bytes!**compiled accessors**!public! !
-size_in_bytes:!**compiled accessors**!public! !
-usage_flags!**compiled accessors**!public! !
-usage_flags:!**compiled accessors**!public! !
+size!**compiled accessors**!public! !
+size:!**compiled accessors**!public! !
+usage!**compiled accessors**!public! !
+usage:!**compiled accessors**!public! !
 !
 
 !SDL_GPUBufferCreateInfo class methodsFor!
@@ -63,12 +63,12 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #usage_flags type: DWORDField new;
-		defineField: #size_in_bytes type: DWORDField new;
+		defineField: #usage type: DWORDField new;
+		defineField: #size type: DWORDField new;
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#usage_flags #size_in_bytes #props)! !
+	^#(#usage #size #props)! !
 
 !SDL_GPUBufferCreateInfo class categoriesForMethods!
 defineFields!public! !

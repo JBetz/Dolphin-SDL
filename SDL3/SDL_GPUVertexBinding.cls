@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUVertexBinding
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_binding _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_stride'
+	classVariableNames: '_OffsetOf_binding _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_pitch'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -11,7 +11,7 @@ SDL_GPUVertexBinding guid: (GUID fromString: '{50670be2-842e-4aa8-ad73-3cfe10849
 SDL_GPUVertexBinding addClassConstant: '_OffsetOf_binding' value: 16r0!
 SDL_GPUVertexBinding addClassConstant: '_OffsetOf_input_rate' value: 16r8!
 SDL_GPUVertexBinding addClassConstant: '_OffsetOf_instance_step_rate' value: 16rC!
-SDL_GPUVertexBinding addClassConstant: '_OffsetOf_stride' value: 16r4!
+SDL_GPUVertexBinding addClassConstant: '_OffsetOf_pitch' value: 16r4!
 
 SDL_GPUVertexBinding comment: ''!
 
@@ -49,15 +49,15 @@ instance_step_rate: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_instance_step_rate put: anInteger!
 
-stride
-	"Answer the <Integer> value of the receiver's 'stride' field."
+pitch
+	"Answer the <Integer> value of the receiver's 'pitch' field."
 
-	^bytes dwordAtOffset: _OffsetOf_stride!
+	^bytes dwordAtOffset: _OffsetOf_pitch!
 
-stride: anInteger
-	"Set the receiver's 'stride' field to the value of the argument, anInteger"
+pitch: anInteger
+	"Set the receiver's 'pitch' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_stride put: anInteger! !
+	bytes dwordAtOffset: _OffsetOf_pitch put: anInteger! !
 
 !SDL_GPUVertexBinding categoriesForMethods!
 binding!**compiled accessors**!public! !
@@ -66,8 +66,8 @@ input_rate!**compiled accessors**!public! !
 input_rate:!**compiled accessors**!public! !
 instance_step_rate!**compiled accessors**!public! !
 instance_step_rate:!**compiled accessors**!public! !
-stride!**compiled accessors**!public! !
-stride:!**compiled accessors**!public! !
+pitch!**compiled accessors**!public! !
+pitch:!**compiled accessors**!public! !
 !
 
 !SDL_GPUVertexBinding class methodsFor!
@@ -77,12 +77,12 @@ defineFields
 
 	self
 		defineField: #binding type: DWORDField new;
-		defineField: #stride type: DWORDField new;
+		defineField: #pitch type: DWORDField new;
 		defineField: #input_rate type: SDWORDField new;
 		defineField: #instance_step_rate type: DWORDField new!
 
 getFieldNames
-	^#(#binding #stride #input_rate #instance_step_rate)! !
+	^#(#binding #pitch #input_rate #instance_step_rate)! !
 
 !SDL_GPUVertexBinding class categoriesForMethods!
 defineFields!public! !

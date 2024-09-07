@@ -21,8 +21,8 @@ acquireSwapchainTexture: aWindow
 	swapchainTexture := self library
 				acquireGPUSwapchainTexture_commandBuffer: self
 				window: aWindow
-				pWidth: width
-				pHeight: height.
+				w: width
+				h: height.
 	swapchainTexture extent: width value @ height value.
 	^swapchainTexture!
 
@@ -31,9 +31,9 @@ beginComputePass: aStorageTextureWriteOnlyBinding
 	computePass := self library
 				beginGPUComputePass_commandBuffer: self
 				storageTextureBindings: aStorageTextureWriteOnlyBinding
-				storageTextureBindingCount: 1
+				numStorageTextureBindings: 1
 				storageBufferBindings: nil
-				storageBufferBindingCount: 0.
+				numStorageBufferBindings: 0.
 	self checkObjectResult: computePass.
 	^computePass!
 
@@ -44,13 +44,13 @@ beginCopyPass
 	self checkObjectResult: copyPass.
 	^copyPass!
 
-beginRenderPass: aColorAttachmentInfo
+beginRenderPass: aColorTargetInfo
 	| renderPass |
 	renderPass := self library
 				beginGPURenderPass_commandBuffer: self
-				colorAttachmentInfos: aColorAttachmentInfo yourAddress
-				colorAttachmentCount: 1
-				depthStencilAttachmentInfo: nil.
+				colorTargetInfos: aColorTargetInfo yourAddress
+				numColorTargets: 1
+				depthStencilTargetInfo: nil.
 	self checkObjectResult: renderPass.
 	^renderPass!
 
@@ -58,12 +58,26 @@ blitTexture: aGPUTexture destination: anotherGPUTexture
 	self blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: SDL_GPU_FILTER_NEAREST!
 
 blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: anInteger
+	self
+		blitTexture: aGPUTexture
+		destination: anotherGPUTexture
+		flipMode: SDL_FLIP_NONE
+		filterMode: anInteger!
+
+blitTexture: aGPUTexture destination: anotherGPUTexture flipMode: anInteger
+	self
+		blitTexture: aGPUTexture
+		destination: anotherGPUTexture
+		flipMode: anInteger
+		filterMode: SDL_GPU_FILTER_NEAREST!
+
+blitTexture: aGPUTexture destination: anotherGPUTexture flipMode: anInteger filterMode: anotherInteger
 	self library
 		blitGPUTexture_commandBuffer: self
 		source: aGPUTexture
 		destination: anotherGPUTexture
-		flipMode: SDL_FLIP_NONE
-		filterMode: anInteger
+		flipMode: anInteger
+		filter: anotherInteger
 		cycle: false!
 
 generateMipmapsForTexture: aGPUTexture
@@ -74,7 +88,7 @@ pushComputeUniformData: data
 		pushGPUComputeUniformData_commandBuffer: self
 		slotIndex: 0
 		data: data
-		dataLengthInBytes: data byteSize!
+		length: data byteSize!
 
 submit
 	self library submitGPUCommandBuffer_commandBuffer: self! !
@@ -86,6 +100,8 @@ beginCopyPass!public! !
 beginRenderPass:!public! !
 blitTexture:destination:!public! !
 blitTexture:destination:filterMode:!public! !
+blitTexture:destination:flipMode:!public! !
+blitTexture:destination:flipMode:filterMode:!public! !
 generateMipmapsForTexture:!public! !
 pushComputeUniformData:!public! !
 submit!public! !

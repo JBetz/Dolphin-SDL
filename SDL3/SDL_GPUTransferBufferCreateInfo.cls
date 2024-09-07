@@ -2,14 +2,14 @@
 
 ExternalStructure subclass: #SDL_GPUTransferBufferCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_props _OffsetOf_size_in_bytes _OffsetOf_usage'
+	classVariableNames: '_OffsetOf_props _OffsetOf_size _OffsetOf_usage'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUTransferBufferCreateInfo guid: (GUID fromString: '{ab57cf1e-5de0-491a-a644-78623f2b66c0}')!
 
 SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_props' value: 16r8!
-SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_size_in_bytes' value: 16r4!
+SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_size' value: 16r4!
 SDL_GPUTransferBufferCreateInfo addClassConstant: '_OffsetOf_usage' value: 16r0!
 
 SDL_GPUTransferBufferCreateInfo comment: ''!
@@ -28,15 +28,15 @@ props: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_props put: anInteger!
 
-size_in_bytes
-	"Answer the <Integer> value of the receiver's 'size_in_bytes' field."
+size
+	"Answer the <Integer> value of the receiver's 'size' field."
 
-	^bytes dwordAtOffset: _OffsetOf_size_in_bytes!
+	^bytes dwordAtOffset: _OffsetOf_size!
 
-size_in_bytes: anInteger
-	"Set the receiver's 'size_in_bytes' field to the value of the argument, anInteger"
+size: anInteger
+	"Set the receiver's 'size' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_size_in_bytes put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_size put: anInteger!
 
 usage
 	"Answer the <Integer> value of the receiver's 'usage' field."
@@ -51,8 +51,8 @@ usage: anInteger
 !SDL_GPUTransferBufferCreateInfo categoriesForMethods!
 props!**compiled accessors**!public! !
 props:!**compiled accessors**!public! !
-size_in_bytes!**compiled accessors**!public! !
-size_in_bytes:!**compiled accessors**!public! !
+size!**compiled accessors**!public! !
+size:!**compiled accessors**!public! !
 usage!**compiled accessors**!public! !
 usage:!**compiled accessors**!public! !
 !
@@ -64,11 +64,11 @@ defineFields
 
 	self
 		defineField: #usage type: SDWORDField new;
-		defineField: #size_in_bytes type: DWORDField new;
+		defineField: #size type: DWORDField new;
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#usage #size_in_bytes #props)! !
+	^#(#usage #size #props)! !
 
 !SDL_GPUTransferBufferCreateInfo class categoriesForMethods!
 defineFields!public! !

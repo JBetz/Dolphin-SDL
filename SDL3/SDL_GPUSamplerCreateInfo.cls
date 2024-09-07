@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUSamplerCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_address_mode_u _OffsetOf_address_mode_v _OffsetOf_address_mode_w _OffsetOf_anisotropy_enable _OffsetOf_compare_enable _OffsetOf_compare_op _OffsetOf_mag_filter _OffsetOf_max_anisotropy _OffsetOf_max_lod _OffsetOf_min_filter _OffsetOf_min_lod _OffsetOf_mip_lod_bias _OffsetOf_mip_map_mode _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_props'
+	classVariableNames: '_OffsetOf_address_mode_u _OffsetOf_address_mode_v _OffsetOf_address_mode_w _OffsetOf_compare_op _OffsetOf_enable_anisotropy _OffsetOf_enable_compare _OffsetOf_mag_filter _OffsetOf_max_anisotropy _OffsetOf_max_lod _OffsetOf_min_filter _OffsetOf_min_lod _OffsetOf_mip_lod_bias _OffsetOf_mipmap_mode _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_props'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -11,16 +11,16 @@ SDL_GPUSamplerCreateInfo guid: (GUID fromString: '{f66e96fa-527f-480b-9bc7-39c78
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_address_mode_u' value: 16rC!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_address_mode_v' value: 16r10!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_address_mode_w' value: 16r14!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_anisotropy_enable' value: 16r20!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_compare_enable' value: 16r21!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_compare_op' value: 16r24!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_enable_anisotropy' value: 16r20!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_enable_compare' value: 16r21!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mag_filter' value: 16r4!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_max_anisotropy' value: 16r1C!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_max_lod' value: 16r2C!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_min_filter' value: 16r0!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_min_lod' value: 16r28!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mip_lod_bias' value: 16r18!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mip_map_mode' value: 16r8!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mipmap_mode' value: 16r8!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_padding1' value: 16r22!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_padding2' value: 16r23!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_props' value: 16r30!
@@ -61,26 +61,6 @@ address_mode_w: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_address_mode_w put: anInteger!
 
-anisotropy_enable
-	"Answer the <Boolean> value of the receiver's 'anisotropy_enable' field."
-
-	^(bytes byteAtOffset: _OffsetOf_anisotropy_enable) asBoolean!
-
-anisotropy_enable: aBoolean
-	"Set the receiver's 'anisotropy_enable' field to the value of the argument, aBoolean"
-
-	bytes byteAtOffset: _OffsetOf_anisotropy_enable put: aBoolean asParameter!
-
-compare_enable
-	"Answer the <Boolean> value of the receiver's 'compare_enable' field."
-
-	^(bytes byteAtOffset: _OffsetOf_compare_enable) asBoolean!
-
-compare_enable: aBoolean
-	"Set the receiver's 'compare_enable' field to the value of the argument, aBoolean"
-
-	bytes byteAtOffset: _OffsetOf_compare_enable put: aBoolean asParameter!
-
 compare_op
 	"Answer the <Integer> value of the receiver's 'compare_op' field."
 
@@ -90,6 +70,26 @@ compare_op: anInteger
 	"Set the receiver's 'compare_op' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_compare_op put: anInteger!
+
+enable_anisotropy
+	"Answer the <Boolean> value of the receiver's 'enable_anisotropy' field."
+
+	^(bytes byteAtOffset: _OffsetOf_enable_anisotropy) asBoolean!
+
+enable_anisotropy: aBoolean
+	"Set the receiver's 'enable_anisotropy' field to the value of the argument, aBoolean"
+
+	bytes byteAtOffset: _OffsetOf_enable_anisotropy put: aBoolean asParameter!
+
+enable_compare
+	"Answer the <Boolean> value of the receiver's 'enable_compare' field."
+
+	^(bytes byteAtOffset: _OffsetOf_enable_compare) asBoolean!
+
+enable_compare: aBoolean
+	"Set the receiver's 'enable_compare' field to the value of the argument, aBoolean"
+
+	bytes byteAtOffset: _OffsetOf_enable_compare put: aBoolean asParameter!
 
 mag_filter
 	"Answer the <Integer> value of the receiver's 'mag_filter' field."
@@ -151,15 +151,15 @@ mip_lod_bias: aFloat
 
 	bytes floatAtOffset: _OffsetOf_mip_lod_bias put: aFloat!
 
-mip_map_mode
-	"Answer the <Integer> value of the receiver's 'mip_map_mode' field."
+mipmap_mode
+	"Answer the <Integer> value of the receiver's 'mipmap_mode' field."
 
-	^bytes sdwordAtOffset: _OffsetOf_mip_map_mode!
+	^bytes sdwordAtOffset: _OffsetOf_mipmap_mode!
 
-mip_map_mode: anInteger
-	"Set the receiver's 'mip_map_mode' field to the value of the argument, anInteger"
+mipmap_mode: anInteger
+	"Set the receiver's 'mipmap_mode' field to the value of the argument, anInteger"
 
-	bytes sdwordAtOffset: _OffsetOf_mip_map_mode put: anInteger!
+	bytes sdwordAtOffset: _OffsetOf_mipmap_mode put: anInteger!
 
 props
 	"Answer the <Integer> value of the receiver's 'props' field."
@@ -178,12 +178,12 @@ address_mode_v!**compiled accessors**!public! !
 address_mode_v:!**compiled accessors**!public! !
 address_mode_w!**compiled accessors**!public! !
 address_mode_w:!**compiled accessors**!public! !
-anisotropy_enable!**compiled accessors**!public! !
-anisotropy_enable:!**compiled accessors**!public! !
-compare_enable!**compiled accessors**!public! !
-compare_enable:!**compiled accessors**!public! !
 compare_op!**compiled accessors**!public! !
 compare_op:!**compiled accessors**!public! !
+enable_anisotropy!**compiled accessors**!public! !
+enable_anisotropy:!**compiled accessors**!public! !
+enable_compare!**compiled accessors**!public! !
+enable_compare:!**compiled accessors**!public! !
 mag_filter!**compiled accessors**!public! !
 mag_filter:!**compiled accessors**!public! !
 max_anisotropy!**compiled accessors**!public! !
@@ -196,8 +196,8 @@ min_lod!**compiled accessors**!public! !
 min_lod:!**compiled accessors**!public! !
 mip_lod_bias!**compiled accessors**!public! !
 mip_lod_bias:!**compiled accessors**!public! !
-mip_map_mode!**compiled accessors**!public! !
-mip_map_mode:!**compiled accessors**!public! !
+mipmap_mode!**compiled accessors**!public! !
+mipmap_mode:!**compiled accessors**!public! !
 props!**compiled accessors**!public! !
 props:!**compiled accessors**!public! !
 !
@@ -210,14 +210,14 @@ defineFields
 	self
 		defineField: #min_filter type: DWORDField new;
 		defineField: #mag_filter type: DWORDField new;
-		defineField: #mip_map_mode type: SDWORDField new;
+		defineField: #mipmap_mode type: SDWORDField new;
 		defineField: #address_mode_u type: SDWORDField new;
 		defineField: #address_mode_v type: SDWORDField new;
 		defineField: #address_mode_w type: SDWORDField new;
 		defineField: #mip_lod_bias type: FLOATField new;
 		defineField: #max_anisotropy type: FLOATField new;
-		defineField: #anisotropy_enable type: BOOLEANField new;
-		defineField: #compare_enable type: BOOLEANField new;
+		defineField: #enable_anisotropy type: BOOLEANField new;
+		defineField: #enable_compare type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #padding2 type: BYTEField new beFiller;
 		defineField: #compare_op type: SDWORDField new;
@@ -226,7 +226,7 @@ defineFields
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#min_filter #mag_filter #mip_map_mode #address_mode_u #address_mode_v #address_mode_w #mip_lod_bias #max_anisotropy #anisotropy_enable #compare_enable #compare_op #min_lod #max_lod #props)! !
+	^#(#min_filter #mag_filter #mipmap_mode #address_mode_u #address_mode_v #address_mode_w #mip_lod_bias #max_anisotropy #enable_anisotropy #enable_compare #compare_op #min_lod #max_lod #props)! !
 
 !SDL_GPUSamplerCreateInfo class categoriesForMethods!
 defineFields!public! !

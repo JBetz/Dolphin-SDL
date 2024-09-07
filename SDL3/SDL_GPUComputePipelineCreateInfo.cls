@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUComputePipelineCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entry_point_name _OffsetOf_format _OffsetOf_props _OffsetOf_read_only_storage_buffer_count _OffsetOf_read_only_storage_texture_count _OffsetOf_thread_count_x _OffsetOf_thread_count_y _OffsetOf_thread_count_z _OffsetOf_uniform_buffer_count _OffsetOf_write_only_storage_buffer_count _OffsetOf_write_only_storage_texture_count'
+	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entrypoint _OffsetOf_format _OffsetOf_num_read_only_storage_buffers _OffsetOf_num_read_only_storage_textures _OffsetOf_num_uniform_buffers _OffsetOf_num_write_only_storage_buffers _OffsetOf_num_write_only_storage_textures _OffsetOf_props _OffsetOf_threadcount_x _OffsetOf_threadcount_y _OffsetOf_threadcount_z'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -10,17 +10,17 @@ SDL_GPUComputePipelineCreateInfo guid: (GUID fromString: '{18679722-4745-4e76-89
 
 SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_code' value: 16r4!
 SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_code_size' value: 16r0!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_entry_point_name' value: 16r8!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_entrypoint' value: 16r8!
 SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_format' value: 16rC!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_num_read_only_storage_buffers' value: 16r14!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_num_read_only_storage_textures' value: 16r10!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_num_uniform_buffers' value: 16r20!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_num_write_only_storage_buffers' value: 16r1C!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_num_write_only_storage_textures' value: 16r18!
 SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_props' value: 16r30!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_read_only_storage_buffer_count' value: 16r14!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_read_only_storage_texture_count' value: 16r10!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_thread_count_x' value: 16r24!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_thread_count_y' value: 16r28!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_thread_count_z' value: 16r2C!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_uniform_buffer_count' value: 16r20!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_write_only_storage_buffer_count' value: 16r1C!
-SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_write_only_storage_texture_count' value: 16r18!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_threadcount_x' value: 16r24!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_threadcount_y' value: 16r28!
+SDL_GPUComputePipelineCreateInfo addClassConstant: '_OffsetOf_threadcount_z' value: 16r2C!
 
 SDL_GPUComputePipelineCreateInfo comment: ''!
 
@@ -48,15 +48,15 @@ code_size: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_code_size put: anInteger!
 
-entry_point_name
-	"Answer the <Utf8String> value of the receiver's 'entry_point_name' field."
+entrypoint
+	"Answer the <Utf8String> value of the receiver's 'entrypoint' field."
 
-	^Utf8String fromAddress: (bytes intPtrAtOffset: _OffsetOf_entry_point_name)!
+	^Utf8String fromAddress: (bytes intPtrAtOffset: _OffsetOf_entrypoint)!
 
-entry_point_name: anUtf8String
-	"Set the receiver's 'entry_point_name' field to the value of the argument, anUtf8String"
+entrypoint: anUtf8String
+	"Set the receiver's 'entrypoint' field to the value of the argument, anUtf8String"
 
-	bytes uintPtrAtOffset: _OffsetOf_entry_point_name put: anUtf8String yourAddress!
+	bytes uintPtrAtOffset: _OffsetOf_entrypoint put: anUtf8String yourAddress!
 
 format
 	"Answer the <Integer> value of the receiver's 'format' field."
@@ -68,6 +68,56 @@ format: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_format put: anInteger!
 
+num_read_only_storage_buffers
+	"Answer the <Integer> value of the receiver's 'num_read_only_storage_buffers' field."
+
+	^bytes dwordAtOffset: _OffsetOf_num_read_only_storage_buffers!
+
+num_read_only_storage_buffers: anInteger
+	"Set the receiver's 'num_read_only_storage_buffers' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_num_read_only_storage_buffers put: anInteger!
+
+num_read_only_storage_textures
+	"Answer the <Integer> value of the receiver's 'num_read_only_storage_textures' field."
+
+	^bytes dwordAtOffset: _OffsetOf_num_read_only_storage_textures!
+
+num_read_only_storage_textures: anInteger
+	"Set the receiver's 'num_read_only_storage_textures' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_num_read_only_storage_textures put: anInteger!
+
+num_uniform_buffers
+	"Answer the <Integer> value of the receiver's 'num_uniform_buffers' field."
+
+	^bytes dwordAtOffset: _OffsetOf_num_uniform_buffers!
+
+num_uniform_buffers: anInteger
+	"Set the receiver's 'num_uniform_buffers' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_num_uniform_buffers put: anInteger!
+
+num_write_only_storage_buffers
+	"Answer the <Integer> value of the receiver's 'num_write_only_storage_buffers' field."
+
+	^bytes dwordAtOffset: _OffsetOf_num_write_only_storage_buffers!
+
+num_write_only_storage_buffers: anInteger
+	"Set the receiver's 'num_write_only_storage_buffers' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_num_write_only_storage_buffers put: anInteger!
+
+num_write_only_storage_textures
+	"Answer the <Integer> value of the receiver's 'num_write_only_storage_textures' field."
+
+	^bytes dwordAtOffset: _OffsetOf_num_write_only_storage_textures!
+
+num_write_only_storage_textures: anInteger
+	"Set the receiver's 'num_write_only_storage_textures' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_num_write_only_storage_textures put: anInteger!
+
 props
 	"Answer the <Integer> value of the receiver's 'props' field."
 
@@ -78,113 +128,63 @@ props: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_props put: anInteger!
 
-read_only_storage_buffer_count
-	"Answer the <Integer> value of the receiver's 'read_only_storage_buffer_count' field."
+threadcount_x
+	"Answer the <Integer> value of the receiver's 'threadcount_x' field."
 
-	^bytes dwordAtOffset: _OffsetOf_read_only_storage_buffer_count!
+	^bytes dwordAtOffset: _OffsetOf_threadcount_x!
 
-read_only_storage_buffer_count: anInteger
-	"Set the receiver's 'read_only_storage_buffer_count' field to the value of the argument, anInteger"
+threadcount_x: anInteger
+	"Set the receiver's 'threadcount_x' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_read_only_storage_buffer_count put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_threadcount_x put: anInteger!
 
-read_only_storage_texture_count
-	"Answer the <Integer> value of the receiver's 'read_only_storage_texture_count' field."
+threadcount_y
+	"Answer the <Integer> value of the receiver's 'threadcount_y' field."
 
-	^bytes dwordAtOffset: _OffsetOf_read_only_storage_texture_count!
+	^bytes dwordAtOffset: _OffsetOf_threadcount_y!
 
-read_only_storage_texture_count: anInteger
-	"Set the receiver's 'read_only_storage_texture_count' field to the value of the argument, anInteger"
+threadcount_y: anInteger
+	"Set the receiver's 'threadcount_y' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_read_only_storage_texture_count put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_threadcount_y put: anInteger!
 
-thread_count_x
-	"Answer the <Integer> value of the receiver's 'thread_count_x' field."
+threadcount_z
+	"Answer the <Integer> value of the receiver's 'threadcount_z' field."
 
-	^bytes dwordAtOffset: _OffsetOf_thread_count_x!
+	^bytes dwordAtOffset: _OffsetOf_threadcount_z!
 
-thread_count_x: anInteger
-	"Set the receiver's 'thread_count_x' field to the value of the argument, anInteger"
+threadcount_z: anInteger
+	"Set the receiver's 'threadcount_z' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_thread_count_x put: anInteger!
-
-thread_count_y
-	"Answer the <Integer> value of the receiver's 'thread_count_y' field."
-
-	^bytes dwordAtOffset: _OffsetOf_thread_count_y!
-
-thread_count_y: anInteger
-	"Set the receiver's 'thread_count_y' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_thread_count_y put: anInteger!
-
-thread_count_z
-	"Answer the <Integer> value of the receiver's 'thread_count_z' field."
-
-	^bytes dwordAtOffset: _OffsetOf_thread_count_z!
-
-thread_count_z: anInteger
-	"Set the receiver's 'thread_count_z' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_thread_count_z put: anInteger!
-
-uniform_buffer_count
-	"Answer the <Integer> value of the receiver's 'uniform_buffer_count' field."
-
-	^bytes dwordAtOffset: _OffsetOf_uniform_buffer_count!
-
-uniform_buffer_count: anInteger
-	"Set the receiver's 'uniform_buffer_count' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_uniform_buffer_count put: anInteger!
-
-write_only_storage_buffer_count
-	"Answer the <Integer> value of the receiver's 'write_only_storage_buffer_count' field."
-
-	^bytes dwordAtOffset: _OffsetOf_write_only_storage_buffer_count!
-
-write_only_storage_buffer_count: anInteger
-	"Set the receiver's 'write_only_storage_buffer_count' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_write_only_storage_buffer_count put: anInteger!
-
-write_only_storage_texture_count
-	"Answer the <Integer> value of the receiver's 'write_only_storage_texture_count' field."
-
-	^bytes dwordAtOffset: _OffsetOf_write_only_storage_texture_count!
-
-write_only_storage_texture_count: anInteger
-	"Set the receiver's 'write_only_storage_texture_count' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_write_only_storage_texture_count put: anInteger! !
+	bytes dwordAtOffset: _OffsetOf_threadcount_z put: anInteger! !
 
 !SDL_GPUComputePipelineCreateInfo categoriesForMethods!
 code!**compiled accessors**!public! !
 code:!**compiled accessors**!public! !
 code_size!**compiled accessors**!public! !
 code_size:!**compiled accessors**!public! !
-entry_point_name!**compiled accessors**!public! !
-entry_point_name:!**compiled accessors**!public! !
+entrypoint!**compiled accessors**!public! !
+entrypoint:!**compiled accessors**!public! !
 format!**compiled accessors**!public! !
 format:!**compiled accessors**!public! !
+num_read_only_storage_buffers!**compiled accessors**!public! !
+num_read_only_storage_buffers:!**compiled accessors**!public! !
+num_read_only_storage_textures!**compiled accessors**!public! !
+num_read_only_storage_textures:!**compiled accessors**!public! !
+num_uniform_buffers!**compiled accessors**!public! !
+num_uniform_buffers:!**compiled accessors**!public! !
+num_write_only_storage_buffers!**compiled accessors**!public! !
+num_write_only_storage_buffers:!**compiled accessors**!public! !
+num_write_only_storage_textures!**compiled accessors**!public! !
+num_write_only_storage_textures:!**compiled accessors**!public! !
 props!**compiled accessors**!public! !
 props:!**compiled accessors**!public! !
-read_only_storage_buffer_count!**compiled accessors**!public! !
-read_only_storage_buffer_count:!**compiled accessors**!public! !
-read_only_storage_texture_count!**compiled accessors**!public! !
-read_only_storage_texture_count:!**compiled accessors**!public! !
-thread_count_x!**compiled accessors**!public! !
-thread_count_x:!**compiled accessors**!public! !
-thread_count_y!**compiled accessors**!public! !
-thread_count_y:!**compiled accessors**!public! !
-thread_count_z!**compiled accessors**!public! !
-thread_count_z:!**compiled accessors**!public! !
-uniform_buffer_count!**compiled accessors**!public! !
-uniform_buffer_count:!**compiled accessors**!public! !
-write_only_storage_buffer_count!**compiled accessors**!public! !
-write_only_storage_buffer_count:!**compiled accessors**!public! !
-write_only_storage_texture_count!**compiled accessors**!public! !
-write_only_storage_texture_count:!**compiled accessors**!public! !
+threadcount_x!**compiled accessors**!public! !
+threadcount_x:!**compiled accessors**!public! !
+threadcount_y!**compiled accessors**!public! !
+threadcount_y:!**compiled accessors**!public! !
+threadcount_z!**compiled accessors**!public! !
+threadcount_z:!**compiled accessors**!public! !
 !
 
 !SDL_GPUComputePipelineCreateInfo class methodsFor!
@@ -195,20 +195,20 @@ defineFields
 	self
 		defineField: #code_size type: DWORDField new;
 		defineField: #code type: (PointerField type: BYTE);
-		defineField: #entry_point_name type: (PointerField type: Utf8String);
+		defineField: #entrypoint type: (PointerField type: Utf8String);
 		defineField: #format type: DWORDField new;
-		defineField: #read_only_storage_texture_count type: DWORDField new;
-		defineField: #read_only_storage_buffer_count type: DWORDField new;
-		defineField: #write_only_storage_texture_count type: DWORDField new;
-		defineField: #write_only_storage_buffer_count type: DWORDField new;
-		defineField: #uniform_buffer_count type: DWORDField new;
-		defineField: #thread_count_x type: DWORDField new;
-		defineField: #thread_count_y type: DWORDField new;
-		defineField: #thread_count_z type: DWORDField new;
+		defineField: #num_read_only_storage_textures type: DWORDField new;
+		defineField: #num_read_only_storage_buffers type: DWORDField new;
+		defineField: #num_write_only_storage_textures type: DWORDField new;
+		defineField: #num_write_only_storage_buffers type: DWORDField new;
+		defineField: #num_uniform_buffers type: DWORDField new;
+		defineField: #threadcount_x type: DWORDField new;
+		defineField: #threadcount_y type: DWORDField new;
+		defineField: #threadcount_z type: DWORDField new;
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#code_size #code #entry_point_name #format #read_only_storage_texture_count #read_only_storage_buffer_count #write_only_storage_texture_count #write_only_storage_buffer_count #uniform_buffer_count #thread_count_x #thread_count_y #thread_count_z #props)! !
+	^#(#code_size #code #entrypoint #format #num_read_only_storage_textures #num_read_only_storage_buffers #num_write_only_storage_textures #num_write_only_storage_buffers #num_uniform_buffers #threadcount_x #threadcount_y #threadcount_z #props)! !
 
 !SDL_GPUComputePipelineCreateInfo class categoriesForMethods!
 defineFields!public! !

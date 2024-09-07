@@ -28,7 +28,7 @@ width
 
 !SDL_GPUTexture categoriesForMethods!
 extent!public! !
-extent:!public! !
+extent:!private! !
 height!public! !
 width!public! !
 !

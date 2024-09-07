@@ -2,19 +2,19 @@
 
 ExternalStructure subclass: #SDL_GPUGraphicsPipelineCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_attachment_info _OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
+	classVariableNames: '_OffsetOf_depth_stencil_state _OffsetOf_fragment_shader _OffsetOf_multisample_state _OffsetOf_primitive_type _OffsetOf_props _OffsetOf_rasterizer_state _OffsetOf_target_info _OffsetOf_vertex_input_state _OffsetOf_vertex_shader'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUGraphicsPipelineCreateInfo guid: (GUID fromString: '{8d1eb090-e3d3-4cef-9972-3595e38c3da3}')!
 
-SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_attachment_info' value: 16r6C!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_depth_stencil_state' value: 16r40!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_fragment_shader' value: 16r4!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_multisample_state' value: 16r38!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_primitive_type' value: 16r18!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_props' value: 16r7C!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_rasterizer_state' value: 16r1C!
+SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_target_info' value: 16r6C!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_vertex_input_state' value: 16r8!
 SDL_GPUGraphicsPipelineCreateInfo addClassConstant: '_OffsetOf_vertex_shader' value: 16r0!
 
@@ -23,20 +23,6 @@ SDL_GPUGraphicsPipelineCreateInfo comment: ''!
 !SDL_GPUGraphicsPipelineCreateInfo categoriesForClass!External-Data-Structured! !
 
 !SDL_GPUGraphicsPipelineCreateInfo methodsFor!
-
-attachment_info
-	"Answer the <SDL_GPUGraphicsPipelineAttachmentInfo> value of the receiver's 'attachment_info' field."
-
-	^SDL_GPUGraphicsPipelineAttachmentInfo fromAddress: bytes yourAddress + _OffsetOf_attachment_info!
-
-attachment_info: aSDL_GPUGraphicsPipelineAttachmentInfo
-	"Set the receiver's 'attachment_info' field to the value of the argument, aSDL_GPUGraphicsPipelineAttachmentInfo"
-
-	aSDL_GPUGraphicsPipelineAttachmentInfo
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_attachment_info + 1)
-		to: ##(_OffsetOf_attachment_info + SDL_GPUGraphicsPipelineAttachmentInfo basicByteSize)
-		startingAt: 1!
 
 depth_stencil_state
 	"Answer the <SDL_GPUDepthStencilState> value of the receiver's 'depth_stencil_state' field."
@@ -110,6 +96,20 @@ rasterizer_state: aSDL_GPURasterizerState
 		to: ##(_OffsetOf_rasterizer_state + SDL_GPURasterizerState basicByteSize)
 		startingAt: 1!
 
+target_info
+	"Answer the <SDL_GPUGraphicsPipelineTargetInfo> value of the receiver's 'target_info' field."
+
+	^SDL_GPUGraphicsPipelineTargetInfo fromAddress: bytes yourAddress + _OffsetOf_target_info!
+
+target_info: aSDL_GPUGraphicsPipelineTargetInfo
+	"Set the receiver's 'target_info' field to the value of the argument, aSDL_GPUGraphicsPipelineTargetInfo"
+
+	aSDL_GPUGraphicsPipelineTargetInfo
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_target_info + 1)
+		to: ##(_OffsetOf_target_info + SDL_GPUGraphicsPipelineTargetInfo basicByteSize)
+		startingAt: 1!
+
 vertex_input_state
 	"Answer the <SDL_GPUVertexInputState> value of the receiver's 'vertex_input_state' field."
 
@@ -135,8 +135,6 @@ vertex_shader: aSDL_GPUShader
 	bytes uintPtrAtOffset: _OffsetOf_vertex_shader put: aSDL_GPUShader yourAddress! !
 
 !SDL_GPUGraphicsPipelineCreateInfo categoriesForMethods!
-attachment_info!**compiled accessors**!public! !
-attachment_info:!**compiled accessors**!public! !
 depth_stencil_state!**compiled accessors**!public! !
 depth_stencil_state:!**compiled accessors**!public! !
 fragment_shader!**compiled accessors**!public! !
@@ -149,6 +147,8 @@ props!**compiled accessors**!public! !
 props:!**compiled accessors**!public! !
 rasterizer_state!**compiled accessors**!public! !
 rasterizer_state:!**compiled accessors**!public! !
+target_info!**compiled accessors**!public! !
+target_info:!**compiled accessors**!public! !
 vertex_input_state!**compiled accessors**!public! !
 vertex_input_state:!**compiled accessors**!public! !
 vertex_shader!**compiled accessors**!public! !
@@ -168,11 +168,11 @@ defineFields
 		defineField: #rasterizer_state type: (StructureField type: SDL_GPURasterizerState);
 		defineField: #multisample_state type: (StructureField type: SDL_GPUMultisampleState);
 		defineField: #depth_stencil_state type: (StructureField type: SDL_GPUDepthStencilState);
-		defineField: #attachment_info type: (StructureField type: SDL_GPUGraphicsPipelineAttachmentInfo);
+		defineField: #target_info type: (StructureField type: SDL_GPUGraphicsPipelineTargetInfo);
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#vertex_shader #fragment_shader #vertex_input_state #primitive_type #rasterizer_state #multisample_state #depth_stencil_state #attachment_info #props)! !
+	^#(#vertex_shader #fragment_shader #vertex_input_state #primitive_type #rasterizer_state #multisample_state #depth_stencil_state #target_info #props)! !
 
 !SDL_GPUGraphicsPipelineCreateInfo class categoriesForMethods!
 defineFields!public! !
