@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 GPUExample subclass: #BlitCubeExample
-	instanceVariableNames: 'pipeline vertexBuffer indexBuffer sourceTexture destinationTexture sampler cameraPosition'
+	instanceVariableNames: 'pipeline vertexBuffer indexBuffer sourceTexture destinationTexture sampler cameraPosition bufferTransferBuffer textureTransferBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,6 +14,30 @@ BlitCubeExample comment: ''!
 
 !BlitCubeExample methodsFor!
 
+blitToDestinationTexture
+	1 to: self imageNames size
+		do: 
+			[:index |
+			commandBuffer
+				blitTexture: (SDL_GPUBlitRegion new
+						texture: sourceTexture;
+						layer_or_depth_plane: index - 1;
+						w: 32;
+						h: 32)
+				destination: (SDL_GPUBlitRegion new
+						texture: destinationTexture;
+						layer_or_depth_plane: 1;
+						w: 32;
+						h: 32)
+				filterMode: SDL_GPU_FILTER_LINEAR].
+	gpuDevice
+		releaseTransferBuffer: bufferTransferBuffer;
+		releaseTransferBuffer: textureTransferBuffer.
+	commandBuffer submit!
+
+bytesPerImage
+	^32 * 32 * 4!
+
 close
 	gpuDevice
 		releaseGraphicsPipeline: pipeline;
@@ -24,12 +48,183 @@ close
 		releaseSampler: sampler.
 	super close!
 
+imageNames
+	^#('cube0.bmp' 'cube1.bmp' 'cube2.bmp' 'cube3.bmp' 'cube4.bmp' 'cube5.bmp')!
+
+initialize
+	super initialize.
+	cameraPosition := #(0 0 4)!
+
+renderOn: aGPUTexture
+	| projection view viewProjection uniformData renderPass |
+	projection := Matrix
+				perspectiveFor: 180
+				aspectRatio: 640 / 480
+				nearPlane: 0.01
+				farPlane: 100.
+	view := Matrix identity: 4.
+	viewProjection := view * projection.
+	uniformData := FLOATArray withAll: viewProjection asFloatArray.
+	renderPass := commandBuffer beginRenderPass: aGPUTexture.
+	renderPass
+		bindGraphicsPipeline: pipeline;
+		bindVertexBuffers: (Array with: vertexBuffer);
+		bind16BitIndexBuffer: indexBuffer;
+		bindFragmentSamplers: (Array
+					with: (SDL_GPUTextureSamplerBinding texture: destinationTexture sampler: sampler)).
+	commandBuffer pushVertexUniformData: uniformData.
+	renderPass
+		drawIndexedPrimitives: 36 instanceCount: 1;
+		end!
+
 setup
 	super setup.
-	self setupPipeline.!
+	self
+		setupPipeline;
+		setupResources;
+		setupBufferData;
+		setupTextureData;
+		uploadTransferData;
+		blitToDestinationTexture!
 
 setupBufferData
-	!
+	| bufferSize bufferTransferData vertexData indexData indices |
+	bufferSize := PositionVertex byteSize * 24 + (WORD byteSize * 36).
+	bufferTransferBuffer := gpuDevice createUploadTransferBuffer: bufferSize.
+	bufferTransferData := gpuDevice mapTransferBuffer: bufferTransferBuffer.
+	vertexData := StructureArray
+				fromAddress: bufferTransferData
+				length: 24
+				elementClass: PositionVertex.
+	vertexData
+		at: 1
+			put: (PositionVertex
+					x: -10
+					y: -10
+					z: -10);
+		at: 2
+			put: (PositionVertex
+					x: 10
+					y: -10
+					z: -10);
+		at: 3
+			put: (PositionVertex
+					x: 10
+					y: 10
+					z: -10);
+		at: 4
+			put: (PositionVertex
+					x: -10
+					y: 10
+					z: -10);
+		at: 5
+			put: (PositionVertex
+					x: -10
+					y: -10
+					z: 10);
+		at: 6
+			put: (PositionVertex
+					x: 10
+					y: -10
+					z: 10);
+		at: 7
+			put: (PositionVertex
+					x: 10
+					y: 10
+					z: 10);
+		at: 8
+			put: (PositionVertex
+					x: -10
+					y: 10
+					z: 10);
+		at: 9
+			put: (PositionVertex
+					x: -10
+					y: -10
+					z: -10);
+		at: 10
+			put: (PositionVertex
+					x: -10
+					y: 10
+					z: -10);
+		at: 11
+			put: (PositionVertex
+					x: -10
+					y: 10
+					z: 10);
+		at: 12
+			put: (PositionVertex
+					x: -10
+					y: -10
+					z: 10);
+		at: 13
+			put: (PositionVertex
+					x: 10
+					y: -10
+					z: -10);
+		at: 14
+			put: (PositionVertex
+					x: 10
+					y: 10
+					z: -10);
+		at: 15
+			put: (PositionVertex
+					x: 10
+					y: 10
+					z: 10);
+		at: 16
+			put: (PositionVertex
+					x: 10
+					y: -10
+					z: 10);
+		at: 17
+			put: (PositionVertex
+					x: -10
+					y: -10
+					z: -10);
+		at: 18
+			put: (PositionVertex
+					x: -10
+					y: -10
+					z: -10);
+		at: 19
+			put: (PositionVertex
+					x: 10
+					y: -10
+					z: 10);
+		at: 20
+			put: (PositionVertex
+					x: 10
+					y: -10
+					z: -10);
+		at: 21
+			put: (PositionVertex
+					x: -10
+					y: 10
+					z: -10);
+		at: 22
+			put: (PositionVertex
+					x: -10
+					y: 10
+					z: 10);
+		at: 23
+			put: (PositionVertex
+					x: 10
+					y: 10
+					z: 10);
+		at: 24
+			put: (PositionVertex
+					x: 10
+					y: 10
+					z: -10).
+	indexData := DWORDArray fromAddress: bufferTransferData yourAddress + vertexData byteSize length: 36.
+	indices := DWORDArray
+				withAll: #(0 1 2 0 2 3 6 5 4 7 6 4 8 9 10 8 10 11 14 13 12 15 14 12 16 17 18 16 18 19 22 21 20 23 22 20).
+	KernelLibrary default
+		copyMemory: indexData
+		source: indices
+		length: indices byteSize.
+	gpuDevice unmapTransferBuffer: bufferTransferBuffer!
 
 setupPipeline
 	| vertexShader fragmentShader pipelineCreateInfo |
@@ -52,12 +247,12 @@ setupPipeline
 												dst_alpha_blendfactor: SDL_GPU_BLENDFACTOR_ZERO))));
 		vertex_input_state: (SDL_GPUVertexInputState new
 					vertex_bindings: (StructureArray with: (SDL_GPUVertexBinding new
-										binding: 0;
+										index: 0;
 										input_rate: SDL_GPU_VERTEXINPUTRATE_VERTEX;
 										instance_step_rate: 0;
 										pitch: PositionVertex byteSize));
 					vertex_attributes: (StructureArray with: (SDL_GPUVertexAttribute new
-										binding: 0;
+										binding_index: 0;
 										format: SDL_GPU_VERTEXELEMENTFORMAT_FLOAT3;
 										location: 0;
 										offset: 0)));
@@ -102,14 +297,67 @@ setupResources
 						address_mode_w: SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE)!
 
 setupTextureData
-	! !
+	| textureTransferData |
+	textureTransferBuffer := gpuDevice createUploadTransferBuffer: self bytesPerImage * 6.
+	textureTransferData := gpuDevice mapTransferBuffer: textureTransferBuffer.
+	1 to: self imageNames size
+		do: 
+			[:index |
+			| imageName imageData |
+			imageName := self imageNames at: index.
+			imageData := SDL_Surface fromBMPFile: self imagesPath , imageName.
+			KernelLibrary default
+				copyMemory: (ExternalAddress
+						fromInteger: textureTransferData asInteger + (self bytesPerImage * (index - 1)))
+				source: imageData pixels
+				length: self bytesPerImage].
+	gpuDevice unmapTransferBuffer: textureTransferBuffer!
+
+uploadTransferData
+	| copyPass |
+	commandBuffer := gpuDevice acquireCommandBuffer.
+	copyPass := commandBuffer beginCopyPass.
+	copyPass
+		uploadToBuffer: (SDL_GPUTransferBufferLocation new
+					transfer_buffer: bufferTransferBuffer;
+					offset: 0)
+			destination: (SDL_GPUBufferRegion new
+					buffer: vertexBuffer;
+					offset: 0;
+					size: PositionVertex byteSize * 24);
+		uploadToBuffer: (SDL_GPUTransferBufferLocation new
+					transfer_buffer: bufferTransferBuffer;
+					offset: PositionVertex byteSize * 24)
+			destination: (SDL_GPUBufferRegion new
+					buffer: indexBuffer;
+					offset: 0;
+					size: DWORD byteSize * 36).
+	1 to: self imageNames size
+		do: 
+			[:index |
+			copyPass uploadToTexture: (SDL_GPUTextureTransferInfo new
+						transfer_buffer: textureTransferBuffer;
+						offset: self bytesPerImage * (index - 1))
+				destination: (SDL_GPUTextureRegion new
+						texture: sourceTexture;
+						layer: index - 1;
+						w: 32;
+						h: 32;
+						d: 1)].
+	copyPass end! !
 
 !BlitCubeExample categoriesForMethods!
-close!private! !
+blitToDestinationTexture!private! !
+bytesPerImage!private! !
+close!public! !
+imageNames!private! !
+initialize!public! !
+renderOn:!public! !
 setup!public! !
 setupBufferData!private! !
 setupPipeline!private! !
 setupResources!private! !
 setupTextureData!private! !
+uploadTransferData!private! !
 !
 

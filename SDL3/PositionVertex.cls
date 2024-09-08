@@ -68,10 +68,18 @@ defineFields
 		defineField: #z type: FLOATField new!
 
 getFieldNames
-	^#(#x #y #z)! !
+	^#(#x #y #z)!
+
+x: x y: y z: z
+	^self new
+		x: x;
+		y: y;
+		z: z;
+		yourself! !
 
 !PositionVertex class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+x:y:z:!public! !
 !
 
