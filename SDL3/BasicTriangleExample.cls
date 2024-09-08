@@ -22,11 +22,7 @@ close
 
 renderOn: aGPUTexture
 	| renderPass |
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: aGPUTexture;
-						clear_color: Color black asSDLFColor;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE).
+	renderPass := commandBuffer beginRenderPass: aGPUTexture.
 	renderPass
 		bindGraphicsPipeline: fillPipeline;
 		drawPrimitives: 3 instanceCount: 1;

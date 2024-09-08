@@ -23,20 +23,12 @@ close
 
 renderOn: aGPUTexture
 	| renderPass secondSwapchainTexture |
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: aGPUTexture;
-						clear_color: Color lightGray asSDLFColor;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE).
+	renderPass := commandBuffer beginRenderPass: aGPUTexture clearColor: Color lightGray.
 	renderPass end.
 	secondSwapchainTexture := commandBuffer acquireSwapchainTexture: secondWindow.
 	secondSwapchainTexture isNull
 		ifFalse: 
-			[renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-								texture: secondSwapchainTexture;
-								clear_color: Color gray asSDLFColor;
-								load_op: SDL_GPU_LOADOP_CLEAR;
-								store_op: SDL_GPU_STOREOP_STORE).
+			[renderPass := commandBuffer beginRenderPass: secondSwapchainTexture clearColor: Color gray.
 			renderPass end]!
 
 setup

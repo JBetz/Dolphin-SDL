@@ -20,12 +20,7 @@ close
 
 renderOn: aGPUTexture
 	| clearPass |
-	clearPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: aGPUTexture;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: Color black asSDLFColor;
-						cycle: false).
+	clearPass := commandBuffer beginRenderPass: aGPUTexture.
 	clearPass end.
 	commandBuffer
 		blitTexture: (SDL_GPUBlitRegion new
@@ -80,9 +75,7 @@ setup
 						layer_count_or_depth: 1;
 						num_levels: 1;
 						usage: SDL_GPU_TEXTUREUSAGE_SAMPLER).
-	uploadTransferBuffer := gpuDevice createTransferBuffer: (SDL_GPUTransferBufferCreateInfo new
-						usage: SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD;
-						size: texture width * texture height).
+	uploadTransferBuffer := gpuDevice createUploadTransferBuffer: texture width * texture height.
 	uploadTransferPointer := gpuDevice mapTransferBuffer: uploadTransferBuffer.
 	KernelLibrary default
 		copyMemory: uploadTransferPointer

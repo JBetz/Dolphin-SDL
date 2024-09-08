@@ -38,15 +38,13 @@ setup
 	mipmapTexture := gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
 						type: SDL_GPU_TEXTURETYPE_2D;
 						format: SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM;
-						usage_flags: SDL_GPU_TEXTUREUSAGE_SAMPLER | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET;
+						usage: SDL_GPU_TEXTUREUSAGE_SAMPLER | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET;
 						width: 32;
 						height: 32;
 						layer_count_or_depth: 1;
-						level_count: 3).
+						num_levels: 3).
 	byteCount := 32 * 32 * 4.
-	textureTransferBuffer := gpuDevice createTransferBuffer: (SDL_GPUTransferBufferCreateInfo new
-						usage: SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD;
-						size_in_bytes: byteCount).
+	textureTransferBuffer := gpuDevice createUploadTransferBuffer: byteCount.
 	textureTransferData := gpuDevice mapTransferBuffer: textureTransferBuffer.
 	imageSurface := SDL_Surface fromBMPFile: self imagesPath , 'cube0.bmp'.
 	imageSurface format ~= SDL_PIXELFORMAT_ABGR8888

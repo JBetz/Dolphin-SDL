@@ -18,37 +18,26 @@ renderOn: aGPUTexture
 	| width height renderPass |
 	width := aGPUTexture width.
 	height := aGPUTexture height.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: texture3D;
-						cycle: true;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: Color red asSDLFColor;
-						layer_or_depth_plane: 0).
+	renderPass := commandBuffer
+				beginRenderPass: texture3D
+				clearColor: Color red
+				depthPlane: 0
+				cycle: true.
 	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: texture3D;
-						cycle: false;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: Color green asSDLFColor;
-						layer_or_depth_plane: 1).
+	renderPass := commandBuffer
+				beginRenderPass: texture3D
+				clearColor: Color green
+				depthPlane: 1.
 	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: texture3D;
-						cycle: false;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: Color blue asSDLFColor;
-						layer_or_depth_plane: 2).
+	renderPass := commandBuffer
+				beginRenderPass: texture3D
+				clearColor: Color blue
+				depthPlane: 2.
 	renderPass end.
-	renderPass := commandBuffer beginRenderPass: (SDL_GPUColorTargetInfo new
-						texture: texture3D;
-						cycle: false;
-						load_op: SDL_GPU_LOADOP_CLEAR;
-						store_op: SDL_GPU_STOREOP_STORE;
-						clear_color: Color magenta asSDLFColor;
-						layer_or_depth_plane: 3).
+	renderPass := commandBuffer
+				beginRenderPass: texture3D
+				clearColor: Color magenta
+				depthPlane: 3.
 	renderPass end.
 	0 to: 3
 		do: 

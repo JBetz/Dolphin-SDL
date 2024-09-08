@@ -15,14 +15,8 @@ ClearScreenExample comment: ''!
 !ClearScreenExample methodsFor!
 
 renderOn: aGPUTexture
-	| colorTargetInfo renderPass |
-	colorTargetInfo := SDL_GPUColorTargetInfo new.
-	colorTargetInfo
-		texture: aGPUTexture;
-		clear_color: Color gray asSDLFColor;
-		load_op: SDL_GPU_LOADOP_CLEAR;
-		store_op: SDL_GPU_STOREOP_STORE.
-	renderPass := commandBuffer beginRenderPass: colorTargetInfo.
+	| renderPass |
+	renderPass := commandBuffer beginRenderPass: aGPUTexture clearColor: Color gray.
 	renderPass end!
 
 setup
