@@ -208,7 +208,7 @@ GPUExample subclass: #BasicTriangleExample
 	classInstanceVariableNames: ''!
 
 GPUExample subclass: #BlitCubeExample
-	instanceVariableNames: 'pipeline vertexBuffer indexBuffer sourceTexture destinationTexture sampler cameraPosition'
+	instanceVariableNames: 'pipeline vertexBuffer indexBuffer sourceTexture destinationTexture sampler cameraPosition bufferTransferBuffer textureTransferBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -527,13 +527,13 @@ ExternalStructure subclass: #SDL_GPUTransferBufferLocation
 
 ExternalStructure subclass: #SDL_GPUVertexAttribute
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_binding _OffsetOf_format _OffsetOf_location _OffsetOf_offset'
+	classVariableNames: '_OffsetOf_binding_index _OffsetOf_format _OffsetOf_location _OffsetOf_offset'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPUVertexBinding
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_binding _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_pitch'
+	classVariableNames: '_OffsetOf_index _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_pitch'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
