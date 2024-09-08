@@ -86,7 +86,7 @@ bindGPUIndexBuffer_renderPass: renderPass binding: binding indexElementSize: ind
 	<cdecl: void SDL_BindGPUIndexBuffer SDL_GPURenderPass* SDL_GPUBufferBinding* sdword>
 	^self invalidCall: _failureCode!
 
-bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding pBindings: pBindings numBindings: numBindings
+bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding bindings: bindings numBindings: numBindings
 	<cdecl: void SDL_BindGPUVertexBuffers SDL_GPURenderPass* dword SDL_GPUBufferBinding* dword>
 	^self invalidCall: _failureCode!
 
@@ -1157,7 +1157,7 @@ bindGPUFragmentStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!g
 bindGPUFragmentStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
 bindGPUGraphicsPipeline_renderPass:graphicsPipeline:!gpu!public! !
 bindGPUIndexBuffer_renderPass:binding:indexElementSize:!gpu!public! !
-bindGPUVertexBuffers_renderPass:firstBinding:pBindings:numBindings:!gpu!public! !
+bindGPUVertexBuffers_renderPass:firstBinding:bindings:numBindings:!gpu!public! !
 bindGPUVertexSamplers_renderPass:firstSlot:textureSamplerBindings:numBindings:!gpu!public! !
 bindGPUVertexStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!gpu!public! !
 bindGPUVertexStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
