@@ -54,10 +54,16 @@ defineFields
 		defineField: #sampler type: (PointerField type: SDL_GPUSampler)!
 
 getFieldNames
-	^#(#texture #sampler)! !
+	^#(#texture #sampler)!
+
+texture: aGPUTexture sampler: aGPUSampler
+	^self new
+		texture: aGPUTexture;
+		sampler: aGPUSampler! !
 
 !SDL_GPUTextureSamplerBinding class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+texture:sampler:!public! !
 !
 

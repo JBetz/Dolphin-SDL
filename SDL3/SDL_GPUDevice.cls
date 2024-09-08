@@ -36,6 +36,9 @@ createComputePipeline: aComputePipelineCreateInfo
 	self checkObjectResult: computePipeline.
 	^computePipeline!
 
+createDownloadTransferBuffer: anInteger
+	^self createTransferBuffer: SDL_GPU_TRANSFERBUFFERUSAGE_DOWNLOAD size: anInteger!
+
 createGraphicsPipeline: aGraphicsPipelineCreateInfo
 	| graphicsPipeline |
 	graphicsPipeline := self library createGPUGraphicsPipeline_device: self
@@ -56,12 +59,17 @@ createTexture: aTextureCreateInfo
 	texture extent: aTextureCreateInfo extent.
 	^texture!
 
-createTransferBuffer: aTransferBufferCreateInfo
+createTransferBuffer: anInteger size: anotherInteger
 	| transferBuffer |
 	transferBuffer := self library createGPUTransferBuffer_device: self
-				createinfo: aTransferBufferCreateInfo.
+				createinfo: (SDL_GPUTransferBufferCreateInfo new
+						usage: anInteger;
+						size: anotherInteger).
 	self checkObjectResult: transferBuffer.
 	^transferBuffer!
+
+createUploadTransferBuffer: anInteger
+	^self createTransferBuffer: SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD size: anInteger!
 
 getSwapchainTextureFormat: aWindow
 	^self library getGPUSwapchainTextureFormat_device: self window: aWindow!
@@ -157,10 +165,12 @@ acquireCommandBuffer!public! !
 claimWindow:!public! !
 createBuffer:!public! !
 createComputePipeline:!public! !
+createDownloadTransferBuffer:!public! !
 createGraphicsPipeline:!public! !
 createSampler:!public! !
 createTexture:!public! !
-createTransferBuffer:!public! !
+createTransferBuffer:size:!public! !
+createUploadTransferBuffer:!public! !
 getSwapchainTextureFormat:!public! !
 loadFragmentShader:!public! !
 loadFragmentShader:samplerCount:!public! !

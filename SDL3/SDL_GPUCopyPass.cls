@@ -17,6 +17,13 @@ SDL_GPUCopyPass comment: ''!
 end
 	self library endGPUCopyPass_copyPass: self!
 
+uploadToBuffer: aGPUTransferBufferLocation destination: aGPUBufferRegion 
+	self library
+		uploadToGPUBuffer_copyPass: self
+		source: aGPUTransferBufferLocation
+		destination: aGPUBufferRegion
+		cycle: false!
+
 uploadToTexture: aGPUTextureTransferInfo destination: aGPUTextureRegion
 	self library
 		uploadToGPUTexture_copyPass: self
@@ -26,6 +33,7 @@ uploadToTexture: aGPUTextureTransferInfo destination: aGPUTextureRegion
 
 !SDL_GPUCopyPass categoriesForMethods!
 end!public! !
+uploadToBuffer:destination:!public! !
 uploadToTexture:destination:!public! !
 !
 

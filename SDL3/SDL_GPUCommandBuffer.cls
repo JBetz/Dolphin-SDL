@@ -44,38 +44,53 @@ beginCopyPass
 	self checkObjectResult: copyPass.
 	^copyPass!
 
-beginRenderPass: aColorTargetInfo
+beginRenderPass: aGPUTexture
+	^self beginRenderPass: aGPUTexture clearColor: Color black!
+
+beginRenderPass: aGPUTexture clearColor: aColor
+	^self beginRenderPass: aGPUTexture clearColor: aColor depthPlane: 0 cycle: false!
+
+beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger
+	^self beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger cycle: false!
+
+beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger cycle: aBoolean
 	| renderPass |
 	renderPass := self library
 				beginGPURenderPass_commandBuffer: self
-				colorTargetInfos: aColorTargetInfo yourAddress
+				colorTargetInfos: (SDL_GPUColorTargetInfo new
+						texture: aGPUTexture;
+						clear_color: aColor asSDLFColor;
+						load_op: SDL_GPU_LOADOP_CLEAR;
+						store_op: SDL_GPU_STOREOP_STORE;
+						layer_or_depth_plane: anInteger;
+						cycle: aBoolean)
 				numColorTargets: 1
 				depthStencilTargetInfo: nil.
 	self checkObjectResult: renderPass.
 	^renderPass!
 
-blitTexture: aGPUTexture destination: anotherGPUTexture
-	self blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: SDL_GPU_FILTER_NEAREST!
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion
+	self blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion filterMode: SDL_GPU_FILTER_NEAREST!
 
-blitTexture: aGPUTexture destination: anotherGPUTexture filterMode: anInteger
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion filterMode: anInteger
 	self
-		blitTexture: aGPUTexture
-		destination: anotherGPUTexture
+		blitTexture: aGPUBlitRegion
+		destination: anotherGPUBlitRegion
 		flipMode: SDL_FLIP_NONE
 		filterMode: anInteger!
 
-blitTexture: aGPUTexture destination: anotherGPUTexture flipMode: anInteger
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: anInteger
 	self
-		blitTexture: aGPUTexture
-		destination: anotherGPUTexture
+		blitTexture: aGPUBlitRegion
+		destination: anotherGPUBlitRegion
 		flipMode: anInteger
 		filterMode: SDL_GPU_FILTER_NEAREST!
 
-blitTexture: aGPUTexture destination: anotherGPUTexture flipMode: anInteger filterMode: anotherInteger
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: anInteger filterMode: anotherInteger
 	self library
 		blitGPUTexture_commandBuffer: self
-		source: aGPUTexture
-		destination: anotherGPUTexture
+		source: aGPUBlitRegion
+		destination: anotherGPUBlitRegion
 		flipMode: anInteger
 		filter: anotherInteger
 		cycle: false!
@@ -90,6 +105,13 @@ pushComputeUniformData: data
 		data: data
 		length: data byteSize!
 
+pushVertexUniformData: data
+	self library
+		pushGPUVertexUniformData_commandBuffer: self
+		slotIndex: 0
+		data: data
+		length: data byteSize!
+
 submit
 	self library submitGPUCommandBuffer_commandBuffer: self! !
 
@@ -98,12 +120,16 @@ acquireSwapchainTexture:!public! !
 beginComputePass:!public! !
 beginCopyPass!public! !
 beginRenderPass:!public! !
+beginRenderPass:clearColor:!public! !
+beginRenderPass:clearColor:depthPlane:!public! !
+beginRenderPass:clearColor:depthPlane:cycle:!public! !
 blitTexture:destination:!public! !
 blitTexture:destination:filterMode:!public! !
 blitTexture:destination:flipMode:!public! !
 blitTexture:destination:flipMode:filterMode:!public! !
 generateMipmapsForTexture:!public! !
 pushComputeUniformData:!public! !
+pushVertexUniformData:!public! !
 submit!public! !
 !
 
