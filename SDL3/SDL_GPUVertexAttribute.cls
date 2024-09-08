@@ -2,13 +2,13 @@
 
 ExternalStructure subclass: #SDL_GPUVertexAttribute
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_binding _OffsetOf_format _OffsetOf_location _OffsetOf_offset'
+	classVariableNames: '_OffsetOf_binding_index _OffsetOf_format _OffsetOf_location _OffsetOf_offset'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUVertexAttribute guid: (GUID fromString: '{39d1354a-d98d-4d8e-9fed-b3025ca6602e}')!
 
-SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_binding' value: 16r4!
+SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_binding_index' value: 16r4!
 SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_format' value: 16r8!
 SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_location' value: 16r0!
 SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_offset' value: 16rC!
@@ -19,15 +19,15 @@ SDL_GPUVertexAttribute comment: ''!
 
 !SDL_GPUVertexAttribute methodsFor!
 
-binding
-	"Answer the <Integer> value of the receiver's 'binding' field."
+binding_index
+	"Answer the <Integer> value of the receiver's 'binding_index' field."
 
-	^bytes dwordAtOffset: _OffsetOf_binding!
+	^bytes dwordAtOffset: _OffsetOf_binding_index!
 
-binding: anInteger
-	"Set the receiver's 'binding' field to the value of the argument, anInteger"
+binding_index: anInteger
+	"Set the receiver's 'binding_index' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_binding put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_binding_index put: anInteger!
 
 format
 	"Answer the <Integer> value of the receiver's 'format' field."
@@ -60,8 +60,8 @@ offset: anInteger
 	bytes dwordAtOffset: _OffsetOf_offset put: anInteger! !
 
 !SDL_GPUVertexAttribute categoriesForMethods!
-binding!**compiled accessors**!public! !
-binding:!**compiled accessors**!public! !
+binding_index!**compiled accessors**!public! !
+binding_index:!**compiled accessors**!public! !
 format!**compiled accessors**!public! !
 format:!**compiled accessors**!public! !
 location!**compiled accessors**!public! !
@@ -77,12 +77,12 @@ defineFields
 
 	self
 		defineField: #location type: DWORDField new;
-		defineField: #binding type: DWORDField new;
+		defineField: #binding_index type: DWORDField new;
 		defineField: #format type: SDWORDField new;
 		defineField: #offset type: DWORDField new!
 
 getFieldNames
-	^#(#location #binding #format #offset)! !
+	^#(#location #binding_index #format #offset)! !
 
 !SDL_GPUVertexAttribute class categoriesForMethods!
 defineFields!public! !

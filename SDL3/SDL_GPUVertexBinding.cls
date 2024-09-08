@@ -2,13 +2,13 @@
 
 ExternalStructure subclass: #SDL_GPUVertexBinding
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_binding _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_pitch'
+	classVariableNames: '_OffsetOf_index _OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_pitch'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUVertexBinding guid: (GUID fromString: '{50670be2-842e-4aa8-ad73-3cfe1084962c}')!
 
-SDL_GPUVertexBinding addClassConstant: '_OffsetOf_binding' value: 16r0!
+SDL_GPUVertexBinding addClassConstant: '_OffsetOf_index' value: 16r0!
 SDL_GPUVertexBinding addClassConstant: '_OffsetOf_input_rate' value: 16r8!
 SDL_GPUVertexBinding addClassConstant: '_OffsetOf_instance_step_rate' value: 16rC!
 SDL_GPUVertexBinding addClassConstant: '_OffsetOf_pitch' value: 16r4!
@@ -19,15 +19,15 @@ SDL_GPUVertexBinding comment: ''!
 
 !SDL_GPUVertexBinding methodsFor!
 
-binding
-	"Answer the <Integer> value of the receiver's 'binding' field."
+index
+	"Answer the <Integer> value of the receiver's 'index' field."
 
-	^bytes dwordAtOffset: _OffsetOf_binding!
+	^bytes dwordAtOffset: _OffsetOf_index!
 
-binding: anInteger
-	"Set the receiver's 'binding' field to the value of the argument, anInteger"
+index: anInteger
+	"Set the receiver's 'index' field to the value of the argument, anInteger"
 
-	bytes dwordAtOffset: _OffsetOf_binding put: anInteger!
+	bytes dwordAtOffset: _OffsetOf_index put: anInteger!
 
 input_rate
 	"Answer the <Integer> value of the receiver's 'input_rate' field."
@@ -60,8 +60,8 @@ pitch: anInteger
 	bytes dwordAtOffset: _OffsetOf_pitch put: anInteger! !
 
 !SDL_GPUVertexBinding categoriesForMethods!
-binding!**compiled accessors**!public! !
-binding:!**compiled accessors**!public! !
+index!**compiled accessors**!public! !
+index:!**compiled accessors**!public! !
 input_rate!**compiled accessors**!public! !
 input_rate:!**compiled accessors**!public! !
 instance_step_rate!**compiled accessors**!public! !
@@ -76,13 +76,13 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #binding type: DWORDField new;
+		defineField: #index type: DWORDField new;
 		defineField: #pitch type: DWORDField new;
 		defineField: #input_rate type: SDWORDField new;
 		defineField: #instance_step_rate type: DWORDField new!
 
 getFieldNames
-	^#(#binding #pitch #input_rate #instance_step_rate)! !
+	^#(#index #pitch #input_rate #instance_step_rate)! !
 
 !SDL_GPUVertexBinding class categoriesForMethods!
 defineFields!public! !
