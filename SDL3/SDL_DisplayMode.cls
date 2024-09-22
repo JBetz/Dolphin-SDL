@@ -86,15 +86,7 @@ w:!**compiled accessors**!public! !
 !SDL_DisplayMode class methodsFor!
 
 defineFields
-	"SDL_DisplayMode compileDefinition 
-
-	typedef struct SDL_DisplayMode {
-	    Uint32 format;         // Pixel format of the display mode
-	    int    w;              // Width of the display mode in pixels
-	    int    h;              // Height of the display mode in pixels
-	    int    refresh_rate;   // Refresh rate of the display mode in Hz
-	    void*  driverdata;     // Driver-specific data, ignore this
-	} SDL_DisplayMode;"
+	"self compileDefinition"
 
 	self
 		defineField: #format type: DWORDField new;

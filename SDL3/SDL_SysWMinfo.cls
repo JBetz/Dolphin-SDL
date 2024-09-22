@@ -78,21 +78,7 @@ window:!**compiled accessors**!public! !
 !SDL_SysWMinfo class methodsFor!
 
 defineFields
-	" SDL_SysWMinfo compileDefinition
-
-	typedef struct SDL_SysWMinfo
-	{
-	    SDL_version version;
-	    SDL_SYSWM_TYPE subsystem;
-	    union
-	    {
-		struct {
-		    HWND window;                /**< The window handle */
-		    HDC hdc;                    /**< The window device context */
-		    HINSTANCE hinstance;        /**< The instance handle */
-		} win;
-	    }
-	} SDL_SysWMinfo;"
+	" self compileDefinition"
 
 	self
 		defineField: #version type: (StructureField type: SDL_Version);
