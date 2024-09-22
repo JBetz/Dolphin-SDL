@@ -5,14 +5,6 @@ package paxVersion: 1;
 
 package classNames
 	add: #Application;
-	add: #BasicTriangleExample;
-	add: #BlitCubeExample;
-	add: #BlitMirrorExample;
-	add: #Clear3DSliceExample;
-	add: #ClearScreenExample;
-	add: #ClearScreenMultiWindowExample;
-	add: #ComputeUniformsExample;
-	add: #DrawBezierCurve;
 	add: #DrawImage;
 	add: #DrawLine;
 	add: #DrawRectangle;
@@ -21,10 +13,6 @@ package classNames
 	add: #DrawTexture;
 	add: #FillPolygon;
 	add: #FillRectangle;
-	add: #GenerateMipmapsExample;
-	add: #GPUExample;
-	add: #GradientUniforms;
-	add: #PositionVertex;
 	add: #PriorityQueue;
 	add: #RenderCommand;
 	add: #Renderer2D;
@@ -35,6 +23,7 @@ package classNames
 	add: #SDL_Color;
 	add: #SDL_CommonEvent;
 	add: #SDL_Cursor;
+	add: #SDL_DialogFileFilter;
 	add: #SDL_DisplayEvent;
 	add: #SDL_DisplayMode;
 	add: #SDL_DropEvent;
@@ -189,62 +178,8 @@ Object subclass: #TTFFontStyle
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
-Application subclass: #GPUExample
-	instanceVariableNames: 'gpuDevice commandBuffer'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 Application subclass: #SimpleExample
 	instanceVariableNames: 'triangleVertices'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #BasicTriangleExample
-	instanceVariableNames: 'fillPipeline linePipeline'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #BlitCubeExample
-	instanceVariableNames: 'pipeline vertexBuffer indexBuffer sourceTexture destinationTexture sampler cameraPosition bufferTransferBuffer textureTransferBuffer'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #BlitMirrorExample
-	instanceVariableNames: 'texture'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #Clear3DSliceExample
-	instanceVariableNames: 'texture3D'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #ClearScreenExample
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #ClearScreenMultiWindowExample
-	instanceVariableNames: 'secondWindow'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #ComputeUniformsExample
-	instanceVariableNames: 'gradientPipeline gradientRenderTexture gradientUniformValues width height'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-GPUExample subclass: #GenerateMipmapsExample
-	instanceVariableNames: 'mipmapTexture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -273,18 +208,6 @@ ExternalLibrary subclass: #SDL3TTFLibrary
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #GradientUniforms
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_time'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ExternalStructure subclass: #PositionVertex
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_x _OffsetOf_y _OffsetOf_z'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 ExternalStructure subclass: #SDL_AudioSpec
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_channels _OffsetOf_format _OffsetOf_freq'
@@ -300,6 +223,12 @@ ExternalStructure subclass: #SDL_BlitMap
 ExternalStructure subclass: #SDL_Color
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_a _OffsetOf_b _OffsetOf_g _OffsetOf_r'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_DialogFileFilter
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_name _OffsetOf_pattern'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -833,12 +762,6 @@ SDL_Object subclass: #SDL_Window
 
 TTF_Object subclass: #TTF_Font
 	instanceVariableNames: 'glyphCache'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #DrawBezierCurve
-	instanceVariableNames: 'points color curve width'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
