@@ -67,14 +67,14 @@ num_color_targets: anInteger
 	bytes sdwordAtOffset: _OffsetOf_num_color_targets put: anInteger! !
 
 !SDL_GPUGraphicsPipelineTargetInfo categoriesForMethods!
-color_target_descriptions!**compiled accessors**!public! !
-color_target_descriptions:!**compiled accessors**!public! !
-depth_stencil_format!**compiled accessors**!public! !
-depth_stencil_format:!**compiled accessors**!public! !
-has_depth_stencil_target!**compiled accessors**!public! !
-has_depth_stencil_target:!**compiled accessors**!public! !
-num_color_targets!**compiled accessors**!public! !
-num_color_targets:!**compiled accessors**!public! !
+color_target_descriptions!public! !
+color_target_descriptions:!public! !
+depth_stencil_format!public! !
+depth_stencil_format:!public! !
+has_depth_stencil_target!public! !
+has_depth_stencil_target:!public! !
+num_color_targets!public! !
+num_color_targets:!public! !
 !
 
 !SDL_GPUGraphicsPipelineTargetInfo class methodsFor!
@@ -86,11 +86,11 @@ defineFields
 		defineField: #color_target_descriptions
 			type: (StructureArrayPointerField type: SDL_GPUColorTargetDescription lengthField: #num_color_targets);
 		defineField: #num_color_targets type: SDWORDField new;
+		defineField: #depth_stencil_format type: SDWORDField new;
 		defineField: #has_depth_stencil_target type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #padding3 type: BYTEField new beFiller;
-		defineField: #depth_stencil_format type: SDWORDField new!
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#color_target_descriptions #num_color_targets #has_depth_stencil_target #depth_stencil_format)! !

@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUColorTargetBlendState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blendfactor _OffsetOf_dst_color_blendfactor _OffsetOf_enable_blend _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_src_alpha_blendfactor _OffsetOf_src_color_blendfactor'
+	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blendfactor _OffsetOf_dst_color_blendfactor _OffsetOf_enable_blend _OffsetOf_enable_color_write_mask _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_src_alpha_blendfactor _OffsetOf_src_color_blendfactor'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -86,6 +86,16 @@ enable_blend: aBoolean
 
 	bytes byteAtOffset: _OffsetOf_enable_blend put: aBoolean asParameter!
 
+enable_color_write_mask
+	"Answer the <Boolean> value of the receiver's 'enable_color_write_mask' field."
+
+	^(bytes byteAtOffset: _OffsetOf_enable_color_write_mask) asBoolean!
+
+enable_color_write_mask: aBoolean
+	"Set the receiver's 'enable_color_write_mask' field to the value of the argument, aBoolean"
+
+	bytes byteAtOffset: _OffsetOf_enable_color_write_mask put: aBoolean asParameter!
+
 src_alpha_blendfactor
 	"Answer the <Integer> value of the receiver's 'src_alpha_blendfactor' field."
 
@@ -107,22 +117,24 @@ src_color_blendfactor: anInteger
 	bytes sdwordAtOffset: _OffsetOf_src_color_blendfactor put: anInteger! !
 
 !SDL_GPUColorTargetBlendState categoriesForMethods!
-alpha_blend_op!**compiled accessors**!public! !
-alpha_blend_op:!**compiled accessors**!public! !
-color_blend_op!**compiled accessors**!public! !
-color_blend_op:!**compiled accessors**!public! !
-color_write_mask!**compiled accessors**!public! !
-color_write_mask:!**compiled accessors**!public! !
-dst_alpha_blendfactor!**compiled accessors**!public! !
-dst_alpha_blendfactor:!**compiled accessors**!public! !
-dst_color_blendfactor!**compiled accessors**!public! !
-dst_color_blendfactor:!**compiled accessors**!public! !
-enable_blend!**compiled accessors**!public! !
-enable_blend:!**compiled accessors**!public! !
-src_alpha_blendfactor!**compiled accessors**!public! !
-src_alpha_blendfactor:!**compiled accessors**!public! !
-src_color_blendfactor!**compiled accessors**!public! !
-src_color_blendfactor:!**compiled accessors**!public! !
+alpha_blend_op!public! !
+alpha_blend_op:!public! !
+color_blend_op!public! !
+color_blend_op:!public! !
+color_write_mask!public! !
+color_write_mask:!public! !
+dst_alpha_blendfactor!public! !
+dst_alpha_blendfactor:!public! !
+dst_color_blendfactor!public! !
+dst_color_blendfactor:!public! !
+enable_blend!public! !
+enable_blend:!public! !
+enable_color_write_mask!public! !
+enable_color_write_mask:!public! !
+src_alpha_blendfactor!public! !
+src_alpha_blendfactor:!public! !
+src_color_blendfactor!public! !
+src_color_blendfactor:!public! !
 !
 
 !SDL_GPUColorTargetBlendState class methodsFor!
@@ -131,17 +143,18 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #enable_blend type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
-		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #padding3 type: BYTEField new beFiller;
 		defineField: #src_color_blendfactor type: SDWORDField new;
 		defineField: #dst_color_blendfactor type: SDWORDField new;
 		defineField: #color_blend_op type: SDWORDField new;
 		defineField: #src_alpha_blendfactor type: SDWORDField new;
 		defineField: #dst_alpha_blendfactor type: SDWORDField new;
 		defineField: #alpha_blend_op type: SDWORDField new;
-		defineField: #color_write_mask type: BYTEField new!
+		defineField: #color_write_mask type: BYTEField new;
+		defineField: #enable_blend type: BOOLEANField new;
+		defineField: #enable_color_write_mask type: BOOLEANField new;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#enable_blend #src_color_blendfactor #dst_color_blendfactor #color_blend_op #src_alpha_blendfactor #dst_alpha_blendfactor #alpha_blend_op #color_write_mask)! !

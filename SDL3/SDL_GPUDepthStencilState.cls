@@ -115,22 +115,22 @@ write_mask: anInteger
 	bytes byteAtOffset: _OffsetOf_write_mask put: anInteger! !
 
 !SDL_GPUDepthStencilState categoriesForMethods!
-back_stencil_state!**compiled accessors**!public! !
-back_stencil_state:!**compiled accessors**!public! !
-compare_mask!**compiled accessors**!public! !
-compare_mask:!**compiled accessors**!public! !
-compare_op!**compiled accessors**!public! !
-compare_op:!**compiled accessors**!public! !
-enable_depth_test!**compiled accessors**!public! !
-enable_depth_test:!**compiled accessors**!public! !
-enable_depth_write!**compiled accessors**!public! !
-enable_depth_write:!**compiled accessors**!public! !
-enable_stencil_test!**compiled accessors**!public! !
-enable_stencil_test:!**compiled accessors**!public! !
-front_stencil_state!**compiled accessors**!public! !
-front_stencil_state:!**compiled accessors**!public! !
-write_mask!**compiled accessors**!public! !
-write_mask:!**compiled accessors**!public! !
+back_stencil_state!public! !
+back_stencil_state:!public! !
+compare_mask!public! !
+compare_mask:!public! !
+compare_op!public! !
+compare_op:!public! !
+enable_depth_test!public! !
+enable_depth_test:!public! !
+enable_depth_write!public! !
+enable_depth_write:!public! !
+enable_stencil_test!public! !
+enable_stencil_test:!public! !
+front_stencil_state!public! !
+front_stencil_state:!public! !
+write_mask!public! !
+write_mask:!public! !
 !
 
 !SDL_GPUDepthStencilState class methodsFor!
@@ -139,15 +139,15 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #enable_depth_test type: BOOLEANField new;
-		defineField: #enable_depth_write type: BOOLEANField new;
-		defineField: #enable_stencil_test type: BOOLEANField new;
-		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #compare_op type: SDWORDField new;
 		defineField: #back_stencil_state type: (StructureField type: SDL_GPUStencilOpState);
 		defineField: #front_stencil_state type: (StructureField type: SDL_GPUStencilOpState);
 		defineField: #compare_mask type: BYTEField new;
 		defineField: #write_mask type: BYTEField new;
+		defineField: #enable_depth_test type: BOOLEANField new;
+		defineField: #enable_depth_write type: BOOLEANField new;
+		defineField: #enable_stencil_test type: BOOLEANField new;
+		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #padding2 type: BYTEField new beFiller;
 		defineField: #padding3 type: BYTEField new beFiller!
 

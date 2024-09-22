@@ -2,7 +2,7 @@
 
 ExternalStructure subclass: #SDL_GPUComputePipelineCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entrypoint _OffsetOf_format _OffsetOf_num_read_only_storage_buffers _OffsetOf_num_read_only_storage_textures _OffsetOf_num_uniform_buffers _OffsetOf_num_write_only_storage_buffers _OffsetOf_num_write_only_storage_textures _OffsetOf_props _OffsetOf_threadcount_x _OffsetOf_threadcount_y _OffsetOf_threadcount_z'
+	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entrypoint _OffsetOf_format _OffsetOf_num_read_only_storage_buffers _OffsetOf_num_read_only_storage_textures _OffsetOf_num_samplers _OffsetOf_num_uniform_buffers _OffsetOf_num_write_only_storage_buffers _OffsetOf_num_write_only_storage_textures _OffsetOf_props _OffsetOf_threadcount_x _OffsetOf_threadcount_y _OffsetOf_threadcount_z'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -88,6 +88,16 @@ num_read_only_storage_textures: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_num_read_only_storage_textures put: anInteger!
 
+num_samplers
+	"Answer the <Integer> value of the receiver's 'num_samplers' field."
+
+	^bytes dwordAtOffset: _OffsetOf_num_samplers!
+
+num_samplers: anInteger
+	"Set the receiver's 'num_samplers' field to the value of the argument, anInteger"
+
+	bytes dwordAtOffset: _OffsetOf_num_samplers put: anInteger!
+
 num_uniform_buffers
 	"Answer the <Integer> value of the receiver's 'num_uniform_buffers' field."
 
@@ -159,32 +169,34 @@ threadcount_z: anInteger
 	bytes dwordAtOffset: _OffsetOf_threadcount_z put: anInteger! !
 
 !SDL_GPUComputePipelineCreateInfo categoriesForMethods!
-code!**compiled accessors**!public! !
-code:!**compiled accessors**!public! !
-code_size!**compiled accessors**!public! !
-code_size:!**compiled accessors**!public! !
-entrypoint!**compiled accessors**!public! !
-entrypoint:!**compiled accessors**!public! !
-format!**compiled accessors**!public! !
-format:!**compiled accessors**!public! !
-num_read_only_storage_buffers!**compiled accessors**!public! !
-num_read_only_storage_buffers:!**compiled accessors**!public! !
-num_read_only_storage_textures!**compiled accessors**!public! !
-num_read_only_storage_textures:!**compiled accessors**!public! !
-num_uniform_buffers!**compiled accessors**!public! !
-num_uniform_buffers:!**compiled accessors**!public! !
-num_write_only_storage_buffers!**compiled accessors**!public! !
-num_write_only_storage_buffers:!**compiled accessors**!public! !
-num_write_only_storage_textures!**compiled accessors**!public! !
-num_write_only_storage_textures:!**compiled accessors**!public! !
-props!**compiled accessors**!public! !
-props:!**compiled accessors**!public! !
-threadcount_x!**compiled accessors**!public! !
-threadcount_x:!**compiled accessors**!public! !
-threadcount_y!**compiled accessors**!public! !
-threadcount_y:!**compiled accessors**!public! !
-threadcount_z!**compiled accessors**!public! !
-threadcount_z:!**compiled accessors**!public! !
+code!public! !
+code:!public! !
+code_size!public! !
+code_size:!public! !
+entrypoint!public! !
+entrypoint:!public! !
+format!public! !
+format:!public! !
+num_read_only_storage_buffers!public! !
+num_read_only_storage_buffers:!public! !
+num_read_only_storage_textures!public! !
+num_read_only_storage_textures:!public! !
+num_samplers!public! !
+num_samplers:!public! !
+num_uniform_buffers!public! !
+num_uniform_buffers:!public! !
+num_write_only_storage_buffers!public! !
+num_write_only_storage_buffers:!public! !
+num_write_only_storage_textures!public! !
+num_write_only_storage_textures:!public! !
+props!public! !
+props:!public! !
+threadcount_x!public! !
+threadcount_x:!public! !
+threadcount_y!public! !
+threadcount_y:!public! !
+threadcount_z!public! !
+threadcount_z:!public! !
 !
 
 !SDL_GPUComputePipelineCreateInfo class methodsFor!
@@ -197,6 +209,7 @@ defineFields
 		defineField: #code type: (PointerField type: BYTE);
 		defineField: #entrypoint type: (PointerField type: Utf8String);
 		defineField: #format type: DWORDField new;
+		defineField: #num_samplers type: DWORDField new;
 		defineField: #num_read_only_storage_textures type: DWORDField new;
 		defineField: #num_read_only_storage_buffers type: DWORDField new;
 		defineField: #num_write_only_storage_textures type: DWORDField new;

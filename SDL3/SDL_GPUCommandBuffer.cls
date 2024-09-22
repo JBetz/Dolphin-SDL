@@ -87,13 +87,13 @@ blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: anIntege
 		filterMode: SDL_GPU_FILTER_NEAREST!
 
 blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: anInteger filterMode: anotherInteger
-	self library
-		blitGPUTexture_commandBuffer: self
-		source: aGPUBlitRegion
-		destination: anotherGPUBlitRegion
-		flipMode: anInteger
-		filter: anotherInteger
-		cycle: false!
+	self library blitGPUTexture_commandBuffer: self
+		info: (SDL_GPUBlitInfo new
+				source: aGPUBlitRegion;
+				destination: anotherGPUBlitRegion;
+				flip_mode: anInteger;
+				filter: anotherInteger;
+				cycle: false)!
 
 generateMipmapsForTexture: aGPUTexture
 	self library generateMipmapsForGPUTexture_commandBuffer: self texture: aGPUTexture!

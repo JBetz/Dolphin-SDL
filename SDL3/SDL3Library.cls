@@ -58,6 +58,10 @@ bindGPUComputePipeline_computePass: computePass computePipeline: computePipeline
 	<cdecl: void SDL_BindGPUComputePipeline SDL_GPUComputePass* SDL_GPUComputePipeline*>
 	^self invalidCall: _failureCode!
 
+bindGPUComputeSamplers_computePass: computePass firstSlot: firstSlot textureSamplerBindings: textureSamplerBindings numBindings: numBindings
+	<cdecl: void SDL_BindGPUComputeSamplers SDL_GPUComputePass* dword SDL_GPUTextureSamplerBinding* dword>
+	^self invalidCall: _failureCode!
+
 bindGPUComputeStorageBuffers_computePass: computePass firstSlot: firstSlot storageBuffers: storageBuffers numBindings: numBindings
 	<cdecl: void SDL_BindGPUComputeStorageBuffers SDL_GPUComputePass* dword SDL_GPUBuffer** dword>
 	^self invalidCall: _failureCode!
@@ -86,7 +90,7 @@ bindGPUIndexBuffer_renderPass: renderPass binding: binding indexElementSize: ind
 	<cdecl: void SDL_BindGPUIndexBuffer SDL_GPURenderPass* SDL_GPUBufferBinding* sdword>
 	^self invalidCall: _failureCode!
 
-bindGPUVertexBuffers_renderPass: renderPass firstBinding: firstBinding bindings: bindings numBindings: numBindings
+bindGPUVertexBuffers_renderPass: renderPass firstSlot: firstSlot bindings: bindings numBindings: numBindings
 	<cdecl: void SDL_BindGPUVertexBuffers SDL_GPURenderPass* dword SDL_GPUBufferBinding* dword>
 	^self invalidCall: _failureCode!
 
@@ -102,8 +106,8 @@ bindGPUVertexStorageTextures_renderPass: renderPass firstSlot: firstSlot storage
 	<cdecl: void SDL_BindGPUVertexStorageTextures SDL_GPURenderPass* dword SDL_GPUTexture** dword>
 	^self invalidCall: _failureCode!
 
-blitGPUTexture_commandBuffer: commandBuffer source: source destination: destination flipMode: flipMode filter: filter cycle: cycle
-	<cdecl: void SDL_BlitGPUTexture SDL_GPUCommandBuffer* SDL_GPUBlitRegion* SDL_GPUBlitRegion* sdword sdword bool>
+blitGPUTexture_commandBuffer: commandBuffer info: info
+	<cdecl: void SDL_BlitGPUTexture SDL_GPUCommandBuffer* SDL_GPUBlitInfo*>
 	^self invalidCall: _failureCode!
 
 blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
@@ -294,16 +298,16 @@ drawGPUIndexedPrimitives_renderPass: renderPass numIndices: numIndices numInstan
 	<cdecl: void SDL_DrawGPUIndexedPrimitives SDL_GPURenderPass* dword dword dword sdword dword>
 	^self invalidCall: _failureCode!
 
-drawGPUIndexedPrimitivesIndirect_renderPass: renderPass buffer: buffer offset: offset drawCount: drawCount pitch: pitch
-	<cdecl: void SDL_DrawGPUIndexedPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword dword>
+drawGPUIndexedPrimitivesIndirect_renderPass: renderPass buffer: buffer offset: offset drawCount: drawCount
+	<cdecl: void SDL_DrawGPUIndexedPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword>
 	^self invalidCall: _failureCode!
 
 drawGPUPrimitives_renderPass: renderPass numVertices: numVertices numInstances: numInstances firstVertex: firstVertex firstInstance: firstInstance
 	<cdecl: void SDL_DrawGPUPrimitives SDL_GPURenderPass* dword dword dword dword>
 	^self invalidCall: _failureCode!
 
-drawGPUPrimitivesIndirect_renderPass: renderPass buffer: buffer offset: offset drawCount: drawCount pitch: pitch
-	<cdecl: void SDL_DrawGPUPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword dword>
+drawGPUPrimitivesIndirect_renderPass: renderPass buffer: buffer offset: offset drawCount: drawCount
+	<cdecl: void SDL_DrawGPUPrimitivesIndirect SDL_GPURenderPass* SDL_GPUBuffer* dword dword>
 	^self invalidCall: _failureCode!
 
 endGPUComputePass_computePass: computePass
@@ -442,8 +446,16 @@ getGlobalProperties
 	<cdecl: dword SDL_GetGlobalProperties>
 	^self invalidCall: _failureCode!
 
-getGPUDriver_device: device
-	<cdecl: dword SDL_GetGPUDriver SDL_GPUDevice*>
+getGPUDeviceDriver_device: device
+	<cdecl: lpstr SDL_GetGPUDeviceDriver SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
+getGPUDriver_index: index
+	<cdecl: lpstr SDL_GetGPUDriver sdword>
+	^self invalidCall: _failureCode!
+
+getGPUShaderFormats_device: device
+	<cdecl: sdword SDL_GetGPUShaderFormats SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
 
 getGPUSwapchainTextureFormat_device: device window: window
@@ -464,6 +476,10 @@ getNumAudioDrivers
 
 getNumberProperty_props: props name: name defaultValue: defaultValue
 	<cdecl: sqword SDL_GetNumberProperty dword lpstr sqword>
+	^self invalidCall: _failureCode!
+
+getNumGPUDrivers
+	<cdecl: sdword SDL_GetNumGPUDrivers>
 	^self invalidCall: _failureCode!
 
 getNumVideoDrivers
@@ -688,6 +704,14 @@ glSwapWindow_window: window
 
 glUnloadLibrary
 	<cdecl: void SDL_GL_UnloadLibrary>
+	^self invalidCall: _failureCode!
+
+gpuSupportsProperties_props: props
+	<cdecl: bool SDL_GPUSupportsProperties dword>
+	^self invalidCall: _failureCode!
+
+gpuSupportsShaderFormats_formatFlags: formatFlags name: name
+	<cdecl: bool SDL_GPUSupportsShaderFormats sdword lpstr>
 	^self invalidCall: _failureCode!
 
 gpuTextureFormatTexelBlockSize_format: format
@@ -1162,6 +1186,7 @@ beginGPURenderPass_commandBuffer:colorTargetInfos:numColorTargets:depthStencilTa
 bindAudioStream_devid:stream:!audio!public! !
 bindAudioStreams_devid:streams:numStreams:!audio!public! !
 bindGPUComputePipeline_computePass:computePipeline:!gpu!public! !
+bindGPUComputeSamplers_computePass:firstSlot:textureSamplerBindings:numBindings:!public! !
 bindGPUComputeStorageBuffers_computePass:firstSlot:storageBuffers:numBindings:!gpu!public! !
 bindGPUComputeStorageTextures_computePass:firstSlot:storageTextures:numBindings:!gpu!public! !
 bindGPUFragmentSamplers_renderPass:firstSlot:textureSamplerBindings:numBindings:!gpu!public! !
@@ -1169,11 +1194,11 @@ bindGPUFragmentStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!g
 bindGPUFragmentStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
 bindGPUGraphicsPipeline_renderPass:graphicsPipeline:!gpu!public! !
 bindGPUIndexBuffer_renderPass:binding:indexElementSize:!gpu!public! !
-bindGPUVertexBuffers_renderPass:firstBinding:bindings:numBindings:!gpu!public! !
+bindGPUVertexBuffers_renderPass:firstSlot:bindings:numBindings:!public! !
 bindGPUVertexSamplers_renderPass:firstSlot:textureSamplerBindings:numBindings:!gpu!public! !
 bindGPUVertexStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!gpu!public! !
 bindGPUVertexStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
-blitGPUTexture_commandBuffer:source:destination:flipMode:filter:cycle:!gpu!public! !
+blitGPUTexture_commandBuffer:info:!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
 claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
@@ -1221,9 +1246,9 @@ dispatchGPUComputeIndirect_computePass:buffer:offset:!gpu!public! !
 downloadFromGPUBuffer_copyPass:source:destination:!gpu!public! !
 downloadFromGPUTexture_copyPass:source:destination:!gpu!public! !
 drawGPUIndexedPrimitives_renderPass:numIndices:numInstances:firstIndex:vertexOffset:firstIntance:!gpu!public! !
-drawGPUIndexedPrimitivesIndirect_renderPass:buffer:offset:drawCount:pitch:!gpu!public! !
+drawGPUIndexedPrimitivesIndirect_renderPass:buffer:offset:drawCount:!public! !
 drawGPUPrimitives_renderPass:numVertices:numInstances:firstVertex:firstInstance:!gpu!public! !
-drawGPUPrimitivesIndirect_renderPass:buffer:offset:drawCount:pitch:!gpu!public! !
+drawGPUPrimitivesIndirect_renderPass:buffer:offset:drawCount:!public! !
 endGPUComputePass_computePass:!gpu!public! !
 endGPUCopyPass_copyPass:!gpu!public! !
 endGPURenderPass_renderPass:!gpu!public! !
@@ -1258,12 +1283,15 @@ getDisplayUsableBounds_displayIndex:rect:!public!video! !
 getError!error!public! !
 getFloatProperty_props:name:defaultValue:!properties!public! !
 getGlobalProperties!properties!public! !
-getGPUDriver_device:!gpu!public! !
+getGPUDeviceDriver_device:!public! !
+getGPUDriver_index:!public! !
+getGPUShaderFormats_device:!public! !
 getGPUSwapchainTextureFormat_device:window:!gpu!public! !
 getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
 getNumAudioDrivers!audio!public! !
 getNumberProperty_props:name:defaultValue:!properties!public! !
+getNumGPUDrivers!public! !
 getNumVideoDrivers!public!video! !
 getPathInfo_path:info:!file system!public! !
 getPerformanceCounter!public!video! !
@@ -1320,6 +1348,8 @@ glSetAttribute_attr:value:!open gl!public!video! !
 glSetSwapInterval_interval:!open gl!public!video! !
 glSwapWindow_window:!open gl!public!video! !
 glUnloadLibrary!open gl!public!video! !
+gpuSupportsProperties_props:!public! !
+gpuSupportsShaderFormats_formatFlags:name:!gpu!public! !
 gpuTextureFormatTexelBlockSize_format:!gpu!public! !
 gpuTextureSupportsFormat_device:format:type:usage:!gpu!public! !
 gpuTextureSupportsSampleCount_device:format:sampleCount:!gpu!public! !

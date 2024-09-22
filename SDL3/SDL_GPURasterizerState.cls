@@ -96,20 +96,20 @@ front_face: anInteger
 	bytes sdwordAtOffset: _OffsetOf_front_face put: anInteger! !
 
 !SDL_GPURasterizerState categoriesForMethods!
-cull_mode!**compiled accessors**!public! !
-cull_mode:!**compiled accessors**!public! !
-depth_bias_clamp!**compiled accessors**!public! !
-depth_bias_clamp:!**compiled accessors**!public! !
-depth_bias_constant_factor!**compiled accessors**!public! !
-depth_bias_constant_factor:!**compiled accessors**!public! !
-depth_bias_slope_factor!**compiled accessors**!public! !
-depth_bias_slope_factor:!**compiled accessors**!public! !
-enable_depth_bias!**compiled accessors**!public! !
-enable_depth_bias:!**compiled accessors**!public! !
-fill_mode!**compiled accessors**!public! !
-fill_mode:!**compiled accessors**!public! !
-front_face!**compiled accessors**!public! !
-front_face:!**compiled accessors**!public! !
+cull_mode!public! !
+cull_mode:!public! !
+depth_bias_clamp!public! !
+depth_bias_clamp:!public! !
+depth_bias_constant_factor!public! !
+depth_bias_constant_factor:!public! !
+depth_bias_slope_factor!public! !
+depth_bias_slope_factor:!public! !
+enable_depth_bias!public! !
+enable_depth_bias:!public! !
+fill_mode!public! !
+fill_mode:!public! !
+front_face!public! !
+front_face:!public! !
 !
 
 !SDL_GPURasterizerState class methodsFor!
@@ -121,13 +121,13 @@ defineFields
 		defineField: #fill_mode type: SDWORDField new;
 		defineField: #cull_mode type: SDWORDField new;
 		defineField: #front_face type: SDWORDField new;
+		defineField: #depth_bias_constant_factor type: FLOATField new;
+		defineField: #depth_bias_clamp type: FLOATField new;
+		defineField: #depth_bias_slope_factor type: FLOATField new;
 		defineField: #enable_depth_bias type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #padding3 type: BYTEField new beFiller;
-		defineField: #depth_bias_constant_factor type: FLOATField new;
-		defineField: #depth_bias_clamp type: FLOATField new;
-		defineField: #depth_bias_slope_factor type: FLOATField new!
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
 	^#(#fill_mode #cull_mode #front_face #enable_depth_bias #depth_bias_constant_factor #depth_bias_clamp #depth_bias_slope_factor)! !

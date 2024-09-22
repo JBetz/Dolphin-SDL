@@ -172,34 +172,34 @@ props: anInteger
 	bytes dwordAtOffset: _OffsetOf_props put: anInteger! !
 
 !SDL_GPUSamplerCreateInfo categoriesForMethods!
-address_mode_u!**compiled accessors**!public! !
-address_mode_u:!**compiled accessors**!public! !
-address_mode_v!**compiled accessors**!public! !
-address_mode_v:!**compiled accessors**!public! !
-address_mode_w!**compiled accessors**!public! !
-address_mode_w:!**compiled accessors**!public! !
-compare_op!**compiled accessors**!public! !
-compare_op:!**compiled accessors**!public! !
-enable_anisotropy!**compiled accessors**!public! !
-enable_anisotropy:!**compiled accessors**!public! !
-enable_compare!**compiled accessors**!public! !
-enable_compare:!**compiled accessors**!public! !
-mag_filter!**compiled accessors**!public! !
-mag_filter:!**compiled accessors**!public! !
-max_anisotropy!**compiled accessors**!public! !
-max_anisotropy:!**compiled accessors**!public! !
-max_lod!**compiled accessors**!public! !
-max_lod:!**compiled accessors**!public! !
-min_filter!**compiled accessors**!public! !
-min_filter:!**compiled accessors**!public! !
-min_lod!**compiled accessors**!public! !
-min_lod:!**compiled accessors**!public! !
-mip_lod_bias!**compiled accessors**!public! !
-mip_lod_bias:!**compiled accessors**!public! !
-mipmap_mode!**compiled accessors**!public! !
-mipmap_mode:!**compiled accessors**!public! !
-props!**compiled accessors**!public! !
-props:!**compiled accessors**!public! !
+address_mode_u!public! !
+address_mode_u:!public! !
+address_mode_v!public! !
+address_mode_v:!public! !
+address_mode_w!public! !
+address_mode_w:!public! !
+compare_op!public! !
+compare_op:!public! !
+enable_anisotropy!public! !
+enable_anisotropy:!public! !
+enable_compare!public! !
+enable_compare:!public! !
+mag_filter!public! !
+mag_filter:!public! !
+max_anisotropy!public! !
+max_anisotropy:!public! !
+max_lod!public! !
+max_lod:!public! !
+min_filter!public! !
+min_filter:!public! !
+min_lod!public! !
+min_lod:!public! !
+mip_lod_bias!public! !
+mip_lod_bias:!public! !
+mipmap_mode!public! !
+mipmap_mode:!public! !
+props!public! !
+props:!public! !
 !
 
 !SDL_GPUSamplerCreateInfo class methodsFor!
@@ -216,13 +216,13 @@ defineFields
 		defineField: #address_mode_w type: SDWORDField new;
 		defineField: #mip_lod_bias type: FLOATField new;
 		defineField: #max_anisotropy type: FLOATField new;
+		defineField: #compare_op type: SDWORDField new;
+		defineField: #min_lod type: FLOATField new;
+		defineField: #max_lod type: FLOATField new;
 		defineField: #enable_anisotropy type: BOOLEANField new;
 		defineField: #enable_compare type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #compare_op type: SDWORDField new;
-		defineField: #min_lod type: FLOATField new;
-		defineField: #max_lod type: FLOATField new;
 		defineField: #props type: DWORDField new!
 
 getFieldNames
