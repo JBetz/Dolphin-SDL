@@ -323,7 +323,7 @@ enterAppMainCallbacks_argc: argc argv: argv appInit: appInit  appIter: appIter a
 	^self invalidCall: _failureCode!
 
 enumerateDirectory_path: path callback: callback userdata: userdata
-	<cdecl: bool SDL_EnumerateDirectory char* handle void*>
+	<cdecl: bool SDL_EnumerateDirectory char* lpvoid lpvoid>
 	^self invalidCall: _failureCode!
 
 enumerateProperties_props: props callback: callback userdata: userdata
@@ -1050,6 +1050,18 @@ setWindowTitle_window: window title: title
 	<cdecl: bool SDL_SetWindowTitle SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
+showOpenFileDialog_callback: callback userdata: userdata window: window filters: filters nfilters: nfilters defaultLocation: defaultLocation allowMany: allowMany
+	<cdecl: void SDL_ShowOpenFileDialog lpvoid lpvoid SDL_Window* SDL_DialogFileFilter* sdword lpstr bool>
+	^self invalidCall: _failureCode!
+
+showOpenFolderDialog_callback: callback userdata: userdata window: window defaultLocation: defaultLocation allowMany: allowMany
+	<cdecl: void SDL_ShowOpenFolderDialog lpvoid lpvoid SDL_Window* lpstr bool>
+	^self invalidCall: _failureCode!
+
+showSaveFileDialog_callback: callback userdata: userdata window: window filters: filters nfilters: nfilters defaultLocation: defaultLocation
+	<cdecl: void SDL_ShowSaveFileDialog lpvoid lpvoid SDL_Window* SDL_DialogFileFilter* lpstr bool>
+	^self invalidCall: _failureCode!
+
 showWindow_window: window
 	<cdecl: bool SDL_ShowWindow SDL_Window*>
 	^self invalidCall: _failureCode!
@@ -1091,7 +1103,7 @@ unmapGPUTransferBuffer_device: device transferBuffer: transferBuffer
 	^self invalidCall: _failureCode!
 
 updateTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<cdecl: bool SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
+	<cdecl: bool SDL_UpdateTexture SDL_Texture* SDL_Rect* lpvoid sdword>
 	^self invalidCall: _failureCode!
 
 updateWindowSurface_window: window
@@ -1397,6 +1409,9 @@ setWindowKeyboardGrab_window:grabbed:!public!video! !
 setWindowPosition_window:x:y:!public!video! !
 setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
+showOpenFileDialog_callback:userdata:window:filters:nfilters:defaultLocation:allowMany:!audio!dialog!public! !
+showOpenFolderDialog_callback:userdata:window:defaultLocation:allowMany:!audio!dialog!public! !
+showSaveFileDialog_callback:userdata:window:filters:nfilters:defaultLocation:!audio!dialog!public! !
 showWindow_window:!public!video! !
 startTextInput_window:!public!video! !
 submitGPUCommandBuffer_commandBuffer:!gpu!public! !

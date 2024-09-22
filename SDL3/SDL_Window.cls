@@ -23,6 +23,7 @@ createRenderer
 				createRenderer_window: self
 				name: nil
 				flags: 0.
+	self checkObjectResult: renderer.
 	^renderer initialize!
 
 destroy
@@ -112,6 +113,25 @@ setTitle: aString
 show
 	self library showWindow_window: self!
 
+showLoadFileDialog!
+
+showOpenFileDialog
+	| callback files |
+	callback := ExternalCallback block: [:userdata :filelist :filter | files := filelist]
+				descriptor: (ExternalDescriptor
+						callingConvention: 'cdecl:'
+						returnType: 'void'
+						argumentTypes: 'lpvoid lpstr* sdword').
+	self library
+		showOpenFileDialog_callback: callback asParameter
+		userdata: nil
+		window: self
+		filters: nil
+		nfilters: 0
+		defaultLocation: (self library getUserFolder_folder: SDL_FOLDER_HOME)
+		allowMany: false.
+	^files!
+
 startTextInput
 	self checkBooleanResult: (self library startTextInput_window: self)!
 
@@ -141,6 +161,8 @@ rectangle!public! !
 setIcon:!public! !
 setTitle:!public! !
 show!public! !
+showLoadFileDialog!public! !
+showOpenFileDialog!public! !
 startTextInput!public! !
 updateSurface!public! !
 width!public! !
