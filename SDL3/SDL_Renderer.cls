@@ -40,15 +40,21 @@ createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format
 	^surface initialize!
 
 createTexture: aPoint access: anInteger
+	^self createTexture: aPoint access: anInteger format: SDL_PIXELFORMAT_UNKNOWN!
+
+createTexture: aPoint access: anInteger format: anotherInteger
 	| texture |
 	texture := self library
 				createTexture_renderer: self
-				format: SDL_PIXELFORMAT_UNKNOWN
+				format: anotherInteger
 				access: anInteger
 				w: aPoint x asInteger
 				h: aPoint y asInteger.
 	self checkObjectResult: texture.
 	^texture initialize!
+
+createTexture: aPoint format: anInteger
+	^self createTexture: aPoint access: SDL_TEXTUREACCESS_STATIC format: anInteger!
 
 createTextureFromSurface: aSDL_Surface
 	| texture |
@@ -164,6 +170,8 @@ clear!public! !
 createSurfaceFrom:width:height:pitch:format:!public! !
 createSurfaceFrom_pixels:width:height:pitch:format:!public! !
 createTexture:access:!public! !
+createTexture:access:format:!public! !
+createTexture:format:!public! !
 createTextureFromSurface:!public! !
 destroy!public! !
 fillRectangle:!public! !
