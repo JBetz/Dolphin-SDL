@@ -39,6 +39,8 @@ getProperty: aString
 	| type propertyId |
 	propertyId := self propertiesId.
 	type := self library getPropertyType_props: propertyId name: aString.
+	type = SDL_PROPERTY_TYPE_INVALID
+		ifTrue: [self error: ('Invalid property name: <1s>' expandMacrosWith: aString)].
 	type = SDL_PROPERTY_TYPE_POINTER
 		ifTrue: 
 			[^self library
