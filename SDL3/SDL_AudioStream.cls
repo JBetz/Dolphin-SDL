@@ -21,7 +21,7 @@ flush
 	self library flushAudioStream_stream: self!
 
 getAudioDevice
-	^self checkBooleanResult: (self library getAudioStreamDevice_stream: self)!
+	^self library getAudioStreamDevice_stream: self!
 
 getPropertiesId
 	^self library getAudioStreamProperties_stream: self!
