@@ -24,7 +24,7 @@ bindFragmentSamplers: anArrayOfGPUTextureSamplerBinding
 	self library
 		bindGPUFragmentSamplers_renderPass: self
 		firstSlot: 0
-		textureSamplerBindings: anArrayOfGPUTextureSamplerBinding
+		textureSamplerBindings: (StructureArray withAll: anArrayOfGPUTextureSamplerBinding elementClass: SDL_GPUTextureSamplerBinding)
 		numBindings: anArrayOfGPUTextureSamplerBinding size!
 
 bindGraphicsPipeline: aGPUGraphicsPipeline
@@ -48,7 +48,7 @@ bindVertexBuffers: anArrayOfGPUBuffers
 	self library
 		bindGPUVertexBuffers_renderPass: self
 		firstBinding: 0
-		bindings: bufferBindings
+		bindings: (StructureArray withAll: bufferBindings elementClass: SDL_GPUBufferBinding)
 		numBindings: bufferBindings size!
 
 drawIndexedPrimitives: anInteger instanceCount: anotherInteger

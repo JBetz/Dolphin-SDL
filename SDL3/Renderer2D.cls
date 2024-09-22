@@ -40,6 +40,9 @@ createImageTexture: aString
 createStaticTexture: aPoint
 	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_STATIC!
 
+createStaticTexture: aPoint format: anInteger
+	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_STATIC format: anInteger!
+
 createStreamingTexture: aPoint
 	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_STREAMING!
 
@@ -430,6 +433,7 @@ clip!accessing!public! !
 clip:!accessing!public! !
 createImageTexture:!public! !
 createStaticTexture:!public! !
+createStaticTexture:format:!public! !
 createStreamingTexture:!public! !
 createStringTexture:!public! !
 createTargetTexture:!public! !
