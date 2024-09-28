@@ -241,7 +241,7 @@ ExternalStructure subclass: #SDL_DisplayMode
 
 ExternalStructure subclass: #SDL_Event
 	instanceVariableNames: 'target handlers'
-	classVariableNames: '_OffsetOf_union_button _OffsetOf_union_common _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_padding _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_type _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
+	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
