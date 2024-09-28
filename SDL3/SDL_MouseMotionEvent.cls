@@ -143,21 +143,7 @@ yrel:!**compiled accessors**!public! !
 !SDL_MouseMotionEvent class methodsFor!
 
 defineFields
-	"SDL_MouseMotionEvent compileDefinition"
-
-	"typedef struct SDL_MouseMotionEvent
-	{
-	    Uint32 type;        /**< ::SDL_EVENT_MOUSE_MOTION */
-            Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    SDL_WindowID windowID; /**< The window with mouse focus, if any */
-	    SDL_MouseID which;  /**< The mouse instance id, SDL_TOUCH_MOUSEID, or SDL_PEN_MOUSEID */
-	    Uint32 state;       /**< The current button state */
-	    float x;            /**< X coordinate, relative to window */
-	    float y;            /**< Y coordinate, relative to window */
-	    float xrel;         /**< The relative motion in the X direction */
-	    float yrel;         /**< The relative motion in the Y direction */
-	} SDL_MouseMotionEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;

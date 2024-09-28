@@ -100,18 +100,7 @@ windowID:!**compiled accessors**!public! !
 !SDL_UserEvent class methodsFor!
 
 defineFields
-	"SDL_UserEvent compileDefinition"
-	
-	"typedef struct SDL_UserEvent
-	{
-	    Uint32 type;        /**< ::SDL_USEREVENT through ::SDL_LASTEVENT-1 */
-            Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    Uint32 windowID;    /**< The associated window if any */
-	    Sint32 code;        /**< User defined event code */
-	    void *data1;        /**< User defined data pointer */
-	    void *data2;        /**< User defined data pointer */
-	} SDL_UserEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;

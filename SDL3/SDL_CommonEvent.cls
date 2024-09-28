@@ -6,7 +6,7 @@ SDL_Event subclass: #SDL_CommonEvent
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-SDL_CommonEvent guid: (GUID fromString: '{05fe376e-500c-4a8b-8574-5f0afa101309}')!
+SDL_CommonEvent guid: (GUID fromString: '{838a5193-7669-48eb-8b87-db7f56ee08ea}')!
 
 SDL_CommonEvent addClassConstant: '_OffsetOf_reserved' value: 16r4!
 SDL_CommonEvent addClassConstant: '_OffsetOf_timestamp' value: 16r8!
@@ -48,14 +48,7 @@ type:!**compiled accessors**!public! !
 !SDL_CommonEvent class methodsFor!
 
 defineFields
-	"SDL_CommonEvent compileDefinition"
-
-	"typedef struct SDL_CommonEvent
-	{
-	    Uint32 type;        /**< Event type, shared with all events, Uint32 to cover user events which are not in the SDL_EventType enumeration */
-	    Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	} SDL_CommonEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;

@@ -48,18 +48,11 @@ type:!**compiled accessors**!public! !
 !SDL_QuitEvent class methodsFor!
 
 defineFields
-	"SDL_QuitEvent compileDefinition
-	
-	typedef struct SDL_QuitEvent
-	{
-		Uint32 type;        /**< ::SDL_QUIT */
-		Uint32 reserved;
-		Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	} SDL_QuitEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;
-                defineField: #reserved type: DWORDField new beFiller;
+		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new!
 
 getFieldNames

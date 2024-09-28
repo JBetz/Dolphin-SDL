@@ -107,25 +107,7 @@ windowID:!**compiled accessors**!public! !
 !SDL_TextEditingEvent class methodsFor!
 
 defineFields
-	"SDL_TextEditingEvent compileDefinition"
-
-	"#define SDL_TEXTEDITINGEVENT_TEXT_SIZE 64
-	/**
-	 *  Keyboard text editing event structure (event.edit.*)
-	 *
-	 *  The `text` is owned by SDL and should be copied if the application
-	 *  wants to hold onto it beyond the scope of handling this event.
-	 */
-	typedef struct SDL_TextEditingEvent
-	{
-	    Uint32 type;        /**< ::SDL_EVENT_TEXT_EDITING */
-            Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    SDL_WindowID windowID; /**< The window with keyboard focus, if any */
-	    char *text;         /**< The editing text */
-	    Sint32 start;       /**< The start cursor of selected editing text */
-	    Sint32 length;      /**< The length of selected editing text */
-	} SDL_TextEditingEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;

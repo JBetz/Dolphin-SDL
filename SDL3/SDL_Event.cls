@@ -2,23 +2,24 @@
 
 ExternalStructure subclass: #SDL_Event
 	instanceVariableNames: 'target handlers'
-	classVariableNames: '_OffsetOf_common _OffsetOf_padding _OffsetOf_union_button _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
+	classVariableNames: '_OffsetOf_union_button _OffsetOf_union_common _OffsetOf_union_display _OffsetOf_union_edit _OffsetOf_union_editExt _OffsetOf_union_key _OffsetOf_union_motion _OffsetOf_union_padding _OffsetOf_union_quit _OffsetOf_union_syswm _OffsetOf_union_text _OffsetOf_union_type _OffsetOf_union_user _OffsetOf_union_wheel _OffsetOf_union_window'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
 SDL_Event guid: (GUID fromString: '{22d4884c-5d9e-40fd-a7e0-f86f85f39969}')!
 
-SDL_Event addClassConstant: '_OffsetOf_common' value: 16r0!
-SDL_Event addClassConstant: '_OffsetOf_padding' value: 16r65C!
 SDL_Event addClassConstant: '_OffsetOf_union_button' value: 16r0!
+SDL_Event addClassConstant: '_OffsetOf_union_common' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_display' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_edit' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_editExt' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_key' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_motion' value: 16r0!
+SDL_Event addClassConstant: '_OffsetOf_union_padding' value: 16r60!
 SDL_Event addClassConstant: '_OffsetOf_union_quit' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_syswm' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_text' value: 16r0!
+SDL_Event addClassConstant: '_OffsetOf_union_type' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_user' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_wheel' value: 16r0!
 SDL_Event addClassConstant: '_OffsetOf_union_window' value: 16r0!
@@ -56,20 +57,6 @@ asUserEvent
 
 asWindowEvent
 	^SDL_WindowEvent fromAddress: bytes yourAddress!
-
-common
-	"Answer the <SDL_CommonEvent> value of the receiver's 'common' field."
-
-	^SDL_CommonEvent fromAddress: bytes yourAddress!
-
-common: aSDL_CommonEvent
-	"Set the receiver's 'common' field to the value of the argument, aSDL_CommonEvent"
-
-	aSDL_CommonEvent
-		replaceBytesOf: bytes
-		from: ##(_OffsetOf_common + 1)
-		to: ##(_OffsetOf_common + SDL_CommonEvent basicByteSize)
-		startingAt: 1!
 
 convertToSubclass
 	| type |
@@ -133,11 +120,8 @@ target
 target: anObject
 	target := anObject!
 
-timestamp
-	^self common timestamp!
-
 type
-	^self common type!
+	^self union_type!
 
 union_button
 	"Answer the <SDL_MouseButtonEvent> value of the receiver's 'union_button' field."
@@ -151,6 +135,20 @@ union_button: aSDL_MouseButtonEvent
 		replaceBytesOf: bytes
 		from: ##(_OffsetOf_union_button + 1)
 		to: ##(_OffsetOf_union_button + SDL_MouseButtonEvent basicByteSize)
+		startingAt: 1!
+
+union_common
+	"Answer the <SDL_CommonEvent> value of the receiver's 'union_common' field."
+
+	^SDL_CommonEvent fromAddress: bytes yourAddress!
+
+union_common: aSDL_CommonEvent
+	"Set the receiver's 'union_common' field to the value of the argument, aSDL_CommonEvent"
+
+	aSDL_CommonEvent
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_union_common + 1)
+		to: ##(_OffsetOf_union_common + SDL_CommonEvent basicByteSize)
 		startingAt: 1!
 
 union_display
@@ -223,6 +221,22 @@ union_motion: aSDL_MouseMotionEvent
 		to: ##(_OffsetOf_union_motion + SDL_MouseMotionEvent basicByteSize)
 		startingAt: 1!
 
+union_padding
+	"Answer the <BYTE> value of the receiver's 'union_padding' field."
+
+	^BYTE fromAddress: bytes yourAddress + _OffsetOf_union_padding length: 128!
+
+union_padding: aBYTE
+	"Set the receiver's 'union_padding' field to the value of the argument, aBYTE"
+
+	| size |
+	size := aBYTE byteSize min: ##(128 * BYTE elementSize).
+	aBYTE
+		replaceBytesOf: bytes
+		from: ##(_OffsetOf_union_padding + 1)
+		to: _OffsetOf_union_padding + size
+		startingAt: 1!
+
 union_quit
 	"Answer the <SDL_QuitEvent> value of the receiver's 'union_quit' field."
 
@@ -264,6 +278,16 @@ union_text: aSDL_TextInputEvent
 		from: ##(_OffsetOf_union_text + 1)
 		to: ##(_OffsetOf_union_text + SDL_TextInputEvent basicByteSize)
 		startingAt: 1!
+
+union_type
+	"Answer the <Integer> value of the receiver's 'union_type' field."
+
+	^bytes sdwordAtOffset: _OffsetOf_union_type!
+
+union_type: anInteger
+	"Set the receiver's 'union_type' field to the value of the argument, anInteger"
+
+	bytes sdwordAtOffset: _OffsetOf_union_type put: anInteger!
 
 union_user
 	"Answer the <SDL_UserEvent> value of the receiver's 'union_user' field."
@@ -320,8 +344,6 @@ asTextEditingEvent!public! !
 asTextInputEvent!public! !
 asUserEvent!public! !
 asWindowEvent!public! !
-common!public! !
-common:!public! !
 convertToSubclass!public! !
 hasAssociatedWindow!public! !
 isConsumed!public! !
@@ -332,10 +354,11 @@ padding:!public! !
 printOn:!public! !
 target!accessing!public! !
 target:!accessing!public! !
-timestamp!public! !
 type!public! !
 union_button!**compiled accessors**!public! !
 union_button:!**compiled accessors**!public! !
+union_common!**compiled accessors**!public! !
+union_common:!**compiled accessors**!public! !
 union_display!**compiled accessors**!public! !
 union_display:!**compiled accessors**!public! !
 union_edit!**compiled accessors**!public! !
@@ -346,12 +369,16 @@ union_key!**compiled accessors**!public! !
 union_key:!**compiled accessors**!public! !
 union_motion!**compiled accessors**!public! !
 union_motion:!**compiled accessors**!public! !
+union_padding!**compiled accessors**!public! !
+union_padding:!**compiled accessors**!public! !
 union_quit!**compiled accessors**!public! !
 union_quit:!**compiled accessors**!public! !
 union_syswm!**compiled accessors**!public! !
 union_syswm:!**compiled accessors**!public! !
 union_text!**compiled accessors**!public! !
 union_text:!**compiled accessors**!public! !
+union_type!**compiled accessors**!public! !
+union_type:!**compiled accessors**!public! !
 union_user!**compiled accessors**!public! !
 union_user:!**compiled accessors**!public! !
 union_wheel!**compiled accessors**!public! !
@@ -364,59 +391,13 @@ windowID!public! !
 !SDL_Event class methodsFor!
 
 defineFields
-	"SDL_Event compileDefinition"
-
-	"typedef union SDL_Event
-	{
-	    Uint32 type;                            /**< Event type, shared with all events */
-	    SDL_CommonEvent common;                 /**< Common event data */
-	    SDL_DisplayEvent display;               /**< Display event data */
-	    SDL_WindowEvent window;                 /**< Window event data */
-	    SDL_KeyboardEvent key;                  /**< Keyboard event data */
-	    SDL_TextEditingEvent edit;              /**< Text editing event data */
-	    SDL_TextInputEvent text;                /**< Text input event data */
-	    SDL_MouseMotionEvent motion;            /**< Mouse motion event data */
-	    SDL_MouseButtonEvent button;            /**< Mouse button event data */
-	    SDL_MouseWheelEvent wheel;              /**< Mouse wheel event data */
-	    SDL_JoyAxisEvent jaxis;                 /**< Joystick axis event data */
-	    SDL_JoyHatEvent jhat;                   /**< Joystick hat event data */
-	    SDL_JoyButtonEvent jbutton;             /**< Joystick button event data */
-	    SDL_JoyDeviceEvent jdevice;             /**< Joystick device change event data */
-	    SDL_JoyBatteryEvent jbattery;           /**< Joystick battery event data */
-	    SDL_GamepadAxisEvent gaxis;             /**< Gamepad axis event data */
-	    SDL_GamepadButtonEvent gbutton;         /**< Gamepad button event data */
-	    SDL_GamepadDeviceEvent gdevice;         /**< Gamepad device event data */
-	    SDL_GamepadTouchpadEvent gtouchpad;     /**< Gamepad touchpad event data */
-	    SDL_GamepadSensorEvent gsensor;         /**< Gamepad sensor event data */
-	    SDL_AudioDeviceEvent adevice;           /**< Audio device event data */
-	    SDL_SensorEvent sensor;                 /**< Sensor event data */
-	    SDL_QuitEvent quit;                     /**< Quit request event data */
-	    SDL_UserEvent user;                     /**< Custom event data */
-	    SDL_TouchFingerEvent tfinger;           /**< Touch finger event data */
-	    SDL_PenTipEvent ptip;                   /**< Pen tip touching or leaving drawing surface */
-	    SDL_PenMotionEvent pmotion;             /**< Pen change in position, pressure, or angle */
-	    SDL_PenButtonEvent pbutton;             /**< Pen button press */
-	    SDL_DropEvent drop;                     /**< Drag and drop event data */
-	    SDL_ClipboardEvent clipboard;           /**< Clipboard event data */
-
-	    /* This is necessary for ABI compatibility between Visual C++ and GCC.
-	       Visual C++ will respect the push pack pragma and use 52 bytes (size of
-	       SDL_TextEditingEvent, the largest structure for 32-bit and 64-bit
-	       architectures) for this union, and GCC will use the alignment of the
-	       largest datatype within the union, which is 8 bytes on 64-bit
-	       architectures.
-
-	       So... we'll add padding to force the size to be the same for both.
-
-	       On architectures where pointers are 16 bytes, this needs rounding up to
-	       the next multiple of 16, 64, and on architectures where pointers are
-	       even larger the size of SDL_UserEvent will dominate as being 3 pointers.
-	    */
-	    Uint8 padding[128];
-	} SDL_Event;"
+	"self compileDefinition"
 
 	self
-		defineField: #common
+		defineField: #union_type
+			type: SDWORDField new
+			offset: 0;
+		defineField: #union_common
 			type: (StructureField type: SDL_CommonEvent)
 			offset: 0;
 		defineField: #union_display
@@ -455,21 +436,17 @@ defineFields
 		defineField: #union_syswm
 			type: (StructureField type: SDL_SysWMEvent)
 			offset: 0;
-		defineField: #padding type: (ArrayField type: BYTE length: 128)!
+		defineField: #union_padding type: (ArrayField type: BYTE length: 128)!
 
 fromAddress: anAddress
 	^(super fromAddress: anAddress) initialize!
 
 getFieldNames
-	^#(#common #union_button #union_display #union_edit #union_editExt #union_key #union_motion #union_quit #union_syswm #union_text #union_user #union_wheel #union_window #padding)!
-
-packing
-	^4! !
+	^#(#union_button #union_common #union_display #union_edit #union_editExt #union_key #union_motion #union_quit #union_syswm #union_text #union_type #union_user #union_wheel #union_window #union_padding)! !
 
 !SDL_Event class categoriesForMethods!
 defineFields!public! !
 fromAddress:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
-packing!public! !
 !
 

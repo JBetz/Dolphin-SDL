@@ -74,23 +74,7 @@ windowID:!**compiled accessors**!public! !
 !SDL_TextInputEvent class methodsFor!
 
 defineFields
-	"SDL_TextInputEvent compileDefinition"
-
-	"#define SDL_TEXTINPUTEVENT_TEXT_SIZE 64
-	/**
-	 *  Keyboard text input event structure (event.text.*)
-	 *
-	 *  The `text` is owned by SDL and should be copied if the application
-	 *  wants to hold onto it beyond the scope of handling this event.
-	 */
-	typedef struct SDL_TextInputEvent
-	{
-	    Uint32 type;        /**< ::SDL_EVENT_TEXT_INPUT */
-            Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    SDL_WindowID windowID; /**< The window with keyboard focus, if any */
-	    char *text;         /**< The input text */
-	} SDL_TextInputEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;

@@ -147,20 +147,7 @@ windowID:!**compiled accessors**!public! !
 !SDL_WindowEvent class methodsFor!
 
 defineFields
-	"SDL_WindowEvent compileDefinition"
-
-	"/**
-	 *  Window state change event data (event.window.*)
-	 */
-	typedef struct SDL_WindowEvent
-	{
-	    SDL_EventType type; /**< ::SDL_WINDOWEVENT_* */
-	    Uint32 reserved;
-	    Uint64 timestamp;   /**< In nanoseconds, populated using SDL_GetTicksNS() */
-	    SDL_WindowID windowID; /**< The associated window */
-	    Sint32 data1;       /**< event dependent data */
-	    Sint32 data2;       /**< event dependent data */
-	} SDL_WindowEvent;"
+	"self compileDefinition"
 
 	self
 		defineField: #type type: DWORDField new;
