@@ -19,6 +19,13 @@ SDL_Rect comment: ''!
 
 !SDL_Rect methodsFor!
 
+asFRect
+	^SDL_FRect new
+		x: self x asFloat;
+		y: self y asFloat;
+		w: self w asFloat;
+		h: self h asFloat!
+
 asRectangle
 	^Rectangle origin: self origin extent: self extent!
 
@@ -75,6 +82,7 @@ y: anInteger
 	bytes sdwordAtOffset: _OffsetOf_y put: anInteger! !
 
 !SDL_Rect categoriesForMethods!
+asFRect!public! !
 asRectangle!public! !
 extent!public! !
 h!**compiled accessors**!public! !
@@ -92,13 +100,7 @@ y:!**compiled accessors**!public! !
 !SDL_Rect class methodsFor!
 
 defineFields
-	"SDL_Rect compileDefinition
-
-	typedef struct SDL_Rect
-	{
-	    int x, y;
-	    int w, h;
-	} SDL_Rect;"
+	"self compileDefinition"
 
 	self
 		defineField: #x type: SDWORDField new;

@@ -73,15 +73,7 @@ r:!**compiled accessors**!public! !
 !SDL_FColor class methodsFor!
 
 defineFields
-	"SDL_FColor compileDefinition"
-	
-	"typedef struct SDL_FColor
-	{
-	    float r;
-	    float g;
-	    float b;
-	    float a;
-	} SDL_FColor;"
+	"self compileDefinition"
 
 	self
 		defineField: #r type: FLOATField new;

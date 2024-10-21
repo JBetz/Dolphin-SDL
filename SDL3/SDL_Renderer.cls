@@ -143,7 +143,9 @@ resetScale
 	self setScale: 1.0 @ 1.0!
 
 setClip: aRectangle
-	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect)!
+	| result |
+	result := self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect.
+	self checkBooleanResult: result!
 
 setDrawBlendMode: anInteger
 	self library setRenderDrawBlendMode_renderer: self blendMode: anInteger!

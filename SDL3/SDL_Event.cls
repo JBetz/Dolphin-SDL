@@ -74,6 +74,7 @@ hasAssociatedWindow
 				SDL_EVENT_USER} includes: self type]!
 
 isConsumed
+	handlers ifNil: [^false].
 	^handlers anySatisfy: [:each | each consumesKeyboardInput]!
 
 isHandled

@@ -76,13 +76,6 @@ updatePixels: pixels pitch: pitch
 				updateTexture_texture: self
 				rect: nil
 				pixels: pixels
-				pitch: pitch)!
-
-updateRectangle: aRectangle pixels: pixels pitch: pitch
-	self checkBooleanResult: (self library
-				updateTexture_texture: self
-				rect: aRectangle asSDLRect
-				pixels: pixels
 				pitch: pitch)! !
 
 !SDL_Texture categoriesForMethods!
@@ -101,6 +94,5 @@ lock!public! !
 lockRectangle:!public! !
 unlock!public! !
 updatePixels:pitch:!public! !
-updateRectangle:pixels:pitch:!public! !
 !
 

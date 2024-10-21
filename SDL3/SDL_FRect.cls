@@ -73,15 +73,7 @@ y:!**compiled accessors**!public! !
 !SDL_FRect class methodsFor!
 
 defineFields
-	"SDL_FRect compileDefinition
-
-	typedef struct SDL_FRect
-	{
-	    float x;
-	    float y;
-	    float w;
-	    float h;
-	} SDL_FRect;"
+	"self compileDefinition"
 
 	self
 		defineField: #x type: FLOATField new;
