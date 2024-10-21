@@ -10,6 +10,7 @@ package classNames
 	add: #DrawRectangle;
 	add: #DrawString;
 	add: #DrawSurface;
+	add: #DrawText;
 	add: #DrawTexture;
 	add: #FillPolygon;
 	add: #FillRectangle;
@@ -115,6 +116,9 @@ package classNames
 	add: #SimpleExample;
 	add: #TTF_Font;
 	add: #TTF_Object;
+	add: #TTF_SubString;
+	add: #TTF_Text;
+	add: #TTF_TextEngine;
 	add: #TTFFontStyle;
 	yourself.
 
@@ -162,7 +166,7 @@ Object subclass: #RenderCommand
 	classInstanceVariableNames: ''!
 
 Object subclass: #Renderer2D
-	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
+	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache textEngine sdlRenderer'
 	classVariableNames: 'CommandMap'
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
@@ -773,6 +777,24 @@ TTF_Object subclass: #TTF_Font
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+TTF_Object subclass: #TTF_SubString
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cluster_index _OffsetOf_flags _OffsetOf_length _OffsetOf_line_index _OffsetOf_offset _OffsetOf_rect'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+TTF_Object subclass: #TTF_Text
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_internal _OffsetOf_num_lines _OffsetOf_refcount _OffsetOf_text'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+TTF_Object subclass: #TTF_TextEngine
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 RenderCommand subclass: #DrawImage
 	instanceVariableNames: 'image rectangle stretch'
 	classVariableNames: ''
@@ -793,6 +815,12 @@ RenderCommand subclass: #DrawRectangle
 
 RenderCommand subclass: #DrawString
 	instanceVariableNames: 'color font rectangle fontSize fontStyle format string'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+RenderCommand subclass: #DrawText
+	instanceVariableNames: 'text rectangle color'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
