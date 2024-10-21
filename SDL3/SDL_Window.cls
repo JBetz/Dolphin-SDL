@@ -19,10 +19,7 @@ aspectRatio
 
 createRenderer
 	| renderer |
-	renderer := self library
-				createRenderer_window: self
-				name: nil
-				flags: 0.
+	renderer := self library createRenderer_window: self name: nil.
 	self checkObjectResult: renderer.
 	^renderer initialize!
 

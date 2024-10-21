@@ -202,8 +202,8 @@ createProperties
 	<cdecl: dword SDL_CreateProperties>
 	^self invalidCall: _failureCode!
 
-createRenderer_window: window name: name flags: flags
-	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr dword>
+createRenderer_window: window name: name
+	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
 createSoftwareRenderer_surface: surface
@@ -235,7 +235,7 @@ createWindow_title: title w: w h: h flags: flags
 	^self invalidCall: _failureCode!
 
 createWindowAndRenderer_title: title width: width height: height windowFlags: windowFlags window: window renderer: renderer
-	<cdecl: bool SDL_CreateWindowAndRenderer lpstr sdword sdword dword SDL_Window* SDL_Renderer*>
+	<cdecl: bool SDL_CreateWindowAndRenderer lpstr sdword sdword dword SDL_Window** SDL_Renderer**>
 	^self invalidCall: _failureCode!
 
 delay_ms: ms
@@ -1222,7 +1222,7 @@ createGPUShader_device:createinfo:!gpu!public! !
 createGPUTexture_device:createinfo:!gpu!public! !
 createGPUTransferBuffer_device:createinfo:!gpu!public! !
 createProperties!properties!public! !
-createRenderer_window:name:flags:!public!render! !
+createRenderer_window:name:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
 createSurface_width:height:format:!public!render! !
 createSurfaceFrom_pixels:width:height:pitch:format:!public!render! !
