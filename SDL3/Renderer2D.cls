@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Renderer2D
-	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache sdlRenderer'
+	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache textEngine sdlRenderer'
 	classVariableNames: 'CommandMap'
 	poolDictionaries: 'SDLConstants TTFConstants'
 	classInstanceVariableNames: ''!
@@ -46,27 +46,29 @@ createStaticTexture: aPoint format: anInteger
 createStreamingTexture: aPoint
 	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_STREAMING!
 
-createStringTexture: aDrawString
-	| font texture surface |
-	font := self lookupFont: (aDrawString fontName ifNil: [self defaultFontFile])
-				pointSize: (aDrawString fontSize ifNil: [18]).
-	font setStyle: (aDrawString fontStyle ifNil: [TTFFontStyle normal]).
-	surface := font
-				renderUTF8BlendedWrapped: aDrawString string displayString
-				color: (aDrawString color ifNil: [Color black])
-				wrapLength: 0.
-	aDrawString fontStyle ifNotNil: [font setStyle: TTFFontStyle normal].
-	texture := self createTextureFromSurface: surface.
-	^texture!
-
 createTargetTexture: aPoint
 	^sdlRenderer createTexture: aPoint access: SDL_TEXTUREACCESS_TARGET!
+
+createText: aString font: aFont wrapWidth: anInteger
+	^textEngine
+		createText: aString
+		font: aFont
+		wrapWidth: anInteger asInteger!
 
 createTextureFromSurface: aSDL_Surface
 	^sdlRenderer createTextureFromSurface: aSDL_Surface!
 
+defaultFont
+	^self lookupFont: self defaultFontFile pointSize: self defaultFontSize!
+
+defaultFontColor
+	^Color black!
+
 defaultFontFile
 	^FileLocator imageRelative: 'default.ttf'!
+
+defaultFontSize
+	^18!
 
 disable
 	isEnabled := false!
@@ -206,6 +208,20 @@ drawSurface: aSurface rectangle: aRectangle zIndex: anInteger
 				rectangle: aRectangle;
 				zIndex: anInteger)!
 
+drawText: aTTFText rectangle: aRectangle color: aColor
+	self addCommand: (DrawText new
+				string: aTTFText;
+				rectangle: aRectangle;
+				color: aColor;
+				zIndex: 1)!
+
+drawText: aTTFText rectangle: aRectangle color: aColor zIndex: anInteger
+	self addCommand: (DrawText new
+				text: aTTFText;
+				rectangle: aRectangle;
+				color: aColor;
+				zIndex: anInteger)!
+
 drawTexture: aTexture rectangle: aRectangle stretch: aBoolean zIndex: anInteger
 	self addCommand: (DrawTexture new
 				texture: aTexture;
@@ -245,13 +261,18 @@ executeDrawRectangle: aDrawRectangle
 	sdlRenderer renderRectangle: aDrawRectangle rectangle!
 
 executeDrawString: aDrawString
-	| texture |
+	| font rectangle text |
 	aDrawString string isEmpty ifTrue: [^self].
-	texture := self createStringTexture: aDrawString.
-	sdlRenderer
-		renderTexture: texture
-		source: nil
-		destination: (Rectangle origin: aDrawString rectangle origin extent: texture getExtent)!
+	font := aDrawString font ifNil: [self defaultFont].
+	rectangle := aDrawString rectangle.
+	font setStyle: (aDrawString fontStyle ifNil: [TTFFontStyle normal]).
+	text := textEngine createText: aDrawString string font: font.
+	rectangle width > 0 ifTrue: [text wrapWidth: rectangle width asInteger].
+	text color: (aDrawString color ifNil: [self defaultFontColor]) asSDLColor.
+	textEngine
+		drawText: text
+		x: rectangle origin x
+		y: rectangle origin y!
 
 executeDrawSurface: aDrawSurface
 	| surface texture destinationRectangle |
@@ -268,6 +289,16 @@ executeDrawSurface: aDrawSurface
 		renderTexture: texture
 		source: nil
 		destination: destinationRectangle!
+
+executeDrawText: aDrawText
+	| rectangle text |
+	rectangle := aDrawText rectangle.
+	text := aDrawText text.
+	text color: (aDrawText color ifNil: [self defaultFontColor]) asSDLColor.
+	textEngine
+		drawText: text
+		x: rectangle origin x
+		y: rectangle origin y!
 
 executeDrawTexture: aDrawTexture
 	| texture destinationRectangle |
@@ -341,17 +372,20 @@ initialize
 	isEnabled := true.
 	fontCache := LookupTable new!
 
+initializeTextEngine
+	textEngine := SDL3TTFLibrary default createRendererTextEngine_renderer: sdlRenderer!
+
 isEnabled
 	^isEnabled!
 
-lookupFont: aString pointSize: anInteger
+lookupFont: aString pointSize: aFloat
 	| index font |
 	(File exists: aString)
 		ifFalse: [Error signal: ('Font file does not exist at: <1s>' expandMacrosWith: aString)].
-	index := aString -> anInteger.
+	index := aString -> aFloat.
 	font := fontCache at: index ifAbsent: [nil].
 	(font isNil or: [font isNull])
-		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: aString pointSize: anInteger)].
+		ifTrue: [font := fontCache at: index put: (TTF_Font fromFile: aString pointSize: aFloat)].
 	^font!
 
 offset
@@ -389,6 +423,9 @@ setDrawColor: aColor
 
 subtractOffset: aPoint
 	offset := offset - aPoint!
+
+textEngine
+	^textEngine!
 
 viewport
 	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent!
@@ -435,10 +472,13 @@ createImageTexture:!public! !
 createStaticTexture:!public! !
 createStaticTexture:format:!public! !
 createStreamingTexture:!public! !
-createStringTexture:!public! !
 createTargetTexture:!public! !
+createText:font:wrapWidth:!executing!public! !
 createTextureFromSurface:!public! !
+defaultFont!public! !
+defaultFontColor!public! !
 defaultFontFile!public! !
+defaultFontSize!public! !
 disable!public! !
 drawArrowFrom:to:width:color:zIndex:!public! !
 drawCount!public!statistics! !
@@ -458,6 +498,8 @@ drawString:rectangle:fontSize:zIndex:!public!text! !
 drawString:rectangle:zIndex:!public!text! !
 drawSurface:rectangle:stretch:zIndex:!images!public! !
 drawSurface:rectangle:zIndex:!images!public! !
+drawText:rectangle:color:!public!text! !
+drawText:rectangle:color:zIndex:!public!text! !
 drawTexture:rectangle:stretch:zIndex:!images!public! !
 drawTexture:rectangle:zIndex:!images!public! !
 duplicateTexture:!images!public! !
@@ -468,6 +510,7 @@ executeDrawLine:!executing!private! !
 executeDrawRectangle:!executing!private! !
 executeDrawString:!executing!private! !
 executeDrawSurface:!executing!private! !
+executeDrawText:!executing!private! !
 executeDrawTexture:!executing!private! !
 executeFillPolygon:!executing!private! !
 executeFillRectangle:!executing!private! !
@@ -478,6 +521,7 @@ fillTriangle:zIndex:!geometry!public! !
 flush!public! !
 forceRender:!public! !
 initialize!public! !
+initializeTextEngine!accessing!private! !
 isEnabled!accessing!public! !
 lookupFont:pointSize:!font!public! !
 offset!accessing!public! !
@@ -485,9 +529,10 @@ offset:!accessing!public! !
 present!public! !
 resetClip!public! !
 saveTexture:fileName:!images!public! !
-sdlRenderer:!accessing!public! !
+sdlRenderer:!accessing!private! !
 setDrawColor:!executing!private! !
 subtractOffset:!private! !
+textEngine!accessing!public! !
 viewport!public! !
 withClip:do:!public! !
 withOffset:do:!public! !
@@ -508,6 +553,7 @@ initialize
 		at: DrawLine put: #executeDrawLine:;
 		at: DrawRectangle put: #executeDrawRectangle:;
 		at: DrawString put: #executeDrawString:;
+		at: DrawText put: #executeDrawText:;
 		at: FillPolygon put: #executeFillPolygon:;
 		at: FillRectangle put: #executeFillRectangle:!
 

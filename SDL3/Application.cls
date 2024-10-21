@@ -38,8 +38,9 @@ createRenderer
 	| sdlRenderer |
 	sdlRenderer := window createRenderer.
 	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND.
-	renderer := Renderer2D new sdlRenderer: sdlRenderer.
-!
+	renderer := Renderer2D new
+				sdlRenderer: sdlRenderer;
+				initializeTextEngine!
 
 createWindow
 	window := inputState
@@ -200,10 +201,10 @@ windowPosition
 !Application categoriesForMethods!
 calculateInitialExtent!private! !
 close!public! !
-closeRenderer!public! !
-closeWindow!public! !
-createRenderer!public! !
-createWindow!public! !
+closeRenderer!private! !
+closeWindow!private! !
+createRenderer!private! !
+createWindow!private! !
 cursor:!public! !
 extent!public! !
 height!public! !
@@ -298,7 +299,7 @@ new
 	^super new initialize!
 
 preferredExtent
-	^1920@1080! !
+	^1280@900! !
 
 !Application class categoriesForMethods!
 initialize!public! !

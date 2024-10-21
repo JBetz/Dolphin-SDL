@@ -18,7 +18,7 @@ checkBooleanResult: aBoolean
 	aBoolean ifFalse: [Error signal: SDL3Library default getError]!
 
 checkObjectResult: anObject
-	anObject ifNil: [Error signal: library getError]!
+	anObject isNull ifTrue: [Error signal: SDL3Library default getError]!
 
 destroy
 	self subclassResponsibility!

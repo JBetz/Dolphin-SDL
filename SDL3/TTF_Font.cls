@@ -26,12 +26,15 @@ getFontKerningSizeGlyphs32Between: aCharacter and: anotherCharacter
 		previousCh: aCharacter code
 		ch: anotherCharacter code!
 
+height
+	^self library getFontHeight_font: self!
+
 initialize
 	super initialize.
 	glyphCache := LookupTable new!
 
 lineSkip
-	^library fontLineSkip_font: self!
+	^library getFontLineSkip_font: self!
 
 lookupGlyph: aCharacter color: aColor renderer: aRenderer
 	| colorCache |
@@ -39,59 +42,49 @@ lookupGlyph: aCharacter color: aColor renderer: aRenderer
 	^colorCache at: aColor
 		ifAbsentPut: 
 			[| surface |
-			surface := self renderGlyph32Blended: aCharacter color: aColor.
+			surface := self renderGlyphBlended: aCharacter color: aColor.
 			aRenderer createTextureFromSurface: surface]!
 
-renderGlyph32Blended: aCharacter color: aColor
+renderGlyphBlended: aCharacter color: aColor
 	| surface |
 	surface := self library
-				renderGlyph32Blended_font: self
+				renderGlyphBlended_font: self
 				ch: aCharacter code
 				fg: aColor asSDLColor.
 	self checkObjectResult: surface.
 	^surface initialize!
 
-renderUTF8BlendedWrapped: aString color: aColor wrapLength: anInteger
+renderTextBlendedWrapped: aString color: aColor wrapWidth: anInteger
 	| surface |
 	surface := self library
-				renderUTF8BlendedWrapped_font: self
+				renderTextBlendedWrapped_font: self
 				text: aString
+				length: aString size
 				fg: aColor asSDLColor
-				wrapLength: anInteger truncated.
+				wrapWidth: anInteger truncated.
 	self checkObjectResult: surface.
 	^surface initialize!
 
 setStyle: aFontStyle
-	self library setFontStyle_font: self style: aFontStyle code!
-
-sizeText: aString
-	| width height |
-	width := SDWORD new.
-	height := SDWORD new.
-	self checkBooleanResult: (self library
-				sizeText_font: self
-				text: aString
-				w: width
-				h: height).
-	^width value @ height value! !
+	self library setFontStyle_font: self style: aFontStyle code! !
 
 !TTF_Font categoriesForMethods!
 close!public! !
 destroy!public! !
 getFontKerningSizeGlyphs32Between:and:!public! !
+height!public! !
 initialize!public! !
 lineSkip!public! !
 lookupGlyph:color:renderer:!public! !
-renderGlyph32Blended:color:!public! !
-renderUTF8BlendedWrapped:color:wrapLength:!public! !
+renderGlyphBlended:color:!public! !
+renderTextBlendedWrapped:color:wrapWidth:!public! !
 setStyle:!public! !
-sizeText:!public! !
 !
 
 !TTF_Font class methodsFor!
 
-fromFile: aString pointSize: anInteger
-	^(SDL3TTFLibrary default openFont_file: aString ptsize: anInteger) initialize! !
+fromFile: aString pointSize: aFloat
+	^(SDL3TTFLibrary default openFont_file: aString ptsize: aFloat asFloat) initialize! !
 
 !TTF_Font class categoriesForMethods!
 fromFile:pointSize:!public! !
