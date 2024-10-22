@@ -27,11 +27,11 @@ color: aSDLColor
 		b: aSDLColor b
 		a: aSDLColor a!
 
-deleteString: offset length: length
+deleteString: index length: length
 	| result |
 	result := self library
 				deleteTextString_text: self
-				offset: offset
+				offset: index - 1
 				length: length.
 	self checkBooleanResult: result!
 
@@ -98,11 +98,14 @@ getSubStringForPoint: aPoint
 	self checkBooleanResult: result.
 	^substring!
 
+insertString: aString index: anInteger
+	self insertString: aString offset: anInteger - 1!
+
 insertString: aString offset: anInteger
 	| result |
 	result := self library
 				insertTextString_text: self
-				offset: anInteger
+				offset: anInteger 
 				string: aString
 				length: aString size.
 	self checkBooleanResult: result!
@@ -167,6 +170,7 @@ getSubStringForInterval:!public! !
 getSubStringForLine:!public! !
 getSubStringForOffset:!public! !
 getSubStringForPoint:!public! !
+insertString:index:!public! !
 insertString:offset:!public! !
 notEmpty!public! !
 num_lines!**compiled accessors**!public! !

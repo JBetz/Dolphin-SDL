@@ -43,6 +43,9 @@ flags: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_flags put: anInteger!
 
+index
+	^self offset + 1!
+
 length
 	"Answer the <Integer> value of the receiver's 'length' field."
 
@@ -93,6 +96,7 @@ cluster_index:!**compiled accessors**!public! !
 destroy!public! !
 flags!**compiled accessors**!public! !
 flags:!**compiled accessors**!public! !
+index!**compiled accessors**!public! !
 length!**compiled accessors**!public! !
 length:!**compiled accessors**!public! !
 line_index!**compiled accessors**!public! !

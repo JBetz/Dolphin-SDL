@@ -15,10 +15,10 @@ TTF_Object comment: ''!
 !TTF_Object methodsFor!
 
 checkBooleanResult: aBoolean
-	aBoolean ifFalse: [Error signal: SDL3Library default getError]!
+	aBoolean ifFalse: [self error: SDL3Library default getError]!
 
 checkObjectResult: anObject
-	anObject isNull ifTrue: [Error signal: SDL3Library default getError]!
+	anObject isNull ifTrue: [self error: SDL3Library default getError]!
 
 destroy
 	self subclassResponsibility!
@@ -37,8 +37,7 @@ initialize
 	self beFinalizable!
 
 library
-	library ifNil: [library := SDL3TTFLibrary default].
-	^library! !
+	^SDL3TTFLibrary default! !
 
 !TTF_Object categoriesForMethods!
 checkBooleanResult:!private! !
