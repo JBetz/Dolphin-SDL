@@ -155,7 +155,9 @@ releaseTransferBuffer: aGPUTransferBuffer
 	self library releaseGPUTransferBuffer_device: self transferBuffer: aGPUTransferBuffer!
 
 releaseWindow: aWindow
-	self checkBooleanResult: (self library releaseWindowFromGPUDevice_device: self window: aWindow)!
+	| result |
+	result := self library releaseWindowFromGPUDevice_device: self window: aWindow.
+	self checkBooleanResult: result!
 
 unmapTransferBuffer: aTransferBuffer
 	self library unmapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer! !

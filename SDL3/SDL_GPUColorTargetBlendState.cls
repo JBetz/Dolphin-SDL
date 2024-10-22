@@ -2,23 +2,23 @@
 
 ExternalStructure subclass: #SDL_GPUColorTargetBlendState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blendfactor _OffsetOf_dst_color_blendfactor _OffsetOf_enable_blend _OffsetOf_enable_color_write_mask _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_src_alpha_blendfactor _OffsetOf_src_color_blendfactor'
+	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blendfactor _OffsetOf_dst_color_blendfactor _OffsetOf_enable_blend _OffsetOf_enable_color_write_mask _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_src_alpha_blendfactor _OffsetOf_src_color_blendfactor'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPUColorTargetBlendState guid: (GUID fromString: '{979172fd-65c4-4533-8b67-7f151b4840a7}')!
 
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_alpha_blend_op' value: 16r18!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_color_blend_op' value: 16rC!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_color_write_mask' value: 16r1C!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_dst_alpha_blendfactor' value: 16r14!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_dst_color_blendfactor' value: 16r8!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_enable_blend' value: 16r0!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_padding1' value: 16r1!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_padding2' value: 16r2!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_padding3' value: 16r3!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_src_alpha_blendfactor' value: 16r10!
-SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_src_color_blendfactor' value: 16r4!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_alpha_blend_op' value: 16r14!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_color_blend_op' value: 16r8!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_color_write_mask' value: 16r18!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_dst_alpha_blendfactor' value: 16r10!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_dst_color_blendfactor' value: 16r4!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_enable_blend' value: 16r19!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_enable_color_write_mask' value: 16r1A!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_padding1' value: 16r1B!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_padding2' value: 16r1C!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_src_alpha_blendfactor' value: 16rC!
+SDL_GPUColorTargetBlendState addClassConstant: '_OffsetOf_src_color_blendfactor' value: 16r0!
 
 SDL_GPUColorTargetBlendState comment: ''!
 
@@ -143,7 +143,6 @@ defineFields
 	"self compileDefinition"
 
 	self
-		defineField: #padding1 type: BYTEField new beFiller;
 		defineField: #src_color_blendfactor type: SDWORDField new;
 		defineField: #dst_color_blendfactor type: SDWORDField new;
 		defineField: #color_blend_op type: SDWORDField new;
@@ -153,11 +152,11 @@ defineFields
 		defineField: #color_write_mask type: BYTEField new;
 		defineField: #enable_blend type: BOOLEANField new;
 		defineField: #enable_color_write_mask type: BOOLEANField new;
-		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #padding3 type: BYTEField new beFiller!
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller!
 
 getFieldNames
-	^#(#enable_blend #src_color_blendfactor #dst_color_blendfactor #color_blend_op #src_alpha_blendfactor #dst_alpha_blendfactor #alpha_blend_op #color_write_mask)! !
+	^#(#src_color_blendfactor #dst_color_blendfactor #color_blend_op #src_alpha_blendfactor #dst_alpha_blendfactor #alpha_blend_op #color_write_mask #enable_blend #enable_color_write_mask)! !
 
 !SDL_GPUColorTargetBlendState class categoriesForMethods!
 defineFields!public! !

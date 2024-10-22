@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'library propertiesId'
+	instanceVariableNames: 'propertiesId'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -15,10 +15,10 @@ SDL_Object comment: ''!
 !SDL_Object methodsFor!
 
 checkBooleanResult: aBoolean
-	aBoolean ifFalse: [Error signal: self library getError]!
+	aBoolean ifFalse: [self error: self library getError]!
 
 checkObjectResult: anObject
-	anObject isNull ifTrue: [Error signal: self library getError]!
+	anObject isNull ifTrue: [self error: self library getError]!
 
 destroy
 	self subclassResponsibility!
@@ -78,8 +78,7 @@ initialize
 	self beFinalizable!
 
 library
-	library ifNil: [library := SDL3Library default].
-	^library!
+	^SDL3Library default!
 
 propertiesId
 	propertiesId ifNil: [propertiesId := self getPropertiesId].
@@ -100,7 +99,7 @@ propertiesId!public! !
 !SDL_Object class methodsFor!
 
 checkObjectResult: anObject
-	anObject ifNil: [Error signal: SDL3Library default getError]!
+	anObject isNull ifTrue: [self error: SDL3Library default getError]!
 
 new
 	^super new initialize! !

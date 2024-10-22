@@ -8,6 +8,7 @@ ExternalStructure subclass: #SDL_GPUVertexAttribute
 
 SDL_GPUVertexAttribute guid: (GUID fromString: '{39d1354a-d98d-4d8e-9fed-b3025ca6602e}')!
 
+SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_buffer_slot' value: 16r4!
 SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_format' value: 16r8!
 SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_location' value: 16r0!
 SDL_GPUVertexAttribute addClassConstant: '_OffsetOf_offset' value: 16rC!
@@ -81,7 +82,7 @@ defineFields
 		defineField: #offset type: DWORDField new!
 
 getFieldNames
-	^#(#location #binding_index #format #offset)! !
+	^#(#location #buffer_slot #format #offset)! !
 
 !SDL_GPUVertexAttribute class categoriesForMethods!
 defineFields!public! !

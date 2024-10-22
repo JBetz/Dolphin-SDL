@@ -381,7 +381,7 @@ isEnabled
 lookupFont: aString pointSize: aFloat
 	| index font |
 	(File exists: aString)
-		ifFalse: [Error signal: ('Font file does not exist at: <1s>' expandMacrosWith: aString)].
+		ifFalse: [self error: ('Font file does not exist at: <1s>' expandMacrosWith: aString)].
 	index := aString -> aFloat.
 	font := fontCache at: index ifAbsent: [nil].
 	(font isNil or: [font isNull])

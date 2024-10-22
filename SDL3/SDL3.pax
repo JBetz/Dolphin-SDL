@@ -68,8 +68,8 @@ package classNames
 	add: #SDL_GPUShader;
 	add: #SDL_GPUShaderCreateInfo;
 	add: #SDL_GPUStencilOpState;
-	add: #SDL_GPUStorageBufferWriteOnlyBinding;
-	add: #SDL_GPUStorageTextureWriteOnlyBinding;
+	add: #SDL_GPUStorageBufferReadWriteBinding;
+	add: #SDL_GPUStorageTextureReadWriteBinding;
 	add: #SDL_GPUTexture;
 	add: #SDL_GPUTextureCreateInfo;
 	add: #SDL_GPUTextureLocation;
@@ -172,7 +172,7 @@ Object subclass: #Renderer2D
 	classInstanceVariableNames: ''!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
+	instanceVariableNames: 'windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -311,7 +311,7 @@ ExternalStructure subclass: #SDL_GPUBufferRegion
 
 ExternalStructure subclass: #SDL_GPUColorTargetBlendState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blendfactor _OffsetOf_dst_color_blendfactor _OffsetOf_enable_blend _OffsetOf_enable_color_write_mask _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_src_alpha_blendfactor _OffsetOf_src_color_blendfactor'
+	classVariableNames: '_OffsetOf_alpha_blend_op _OffsetOf_color_blend_op _OffsetOf_color_write_mask _OffsetOf_dst_alpha_blendfactor _OffsetOf_dst_color_blendfactor _OffsetOf_enable_blend _OffsetOf_enable_color_write_mask _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_src_alpha_blendfactor _OffsetOf_src_color_blendfactor'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -329,7 +329,7 @@ ExternalStructure subclass: #SDL_GPUColorTargetInfo
 
 ExternalStructure subclass: #SDL_GPUComputePipelineCreateInfo
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entrypoint _OffsetOf_format _OffsetOf_num_read_only_storage_buffers _OffsetOf_num_read_only_storage_textures _OffsetOf_num_samplers _OffsetOf_num_uniform_buffers _OffsetOf_num_write_only_storage_buffers _OffsetOf_num_write_only_storage_textures _OffsetOf_props _OffsetOf_threadcount_x _OffsetOf_threadcount_y _OffsetOf_threadcount_z'
+	classVariableNames: '_OffsetOf_code _OffsetOf_code_size _OffsetOf_entrypoint _OffsetOf_format _OffsetOf_num_read_only_storage_buffers _OffsetOf_num_read_only_storage_textures _OffsetOf_num_readwrite_storage_buffers _OffsetOf_num_readwrite_storage_textures _OffsetOf_num_samplers _OffsetOf_num_uniform_buffers _OffsetOf_props _OffsetOf_threadcount_x _OffsetOf_threadcount_y _OffsetOf_threadcount_z'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -383,7 +383,7 @@ ExternalStructure subclass: #SDL_GPUMultisampleState
 
 ExternalStructure subclass: #SDL_GPURasterizerState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_slope_factor _OffsetOf_enable_depth_bias _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
+	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_slope_factor _OffsetOf_enable_depth_bias _OffsetOf_enable_depth_clip _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -405,13 +405,13 @@ ExternalStructure subclass: #SDL_GPUStencilOpState
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #SDL_GPUStorageBufferWriteOnlyBinding
+ExternalStructure subclass: #SDL_GPUStorageBufferReadWriteBinding
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_buffer _OffsetOf_cycle _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #SDL_GPUStorageTextureWriteOnlyBinding
+ExternalStructure subclass: #SDL_GPUStorageTextureReadWriteBinding
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_cycle _OffsetOf_layer _OffsetOf_mip_level _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_texture'
 	poolDictionaries: ''
@@ -490,7 +490,7 @@ ExternalStructure subclass: #SDL_GPUViewport
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'library propertiesId'
+	instanceVariableNames: 'propertiesId'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!

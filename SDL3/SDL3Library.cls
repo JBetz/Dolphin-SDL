@@ -18,8 +18,8 @@ acquireGPUCommandBuffer_device: device
 	<cdecl: SDL_GPUCommandBuffer* SDL_AcquireGPUCommandBuffer SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
 
-acquireGPUSwapchainTexture_commandBuffer: commandBuffer window: window w: w h: h
-	<cdecl: SDL_GPUTexture* SDL_AcquireGPUSwapchainTexture SDL_GPUCommandBuffer* SDL_Window* dword* dword*>
+acquireGPUSwapchainTexture_commandBuffer: commandBuffer window: window swapchainTexture: swapchainTexture swapchainTextureWidth: swapchainTextureWidth swapchainTextureHeight: swapchainTextureHeight
+	<cdecl: bool SDL_AcquireGPUSwapchainTexture SDL_GPUCommandBuffer* SDL_Window* SDL_GPUTexture** dword* dword*>
 	^self invalidCall: _failureCode!
 
 addEventWatch_filter: filter userdata: userdata
@@ -447,11 +447,11 @@ getGlobalProperties
 	^self invalidCall: _failureCode!
 
 getGPUDeviceDriver_device: device
-	<cdecl: lpstr SDL_GetGPUDeviceDriver SDL_GPUDevice*>
+	<cdecl: char* SDL_GetGPUDeviceDriver SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
 
 getGPUDriver_index: index
-	<cdecl: lpstr SDL_GetGPUDriver sdword>
+	<cdecl: char* SDL_GetGPUDriver sdword>
 	^self invalidCall: _failureCode!
 
 getGPUShaderFormats_device: device
@@ -1127,7 +1127,7 @@ unmapGPUTransferBuffer_device: device transferBuffer: transferBuffer
 	^self invalidCall: _failureCode!
 
 updateTexture_texture: texture rect: rect pixels: pixels pitch: pitch
-	<cdecl: bool SDL_UpdateTexture SDL_Texture* SDL_Rect* lpvoid sdword>
+	<cdecl: bool SDL_UpdateTexture SDL_Texture* SDL_Rect* void* sdword>
 	^self invalidCall: _failureCode!
 
 updateWindowSurface_window: window
@@ -1155,7 +1155,7 @@ waitEventTimeout_event: event timeout: timeout
 	^self invalidCall: _failureCode!
 
 waitForGPUFences_device: device waitAll: waitAll fences: fences numFences: numFences
-	<cdecl: void SDL_WaitForGPUFences SDL_GPUDevice* bool SDL_GPUFence** dword>
+	<cdecl: bool SDL_WaitForGPUFences SDL_GPUDevice* bool SDL_GPUFence** dword>
 	^self invalidCall: _failureCode!
 
 waitForGPUIdle_device: device
@@ -1176,7 +1176,7 @@ windowSupportsGPUSwapchainComposition_device: device window: window swapchainCom
 
 !SDL3Library categoriesForMethods!
 acquireGPUCommandBuffer_device:!gpu!public! !
-acquireGPUSwapchainTexture_commandBuffer:window:w:h:!gpu!public! !
+acquireGPUSwapchainTexture_commandBuffer:window:swapchainTexture:swapchainTextureWidth:swapchainTextureHeight:!gpu!public! !
 addEventWatch_filter:userdata:!events!public! !
 addTimer_interval:callback:param:!public!video! !
 audioDevicePaused_devid:!audio!public! !

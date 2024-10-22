@@ -72,11 +72,13 @@ unlock
 	self checkBooleanResult: (self library unlockTexture_texture: self)!
 
 updatePixels: pixels pitch: pitch
-	self checkBooleanResult: (self library
+	| result |
+	result := self library
 				updateTexture_texture: self
 				rect: nil
 				pixels: pixels
-				pitch: pitch)! !
+				pitch: pitch.
+	self checkBooleanResult: result! !
 
 !SDL_Texture categoriesForMethods!
 destroy!public! !

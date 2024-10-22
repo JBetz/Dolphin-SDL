@@ -153,13 +153,13 @@ extent: aPoint
 fromBMPFile: aString
 	| surface |
 	surface := SDL3Library default loadBMP_file: aString.
-	surface isNull ifTrue: [Error signal: SDL3Library default getError].
+	surface isNull ifTrue: [self error: SDL3Library default getError].
 	^surface initialize!
 
 fromFile: aString
 	| surface |
 	surface := SDL3ImageLibrary default load_file: aString.
-	surface isNull ifTrue: [Error signal: SDL3Library default getError].
+	surface isNull ifTrue: [self error: SDL3Library default getError].
 	^surface initialize!
 
 getFieldNames

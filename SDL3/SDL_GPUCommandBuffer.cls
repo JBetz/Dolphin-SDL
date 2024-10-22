@@ -15,14 +15,17 @@ SDL_GPUCommandBuffer comment: ''!
 !SDL_GPUCommandBuffer methodsFor!
 
 acquireSwapchainTexture: aWindow
-	| swapchainTexture width height |
+	| swapchainTexture result width height |
+	swapchainTexture := SDL_GPUTexture newPointer.
 	width := DWORD new.
 	height := DWORD new.
-	swapchainTexture := self library
+	result := self library
 				acquireGPUSwapchainTexture_commandBuffer: self
 				window: aWindow
-				w: width
-				h: height.
+				swapchainTexture: swapchainTexture
+				swapchainTextureWidth: width
+				swapchainTextureHeight: height.
+	self checkBooleanResult: result.
 	swapchainTexture extent: width value @ height value.
 	^swapchainTexture!
 

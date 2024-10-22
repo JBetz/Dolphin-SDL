@@ -9,7 +9,9 @@ ExternalStructure subclass: #SDL_GPUVertexInputState
 SDL_GPUVertexInputState guid: (GUID fromString: '{916e7b85-9ac0-465d-94f9-a336676d1a81}')!
 
 SDL_GPUVertexInputState addClassConstant: '_OffsetOf_num_vertex_attributes' value: 16rC!
+SDL_GPUVertexInputState addClassConstant: '_OffsetOf_num_vertex_buffers' value: 16r4!
 SDL_GPUVertexInputState addClassConstant: '_OffsetOf_vertex_attributes' value: 16r8!
+SDL_GPUVertexInputState addClassConstant: '_OffsetOf_vertex_buffer_descriptions' value: 16r0!
 
 SDL_GPUVertexInputState comment: ''!
 
@@ -91,7 +93,7 @@ defineFields
 		defineField: #num_vertex_attributes type: DWORDField new!
 
 getFieldNames
-	^#(#vertex_bindings #num_vertex_bindings #vertex_attributes #num_vertex_attributes)! !
+	^#(#vertex_buffer_descriptions #num_vertex_buffers #vertex_attributes #num_vertex_attributes)! !
 
 !SDL_GPUVertexInputState class categoriesForMethods!
 defineFields!public! !

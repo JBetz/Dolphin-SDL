@@ -2,22 +2,22 @@
 
 ExternalStructure subclass: #SDL_GPURasterizerState
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_slope_factor _OffsetOf_enable_depth_bias _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3'
+	classVariableNames: '_OffsetOf_cull_mode _OffsetOf_depth_bias_clamp _OffsetOf_depth_bias_constant_factor _OffsetOf_depth_bias_slope_factor _OffsetOf_enable_depth_bias _OffsetOf_enable_depth_clip _OffsetOf_fill_mode _OffsetOf_front_face _OffsetOf_padding1 _OffsetOf_padding2'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_GPURasterizerState guid: (GUID fromString: '{112ba98a-9f41-406a-809a-d7c4bd444202}')!
 
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_cull_mode' value: 16r4!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_clamp' value: 16r14!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_constant_factor' value: 16r10!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_slope_factor' value: 16r18!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_enable_depth_bias' value: 16rC!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_clamp' value: 16r10!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_constant_factor' value: 16rC!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_depth_bias_slope_factor' value: 16r14!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_enable_depth_bias' value: 16r18!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_enable_depth_clip' value: 16r19!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_fill_mode' value: 16r0!
 SDL_GPURasterizerState addClassConstant: '_OffsetOf_front_face' value: 16r8!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding1' value: 16rD!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding2' value: 16rE!
-SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding3' value: 16rF!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding1' value: 16r1A!
+SDL_GPURasterizerState addClassConstant: '_OffsetOf_padding2' value: 16r1B!
 
 SDL_GPURasterizerState comment: ''!
 
@@ -75,6 +75,16 @@ enable_depth_bias: aBoolean
 
 	bytes byteAtOffset: _OffsetOf_enable_depth_bias put: aBoolean asParameter!
 
+enable_depth_clip
+	"Answer the <Boolean> value of the receiver's 'enable_depth_clip' field."
+
+	^(bytes byteAtOffset: _OffsetOf_enable_depth_clip) asBoolean!
+
+enable_depth_clip: aBoolean
+	"Set the receiver's 'enable_depth_clip' field to the value of the argument, aBoolean"
+
+	bytes byteAtOffset: _OffsetOf_enable_depth_clip put: aBoolean asParameter!
+
 fill_mode
 	"Answer the <Integer> value of the receiver's 'fill_mode' field."
 
@@ -106,6 +116,8 @@ depth_bias_slope_factor!public! !
 depth_bias_slope_factor:!public! !
 enable_depth_bias!public! !
 enable_depth_bias:!public! !
+enable_depth_clip!**compiled accessors**!public! !
+enable_depth_clip:!**compiled accessors**!public! !
 fill_mode!public! !
 fill_mode:!public! !
 front_face!public! !
@@ -125,12 +137,12 @@ defineFields
 		defineField: #depth_bias_clamp type: FLOATField new;
 		defineField: #depth_bias_slope_factor type: FLOATField new;
 		defineField: #enable_depth_bias type: BOOLEANField new;
+		defineField: #enable_depth_clip type: BOOLEANField new;
 		defineField: #padding1 type: BYTEField new beFiller;
-		defineField: #padding2 type: BYTEField new beFiller;
-		defineField: #padding3 type: BYTEField new beFiller!
+		defineField: #padding2 type: BYTEField new beFiller!
 
 getFieldNames
-	^#(#fill_mode #cull_mode #front_face #enable_depth_bias #depth_bias_constant_factor #depth_bias_clamp #depth_bias_slope_factor)! !
+	^#(#fill_mode #cull_mode #front_face #depth_bias_constant_factor #depth_bias_clamp #depth_bias_slope_factor #enable_depth_bias #enable_depth_clip)! !
 
 !SDL_GPURasterizerState class categoriesForMethods!
 defineFields!public! !
