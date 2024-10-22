@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLInputState
-	instanceVariableNames: 'sdlLibrary sdlTtfLibrary sdlImageLibrary windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
+	instanceVariableNames: 'windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -14,23 +14,15 @@ SDLInputState comment: ''!
 
 !SDLInputState methodsFor!
 
+checkBooleanResult: aBoolean
+	aBoolean ifFalse: [self error: self library getError]!
+
+checkObjectResult: anObject
+	anObject isNull ifTrue: [self error: self library getError]!
+
 closeAllWindows
 	windows values do: [:each | each close].
 	windows removeAll!
-
-closeLibraries
-	sdlImageLibrary
-		ifNotNil: 
-			[sdlImageLibrary quitIfOpen.
-			sdlImageLibrary := nil].
-	sdlTtfLibrary
-		ifNotNil: 
-			[sdlTtfLibrary quitIfOpen.
-			sdlTtfLibrary := nil].
-	sdlLibrary
-		ifNotNil: 
-			[sdlLibrary quitIfOpen.
-			sdlLibrary := nil]!
 
 closeWindow: anInteger
 	windows removeKey: anInteger ifAbsent: [nil].
@@ -39,7 +31,7 @@ closeWindow: anInteger
 createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
 	self ensureMessageLoopRunning.
-	window := sdlLibrary
+	window := self library
 				createWindow_title: aString
 				w: aPoint x
 				h: aPoint y
@@ -60,16 +52,13 @@ ensureMessageLoopRunning
 
 getDisplayExtent
 	| primaryDisplayId displayMode |
-	primaryDisplayId := sdlLibrary getPrimaryDisplay.
-	primaryDisplayId = 0 ifTrue: [Error signal: sdlLibrary getError].
-	displayMode := sdlLibrary getCurrentDisplayMode_displayID: primaryDisplayId.
+	primaryDisplayId := self library getPrimaryDisplay.
+	primaryDisplayId = 0 ifTrue: [self error: self library getError].
+	displayMode := self library getCurrentDisplayMode_displayID: primaryDisplayId.
 	^displayMode w @ displayMode h!
 
 initialize
 	super initialize.
-	sdlLibrary := SDL3Library default.
-	sdlTtfLibrary := SDL3TTFLibrary default.
-	sdlImageLibrary := SDL3ImageLibrary default.
 	windows := LookupTable new.
 	isProcessing := false.
 	framesPerSecond := 60.
@@ -77,13 +66,13 @@ initialize
 		initializeLibraries;
 		registerRenderEvent;
 		setHints.
-	keyStates := sdlLibrary getKeyboardState_numkeys: nil!
+	keyStates := self library getKeyboardState_numkeys: nil!
 
 initializeLibraries
-	(sdlLibrary init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
+	(self library init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
 		ifFalse: [self error: 'Error when initializing SDL base library'].
-	sdlTtfLibrary init ifFalse: [self error: 'Error when initializing SDL TTF library'].
-	sdlImageLibrary init_flags: 0!
+	SDL3TTFLibrary default init ifFalse: [self error: 'Error when initializing SDL TTF library'].
+	SDL3ImageLibrary default init_flags: 0!
 
 isAltKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LALT) or: [self isKeyDown: SDL_SCANCODE_RALT]!
@@ -101,8 +90,9 @@ isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
 iterate
-	(sdlLibrary isNil or: [isProcessing]) ifTrue: [^self].
+	isProcessing ifTrue: [^self].
 	isProcessing := true.
+	
 	[self
 		pumpMessages;
 		updateWindows] ensure: [isProcessing := false]!
@@ -110,7 +100,7 @@ iterate
 pollEvent
 	| event result |
 	event := SDL_Event new.
-	result := sdlLibrary pollEvent_event: event.
+	result := self library pollEvent_event: event.
 	^result ifTrue: [event] ifFalse: [nil]!
 
 pumpMessages
@@ -132,7 +122,9 @@ pushCloseEvent: anInteger
 				windowID: anInteger)!
 
 pushEvent: aSDLEvent
-	sdlLibrary pushEvent_event: aSDLEvent!
+	| result |
+	result := self library pushEvent_event: aSDLEvent.
+	self checkBooleanResult: result!
 
 pushRenderEvent: anInteger
 	self pushEvent: (SDL_UserEvent new
@@ -142,10 +134,10 @@ pushRenderEvent: anInteger
 				code: renderEventCode)!
 
 registerRenderEvent
-	renderEventCode := sdlLibrary registerEvents_numevents: 1!
+	renderEventCode := self library registerEvents_numevents: 1!
 
 setHints
-	sdlLibrary setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
+	self library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
 startMessageLoopProcess
 	messageLoopProcess := 
@@ -160,8 +152,7 @@ stop
 	keyStates := nil.
 	self
 		closeAllWindows;
-		stopMessageLoopProcess;
-		closeLibraries!
+		stopMessageLoopProcess!
 
 stopMessageLoopProcess
 	messageLoopProcess ifNil: [^self].
@@ -175,8 +166,9 @@ windows
 	^windows! !
 
 !SDLInputState categoriesForMethods!
+checkBooleanResult:!private! !
+checkObjectResult:!private! !
 closeAllWindows!public! !
-closeLibraries!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
