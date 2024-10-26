@@ -8,17 +8,17 @@ ExternalStructure subclass: #SDL_GPUDepthStencilState
 
 SDL_GPUDepthStencilState guid: (GUID fromString: '{053b30c9-878b-48a1-83a1-61c2ae729580}')!
 
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_back_stencil_state' value: 16r8!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_mask' value: 16r28!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_op' value: 16r4!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_depth_test' value: 16r0!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_depth_write' value: 16r1!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_stencil_test' value: 16r2!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_front_stencil_state' value: 16r18!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding1' value: 16r3!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_back_stencil_state' value: 16r4!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_mask' value: 16r24!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_compare_op' value: 16r0!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_depth_test' value: 16r26!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_depth_write' value: 16r27!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_enable_stencil_test' value: 16r28!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_front_stencil_state' value: 16r14!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding1' value: 16r29!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding2' value: 16r2A!
 SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_padding3' value: 16r2B!
-SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_write_mask' value: 16r29!
+SDL_GPUDepthStencilState addClassConstant: '_OffsetOf_write_mask' value: 16r25!
 
 SDL_GPUDepthStencilState comment: ''!
 
@@ -152,7 +152,7 @@ defineFields
 		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
-	^#(#enable_depth_test #enable_depth_write #enable_stencil_test #compare_op #back_stencil_state #front_stencil_state #compare_mask #write_mask)! !
+	^#(#compare_op #back_stencil_state #front_stencil_state #compare_mask #write_mask #enable_depth_test #enable_depth_write #enable_stencil_test)! !
 
 !SDL_GPUDepthStencilState class categoriesForMethods!
 defineFields!public! !

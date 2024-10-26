@@ -8,6 +8,10 @@ ExternalStructure subclass: #SDL_GPUMultisampleState
 
 SDL_GPUMultisampleState guid: (GUID fromString: '{f7835dc1-f7bd-467a-8ef0-d7166930946a}')!
 
+SDL_GPUMultisampleState addClassConstant: '_OffsetOf_enable_mask' value: 16r8!
+SDL_GPUMultisampleState addClassConstant: '_OffsetOf_padding1' value: 16r9!
+SDL_GPUMultisampleState addClassConstant: '_OffsetOf_padding2' value: 16rA!
+SDL_GPUMultisampleState addClassConstant: '_OffsetOf_padding3' value: 16rB!
 SDL_GPUMultisampleState addClassConstant: '_OffsetOf_sample_count' value: 16r0!
 SDL_GPUMultisampleState addClassConstant: '_OffsetOf_sample_mask' value: 16r4!
 
@@ -101,12 +105,12 @@ defineFields
 		defineField: #sample_count type: SDWORDField new;
 		defineField: #sample_mask type: DWORDField new;
 		defineField: #enable_mask type: BOOLEANField new;
-		defineField: #padding1 type: BYTEField new;
-		defineField: #padding2 type: BYTEField new;
-		defineField: #padding3 type: BYTEField new!
+		defineField: #padding1 type: BYTEField new beFiller;
+		defineField: #padding2 type: BYTEField new beFiller;
+		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
-	^#(#sample_count #sample_mask)! !
+	^#(#sample_count #sample_mask #enable_mask)! !
 
 !SDL_GPUMultisampleState class categoriesForMethods!
 defineFields!public! !

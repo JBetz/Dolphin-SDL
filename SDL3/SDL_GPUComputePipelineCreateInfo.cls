@@ -129,26 +129,6 @@ num_uniform_buffers: anInteger
 
 	bytes dwordAtOffset: _OffsetOf_num_uniform_buffers put: anInteger!
 
-num_write_only_storage_buffers
-	"Answer the <Integer> value of the receiver's 'num_write_only_storage_buffers' field."
-
-	^bytes dwordAtOffset: _OffsetOf_num_write_only_storage_buffers!
-
-num_write_only_storage_buffers: anInteger
-	"Set the receiver's 'num_write_only_storage_buffers' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_num_write_only_storage_buffers put: anInteger!
-
-num_write_only_storage_textures
-	"Answer the <Integer> value of the receiver's 'num_write_only_storage_textures' field."
-
-	^bytes dwordAtOffset: _OffsetOf_num_write_only_storage_textures!
-
-num_write_only_storage_textures: anInteger
-	"Set the receiver's 'num_write_only_storage_textures' field to the value of the argument, anInteger"
-
-	bytes dwordAtOffset: _OffsetOf_num_write_only_storage_textures put: anInteger!
-
 props
 	"Answer the <Integer> value of the receiver's 'props' field."
 
@@ -210,10 +190,6 @@ num_samplers!public! !
 num_samplers:!public! !
 num_uniform_buffers!public! !
 num_uniform_buffers:!public! !
-num_write_only_storage_buffers!public! !
-num_write_only_storage_buffers:!public! !
-num_write_only_storage_textures!public! !
-num_write_only_storage_textures:!public! !
 props!public! !
 props:!public! !
 threadcount_x!public! !
