@@ -53,6 +53,9 @@ extent
 		elementClass: TTF_SubString.
 	^substrings first rect extent!
 
+getSubStringForIndex: anInteger
+	^self getSubStringForOffset: anInteger - 1!
+
 getSubStringForInterval: anInterval
 	| count result |
 	count := SDWORD new.
@@ -166,6 +169,7 @@ color:!public! !
 deleteString:length:!public! !
 destroy!public! !
 extent!public! !
+getSubStringForIndex:!public! !
 getSubStringForInterval:!public! !
 getSubStringForLine:!public! !
 getSubStringForOffset:!public! !
