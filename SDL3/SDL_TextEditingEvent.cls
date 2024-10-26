@@ -116,7 +116,8 @@ defineFields
 		defineField: #windowID type: DWORDField new;
 		defineField: #text type: (StringField type: Utf8String length: 64);
 		defineField: #start type: SDWORDField new;
-		defineField: #length type: SDWORDField new!
+		defineField: #length type: SDWORDField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #text #start #length)! !

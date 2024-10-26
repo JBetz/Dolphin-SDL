@@ -123,18 +123,23 @@ renderPoint: aPoint
 		y: aPoint y!
 
 renderReadPixels: aRectangle
-	^self checkBooleanResult: (self library renderReadPixels_renderer: self
-				rect: (aRectangle ifNotNil: [aRectangle asSDLRect]))!
+	| surface |
+	surface := self library renderReadPixels_renderer: self
+				rect: (aRectangle ifNotNil: [aRectangle asSDLRect]).
+	self checkObjectResult: surface.
+	^surface!
 
 renderRectangle: aRectangle
 	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
 
 renderTexture: texture source: source destination: destination
-	self checkBooleanResult: (self library
+	| result |
+	result := self library
 				renderTexture_renderer: self
 				texture: texture
 				srcrect: (source ifNotNil: [source asSDLFRect])
-				dstrect: (destination ifNotNil: [destination asSDLFRect]))!
+				dstrect: (destination ifNotNil: [destination asSDLFRect]).
+	self checkBooleanResult: result!
 
 resetClip
 	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: nil)!

@@ -81,7 +81,8 @@ defineFields
 		defineField: #reserved type: DWORDField new beFiller;
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
-		defineField: #text type: (PointerField type: Utf8String)!
+		defineField: #text type: (PointerField type: Utf8String);
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #text)! !

@@ -12,3 +12,12 @@ SDL_AudioDeviceEvent comment: ''!
 
 !SDL_AudioDeviceEvent categoriesForClass!External-Data-Structured! !
 
+!SDL_AudioDeviceEvent class methodsFor!
+
+defineFields
+	self byteSize: 128! !
+
+!SDL_AudioDeviceEvent class categoriesForMethods!
+defineFields!public! !
+!
+

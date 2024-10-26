@@ -449,7 +449,8 @@ defineFields
 		defineField: #mod type: WORDField new;
 		defineField: #raw type: WORDField new;
 		defineField: #state type: BYTEField new;
-		defineField: #repeat type: BYTEField new!
+		defineField: #repeat type: BYTEField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #which #scancode #key #mod #raw #state #repeat)! !

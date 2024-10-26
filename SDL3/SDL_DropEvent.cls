@@ -12,3 +12,12 @@ SDL_DropEvent comment: ''!
 
 !SDL_DropEvent categoriesForClass!External-Data-Structured! !
 
+!SDL_DropEvent class methodsFor!
+
+defineFields
+	self byteSize: 128! !
+
+!SDL_DropEvent class categoriesForMethods!
+defineFields!public! !
+!
+

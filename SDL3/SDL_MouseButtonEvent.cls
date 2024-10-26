@@ -201,7 +201,8 @@ defineFields
 		defineField: #clicks type: BYTEField new;
 		defineField: #padding1 type: BYTEField new;
 		defineField: #x type: FLOATField new;
-		defineField: #y type: FLOATField new!
+		defineField: #y type: FLOATField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #which #button #state #clicks #padding1 #x #y)! !

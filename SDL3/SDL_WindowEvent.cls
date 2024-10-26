@@ -155,7 +155,8 @@ defineFields
 		defineField: #timestamp type: QWORDField new;
 		defineField: #windowID type: DWORDField new;
 		defineField: #data1 type: SDWORDField new;
-		defineField: #data2 type: SDWORDField new!
+		defineField: #data2 type: SDWORDField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #data1 #data2)! !

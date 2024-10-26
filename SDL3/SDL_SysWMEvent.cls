@@ -12,3 +12,12 @@ SDL_SysWMEvent comment: ''!
 
 !SDL_SysWMEvent categoriesForClass!External-Data-Structured! !
 
+!SDL_SysWMEvent class methodsFor!
+
+defineFields
+	self byteSize: 128! !
+
+!SDL_SysWMEvent class categoriesForMethods!
+defineFields!public! !
+!
+

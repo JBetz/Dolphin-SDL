@@ -109,7 +109,8 @@ defineFields
 		defineField: #windowID type: DWORDField new;
 		defineField: #code type: SDWORDField new;
 		defineField: #data1 type: LPVOIDField new;
-		defineField: #data2 type: LPVOIDField new!
+		defineField: #data2 type: LPVOIDField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #code #data1 #data2)! !

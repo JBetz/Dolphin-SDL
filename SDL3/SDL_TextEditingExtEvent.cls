@@ -12,3 +12,12 @@ SDL_TextEditingExtEvent comment: ''!
 
 !SDL_TextEditingExtEvent categoriesForClass!External-Data-Structured! !
 
+!SDL_TextEditingExtEvent class methodsFor!
+
+defineFields
+	self byteSize: 128! !
+
+!SDL_TextEditingExtEvent class categoriesForMethods!
+defineFields!public! !
+!
+

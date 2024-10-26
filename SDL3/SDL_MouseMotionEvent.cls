@@ -155,7 +155,8 @@ defineFields
 		defineField: #x type: FLOATField new;
 		defineField: #y type: FLOATField new;
 		defineField: #xrel type: FLOATField new;
-		defineField: #yrel type: FLOATField new!
+		defineField: #yrel type: FLOATField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #which #state #x #y #xrel #yrel)! !

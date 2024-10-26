@@ -53,7 +53,8 @@ defineFields
 	self
 		defineField: #type type: DWORDField new;
 		defineField: #reserved type: DWORDField new beFiller;
-		defineField: #timestamp type: QWORDField new!
+		defineField: #timestamp type: QWORDField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp)! !

@@ -171,7 +171,8 @@ defineFields
 		defineField: #y type: FLOATField new;
 		defineField: #direction type: DWORDField new;
 		defineField: #mouseX type: FLOATField new;
-		defineField: #mouseY type: FLOATField new!
+		defineField: #mouseY type: FLOATField new;
+		byteSize: 128!
 
 getFieldNames
 	^#(#type #timestamp #windowID #which #x #y #direction #mouseX #mouseY)! !

@@ -12,3 +12,12 @@ SDL_DisplayEvent comment: ''!
 
 !SDL_DisplayEvent categoriesForClass!External-Data-Structured! !
 
+!SDL_DisplayEvent class methodsFor!
+
+defineFields
+	self byteSize: 128! !
+
+!SDL_DisplayEvent class categoriesForMethods!
+defineFields!public! !
+!
+
