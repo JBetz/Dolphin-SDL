@@ -116,10 +116,11 @@ pumpMessages
 			repeat!
 
 pushCloseEvent: anInteger
-	self pushEvent: (SDL_WindowEvent new
+	| event |
+	event := SDL_WindowEvent new
 				type: SDL_EVENT_WINDOW_CLOSE_REQUESTED;
-				timestamp: 0;
-				windowID: anInteger)!
+				windowID: anInteger.
+	self pushEvent: event!
 
 pushEvent: aSDLEvent
 	| result |
@@ -127,11 +128,11 @@ pushEvent: aSDLEvent
 	self checkBooleanResult: result!
 
 pushRenderEvent: anInteger
-	self pushEvent: (SDL_UserEvent new
-				type: SDL_EVENT_USER;
-				timestamp: 0;
-				windowID: anInteger;
-				code: renderEventCode)!
+	| event |
+	event := SDL_UserEvent new
+				type: renderEventCode;
+				windowID: anInteger.
+	self pushEvent: event!
 
 registerRenderEvent
 	renderEventCode := self library registerEvents_numevents: 1!
