@@ -53,7 +53,7 @@ createText: aString font: aFont wrapWidth: anInteger
 	^textEngine
 		createText: aString
 		font: aFont
-		wrapWidth: anInteger asInteger!
+		wrapWidth: anInteger!
 
 createTextureFromSurface: aSDL_Surface
 	^sdlRenderer createTextureFromSurface: aSDL_Surface!

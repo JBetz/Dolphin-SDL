@@ -31,7 +31,7 @@ createText: aString font: aTTFFont wrapWidth: anInteger
 				font: aTTFFont
 				text: aString
 				length: aString size.
-	anInteger > 0 ifTrue: [text wrapWidth: anInteger].
+	anInteger ifNotNil: [text wrapWidth: anInteger asInteger].
 	self checkObjectResult: text.
 	^text initialize!
 
