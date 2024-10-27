@@ -97,6 +97,9 @@ iterate
 		pumpMessages;
 		updateWindows] ensure: [isProcessing := false]!
 
+library
+	^SDL3Library default!
+
 pollEvent
 	| event result |
 	event := SDL_Event new.
@@ -183,6 +186,7 @@ isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
 iterate!private! !
+library!public! !
 pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
