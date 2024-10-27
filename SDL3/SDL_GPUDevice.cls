@@ -159,6 +159,12 @@ releaseWindow: aWindow
 	result := self library releaseWindowFromGPUDevice_device: self window: aWindow.
 	self checkBooleanResult: result!
 
+supportsSampleCount: anInteger textureFormat: anotherInteger
+	^self library
+		gpuTextureSupportsSampleCount_device: self
+		format: anotherInteger
+		sampleCount: anInteger!
+
 unmapTransferBuffer: aTransferBuffer
 	self library unmapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer! !
 
@@ -188,6 +194,7 @@ releaseShader:!public! !
 releaseTexture:!public! !
 releaseTransferBuffer:!public! !
 releaseWindow:!public! !
+supportsSampleCount:textureFormat:!public! !
 unmapTransferBuffer:!public! !
 !
 

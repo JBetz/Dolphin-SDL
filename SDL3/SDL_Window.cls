@@ -104,6 +104,16 @@ rectangle
 setIcon: aSDLSurface
 	^self library setWindowIcon_window: self icon: aSDLSurface!
 
+setPosition: aPoint
+	| result |
+	result := self library setWindowPosition_window: self x: aPoint x y: aPoint y.
+	self checkBooleanResult: result!
+
+setSize: aPoint
+	| result |
+	result := self library setWindowSize_window: self w: aPoint x h: aPoint y.
+	self checkBooleanResult: result!
+
 setTitle: aString
 	^self library setWindowTitle_window: self title: aString!
 
@@ -132,6 +142,11 @@ showOpenFileDialog
 startTextInput
 	self checkBooleanResult: (self library startTextInput_window: self)!
 
+sync
+	| result |
+	result := self library syncWindow_window: self.
+	self checkBooleanResult: result!
+
 updateSurface
 	self library updateWindowSurface_window: self!
 
@@ -156,11 +171,14 @@ hide!public! !
 raise!public! !
 rectangle!public! !
 setIcon:!public! !
+setPosition:!public! !
+setSize:!public! !
 setTitle:!public! !
 show!public! !
 showLoadFileDialog!public! !
 showOpenFileDialog!public! !
 startTextInput!public! !
+sync!public! !
 updateSurface!public! !
 width!public! !
 !

@@ -47,7 +47,7 @@ bindVertexBuffers: anArrayOfGPUBuffers
 						offset: 0].
 	self library
 		bindGPUVertexBuffers_renderPass: self
-		firstBinding: 0
+		firstSlot: 0
 		bindings: (StructureArray withAll: bufferBindings elementClass: SDL_GPUBufferBinding)
 		numBindings: bufferBindings size!
 

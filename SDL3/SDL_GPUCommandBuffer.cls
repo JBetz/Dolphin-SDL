@@ -72,30 +72,61 @@ beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger cycle: aBo
 	self checkObjectResult: renderPass.
 	^renderPass!
 
-blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion
-	self blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion filterMode: SDL_GPU_FILTER_NEAREST!
+beginRenderPassRaw: aColorTargetInfo
+	| renderPass |
+	renderPass := self library
+				beginGPURenderPass_commandBuffer: self
+				colorTargetInfos: aColorTargetInfo
+				numColorTargets: 1
+				depthStencilTargetInfo: nil.
+	self checkObjectResult: renderPass.
+	^renderPass!
 
-blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion filterMode: anInteger
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion
+	self
+		blitTexture: aGPUBlitRegion
+		destination: anotherGPUBlitRegion
+		filter: SDL_GPU_FILTER_NEAREST!
+
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion filter: anInteger
 	self
 		blitTexture: aGPUBlitRegion
 		destination: anotherGPUBlitRegion
 		flipMode: SDL_FLIP_NONE
-		filterMode: anInteger!
+		filter: anInteger
+!
 
 blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: anInteger
 	self
 		blitTexture: aGPUBlitRegion
 		destination: anotherGPUBlitRegion
 		flipMode: anInteger
-		filterMode: SDL_GPU_FILTER_NEAREST!
+		filter: SDL_GPU_FILTER_NEAREST!
 
-blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: anInteger filterMode: anotherInteger
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: flipMode filter: filter
+	self
+		blitTexture: aGPUBlitRegion
+		destination: anotherGPUBlitRegion
+		loadOp: SDL_GPU_LOADOP_LOAD
+		flipMode: flipMode
+		filter: filter!
+
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion loadOp: loadOp filter: filter
+	self
+		blitTexture: aGPUBlitRegion
+		destination: anotherGPUBlitRegion
+		loadOp: loadOp
+		flipMode: SDL_FLIP_NONE
+		filter: filter!
+
+blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion loadOp: loadOp flipMode: flipMode filter: filter
 	self library blitGPUTexture_commandBuffer: self
 		info: (SDL_GPUBlitInfo new
 				source: aGPUBlitRegion;
 				destination: anotherGPUBlitRegion;
-				flip_mode: anInteger;
-				filter: anotherInteger;
+				load_op: loadOp;
+				flip_mode: flipMode;
+				filter: filter;
 				cycle: false)!
 
 generateMipmapsForTexture: aGPUTexture
@@ -126,10 +157,13 @@ beginRenderPass:!public! !
 beginRenderPass:clearColor:!public! !
 beginRenderPass:clearColor:depthPlane:!public! !
 beginRenderPass:clearColor:depthPlane:cycle:!public! !
+beginRenderPassRaw:!public! !
 blitTexture:destination:!public! !
-blitTexture:destination:filterMode:!public! !
+blitTexture:destination:filter:!public! !
 blitTexture:destination:flipMode:!public! !
-blitTexture:destination:flipMode:filterMode:!public! !
+blitTexture:destination:flipMode:filter:!public! !
+blitTexture:destination:loadOp:filter:!public! !
+blitTexture:destination:loadOp:flipMode:filter:!public! !
 generateMipmapsForTexture:!public! !
 pushComputeUniformData:!public! !
 pushVertexUniformData:!public! !

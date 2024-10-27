@@ -767,7 +767,7 @@ lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
 	^self invalidCall: _failureCode!
 
 mapGPUTransferBuffer_device: device transferBuffer: transferBuffer cycle: cycle 
-	<cdecl: lpvoid SDL_MapGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer* bool>
+	<cdecl: void* SDL_MapGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBuffer* bool>
 	^self invalidCall: _failureCode!
 
 maximizeWindow_window: window
@@ -823,7 +823,7 @@ pushGPUFragmentUniformData_commandBuffer: commandBuffer slotIndex: slotIndex dat
 	^self invalidCall: _failureCode!
 
 pushGPUVertexUniformData_commandBuffer: commandBuffer slotIndex: slotIndex data: data length: length
-	<cdecl: void SDL_PushGPUVertexUniformData SDL_GPUCommandBuffer* dword lpvoid dword>
+	<cdecl: void SDL_PushGPUVertexUniformData SDL_GPUCommandBuffer* dword void* dword>
 	^self invalidCall: _failureCode!
 
 putAudioStreamData_stream: stream buffer: buffer length: length
@@ -1100,6 +1100,10 @@ submitGPUCommandBuffer_commandBuffer: commandBuffer
 
 submitGPUCommandBufferAndAcquireFence_commandBuffer: commandBuffer
 	<cdecl: SDL_GPUFence* SDL_SubmitGPUCommandBufferAndAcquireFence SDL_GPUCommandBuffer*>
+	^self invalidCall: _failureCode!
+
+syncWindow_window: window
+	<cdecl: bool SDL_SyncWindow SDL_Window*>
 	^self invalidCall: _failureCode!
 
 unbindAudioStream_stream: stream
@@ -1446,6 +1450,7 @@ showWindow_window:!public!video! !
 startTextInput_window:!public!video! !
 submitGPUCommandBuffer_commandBuffer:!gpu!public! !
 submitGPUCommandBufferAndAcquireFence_commandBuffer:!gpu!public! !
+syncWindow_window:!public!video! !
 unbindAudioStream_stream:!audio!public! !
 unbindAudioStreams_streams:numStreams:!audio!public! !
 unlockAudioStream_stream:!audio!public! !

@@ -473,7 +473,7 @@ ExternalStructure subclass: #SDL_GPUVertexBinding
 
 ExternalStructure subclass: #SDL_GPUVertexBufferDescription
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_input_rate _OffsetOf_instance_step_rate _OffsetOf_pitch _OffsetOf_slot'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
