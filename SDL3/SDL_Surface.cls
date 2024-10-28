@@ -27,7 +27,7 @@ convertPixelFormat: anInteger
 	| newSurface |
 	newSurface := self library convertSurface_surface: self format: anInteger.
 	self checkObjectResult: newSurface.
-	^newSurface!
+	^newSurface initialize!
 
 destroy
 	self library destroySurface_surface: self!
