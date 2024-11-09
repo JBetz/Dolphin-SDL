@@ -69,7 +69,7 @@ initialize
 	keyStates := self library getKeyboardState_numkeys: nil!
 
 initializeLibraries
-	(self library init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
+	(SDL3Library default init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
 		ifFalse: [self error: 'Error when initializing SDL base library'].
 	SDL3TTFLibrary default init ifFalse: [self error: 'Error when initializing SDL TTF library'].
 	SDL3ImageLibrary default init_flags: 0!
@@ -179,7 +179,7 @@ createWindow:extent:for:!public! !
 ensureMessageLoopRunning!public! !
 getDisplayExtent!public! !
 initialize!public! !
-initializeLibraries!public! !
+initializeLibraries!private! !
 isAltKeyDown!public! !
 isCapsLockDown!public! !
 isCtrlKeyDown!public! !
@@ -222,7 +222,8 @@ new
 	^self shouldNotImplement!
 
 onShutdown
-	Singleton ifNotNil: [Singleton stop]!
+	Singleton ifNotNil: [Singleton stop].
+	Singleton := nil!
 
 onStartup
 	Singleton ifNotNil: [Singleton stop].
