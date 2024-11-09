@@ -114,6 +114,14 @@ blitSurface_src: src srcrect: srcrect dst: dst dstrect: dstrect
 	<cdecl: bool SDL_UpperBlit SDL_Surface* SDL_Rect* SDL_Surface* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
+calculateGPUTextureFormatSize_format: format width: width height: height depthOrLayerCount: depthOrLayerCount
+	<cdecl: dword SDL_CalculateGPUTextureFormatSize sdword dword dword dword>
+	^self invalidCall: _failureCode!
+
+cancelGPUCommandBuffer_commandBuffer: commandBuffer
+	<cdecl: bool SDL_CancelGPUCommandBuffer SDL_GPUCommandBuffer*>
+	^self invalidCall: _failureCode!
+
 claimWindowForGPUDevice_device: device window: window
 	<cdecl: bool SDL_ClaimWindowForGPUDevice SDL_GPUDevice* SDL_Window*>
 	^self invalidCall: _failureCode!
@@ -244,6 +252,10 @@ delay_ms: ms
 
 delayNS_ns: ns
 	<cdecl: void SDL_DelayNS qword>
+	^self invalidCall: _failureCode!
+
+delayPrecise_ns: ns
+	<cdecl: void SDL_DelayPrecise qword>
 	^self invalidCall: _failureCode!
 
 destroyAudioStream_stream: stream
@@ -550,6 +562,10 @@ getRenderWindow_renderer: renderer
 	<cdecl: SDL_Window* SDL_GetRenderWindow SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
+getSandbox
+	<cdecl: sdword SDL_GetSandbox>
+	^self invalidCall: _failureCode!
+
 getStringProperty_props: props name: name defaultValue: defaultValue
 	<cdecl: lpstr SDL_GetStringProperty dword lpstr lpstr>
 	^self invalidCall: _failureCode!
@@ -747,7 +763,7 @@ insertGPUDebugLabel_commandBuffer: commandBuffer text: text
 	^self invalidCall: _failureCode!
 
 loadBMP_file: file
-	<cdecl: SDL_Surface* SDL_LoadBMP lpstr>
+	<cdecl: SDL_Surface* SDL_LoadBMP char*>
 	^self invalidCall: _failureCode!
 
 loadFile_file: file datasize: datasize
@@ -916,6 +932,10 @@ renderClear_renderer: renderer
 
 renderClipEnabled_renderer: renderer
 	<cdecl: bool SDL_RenderClipEnabled SDL_Renderer*>
+	^self invalidCall: _failureCode!
+
+renderDebugText_renderer: renderer x: x y: y str: str
+	<cdecl: bool SDL_RenderDebugText SDL_Renderer* float float char*>
 	^self invalidCall: _failureCode!
 
 renderFillRect_renderer: renderer rect: rect
@@ -1094,6 +1114,10 @@ startTextInput_window: window
 	<cdecl: bool SDL_StartTextInput SDL_Window*>
 	^self invalidCall: _failureCode!
 
+stepBackUTF8_start: start pstr: pstr
+	<cdecl: dword SDL_StepBackUTF8 char* char**>
+	^self invalidCall: _failureCode!
+
 submitGPUCommandBuffer_commandBuffer: commandBuffer
 	<cdecl: void SDL_SubmitGPUCommandBuffer SDL_GPUCommandBuffer*>
 	^self invalidCall: _failureCode!
@@ -1204,6 +1228,8 @@ bindGPUVertexStorageBuffers_renderPass:firstSlot:storageBuffers:numBindings:!gpu
 bindGPUVertexStorageTextures_renderPass:firstSlot:storageTextures:numBindings:!gpu!public! !
 blitGPUTexture_commandBuffer:info:!public! !
 blitSurface_src:srcrect:dst:dstrect:!public!render! !
+calculateGPUTextureFormatSize_format:width:height:depthOrLayerCount:!gpu!public! !
+cancelGPUCommandBuffer_commandBuffer:!gpu!public! !
 claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
 clearProperty_props:name:!properties!public! !
@@ -1237,6 +1263,7 @@ createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
 delay_ms:!public!video! !
 delayNS_ns:!public!video! !
+delayPrecise_ns:!public!video! !
 destroyAudioStream_stream:!audio!public! !
 destroyCursor_cursor:!public! !
 destroyGPUDevice_device:!gpu!public! !
@@ -1313,6 +1340,7 @@ getRendererProperties_renderer:!public!video! !
 getRenderScale_renderer:scaleX:scaleY:!public!render! !
 getRenderTarget_renderer:!public!render! !
 getRenderWindow_renderer:!public!render! !
+getSandbox!public!video! !
 getStringProperty_props:name:defaultValue:!properties!public! !
 getTextureBlendMode_texture:blendMode:!public!render! !
 getTextureProperties_texture:!public!video! !
@@ -1404,6 +1432,7 @@ removeTimer_id:!public!video! !
 renamePath_oldpath:newpath:!file system!public! !
 renderClear_renderer:!public!render! !
 renderClipEnabled_renderer:!public!render! !
+renderDebugText_renderer:x:y:str:!public!render! !
 renderFillRect_renderer:rect:!public!render! !
 renderGeometry_renderer:texture:vertices:numVertices:indices:numIndices:!public!render! !
 renderLine_renderer:x1:y1:x2:y2:!public! !
@@ -1448,6 +1477,7 @@ showOpenFolderDialog_callback:userdata:window:defaultLocation:allowMany:!audio!d
 showSaveFileDialog_callback:userdata:window:filters:nfilters:defaultLocation:!audio!dialog!public! !
 showWindow_window:!public!video! !
 startTextInput_window:!public!video! !
+stepBackUTF8_start:pstr:!gpu!public! !
 submitGPUCommandBuffer_commandBuffer:!gpu!public! !
 submitGPUCommandBufferAndAcquireFence_commandBuffer:!gpu!public! !
 syncWindow_window:!public!video! !

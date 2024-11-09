@@ -90,6 +90,15 @@ getWindow
 present
 	self checkBooleanResult: (self library renderPresent_renderer: self)!
 
+renderDebugText: aString origin: aPoint
+	| result |
+	result := self library
+				renderDebugText_renderer: self
+				x: aPoint x asFloat
+				y: aPoint y asFloat
+				str: aString.
+	self checkBooleanResult: result!
+
 renderGeometry: texture vertices: vertices
 	self library
 		renderGeometry_renderer: self
@@ -187,6 +196,7 @@ getRenderTarget!public! !
 getScale!public! !
 getWindow!public! !
 present!public! !
+renderDebugText:origin:!public! !
 renderGeometry:vertices:!public! !
 renderGeometry:vertices:indices:!public! !
 renderLineFrom:to:!public! !

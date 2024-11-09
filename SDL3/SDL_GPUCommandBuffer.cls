@@ -129,6 +129,11 @@ blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion loadOp: loadOp fli
 				filter: filter;
 				cycle: false)!
 
+cancel
+	| result |
+	result := self library cancelGPUCommandBuffer_commandBuffer: self.
+	self checkBooleanResult: result!
+
 generateMipmapsForTexture: aGPUTexture
 	self library generateMipmapsForGPUTexture_commandBuffer: self texture: aGPUTexture!
 
@@ -164,6 +169,7 @@ blitTexture:destination:flipMode:!public! !
 blitTexture:destination:flipMode:filter:!public! !
 blitTexture:destination:loadOp:filter:!public! !
 blitTexture:destination:loadOp:flipMode:filter:!public! !
+cancel!public! !
 generateMipmapsForTexture:!public! !
 pushComputeUniformData:!public! !
 pushVertexUniformData:!public! !
