@@ -71,8 +71,7 @@ initialize
 initializeLibraries
 	(SDL3Library default init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
 		ifFalse: [self error: 'Error when initializing SDL base library'].
-	SDL3TTFLibrary default init ifFalse: [self error: 'Error when initializing SDL TTF library'].
-	SDL3ImageLibrary default init_flags: 0!
+	SDL3TTFLibrary default init!
 
 isAltKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LALT) or: [self isKeyDown: SDL_SCANCODE_RALT]!

@@ -14,10 +14,6 @@ SDL3ImageLibrary comment: ''!
 
 !SDL3ImageLibrary methodsFor!
 
-init_flags: flags
-	<cdecl: dword IMG_Init sdword>
-	^self invalidCall: _failureCode!
-
 load_file: file
 	<cdecl: SDL_Surface* IMG_Load lpstr>
 	^self invalidCall: _failureCode!
@@ -25,13 +21,6 @@ load_file: file
 loadTexture_renderer: renderer file: file
 	<cdecl: SDL_Texture* IMG_LoadTexture SDL_Renderer* lpstr>
 	^self invalidCall: _failureCode!
-
-quit
-	<cdecl: void IMG_Quit>
-	^self invalidCall: _failureCode!
-
-quitIfOpen
-	self isOpen ifTrue: [self quit]!
 
 saveJPG_surface: surface file: file quality: quality
 	<cdecl: bool IMG_SaveJPG SDL_Surface* lpstr sdword>
@@ -42,11 +31,8 @@ savePNG_surface: surface file: file
 	^self invalidCall: _failureCode! !
 
 !SDL3ImageLibrary categoriesForMethods!
-init_flags:!public! !
 load_file:!public! !
 loadTexture_renderer:file:!public! !
-quit!public! !
-quitIfOpen!public! !
 saveJPG_surface:file:quality:!public! !
 savePNG_surface:file:!public! !
 !
