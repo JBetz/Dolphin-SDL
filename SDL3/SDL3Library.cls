@@ -854,14 +854,6 @@ quit
 	<cdecl: void SDL_Quit>
 	^self invalidCall: _failureCode!
 
-quitIfOpen
-	[self isOpen ifTrue: [self quit]] on: Error
-		do: 
-			[:error |
-			Transcript
-				display: error;
-				cr]!
-
 quitSubSystem_flags: flags
 	<cdecl: void SDL_QuitSubSystem dword>
 	^self invalidCall: _failureCode!
@@ -1413,7 +1405,6 @@ pushGPUVertexUniformData_commandBuffer:slotIndex:data:length:!gpu!public! !
 putAudioStreamData_stream:buffer:length:!audio!public! !
 queryGPUFence_device:fence:!gpu!public! !
 quit!init!public! !
-quitIfOpen!public! !
 quitSubSystem_flags:!init!public! !
 raiseWindow_window:!public!video! !
 registerEvents_numevents:!events!public! !
