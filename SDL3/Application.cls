@@ -84,7 +84,8 @@ mousePosition
 onCreated
 	self
 		createWindow;
-		createRenderer!
+		createRenderer.
+	isReady := true!
 
 onEvent: aSDLEvent
 	| event selector |
