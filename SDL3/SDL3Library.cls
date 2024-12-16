@@ -542,6 +542,10 @@ getRenderClipRect_renderer: renderer rect: rect
 	<cdecl: bool SDL_GetRenderClipRect SDL_Renderer* SDL_Rect*>
 	^self invalidCall: _failureCode!
 
+getRenderDriver_index: index
+	<cdecl: char* SDL_GetRenderDriver sdword>
+	^self invalidCall: _failureCode!
+
 getRenderer_window: window
 	<cdecl: SDL_Renderer* SDL_GetRenderer SDL_Window*>
 	^self invalidCall: _failureCode!
@@ -1327,6 +1331,7 @@ getPropertyType_props:name:!properties!public! !
 getRectIntersection_a:b:result:!public!video! !
 getRectIntersectionFloat_a:b:result:!public!video! !
 getRenderClipRect_renderer:rect:!public!render! !
+getRenderDriver_index:!public! !
 getRenderer_window:!public!render! !
 getRendererProperties_renderer:!public!video! !
 getRenderScale_renderer:scaleX:scaleY:!public!render! !
