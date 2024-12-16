@@ -494,6 +494,10 @@ getNumGPUDrivers
 	<cdecl: sdword SDL_GetNumGPUDrivers>
 	^self invalidCall: _failureCode!
 
+getNumRenderDrivers
+	<cdecl: sdword SDL_GetNumRenderDrivers>
+	^self invalidCall: _failureCode!
+
 getNumVideoDrivers
 	<cdecl: sdword SDL_GetNumVideoDrivers>
 	^self invalidCall: _failureCode!
@@ -1319,6 +1323,7 @@ getKeyFromScancode_scancode:!public!video! !
 getNumAudioDrivers!audio!public! !
 getNumberProperty_props:name:defaultValue:!properties!public! !
 getNumGPUDrivers!public! !
+getNumRenderDrivers!public! !
 getNumVideoDrivers!public!video! !
 getPathInfo_path:info:!file system!public! !
 getPerformanceCounter!public!video! !
