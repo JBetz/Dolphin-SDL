@@ -35,7 +35,7 @@ audioDevicePaused_devid: devid
 	^self invalidCall: _failureCode!
 
 beginGPUComputePass_commandBuffer: commandBuffer storageTextureBindings: storageTextureBindings numStorageTextureBindings: numStorageTextureBindings storageBufferBindings: storageBufferBindings numStorageBufferBindings: numStorageBufferBindings
-	<cdecl: SDL_GPUComputePass* SDL_BeginGPUComputePass SDL_GPUCommandBuffer* SDL_GPUStorageTextureWriteOnlyBinding* dword SDL_GPUStorageBufferWriteOnlyBinding* dword>
+	<cdecl: SDL_GPUComputePass* SDL_BeginGPUComputePass SDL_GPUCommandBuffer* SDL_GPUStorageTextureReadWriteBinding* dword SDL_GPUStorageBufferReadWriteBinding* dword>
 	^self invalidCall: _failureCode!
 
 beginGPUCopyPass_commandBuffer: commandBuffer

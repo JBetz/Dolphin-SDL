@@ -29,11 +29,11 @@ acquireSwapchainTexture: aWindow
 	swapchainTexture extent: width value @ height value.
 	^swapchainTexture!
 
-beginComputePass: aStorageTextureWriteOnlyBinding
+beginComputePass: aStorageTextureReadWriteBinding
 	| computePass |
 	computePass := self library
 				beginGPUComputePass_commandBuffer: self
-				storageTextureBindings: aStorageTextureWriteOnlyBinding
+				storageTextureBindings: aStorageTextureReadWriteBinding
 				numStorageTextureBindings: 1
 				storageBufferBindings: nil
 				numStorageBufferBindings: 0.
