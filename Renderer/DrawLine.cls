@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-RenderCommand subclass: #DrawLine
+DrawCommand subclass: #DrawLine
 	instanceVariableNames: 'start end color width'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -13,6 +13,10 @@ DrawLine comment: ''!
 !DrawLine categoriesForClass!Kernel-Objects! !
 
 !DrawLine methodsFor!
+
+applyClip: aRectangle
+	start := start max: aRectangle origin.
+	end := end min: aRectangle corner!
 
 applyOffset: aPoint
 	start := start + aPoint.
@@ -30,6 +34,18 @@ end
 end: anObject
 	end := anObject!
 
+initialize 
+	super initialize.
+	color := Color black.
+	width := 1!
+
+offset
+	| length normal perpendicular |
+	length := start dist: end.
+	normal := (end - start) / length.
+	perpendicular := normal y negated @ normal x.
+	^perpendicular * width!
+
 start
 	^start!
 
@@ -43,11 +59,14 @@ width: anObject
 	width := anObject! !
 
 !DrawLine categoriesForMethods!
+applyClip:!public! !
 applyOffset:!public! !
 color!accessing!public! !
 color:!accessing!public! !
 end!accessing!public! !
 end:!accessing!public! !
+initialize!public! !
+offset!public! !
 start!accessing!public! !
 start:!accessing!public! !
 width!accessing!public! !

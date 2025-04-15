@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-RenderCommand subclass: #DrawRectangle
+DrawCommand subclass: #DrawRectangle
 	instanceVariableNames: 'rectangle color width'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -14,30 +14,36 @@ DrawRectangle comment: ''!
 
 !DrawRectangle methodsFor!
 
+applyClip: aRectangle 
+	rectangle := rectangle intersect: aRectangle!
+
+applyOffset: aPoint 
+	rectangle := rectangle moveBy: aPoint!
+
 color
 	^color!
 
 color: anObject
 	color := anObject!
 
+initialize
+	super initialize.
+	color := Color black.
+	width := 1!
+
 rectangle
 	^rectangle!
 
 rectangle: anObject
-	rectangle := anObject!
-
-width
-	^width!
-
-width: anObject
-	width := anObject! !
+	rectangle := anObject! !
 
 !DrawRectangle categoriesForMethods!
+applyClip:!public! !
+applyOffset:!public! !
 color!accessing!public! !
 color:!accessing!public! !
+initialize!public! !
 rectangle!accessing!public! !
 rectangle:!accessing!public! !
-width!accessing!public! !
-width:!accessing!public! !
 !
 

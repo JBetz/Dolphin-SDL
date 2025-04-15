@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-RenderCommand subclass: #FillPolygon
+DrawCommand subclass: #FillPolygon
 	instanceVariableNames: 'vertices indices'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -13,6 +13,13 @@ FillPolygon comment: ''!
 !FillPolygon categoriesForClass!Kernel-Objects! !
 
 !FillPolygon methodsFor!
+
+applyOffset: aPoint
+	vertices do: 
+			[:each |
+			each
+				x: each x + aPoint x;
+				y: each y + aPoint y]!
 
 indices
 	^indices!
@@ -27,6 +34,7 @@ vertices: anArrayOfVertices
 	vertices := anArrayOfVertices! !
 
 !FillPolygon categoriesForMethods!
+applyOffset:!public! !
 indices!public! !
 indices:!public! !
 vertices!public! !

@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-RenderCommand subclass: #FillRectangle
+DrawCommand subclass: #FillRectangle
 	instanceVariableNames: 'rectangle color'
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -13,6 +13,12 @@ FillRectangle comment: ''!
 !FillRectangle categoriesForClass!Kernel-Objects! !
 
 !FillRectangle methodsFor!
+
+applyClip: aRectangle 
+	rectangle := rectangle intersect: aRectangle!
+
+applyOffset: aPoint
+	rectangle := rectangle moveBy: aPoint!
 
 color
 	^color!
@@ -27,6 +33,8 @@ rectangle: anObject
 	rectangle := anObject! !
 
 !FillRectangle categoriesForMethods!
+applyClip:!public! !
+applyOffset:!public! !
 color!accessing!public! !
 color:!accessing!public! !
 rectangle!accessing!public! !

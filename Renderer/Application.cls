@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState isReady'
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty windowManager isReady'
 	classVariableNames: 'EventMap'
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -14,12 +14,6 @@ Application comment: ''!
 
 !Application methodsFor!
 
-calculateInitialExtent
-	| preferredExtent displayExtent |
-	preferredExtent := self preferredExtent.
-	displayExtent := inputState getDisplayExtent.
-	^(preferredExtent x min: displayExtent x - 100) @ (preferredExtent y min: displayExtent y - 100)!
-
 close
 	cursor := nil.
 	self
@@ -27,25 +21,31 @@ close
 		closeWindow!
 
 closeRenderer
+	renderer ifNil: [^self].
+	renderer destroy.
 	renderer := nil!
 
 closeWindow
 	window ifNil: [^self].
-	inputState closeWindow: window getID.
+	windowManager closeWindow: window getID.
+	window destroy.
 	window := nil!
 
 createRenderer
-	| sdlRenderer |
-	sdlRenderer := window createRenderer.
-	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND.
-	renderer := Renderer2D new
-				sdlRenderer: sdlRenderer;
-				initializeTextEngine!
+	self useGPURenderer
+		ifTrue: [renderer := Renderer3D forWindow: window]
+		ifFalse: 
+			[| sdlRenderer |
+			sdlRenderer := window createRenderer.
+			sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND.
+			renderer := Renderer2D new
+						sdlRenderer: sdlRenderer;
+						createTextEngine]!
 
 createWindow
-	window := inputState
+	window := windowManager
 				createWindow: self class name
-				extent: self calculateInitialExtent
+				extent: self preferredExtent
 				flags: self windowFlags
 				for: self!
 
@@ -56,6 +56,9 @@ cursor: aSymbol
 		name: aSymbol;
 		makeCurrent!
 
+drawOn: aCanvas
+	self subclassResponsibility!
+
 extent
 	^window ifNotNil: [window extent] ifNil: [0 @ 0]!
 
@@ -64,13 +67,16 @@ height
 
 initialize
 	super initialize.
-	inputState := SDLInputState current.
-	mousePosition := 0@0.
+	windowManager := SDLWindowManager current.
+	mousePosition := 0 @ 0.
 	isDirty := true.
 	isReady := false!
 
 isDirty
 	^isDirty!
+
+isReady
+	^isReady!
 
 left
 	^self rectangle left!
@@ -84,8 +90,7 @@ mousePosition
 onCreated
 	self
 		createWindow;
-		createRenderer.
-	isReady := true!
+		createRenderer!
 
 onEvent: aSDLEvent
 	| event selector |
@@ -94,6 +99,9 @@ onEvent: aSDLEvent
 	self
 		perform: selector with: event;
 		markDirty!
+
+onEventLoopFinished
+	!
 
 onKeyDown: aKeyboardEvent!
 
@@ -110,6 +118,9 @@ onMouseMotion: aMouseMotionEvent
 
 onMouseWheel: aMouseWheelEvent
 	!
+
+onPaintRequired: aPaintEvent
+	self drawOn: aPaintEvent canvas!
 
 onTextEditing: aTextEditingEvent !
 
@@ -158,10 +169,19 @@ origin
 	^0@0!
 
 preferredExtent
-	^self class preferredExtent!
+	^1200 @ 900!
 
 rectangle
 	^Rectangle origin: self origin extent: self extent!
+
+render
+	| paintEvent canvas |
+	renderer ifNil: [^self].
+	paintEvent := SDL_PaintEvent new.
+	canvas := Canvas2D new.
+	paintEvent canvas: canvas.
+	self onPaintRequired: paintEvent.
+	renderer present: canvas!
 
 renderer: aRenderer
 	renderer := aRenderer!
@@ -170,10 +190,8 @@ sdl
 	^SDL3Library default!
 
 setWindowTitle: aString
-	| title |
-	window ifNil: [^self].
-	title := aString ifNotNil: [aString] ifNil: [self class name asPhrase].
-	window setTitle: title asUtf8String!
+	(window isNil or: [aString isNil]) ifTrue: [^self].
+	window setTitle: aString asUtf8String!
 
 show
 	self onCreated!
@@ -181,8 +199,8 @@ show
 top
 	^self rectangle top!
 
-update
-!
+useGPURenderer
+	^true!
 
 viewport
 	^renderer viewport!
@@ -200,28 +218,31 @@ windowPosition
 	^window ifNotNil: [window getPosition]! !
 
 !Application categoriesForMethods!
-calculateInitialExtent!private! !
 close!public! !
 closeRenderer!private! !
 closeWindow!private! !
 createRenderer!private! !
 createWindow!private! !
 cursor:!public! !
+drawOn:!private! !
 extent!public! !
 height!public! !
 initialize!public! !
 isDirty!public! !
+isReady!public! !
 left!public! !
 markDirty!public! !
 mousePosition!public! !
 onCreated!public! !
 onEvent:!public! !
+onEventLoopFinished!public! !
 onKeyDown:!event handling!public! !
 onKeyUp:!event handling!public! !
 onMouseButtonDown:!event handling!public! !
 onMouseButtonUp:!event handling!public! !
 onMouseMotion:!event handling!public! !
 onMouseWheel:!event handling!public! !
+onPaintRequired:!public! !
 onTextEditing:!public! !
 onTextInput:!event handling!public! !
 onUser:!event handling!public! !
@@ -245,12 +266,13 @@ onWindowShown:!event handling!public! !
 origin!public! !
 preferredExtent!public! !
 rectangle!public! !
+render!public! !
 renderer:!public! !
 sdl!private! !
 setWindowTitle:!accessing!public! !
 show!public! !
 top!public! !
-update!public! !
+useGPURenderer!private! !
 viewport!public! !
 width!public! !
 window!accessing!public! !
