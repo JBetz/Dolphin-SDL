@@ -1,18 +1,18 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-Object subclass: #SDLInputState
-	instanceVariableNames: 'windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
+Object subclass: #SDLWindowManager
+	instanceVariableNames: 'windows renderEventCode keyStates logCallback profilingEnabled isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
-SDLInputState guid: (GUID fromString: '{9b0ff9fb-40c3-4d7e-91fe-2a58048fdbdf}')!
+SDLWindowManager guid: (GUID fromString: '{9b0ff9fb-40c3-4d7e-91fe-2a58048fdbdf}')!
 
-SDLInputState comment: ''!
+SDLWindowManager comment: ''!
 
-!SDLInputState categoriesForClass!Kernel-Objects! !
+!SDLWindowManager categoriesForClass!Kernel-Objects! !
 
-!SDLInputState methodsFor!
+!SDLWindowManager methodsFor!
 
 checkBooleanResult: aBoolean
 	aBoolean ifFalse: [self error: self library getError]!
@@ -25,16 +25,14 @@ closeAllWindows
 	windows removeAll!
 
 closeWindow: anInteger
-	windows removeKey: anInteger ifAbsent: [nil].
-	windows isEmpty ifTrue: [messageLoopProcess priority: Processor systemBasePriority]!
+	windows removeKey: anInteger ifAbsent: [nil]!
 
 createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
-	self ensureMessageLoopRunning.
 	window := self library
 				createWindow_title: aString
-				w: aPoint x
-				h: aPoint y
+				w: aPoint x truncated
+				h: aPoint y truncated
 				flags: anInteger.
 	window
 		initialize;
@@ -45,33 +43,61 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
-ensureMessageLoopRunning
-	(messageLoopProcess notNil and: [messageLoopProcess isAlive])
-		ifFalse: [self startMessageLoopProcess].
-	messageLoopProcess priority: Processor userSchedulingPriority!
+disableProfiling
+	profilingEnabled := false!
 
-getDisplayExtent
-	| primaryDisplayId displayMode |
+enableProfiling
+	profilingEnabled := true.
+	ProfileBrowser show!
+
+getDisplays
+	| displayCount primaryDisplayId |
+	displayCount := SDWORD new.
+	primaryDisplayId := self library getDisplays_count: displayCount.
+	primaryDisplayId = 0 ifTrue: [self error: self library getError].
+	^(0 to: displayCount value) collect: [:displayId | SDL_Display fromInteger: displayId]!
+
+getPrimaryDisplay
+	| primaryDisplayId |
 	primaryDisplayId := self library getPrimaryDisplay.
 	primaryDisplayId = 0 ifTrue: [self error: self library getError].
-	displayMode := self library getCurrentDisplayMode_displayID: primaryDisplayId.
-	^displayMode w @ displayMode h!
+	^SDL_Display fromInteger: primaryDisplayId!
+
+getPrimaryDisplayExtent
+	^self getPrimaryDisplay extent!
 
 initialize
 	super initialize.
 	windows := LookupTable new.
-	isProcessing := false.
-	framesPerSecond := 60.
 	self
 		initializeLibraries;
 		registerRenderEvent;
 		setHints.
-	keyStates := self library getKeyboardState_numkeys: nil!
+	"initializeLogging;"
+	keyStates := self library getKeyboardState_numkeys: nil.
+	profilingEnabled := false.
+	isRunning := true.
+	isBeingDebugged := false!
 
 initializeLibraries
-	(SDL3Library default init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
+	| sdl sdlTtf |
+	sdl := SDL3Library default.
+	sdlTtf := SDL3TTFLibrary default.
+	(sdl init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
 		ifFalse: [self error: 'Error when initializing SDL base library'].
-	SDL3TTFLibrary default init!
+	sdlTtf init ifFalse: [self error: sdl getError]!
+
+initializeLogging
+	logCallback := MessageCallback
+				receiver: self
+				selector: #onLog:category:priority:message:
+				descriptor: (ExternalDescriptor
+						callingConvention: 'cdecl:'
+						returnType: 'void'
+						argumentTypes: 'void* sdword sdword lpstr').
+	self library
+		setLogOutputFunction_callback: logCallback asParameter userdata: nil;
+		setLogPriorities_priority: SDL_LOG_PRIORITY_VERBOSE!
 
 isAltKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LALT) or: [self isKeyDown: SDL_SCANCODE_RALT]!
@@ -83,21 +109,39 @@ isCtrlKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LCTRL) or: [self isKeyDown: SDL_SCANCODE_RCTRL]!
 
 isKeyDown: scanCode
+	keyStates ifNil: [^false].
 	^(keyStates byteAtOffset: scanCode) asBoolean!
 
 isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
 iterate
-	isProcessing ifTrue: [^self].
-	isProcessing := true.
-	
-	[self
-		pumpMessages;
-		updateWindows] ensure: [isProcessing := false]!
+	| iterationBlock |
+	isRunning ifFalse: [^self].
+	iterationBlock := 
+			[self pumpMessages.
+			CefBrowserProcessRunner current iterate.
+			self renderWindows].
+	profilingEnabled
+		ifTrue: 
+			[Profiler
+				profile: iterationBlock
+				inSetNamed: #iterate
+				collect: true]
+		ifFalse: [iterationBlock value]!
 
 library
 	^SDL3Library default!
+
+onUnhandledError: anError
+	isBeingDebugged
+		ifTrue: 
+			[Transcript
+				display: anError;
+				cr]
+		ifFalse: 
+			[isBeingDebugged := true.
+			[SessionManager current onUnhandledError: anError] ensure: [isBeingDebugged := false]]!
 
 pollEvent
 	| event result |
@@ -113,7 +157,7 @@ pumpMessages
 	event type = SDL_EVENT_POLL_SENTINEL ifTrue: [^self].
 	windowId := event windowID.
 	windowId ifNil: [^self].
-	destination := windows at: windowId ifAbsent: [^nil].
+	destination := windows at: windowId ifAbsent: [^self].
 	destination onEvent: event]
 			repeat!
 
@@ -139,72 +183,75 @@ pushRenderEvent: anInteger
 registerRenderEvent
 	renderEventCode := self library registerEvents_numevents: 1!
 
+renderWindows
+	(windows select: [:each | each isReady]) do: [:each | each render]!
+
+restart
+	self
+		stop;
+		start!
+
 setHints
 	self library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
 
-startMessageLoopProcess
-	messageLoopProcess := 
-			[
-			[[self iterate] postToMessageQueue.
-			(Delay forMilliseconds: 1000 / framesPerSecond) wait]
-					repeat]
-					forkAt: Processor userSchedulingPriority.
-	messageLoopProcess name: 'SDL'!
+start
+	isRunning := true!
 
 stop
+	self closeAllWindows.
 	keyStates := nil.
-	self
-		closeAllWindows;
-		stopMessageLoopProcess!
+	logCallback := nil.
+	isRunning := false! !
 
-stopMessageLoopProcess
-	messageLoopProcess ifNil: [^self].
-	messageLoopProcess isAlive ifTrue: [messageLoopProcess terminate].
-	messageLoopProcess := nil!
-
-updateWindows
-	(windows select: [:each | each isDirty]) do: [:each | each update]!
-
-windows
-	^windows! !
-
-!SDLInputState categoriesForMethods!
+!SDLWindowManager categoriesForMethods!
 checkBooleanResult:!private! !
 checkObjectResult:!private! !
 closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
-ensureMessageLoopRunning!public! !
-getDisplayExtent!public! !
+disableProfiling!public! !
+enableProfiling!public! !
+getDisplays!public! !
+getPrimaryDisplay!public! !
+getPrimaryDisplayExtent!public! !
 initialize!public! !
 initializeLibraries!private! !
+initializeLogging!private! !
 isAltKeyDown!public! !
 isCapsLockDown!public! !
 isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
-iterate!private! !
+iterate!public! !
 library!public! !
+onUnhandledError:!public! !
 pollEvent!public! !
 pumpMessages!public! !
 pushCloseEvent:!public! !
 pushEvent:!public! !
 pushRenderEvent:!public! !
 registerRenderEvent!public! !
+renderWindows!public! !
+restart!public! !
 setHints!public! !
-startMessageLoopProcess!private! !
+start!public! !
 stop!public! !
-stopMessageLoopProcess!private! !
-updateWindows!public! !
-windows!public! !
 !
 
-!SDLInputState class methodsFor!
+!SDLWindowManager class methodsFor!
 
 current
-	Singleton ifNil: [Singleton := super new initialize].
 	^Singleton!
+
+disable
+	Singleton ifNil: [^self].
+	Singleton stop.
+	Singleton := nil!
+
+enable
+	Singleton ifNotNil: [^self].
+	Singleton := super new initialize!
 
 initialize
 	"self initialize"
@@ -217,32 +264,29 @@ initialize
 			send: #onShutdown
 			to: self!
 
+iterate
+	Singleton ifNil: [^self].
+	[Singleton iterate] on: Error do: [:error | Singleton onUnhandledError: error]!
+
 new
-	^self shouldNotImplement!
+	self shouldNotImplement!
 
 onShutdown
-	Singleton ifNotNil: [Singleton stop].
-	Singleton := nil!
+	self disable!
 
 onStartup
-	Singleton ifNotNil: [Singleton stop].
-	self reset!
-
-reset
-	Singleton := nil!
-
-restart
 	self
-		onShutdown;
-		onStartup! !
+		disable;
+		enable! !
 
-!SDLInputState class categoriesForMethods!
+!SDLWindowManager class categoriesForMethods!
 current!public! !
+disable!public! !
+enable!public! !
 initialize!public! !
+iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
-reset!public! !
-restart!public! !
 !
 
