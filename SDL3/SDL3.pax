@@ -4,19 +4,6 @@ package paxVersion: 1;
 	basicComment: ''.
 
 package classNames
-	add: #Application;
-	add: #DrawImage;
-	add: #DrawLine;
-	add: #DrawRectangle;
-	add: #DrawString;
-	add: #DrawSurface;
-	add: #DrawText;
-	add: #DrawTexture;
-	add: #FillPolygon;
-	add: #FillRectangle;
-	add: #PriorityQueue;
-	add: #RenderCommand;
-	add: #Renderer2D;
 	add: #SDL_AudioDeviceEvent;
 	add: #SDL_AudioSpec;
 	add: #SDL_AudioStream;
@@ -25,6 +12,7 @@ package classNames
 	add: #SDL_CommonEvent;
 	add: #SDL_Cursor;
 	add: #SDL_DialogFileFilter;
+	add: #SDL_Display;
 	add: #SDL_DisplayEvent;
 	add: #SDL_DisplayMode;
 	add: #SDL_DropEvent;
@@ -89,6 +77,7 @@ package classNames
 	add: #SDL_MouseMotionEvent;
 	add: #SDL_MouseWheelEvent;
 	add: #SDL_Object;
+	add: #SDL_PaintEvent;
 	add: #SDL_Palette;
 	add: #SDL_PathInfo;
 	add: #SDL_PixelFormat;
@@ -97,6 +86,9 @@ package classNames
 	add: #SDL_Rect;
 	add: #SDL_Renderer;
 	add: #SDL_RendererInfo;
+	add: #SDL_ShaderCross_GraphicsShaderMetadata;
+	add: #SDL_ShaderCross_HLSL_Define;
+	add: #SDL_ShaderCross_HLSL_Info;
 	add: #SDL_Surface;
 	add: #SDL_SysWMEvent;
 	add: #SDL_SysWMinfo;
@@ -111,10 +103,11 @@ package classNames
 	add: #SDL_WindowEvent;
 	add: #SDL3ImageLibrary;
 	add: #SDL3Library;
+	add: #SDL3ShadercrossLibrary;
 	add: #SDL3TTFLibrary;
-	add: #SDLInputState;
-	add: #SimpleExample;
+	add: #SDLWindowManager;
 	add: #TTF_Font;
+	add: #TTF_GPUAtlasDrawSequence;
 	add: #TTF_Object;
 	add: #TTF_SubString;
 	add: #TTF_Text;
@@ -144,35 +137,20 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #(
-	'..\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+package setPrerequisites: #().
 
 package!
 
 "Class Definitions"!
 
-Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty inputState isReady'
-	classVariableNames: 'EventMap'
-	poolDictionaries: 'SDLConstants'
-	classInstanceVariableNames: ''!
-
-Object subclass: #RenderCommand
-	instanceVariableNames: 'zIndex clip'
+Object subclass: #SDL_Display
+	instanceVariableNames: 'name bounds usableBounds naturalOrientation currentOrientation contentScale fullscreenDisplayModes'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-Object subclass: #Renderer2D
-	instanceVariableNames: 'renderQueue offset clip isEnabled fontCache textEngine sdlRenderer'
-	classVariableNames: 'CommandMap'
-	poolDictionaries: 'SDLConstants TTFConstants'
-	classInstanceVariableNames: ''!
-
-Object subclass: #SDLInputState
-	instanceVariableNames: 'windows renderEventCode keyStates messageLoopProcess framesPerSecond isProcessing'
+Object subclass: #SDLWindowManager
+	instanceVariableNames: 'windows renderEventCode keyStates logCallback profilingEnabled isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -183,18 +161,6 @@ Object subclass: #TTFFontStyle
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
-Application subclass: #SimpleExample
-	instanceVariableNames: 'triangleVertices'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-Dictionary variableSubclass: #PriorityQueue
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
 ExternalLibrary subclass: #SDL3ImageLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -202,6 +168,12 @@ ExternalLibrary subclass: #SDL3ImageLibrary
 	classInstanceVariableNames: ''!
 
 ExternalLibrary subclass: #SDL3Library
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalLibrary subclass: #SDL3ShadercrossLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -239,7 +211,7 @@ ExternalStructure subclass: #SDL_DialogFileFilter
 
 ExternalStructure subclass: #SDL_DisplayMode
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_driverdata _OffsetOf_format _OffsetOf_h _OffsetOf_refresh_rate _OffsetOf_w'
+	classVariableNames: '_OffsetOf_displayID _OffsetOf_format _OffsetOf_h _OffsetOf_internal _OffsetOf_pixel_density _OffsetOf_refresh_rate _OffsetOf_refresh_rate_denominator _OffsetOf_refresh_rate_numerator _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -531,6 +503,24 @@ ExternalStructure subclass: #SDL_RendererInfo
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+ExternalStructure subclass: #SDL_ShaderCross_GraphicsShaderMetadata
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_num_samplers _OffsetOf_num_storage_buffers _OffsetOf_num_storage_textures _OffsetOf_num_uniform_buffers _OffsetOf_props'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_ShaderCross_HLSL_Define
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_name _OffsetOf_value'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_ShaderCross_HLSL_Info
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_defines _OffsetOf_enable_debug _OffsetOf_entrypoint _OffsetOf_include_dir _OffsetOf_name _OffsetOf_props _OffsetOf_shader_stage _OffsetOf_source'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 ExternalStructure subclass: #SDL_SysWMinfo
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_hdc _OffsetOf_hinstance _OffsetOf_subsystem _OffsetOf_version _OffsetOf_window'
@@ -549,9 +539,27 @@ ExternalStructure subclass: #SDL_Vertex
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+ExternalStructure subclass: #TTF_GPUAtlasDrawSequence
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_atlas_texture _OffsetOf_image_type _OffsetOf_indices _OffsetOf_next _OffsetOf_num_indices _OffsetOf_num_vertices _OffsetOf_uv _OffsetOf_xy'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 ExternalStructure subclass: #TTF_Object
 	instanceVariableNames: 'library'
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #Uniform
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_view'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #Vertex
+	instanceVariableNames: 'x y z r g b a'
+	classVariableNames: '_OffsetOf_a _OffsetOf_b _OffsetOf_g _OffsetOf_r _OffsetOf_u _OffsetOf_v _OffsetOf_x _OffsetOf_y _OffsetOf_z'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -612,6 +620,12 @@ SDL_Event subclass: #SDL_MouseMotionEvent
 SDL_Event subclass: #SDL_MouseWheelEvent
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_direction _OffsetOf_mouseX _OffsetOf_mouseY _OffsetOf_reserved _OffsetOf_timestamp _OffsetOf_type _OffsetOf_which _OffsetOf_windowID _OffsetOf_x _OffsetOf_y'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Event subclass: #SDL_PaintEvent
+	instanceVariableNames: 'canvas'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -700,7 +714,7 @@ SDL_Object subclass: #SDL_GPUCopyPass
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUDevice
-	instanceVariableNames: ''
+	instanceVariableNames: 'swapchainTextureFormat'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -730,19 +744,19 @@ SDL_Object subclass: #SDL_GPUSampler
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUShader
-	instanceVariableNames: ''
+	instanceVariableNames: 'metadata'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUTexture
-	instanceVariableNames: 'extent'
+	instanceVariableNames: 'extent pixelFormat'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUTransferBuffer
-	instanceVariableNames: ''
+	instanceVariableNames: 'size'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -791,60 +805,6 @@ TTF_Object subclass: #TTF_Text
 
 TTF_Object subclass: #TTF_TextEngine
 	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #DrawImage
-	instanceVariableNames: 'image rectangle stretch'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #DrawLine
-	instanceVariableNames: 'start end color width'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #DrawRectangle
-	instanceVariableNames: 'rectangle color width'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #DrawString
-	instanceVariableNames: 'color font rectangle fontSize fontStyle format string'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #DrawText
-	instanceVariableNames: 'text rectangle color'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #FillPolygon
-	instanceVariableNames: 'vertices indices'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-RenderCommand subclass: #FillRectangle
-	instanceVariableNames: 'rectangle color'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-DrawImage subclass: #DrawSurface
-	instanceVariableNames: 'surface'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-DrawImage subclass: #DrawTexture
-	instanceVariableNames: 'texture'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

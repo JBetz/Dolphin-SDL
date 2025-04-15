@@ -14,6 +14,14 @@ PriorityQueue comment: ''!
 
 !PriorityQueue methodsFor!
 
+asOrderedCollection
+	| items priorityLevels |
+	items := OrderedCollection new.
+	priorityLevels := self keys asOrderedCollection
+				sortUsing: (DefaultSortAlgorithm newSortBlock: [:a :b | a > b]).
+	priorityLevels do: [:anInteger | items addAll: (self at: anInteger)].
+	^items!
+
 dequeue
 	^(self at: self highestPriorityLevel) removeLast!
 
@@ -45,6 +53,7 @@ reverseFlushWith: aBlock
 	self flushWith: aBlock sortBlock:  [ :a :b | a < b ]! !
 
 !PriorityQueue categoriesForMethods!
+asOrderedCollection!public! !
 dequeue!public! !
 enqueue:!public! !
 enqueue:priority:!public! !

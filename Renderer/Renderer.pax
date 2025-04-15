@@ -1,0 +1,181 @@
+﻿| package |
+package := Package name: 'Renderer'.
+package paxVersion: 1;
+	basicComment: ''.
+
+package classNames
+	add: #Application;
+	add: #Camera;
+	add: #Camera2D;
+	add: #Canvas2D;
+	add: #ChessBoard;
+	add: #DrawCommand;
+	add: #DrawData;
+	add: #DrawLine;
+	add: #DrawPoint;
+	add: #DrawRectangle;
+	add: #DrawString;
+	add: #DrawText;
+	add: #DrawTexture;
+	add: #FillPolygon;
+	add: #FillRectangle;
+	add: #PriorityQueue;
+	add: #Renderer;
+	add: #Renderer2D;
+	add: #Renderer3D;
+	add: #RotatingCompass;
+	add: #ShaderSource;
+	add: #SimpleExample;
+	yourself.
+
+package binaryGlobalNames: (Set new
+	yourself).
+
+package globalAliases: (Set new
+	yourself).
+
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
+	'..\LinearAlgebra'
+	'..\SDL3\SDL3').
+
+package!
+
+"Class Definitions"!
+
+Object subclass: #Application
+	instanceVariableNames: 'renderer window cursor mousePosition isDirty windowManager isReady'
+	classVariableNames: 'EventMap'
+	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
+
+Object subclass: #Camera
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Canvas2D
+	instanceVariableNames: 'drawCommands offset clip textEngine'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #DrawCommand
+	instanceVariableNames: 'zIndex clip scale rotation drawData'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #DrawData
+	instanceVariableNames: 'vertices indices vertexOffset indexOffset texture'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #Renderer
+	instanceVariableNames: 'fontCache textEngine'
+	classVariableNames: 'CommandMap'
+	poolDictionaries: 'SDLConstants TTFConstants'
+	classInstanceVariableNames: ''!
+
+Object subclass: #ShaderSource
+	instanceVariableNames: 'name stage sourceCode sourceFile metadata'
+	classVariableNames: ''
+	poolDictionaries: 'SDLConstants'
+	classInstanceVariableNames: ''!
+
+Application subclass: #ChessBoard
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Application subclass: #RotatingCompass
+	instanceVariableNames: 'player buildings camera texture'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Application subclass: #SimpleExample
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Camera subclass: #Camera2D
+	instanceVariableNames: 'offset target rotation zoom'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Dictionary variableSubclass: #PriorityQueue
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #DrawLine
+	instanceVariableNames: 'start end color width'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #DrawPoint
+	instanceVariableNames: 'position color'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #DrawRectangle
+	instanceVariableNames: 'rectangle color width'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #DrawString
+	instanceVariableNames: 'color font rectangle fontSize fontStyle format string'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #DrawText
+	instanceVariableNames: 'text rectangle color wrapWidth'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #DrawTexture
+	instanceVariableNames: 'rectangle stretch texture'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #FillPolygon
+	instanceVariableNames: 'vertices indices'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+DrawCommand subclass: #FillRectangle
+	instanceVariableNames: 'rectangle color'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Renderer subclass: #Renderer2D
+	instanceVariableNames: 'sdlRenderer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Renderer subclass: #Renderer3D
+	instanceVariableNames: 'window camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+"End of package definition"!
+
