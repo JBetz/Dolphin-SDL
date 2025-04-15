@@ -108,7 +108,7 @@ insertString: aString offset: anInteger
 	| result |
 	result := self library
 				insertTextString_text: self
-				offset: anInteger 
+				offset: anInteger
 				string: aString
 				length: aString size.
 	self checkBooleanResult: result!

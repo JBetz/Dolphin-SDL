@@ -14,21 +14,22 @@ TTF_TextEngine comment: ''!
 
 !TTF_TextEngine methodsFor!
 
-createText: aString font: aTTF_Font
+createText: aString font: aFont
 	| text |
 	text := self library
 				createText_engine: self
-				font: aTTF_Font
+				font: aFont
 				text: aString
 				length: aString size.
 	self checkObjectResult: text.
 	^text initialize!
 
-createText: aString font: aTTFFont wrapWidth: anInteger
+createText: aString font: aFont wrapWidth: anInteger
 	| text |
+	aFont ifNil: [ self halt ].
 	text := self library
 				createText_engine: self
-				font: aTTFFont
+				font: aFont
 				text: aString
 				length: aString size.
 	anInteger ifNotNil: [text wrapWidth: anInteger asInteger].
@@ -44,12 +45,19 @@ drawText: aTTFText x: aFloat y: anotherFloat
 				drawRendererText_text: aTTFText
 				x: aFloat asFloat truncated
 				y: anotherFloat asFloat truncated.
-	self checkBooleanResult: result! !
+	self checkBooleanResult: result!
+
+getDrawData: aTTFText
+	| result |
+	result := self library getGPUTextDrawData_text: aTTFText.
+	self checkObjectResult: result.
+	^result! !
 
 !TTF_TextEngine categoriesForMethods!
 createText:font:!public! !
 createText:font:wrapWidth:!public! !
 destroy!public! !
 drawText:x:y:!public! !
+getDrawData:!public! !
 !
 

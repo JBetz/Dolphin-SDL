@@ -18,6 +18,10 @@ closeFont_font: font
 	<cdecl: void TTF_CloseFont TTF_Font*>
 	^self invalidCall: _failureCode!
 
+createGPUTextEngine_device: device
+	<cdecl: TTF_TextEngine* TTF_CreateGPUTextEngine SDL_GPUDevice*>
+	^self invalidCall: _failureCode!
+
 createRendererTextEngine_renderer: renderer
 	<cdecl: TTF_TextEngine* TTF_CreateRendererTextEngine SDL_Renderer*>
 	^self invalidCall: _failureCode!
@@ -56,6 +60,10 @@ getFontLineSkip_font: font
 
 getGlyphMetrics_font: font ch: ch minx: minx maxx: maxx miny: miny maxy: maxy advance: advance
 	<cdecl: bool TTF_GetGlyphMetrics TTF_Font* dword sdword* sdword* sdword* sdword* sdword*>
+	^self invalidCall: _failureCode!
+
+getGPUTextDrawData_text: text
+	<cdecl: TTF_GPUAtlasDrawSequence* TTF_GetGPUTextDrawData TTF_Text*>
 	^self invalidCall: _failureCode!
 
 getNextTextSubString_text: text substring: substring next: next
@@ -172,6 +180,7 @@ wasInit
 
 !SDL3TTFLibrary categoriesForMethods!
 closeFont_font:!public! !
+createGPUTextEngine_device:!public! !
 createRendererTextEngine_renderer:!public! !
 createText_engine:font:text:length:!public! !
 deleteTextString_text:offset:length:!public! !
@@ -182,6 +191,7 @@ getFontHeight_font:!public! !
 getFontKerningSizeGlyphs32_font:previousCh:ch:!public! !
 getFontLineSkip_font:!public! !
 getGlyphMetrics_font:ch:minx:maxx:miny:maxy:advance:!public! !
+getGPUTextDrawData_text:!public! !
 getNextTextSubString_text:substring:next:!public! !
 getPreviousTextSubString_text:substring:previous:!public! !
 getTextColor_text:r:g:b:a:!public! !

@@ -84,7 +84,10 @@ setStyle:!public! !
 !TTF_Font class methodsFor!
 
 fromFile: aString pointSize: aFloat
-	^(SDL3TTFLibrary default openFont_file: aString ptsize: aFloat asFloat) initialize! !
+	| font |
+	font := self library openFont_file: aString ptsize: aFloat asFloat.
+	font isNull ifTrue: [self error: SDL3Library default getError].
+	^font initialize! !
 
 !TTF_Font class categoriesForMethods!
 fromFile:pointSize:!public! !

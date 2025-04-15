@@ -5,6 +5,10 @@ TTFConstants at: 'TTF_HINTING_LIGHT' put: 16r1!
 TTFConstants at: 'TTF_HINTING_MONO' put: 16r2!
 TTFConstants at: 'TTF_HINTING_NONE' put: 16r3!
 TTFConstants at: 'TTF_HINTING_NORMAL' put: 16r0!
+TTFConstants at: 'TTF_IMAGE_ALPHA' put: 16r1!
+TTFConstants at: 'TTF_IMAGE_COLOR' put: 16r2!
+TTFConstants at: 'TTF_IMAGE_INVALID' put: 16r0!
+TTFConstants at: 'TTF_IMAGE_SDF' put: 16r3!
 TTFConstants at: 'TTF_STYLE_BOLD' put: 16r1!
 TTFConstants at: 'TTF_STYLE_ITALIC' put: 16r2!
 TTFConstants at: 'TTF_STYLE_NORMAL' put: 16r0!

@@ -48,3 +48,12 @@ initialize!public! !
 library!public! !
 !
 
+!TTF_Object class methodsFor!
+
+library
+	^SDL3TTFLibrary default! !
+
+!TTF_Object class categoriesForMethods!
+library!public! !
+!
+
