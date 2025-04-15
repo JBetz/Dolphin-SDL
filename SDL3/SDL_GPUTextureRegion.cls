@@ -151,11 +151,23 @@ defineFields
 		defineField: #h type: DWORDField new;
 		defineField: #d type: DWORDField new!
 
+fromTexture: aGPUTexture
+	| extent |
+	extent := aGPUTexture extent.
+	^self new
+		texture: aGPUTexture;
+		x: 0;
+		y: 0;
+		w: extent x;
+		h: extent y;
+		d: 1!
+
 getFieldNames
 	^#(#texture #mip_level #layer #x #y #z #w #h #d)! !
 
 !SDL_GPUTextureRegion class categoriesForMethods!
 defineFields!public! !
+fromTexture:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 !
 

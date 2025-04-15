@@ -28,17 +28,6 @@ createSurfaceFrom: pixels width: width height: height pitch: pitch format: forma
 	self checkObjectResult: surface.
 	^surface initialize!
 
-createSurfaceFrom_pixels: pixels width: width height: height pitch: pitch format: format
-	| surface |
-	surface := self library
-				createSurfaceFrom_pixels: pixels
-				width: width
-				height: height
-				pitch: pitch
-				format: format.
-	self checkObjectResult: surface.
-	^surface initialize!
-
 createTexture: aPoint access: anInteger
 	^self createTexture: aPoint access: anInteger format: SDL_PIXELFORMAT_UNKNOWN!
 
@@ -73,6 +62,13 @@ getPropertiesId
 
 getRenderTarget
 	^self library getRenderTarget_renderer: self!
+
+getRenderViewport
+	| rect result |
+	rect := SDL_Rect new.
+	result := self library getRenderViewport_renderer: self rect: rect.
+	self checkBooleanResult: result.
+	^rect!
 
 getScale
 	| scaleX scaleY |
@@ -153,9 +149,6 @@ renderTexture: texture source: source destination: destination
 resetClip
 	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: nil)!
 
-resetScale
-	self setScale: 1.0 @ 1.0!
-
 setClip: aRectangle
 	| result |
 	result := self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect.
@@ -173,18 +166,11 @@ setDrawColor: aColor
 		a: aColor alpha!
 
 setRenderTarget: aSDLTexture
-	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
-
-setScale: aPoint
-	self checkBooleanResult: (self library
-				setRenderScale_renderer: self
-				scaleX: aPoint x
-				scaleY: aPoint y)! !
+	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)! !
 
 !SDL_Renderer categoriesForMethods!
 clear!public! !
 createSurfaceFrom:width:height:pitch:format:!public! !
-createSurfaceFrom_pixels:width:height:pitch:format:!public! !
 createTexture:access:!public! !
 createTexture:access:format:!public! !
 createTexture:format:!public! !
@@ -193,6 +179,7 @@ destroy!public! !
 fillRectangle:!public! !
 getPropertiesId!public! !
 getRenderTarget!public! !
+getRenderViewport!public! !
 getScale!public! !
 getWindow!public! !
 present!public! !
@@ -205,11 +192,9 @@ renderReadPixels:!public! !
 renderRectangle:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !
-resetScale!public! !
 setClip:!public! !
 setDrawBlendMode:!public! !
 setDrawColor:!public! !
 setRenderTarget:!public! !
-setScale:!public! !
 !
 

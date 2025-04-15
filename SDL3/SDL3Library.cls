@@ -211,7 +211,7 @@ createProperties
 	^self invalidCall: _failureCode!
 
 createRenderer_window: window name: name
-	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* lpstr>
+	<cdecl: SDL_Renderer* SDL_CreateRenderer SDL_Window* char*>
 	^self invalidCall: _failureCode!
 
 createSoftwareRenderer_surface: surface
@@ -238,8 +238,12 @@ createTextureFromSurface_renderer: renderer surface: surface
 	<cdecl: SDL_Texture* SDL_CreateTextureFromSurface SDL_Renderer* SDL_Surface*>
 	^self invalidCall: _failureCode!
 
+createTextureWithProperties_renderer: renderer props: props
+	<cdecl: SDL_Texture* SDL_CreateTextureWithProperties SDL_Renderer* dword>
+	^self invalidCall: _failureCode!
+
 createWindow_title: title w: w h: h flags: flags
-	<cdecl: SDL_Window* SDL_CreateWindow lpstr sdword sdword dword>
+	<cdecl: SDL_Window* SDL_CreateWindow lpstr sdword sdword qword>
 	^self invalidCall: _failureCode!
 
 createWindowAndRenderer_title: title width: width height: height windowFlags: windowFlags window: window renderer: renderer
@@ -422,6 +426,10 @@ getCurrentVideoDriver
 	<cdecl: lpstr SDL_GetCurrentVideoDriver>
 	^self invalidCall: _failureCode!
 
+getDefaultLogOutputFunction
+	<cdecl: lpvoid SDL_GetDefaultLogOutputFunction>
+	^self invalidCall: _failureCode!
+
 getDesktopDisplayMode_displayIndex: displayIndex
 	<cdecl: SDL_DisplayMode* SDL_GetDesktopDisplayMode sdword>
 	^self invalidCall: _failureCode!
@@ -480,6 +488,14 @@ getKeyboardState_numkeys: numkeys
 
 getKeyFromScancode_scancode: scancode
 	<cdecl: sdword SDL_GetKeyFromScancode sdword>
+	^self invalidCall: _failureCode!
+
+getLogOutputFunction_callback: callback userdata: userdata
+	<cdecl: void SDL_GetLogOutputFunction lpvoid* void**>
+	^self invalidCall: _failureCode!
+
+getLogPriority
+	<cdecl: sdword SDL_GetLogPriority>
 	^self invalidCall: _failureCode!
 
 getNumAudioDrivers
@@ -566,6 +582,10 @@ getRenderTarget_renderer: renderer
 	<cdecl: SDL_Texture* SDL_GetRenderTarget SDL_Renderer*>
 	^self invalidCall: _failureCode!
 
+getRenderViewport_renderer: renderer rect: rect
+	<cdecl: bool SDL_GetRenderViewport SDL_Renderer* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
 getRenderWindow_renderer: renderer
 	<cdecl: SDL_Window* SDL_GetRenderWindow SDL_Renderer*>
 	^self invalidCall: _failureCode!
@@ -650,6 +670,10 @@ getWindowProperties_window: window
 	<cdecl: dword SDL_GetWindowProperties SDL_Window*>
 	^self invalidCall: _failureCode!
 
+getWindowSafeArea_window: window rect: rect
+	<cdecl: bool SDL_GetWindowSafeArea SDL_Window* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
 getWindowSize_window: window w: w h: h
 	<cdecl: bool SDL_GetWindowSize SDL_Window* sdword* sdword*>
 	^self invalidCall: _failureCode!
@@ -663,7 +687,7 @@ getWindowSurface_window: window
 	^self invalidCall: _failureCode!
 
 getWindowTitle_window: window
-	<cdecl: lpstr SDL_SetWindowTitle SDL_Window*>
+	<cdecl: lpstr SDL_GetWindowTitle SDL_Window*>
 	^self invalidCall: _failureCode!
 
 glCreateContext_window: window
@@ -788,6 +812,42 @@ lockProperties_props: props
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
 	<cdecl: bool SDL_LockTexture SDL_Texture* SDL_Rect* void** sdword*>
+	^self invalidCall: _failureCode!
+
+log_fmt: fmt
+	<cdecl: void SDL_Log char*>
+	^self invalidCall: _failureCode!
+
+logCritical_category: category fmt: fmt
+	<cdecl: void SDL_LogCritical sdword char*>
+	^self invalidCall: _failureCode!
+
+logDebug_category: category fmt: fmt
+	<cdecl: void SDL_LogDebug sdword char*>
+	^self invalidCall: _failureCode!
+
+logError_category: category fmt: fmt
+	<cdecl: void SDL_LogError sdword char*>
+	^self invalidCall: _failureCode!
+
+logInfo_category: category fmt: fmt
+	<cdecl: void SDL_LogInfo sdword char*>
+	^self invalidCall: _failureCode!
+
+logMessage_category: category priority: priority fmt: fmt
+	<cdecl: void SDL_LogMessage sdword sdword char*>
+	^self invalidCall: _failureCode!
+
+logTrace_category: category fmt: fmt
+	<cdecl: void SDL_LogTrace sdword char*>
+	^self invalidCall: _failureCode!
+
+logVerbose_category: category fmt: fmt
+	<cdecl: void SDL_LogVerbose sdword char*>
+	^self invalidCall: _failureCode!
+
+logWarn_category: category fmt: fmt
+	<cdecl: void SDL_LogWarn sdword char*>
 	^self invalidCall: _failureCode!
 
 mapGPUTransferBuffer_device: device transferBuffer: transferBuffer cycle: cycle 
@@ -1030,6 +1090,22 @@ setHint_name: name value: value
 	<cdecl: bool SDL_SetHint lpstr lpstr>
 	^self invalidCall: _failureCode!
 
+setLogOutputFunction_callback: callback userdata: userdata
+	<cdecl: void SDL_SetLogOutputFunction void* void*>
+	^self invalidCall: _failureCode!
+
+setLogPriorities_priority: priority
+	<cdecl: void SDL_SetLogPriorities sdword>
+	^self invalidCall: _failureCode!
+
+setLogPriority_category: category priority: priority
+	<cdecl: void SDL_SetLogPriority sdword sdword>
+	^self invalidCall: _failureCode!
+
+setLogPriorityPrefix_priority: priority prefix: prefix
+	<cdecl: bool SDL_SetLogPriorityPrefix sdword char*>
+	^self invalidCall: _failureCode!
+
 setNumberProperty_props: props name: name value: value
 	<cdecl: bool SDL_GetNumberProperty dword lpstr sqword>
 	^self invalidCall: _failureCode!
@@ -1174,6 +1250,10 @@ uploadToGPUTexture_copyPass: copyPass source: source destination: destination cy
 	<cdecl: void SDL_UploadToGPUTexture SDL_GPUCopyPass* SDL_GPUTextureTransferInfo* SDL_GPUTextureRegion* bool>
 	^self invalidCall: _failureCode!
 
+waitAndAcquireGPUSwapchainTexture_commandBuffer: commandBuffer window: window swapchainTexture: swapchainTexture swapchainTextureWidth: swapchainTextureWidth swapchainTextureHeight: swapchainTextureHeight
+	<cdecl: bool SDL_WaitAndAcquireGPUSwapchainTexture SDL_GPUCommandBuffer* SDL_Window* SDL_GPUTexture** dword* dword*>
+	^self invalidCall: _failureCode!
+
 waitEvent_event: event
 	<cdecl: bool SDL_WaitEvent SDL_Event*>
 	^self invalidCall: _failureCode!
@@ -1259,6 +1339,7 @@ createSurfaceFrom_pixels:width:height:pitch:format:!public!render! !
 createSystemCursor_id:!events!public! !
 createTexture_renderer:format:access:w:h:!public!render! !
 createTextureFromSurface_renderer:surface:!public!render! !
+createTextureWithProperties_renderer:props:!public!render! !
 createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
 delay_ms:!public!video! !
@@ -1305,6 +1386,7 @@ getBooleanProperty_props:name:defaultValue:!properties!public! !
 getCurrentAudioDriver!audio!public! !
 getCurrentDisplayMode_displayID:!public! !
 getCurrentVideoDriver!public!video! !
+getDefaultLogOutputFunction!log!public! !
 getDesktopDisplayMode_displayIndex:!public!video! !
 getDisplayBounds_displayIndex:rect:!public!video! !
 getDisplayMode_displayIndex:modeIndex:mode:!public!video! !
@@ -1314,12 +1396,14 @@ getDisplayUsableBounds_displayIndex:rect:!public!video! !
 getError!error!public! !
 getFloatProperty_props:name:defaultValue:!properties!public! !
 getGlobalProperties!properties!public! !
-getGPUDeviceDriver_device:!public! !
-getGPUDriver_index:!public! !
+getGPUDeviceDriver_device:!gpu!public! !
+getGPUDriver_index:!gpu!public! !
 getGPUShaderFormats_device:!public! !
 getGPUSwapchainTextureFormat_device:window:!gpu!public! !
 getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
+getLogOutputFunction_callback:userdata:!log!public! !
+getLogPriority!log!public! !
 getNumAudioDrivers!audio!public! !
 getNumberProperty_props:name:defaultValue:!properties!public! !
 getNumGPUDrivers!public! !
@@ -1341,6 +1425,7 @@ getRenderer_window:!public!render! !
 getRendererProperties_renderer:!public!video! !
 getRenderScale_renderer:scaleX:scaleY:!public!render! !
 getRenderTarget_renderer:!public!render! !
+getRenderViewport_renderer:rect:!public!render! !
 getRenderWindow_renderer:!public!render! !
 getSandbox!public!video! !
 getStringProperty_props:name:defaultValue:!properties!public! !
@@ -1362,6 +1447,7 @@ getWindowKeyboardGrab_window:!public!video! !
 getWindowPixelFormat_window:!public!video! !
 getWindowPosition_window:x:y:!public!video! !
 getWindowProperties_window:!public!video! !
+getWindowSafeArea_window:rect:!public!video! !
 getWindowSize_window:w:h:!public!video! !
 getWindowSizeInPixels_window:w:h:!public!video! !
 getWindowSurface_window:!public!video! !
@@ -1397,6 +1483,15 @@ loadFile_file:datasize:!io stream!public! !
 lockAudioStream_stream:!audio!public! !
 lockProperties_props:!properties!public! !
 lockTexture_texture:rect:pixels:pitch:!public!render! !
+log_fmt:!log!public! !
+logCritical_category:fmt:!log!public! !
+logDebug_category:fmt:!log!public! !
+logError_category:fmt:!log!public! !
+logInfo_category:fmt:!log!public! !
+logMessage_category:priority:fmt:!log!public! !
+logTrace_category:fmt:!log!public! !
+logVerbose_category:fmt:!log!public! !
+logWarn_category:fmt:!log!public! !
 mapGPUTransferBuffer_device:transferBuffer:cycle:!gpu!public! !
 maximizeWindow_window:!public!video! !
 minimizeWindow_window:!public!video! !
@@ -1457,6 +1552,10 @@ setGPUSwapchainParameters_device:window:swapchainComposition:presentMode:!gpu!pu
 setGPUTextureName_device:texture:text:!gpu!public! !
 setGPUViewport_renderPass:viewport:!gpu!public! !
 setHint_name:value:!public! !
+setLogOutputFunction_callback:userdata:!log!public! !
+setLogPriorities_priority:!log!public! !
+setLogPriority_category:priority:!log!public! !
+setLogPriorityPrefix_priority:prefix:!log!public! !
 setNumberProperty_props:name:value:!properties!public! !
 setPointerProperty_props:name:value:!properties!public! !
 setPointerPropertyWithCleanup_props:name:value:cleanup:userdata:!properties!public! !
@@ -1493,6 +1592,7 @@ updateWindowSurface_window:!public!video! !
 updateWindowSurfaceRects_window:rects:numrects:!public!video! !
 uploadToGPUBuffer_copyPass:source:destination:cycle:!gpu!public! !
 uploadToGPUTexture_copyPass:source:destination:cycle:!gpu!public! !
+waitAndAcquireGPUSwapchainTexture_commandBuffer:window:swapchainTexture:swapchainTextureWidth:swapchainTextureHeight:!gpu!public! !
 waitEvent_event:!events!public! !
 waitEventTimeout_event:timeout:!events!public! !
 waitForGPUFences_device:waitAll:fences:numFences:!gpu!public! !

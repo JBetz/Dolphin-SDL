@@ -150,6 +150,12 @@ extent: aPoint
 		height: aPoint y
 		format: format!
 
+extent: extent format: format
+	^self
+		width: extent x
+		height: extent y
+		format: format!
+
 fromBMPFile: aString
 	| surface |
 	surface := SDL3Library default loadBMP_file: aString.
@@ -162,14 +168,37 @@ fromFile: aString
 	surface isNull ifTrue: [self error: SDL3Library default getError].
 	^surface initialize!
 
+fromPixels: pixels width: width height: height pitch: pitch format: format
+	| surface |
+	surface := self library
+				createSurfaceFrom_pixels: pixels
+				width: width
+				height: height
+				pitch: pitch
+				format: format.
+	self checkObjectResult: surface.
+	^surface initialize!
+
 getFieldNames
-	^#(#flags #format #w #h #pitch #pixels #refcount #internal)! !
+	^#(#flags #format #w #h #pitch #pixels #refcount #internal)!
+
+width: width height: height format: format
+	| surface |
+	surface := self library
+				createSurface_width: width
+				height: height
+				format: format.
+	self checkObjectResult: surface.
+	^surface initialize! !
 
 !SDL_Surface class categoriesForMethods!
 defineFields!public! !
 extent:!public! !
+extent:format:!public! !
 fromBMPFile:!public! !
 fromFile:!public! !
+fromPixels:width:height:pitch:format:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
+width:height:format:!public! !
 !
 

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 SDL_Object subclass: #SDL_GPUTexture
-	instanceVariableNames: 'extent'
+	instanceVariableNames: 'extent pixelFormat'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -23,13 +23,21 @@ extent: aPoint
 height
 	^extent y!
 
+pixelFormat
+	^pixelFormat!
+
+pixelFormat: anObject
+	pixelFormat := anObject!
+
 width
 	^extent x! !
 
 !SDL_GPUTexture categoriesForMethods!
 extent!public! !
-extent:!private! !
+extent:!public! !
 height!public! !
+pixelFormat!accessing!public! !
+pixelFormat:!accessing!public! !
 width!public! !
 !
 

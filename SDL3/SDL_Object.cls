@@ -101,11 +101,15 @@ propertiesId!public! !
 checkObjectResult: anObject
 	anObject isNull ifTrue: [self error: SDL3Library default getError]!
 
+library
+	^SDL3Library default!
+
 new
 	^super new initialize! !
 
 !SDL_Object class categoriesForMethods!
 checkObjectResult:!private! !
+library!public! !
 new!public! !
 !
 

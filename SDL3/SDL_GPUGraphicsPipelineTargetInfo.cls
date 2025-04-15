@@ -9,12 +9,12 @@ ExternalStructure subclass: #SDL_GPUGraphicsPipelineTargetInfo
 SDL_GPUGraphicsPipelineTargetInfo guid: (GUID fromString: '{6f2a9a23-c657-4185-bb4e-604c026e7048}')!
 
 SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_color_target_descriptions' value: 16r0!
-SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_depth_stencil_format' value: 16rC!
-SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_has_depth_stencil_target' value: 16r8!
+SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_depth_stencil_format' value: 16r8!
+SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_has_depth_stencil_target' value: 16rC!
 SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_num_color_targets' value: 16r4!
-SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_padding1' value: 16r9!
-SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_padding2' value: 16rA!
-SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_padding3' value: 16rB!
+SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_padding1' value: 16rD!
+SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_padding2' value: 16rE!
+SDL_GPUGraphicsPipelineTargetInfo addClassConstant: '_OffsetOf_padding3' value: 16rF!
 
 SDL_GPUGraphicsPipelineTargetInfo comment: ''!
 
@@ -93,7 +93,7 @@ defineFields
 		defineField: #padding3 type: BYTEField new beFiller!
 
 getFieldNames
-	^#(#color_target_descriptions #num_color_targets #has_depth_stencil_target #depth_stencil_format)! !
+	^#(#color_target_descriptions #num_color_targets #depth_stencil_format #has_depth_stencil_target)! !
 
 !SDL_GPUGraphicsPipelineTargetInfo class categoriesForMethods!
 defineFields!public! !

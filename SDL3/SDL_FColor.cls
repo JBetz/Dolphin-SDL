@@ -29,6 +29,19 @@ a: aFloat
 
 	bytes floatAtOffset: _OffsetOf_a put: aFloat!
 
+alpha
+	^self a!
+
+asSDLColor
+	^SDL_Color new
+		r: (self r * 255) truncated;
+		g: (self g * 255) truncated;
+		b: (self b * 255) truncated;
+		a: (self a * 255) truncated!
+
+asSDLFColor
+	^self!
+
 b
 	"Answer the <Float> value of the receiver's 'b' field."
 
@@ -38,6 +51,9 @@ b: aFloat
 	"Set the receiver's 'b' field to the value of the argument, aFloat"
 
 	bytes floatAtOffset: _OffsetOf_b put: aFloat!
+
+blue
+	^self b!
 
 g
 	"Answer the <Float> value of the receiver's 'g' field."
@@ -49,6 +65,9 @@ g: aFloat
 
 	bytes floatAtOffset: _OffsetOf_g put: aFloat!
 
+green
+	^self g!
+
 r
 	"Answer the <Float> value of the receiver's 'r' field."
 
@@ -57,17 +76,26 @@ r
 r: aFloat
 	"Set the receiver's 'r' field to the value of the argument, aFloat"
 
-	bytes floatAtOffset: _OffsetOf_r put: aFloat! !
+	bytes floatAtOffset: _OffsetOf_r put: aFloat!
+
+red
+	^self r! !
 
 !SDL_FColor categoriesForMethods!
 a!**compiled accessors**!public! !
 a:!**compiled accessors**!public! !
+alpha!public! !
+asSDLColor!public! !
+asSDLFColor!public! !
 b!**compiled accessors**!public! !
 b:!**compiled accessors**!public! !
+blue!public! !
 g!**compiled accessors**!public! !
 g:!**compiled accessors**!public! !
+green!public! !
 r!**compiled accessors**!public! !
 r:!**compiled accessors**!public! !
+red!public! !
 !
 
 !SDL_FColor class methodsFor!
@@ -89,11 +117,19 @@ r: r g: g b: b a: a
 		r: r;
 		g: g;
 		b: b;
-		a: a! !
+		a: a!
+
+white
+	^self new
+		r: 1.0;
+		g: 1.0;
+		b: 1.0;
+		a: 1.0! !
 
 !SDL_FColor class categoriesForMethods!
 defineFields!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 r:g:b:a:!public! !
+white!public! !
 !
 

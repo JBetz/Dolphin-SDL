@@ -11,18 +11,18 @@ SDL_GPUSamplerCreateInfo guid: (GUID fromString: '{f66e96fa-527f-480b-9bc7-39c78
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_address_mode_u' value: 16rC!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_address_mode_v' value: 16r10!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_address_mode_w' value: 16r14!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_compare_op' value: 16r24!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_enable_anisotropy' value: 16r20!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_enable_compare' value: 16r21!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_compare_op' value: 16r20!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_enable_anisotropy' value: 16r2C!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_enable_compare' value: 16r2D!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mag_filter' value: 16r4!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_max_anisotropy' value: 16r1C!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_max_lod' value: 16r2C!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_max_lod' value: 16r28!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_min_filter' value: 16r0!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_min_lod' value: 16r28!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_min_lod' value: 16r24!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mip_lod_bias' value: 16r18!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_mipmap_mode' value: 16r8!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_padding1' value: 16r22!
-SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_padding2' value: 16r23!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_padding1' value: 16r2E!
+SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_padding2' value: 16r2F!
 SDL_GPUSamplerCreateInfo addClassConstant: '_OffsetOf_props' value: 16r30!
 
 SDL_GPUSamplerCreateInfo comment: ''!
@@ -226,7 +226,7 @@ defineFields
 		defineField: #props type: DWORDField new!
 
 getFieldNames
-	^#(#min_filter #mag_filter #mipmap_mode #address_mode_u #address_mode_v #address_mode_w #mip_lod_bias #max_anisotropy #enable_anisotropy #enable_compare #compare_op #min_lod #max_lod #props)! !
+	^#(#min_filter #mag_filter #mipmap_mode #address_mode_u #address_mode_v #address_mode_w #mip_lod_bias #max_anisotropy #compare_op #min_lod #max_lod #enable_anisotropy #enable_compare #props)! !
 
 !SDL_GPUSamplerCreateInfo class categoriesForMethods!
 defineFields!public! !

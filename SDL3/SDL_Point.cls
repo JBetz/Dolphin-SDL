@@ -47,13 +47,7 @@ y:!**compiled accessors**!public! !
 !SDL_Point class methodsFor!
 
 defineFields
-	"SDL_Point compileDefinition
-
-	typedef struct SDL_Point
-	{
-	    int x;
-	    int y;
-	} SDL_Point;"
+	"self compileDefinition"
 
 	self
 		defineField: #x type: SDWORDField new;

@@ -76,6 +76,13 @@ getPosition
 getPropertiesId
 	^self library getWindowProperties_window: self!
 
+getSafeArea
+	| rect result |
+	rect := SDL_Rect new.
+	result := self library getWindowSafeArea_window: self rect: rect.
+	self checkBooleanResult: result.
+	^rect!
+
 getSizeInPixels
 	| width height |
 	width := SDWORD new.
@@ -94,6 +101,12 @@ height
 
 hide
 	self library hideWindow_window: self!
+
+maximize
+	^self library maximizeWindow_window: self!
+
+minimize
+	^self library minimizeWindow_window: self!
 
 raise
 	^self library raiseWindow_window: self!
@@ -164,10 +177,13 @@ getHandle!public! !
 getID!public! !
 getPosition!public! !
 getPropertiesId!public! !
+getSafeArea!public! !
 getSizeInPixels!public! !
 getSurface!public! !
 height!public! !
 hide!public! !
+maximize!public! !
+minimize!public! !
 raise!public! !
 rectangle!public! !
 setIcon:!public! !

@@ -45,7 +45,7 @@ isCapsLockActive
 	^(self mod bitAnd: SDL_KMOD_CAPS) asBoolean!
 
 isCapsLockDown
-	^SDLInputState current isCapsLockDown!
+	^SDLWindowManager current isCapsLockDown!
 
 isCtrl
 	^self isLeftCtrl or: [self isRightCtrl]!

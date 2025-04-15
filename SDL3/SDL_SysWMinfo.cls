@@ -78,7 +78,7 @@ window:!**compiled accessors**!public! !
 !SDL_SysWMinfo class methodsFor!
 
 defineFields
-	" self compileDefinition"
+	"self compileDefinition"
 
 	self
 		defineField: #version type: (StructureField type: SDL_Version);

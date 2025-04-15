@@ -48,13 +48,25 @@ beginCopyPass
 	^copyPass!
 
 beginRenderPass: aGPUTexture
-	^self beginRenderPass: aGPUTexture clearColor: Color black!
+	^self
+		beginRenderPass: aGPUTexture
+		clearColor: Color white
+		depthPlane: 0
+		cycle: false!
 
 beginRenderPass: aGPUTexture clearColor: aColor
-	^self beginRenderPass: aGPUTexture clearColor: aColor depthPlane: 0 cycle: false!
+	^self
+		beginRenderPass: aGPUTexture
+		clearColor: aColor
+		depthPlane: 0
+		cycle: false!
 
 beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger
-	^self beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger cycle: false!
+	^self
+		beginRenderPass: aGPUTexture
+		clearColor: aColor
+		depthPlane: anInteger
+		cycle: false!
 
 beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger cycle: aBoolean
 	| renderPass |
@@ -62,11 +74,32 @@ beginRenderPass: aGPUTexture clearColor: aColor depthPlane: anInteger cycle: aBo
 				beginGPURenderPass_commandBuffer: self
 				colorTargetInfos: (SDL_GPUColorTargetInfo new
 						texture: aGPUTexture;
-						clear_color: aColor asSDLFColor;
-						load_op: SDL_GPU_LOADOP_CLEAR;
+						clear_color: (aColor ifNil: [SDL_FColor white] ifNotNil: [:color | color asSDLFColor]);
+						load_op: (aColor ifNil: [SDL_GPU_LOADOP_DONT_CARE] ifNotNil: [SDL_GPU_LOADOP_CLEAR]);
 						store_op: SDL_GPU_STOREOP_STORE;
 						layer_or_depth_plane: anInteger;
 						cycle: aBoolean)
+				numColorTargets: 1
+				depthStencilTargetInfo: nil.
+	self checkObjectResult: renderPass.
+	^renderPass!
+
+beginRenderPass: aGPUTexture resolveTexture: anotherGPUTexture
+	^self
+		beginRenderPass: aGPUTexture
+		resolveTexture: anotherGPUTexture
+		clearColor: Color white!
+
+beginRenderPass: aGPUTexture resolveTexture: anotherGPUTexture clearColor: aColor
+	| renderPass |
+	renderPass := self library
+				beginGPURenderPass_commandBuffer: self
+				colorTargetInfos: (SDL_GPUColorTargetInfo new
+						texture: aGPUTexture;
+						clear_color: (aColor ifNil: [SDL_FColor white] ifNotNil: [:color | color asSDLFColor]);
+						resolve_texture: anotherGPUTexture;
+						load_op: (aColor ifNil: [SDL_GPU_LOADOP_DONT_CARE] ifNotNil: [SDL_GPU_LOADOP_CLEAR]);
+						store_op: SDL_GPU_STOREOP_RESOLVE)
 				numColorTargets: 1
 				depthStencilTargetInfo: nil.
 	self checkObjectResult: renderPass.
@@ -107,7 +140,7 @@ blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion flipMode: flipMode
 	self
 		blitTexture: aGPUBlitRegion
 		destination: anotherGPUBlitRegion
-		loadOp: SDL_GPU_LOADOP_LOAD
+		loadOp: SDL_GPU_LOADOP_DONT_CARE
 		flipMode: flipMode
 		filter: filter!
 
@@ -152,7 +185,25 @@ pushVertexUniformData: data
 		length: data byteSize!
 
 submit
-	self library submitGPUCommandBuffer_commandBuffer: self! !
+	self library submitGPUCommandBuffer_commandBuffer: self!
+
+submitAndAcquireFence
+	^self library submitGPUCommandBufferAndAcquireFence_commandBuffer: self!
+
+waitAndAcquireSwapchainTexture: aWindow
+	| swapchainTexture result width height |
+	swapchainTexture := SDL_GPUTexture newPointer.
+	width := DWORD new.
+	height := DWORD new.
+	result := self library
+				waitAndAcquireGPUSwapchainTexture_commandBuffer: self
+				window: aWindow
+				swapchainTexture: swapchainTexture
+				swapchainTextureWidth: width
+				swapchainTextureHeight: height.
+	self checkBooleanResult: result.
+	swapchainTexture extent: width value @ height value.
+	^swapchainTexture! !
 
 !SDL_GPUCommandBuffer categoriesForMethods!
 acquireSwapchainTexture:!public! !
@@ -162,6 +213,8 @@ beginRenderPass:!public! !
 beginRenderPass:clearColor:!public! !
 beginRenderPass:clearColor:depthPlane:!public! !
 beginRenderPass:clearColor:depthPlane:cycle:!public! !
+beginRenderPass:resolveTexture:!public! !
+beginRenderPass:resolveTexture:clearColor:!public! !
 beginRenderPassRaw:!public! !
 blitTexture:destination:!public! !
 blitTexture:destination:filter:!public! !
@@ -174,5 +227,7 @@ generateMipmapsForTexture:!public! !
 pushComputeUniformData:!public! !
 pushVertexUniformData:!public! !
 submit!public! !
+submitAndAcquireFence!public! !
+waitAndAcquireSwapchainTexture:!public! !
 !
 

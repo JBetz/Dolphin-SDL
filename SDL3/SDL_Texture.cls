@@ -18,9 +18,6 @@ destroy
 	self library destroyTexture_texture: self!
 
 extent
-	^self getExtent!
-
-getExtent
 	| width height |
 	width := FLOAT new.
 	height := FLOAT new.
@@ -33,14 +30,11 @@ getExtent
 getFormat
 	^self getProperty: 'SDL.texture.format'!
 
-getHeight
-	^self getProperty: 'SDL.texture.height'!
-
 getPropertiesId
 	^self library getTextureProperties_texture: self!
 
-getWidth
-	^self getProperty: 'SDL.texture.width'!
+height
+	^self getProperty: 'SDL.texture.height'!
 
 isPainted
 	^isPainted ifNil: [false]!
@@ -72,22 +66,23 @@ unlock
 	self checkBooleanResult: (self library unlockTexture_texture: self)!
 
 updatePixels: pixels pitch: pitch
-	| result |
+	| destinationPixels destinationPitch result |
 	result := self library
 				updateTexture_texture: self
 				rect: nil
 				pixels: pixels
 				pitch: pitch.
-	self checkBooleanResult: result! !
+	self checkBooleanResult: result!
+
+width
+	^self getProperty: 'SDL.texture.width'! !
 
 !SDL_Texture categoriesForMethods!
 destroy!public! !
 extent!public! !
-getExtent!public! !
 getFormat!public! !
-getHeight!public! !
 getPropertiesId!public! !
-getWidth!public! !
+height!public! !
 isPainted!public! !
 isPainted:!public! !
 isSurface!public! !
@@ -96,5 +91,6 @@ lock!public! !
 lockRectangle:!public! !
 unlock!public! !
 updatePixels:pitch:!public! !
+width!public! !
 !
 

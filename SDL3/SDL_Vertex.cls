@@ -72,14 +72,7 @@ tex_coord:!**compiled accessors**!public! !
 !SDL_Vertex class methodsFor!
 
 defineFields
-	"SDL_Vertex compileDefinition"
-
-	"typedef struct SDL_Vertex
-	{
-	    SDL_FPoint position;        /**< Vertex position, in SDL_Renderer coordinates  */
-	    SDL_FColor  color;           /**< Vertex color */
-	    SDL_FPoint tex_coord;       /**< Normalized texture coordinates, if needed */
-	} SDL_Vertex;"
+	"self compileDefinition"
 
 	self
 		defineField: #position type: (StructureField type: SDL_FPoint);
