@@ -26,6 +26,8 @@ package classNames
 	add: #RotatingCompass;
 	add: #ShaderSource;
 	add: #SimpleExample;
+	add: #Uniform;
+	add: #Vertex;
 	yourself.
 
 package binaryGlobalNames: (Set new
@@ -162,6 +164,18 @@ DrawCommand subclass: #FillPolygon
 DrawCommand subclass: #FillRectangle
 	instanceVariableNames: 'rectangle color'
 	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #Uniform
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_view'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #Vertex
+	instanceVariableNames: 'x y z r g b a'
+	classVariableNames: '_OffsetOf_a _OffsetOf_b _OffsetOf_g _OffsetOf_r _OffsetOf_u _OffsetOf_v _OffsetOf_x _OffsetOf_y _OffsetOf_z'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
