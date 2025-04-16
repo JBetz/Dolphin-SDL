@@ -137,7 +137,10 @@ package binaryGlobalNames: (Set new
 package globalAliases: (Set new
 	yourself).
 
-package setPrerequisites: #().
+package setPrerequisites: #(
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
@@ -150,7 +153,7 @@ Object subclass: #SDL_Display
 	classInstanceVariableNames: ''!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'windows renderEventCode keyStates logCallback profilingEnabled isRunning isBeingDebugged'
+	instanceVariableNames: 'windows renderEventCode keyStates logCallback isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -548,18 +551,6 @@ ExternalStructure subclass: #TTF_GPUAtlasDrawSequence
 ExternalStructure subclass: #TTF_Object
 	instanceVariableNames: 'library'
 	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ExternalStructure subclass: #Uniform
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_view'
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-ExternalStructure subclass: #Vertex
-	instanceVariableNames: 'x y z r g b a'
-	classVariableNames: '_OffsetOf_a _OffsetOf_b _OffsetOf_g _OffsetOf_r _OffsetOf_u _OffsetOf_v _OffsetOf_x _OffsetOf_y _OffsetOf_z'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

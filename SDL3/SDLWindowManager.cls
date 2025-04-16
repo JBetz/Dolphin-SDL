@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'windows renderEventCode keyStates logCallback profilingEnabled isRunning isBeingDebugged'
+	instanceVariableNames: 'windows renderEventCode keyStates logCallback isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -43,13 +43,6 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
-disableProfiling
-	profilingEnabled := false!
-
-enableProfiling
-	profilingEnabled := true.
-	ProfileBrowser show!
-
 getDisplays
 	| displayCount primaryDisplayId |
 	displayCount := SDWORD new.
@@ -75,7 +68,6 @@ initialize
 		setHints.
 	"initializeLogging;"
 	keyStates := self library getKeyboardState_numkeys: nil.
-	profilingEnabled := false.
 	isRunning := true.
 	isBeingDebugged := false!
 
@@ -116,19 +108,10 @@ isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
 iterate
-	| iterationBlock |
 	isRunning ifFalse: [^self].
-	iterationBlock := 
-			[self pumpMessages.
-			CefBrowserProcessRunner current iterate.
-			self renderWindows].
-	profilingEnabled
-		ifTrue: 
-			[Profiler
-				profile: iterationBlock
-				inSetNamed: #iterate
-				collect: true]
-		ifFalse: [iterationBlock value]!
+	self
+		pumpMessages;
+		renderWindows!
 
 library
 	^SDL3Library default!
@@ -210,8 +193,6 @@ closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
-disableProfiling!public! !
-enableProfiling!public! !
 getDisplays!public! !
 getPrimaryDisplay!public! !
 getPrimaryDisplayExtent!public! !
