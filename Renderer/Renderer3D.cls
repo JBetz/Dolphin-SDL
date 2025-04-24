@@ -432,9 +432,7 @@ resizeUploadBuffer: anInteger
 	uploadBuffer := gpuDevice createUploadBuffer: anInteger!
 
 runCopyPass: aCanvas
-	| drawCommands |
-	drawCommands := aCanvas drawCommands asOrderedCollection.
-	drawCommands do: [:each | self queueDrawCommand: each].
+	aCanvas drawQueue reverseFlushWith: [:each | self queueDrawCommand: each].
 	self uploadVertices.
 	vertices removeAll.
 	indices removeAll!
@@ -449,7 +447,7 @@ runRenderPass: aCanvas
 		bindGraphicsPipeline: renderPipeline;
 		bindVertexBuffers: (Array with: vertexBuffer);
 		bind16BitIndexBuffer: indexBuffer.
-	aCanvas drawCommands reverseFlushWith: [:each | self executeDrawCommand: each in: renderPass].
+	aCanvas drawQueue reverseFlushWith: [:each | self executeDrawCommand: each in: renderPass].
 	renderPass end.
 	self isMultisampling ifTrue: [self blitResolveTexture]!
 
@@ -566,7 +564,7 @@ window:!public! !
 
 forWindow: aWindow
 	| renderer gpuDevice |
-	gpuDevice := SDL_GPUDevice name: 'Renderer3D' formatFlags: SDL_GPU_SHADERFORMAT_DXIL.
+	gpuDevice := SDL_GPUDevice formatFlags: SDL_GPU_SHADERFORMAT_DXIL.
 	gpuDevice claimWindow: aWindow.
 	renderer := self new.
 	renderer

@@ -34,6 +34,18 @@ a: aFloat
 
 	bytes floatAtOffset: _OffsetOf_a put: aFloat!
 
+asSDLVertex
+	^SDL_Vertex new
+		color: (SDL_FColor new
+					r: self r;
+					g: self g;
+					b: self b;
+					a: self a);
+		position: (SDL_FPoint new
+					x: self x;
+					y: self y);
+		yourself!
+
 b
 	"Answer the <Float> value of the receiver's 'b' field."
 
@@ -142,6 +154,7 @@ z: aFloat
 !Vertex categoriesForMethods!
 a!**compiled accessors**!public! !
 a:!**compiled accessors**!public! !
+asSDLVertex!public! !
 b!**compiled accessors**!public! !
 b:!**compiled accessors**!public! !
 color:!public! !

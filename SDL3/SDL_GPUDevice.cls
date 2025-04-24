@@ -328,7 +328,7 @@ waitForFences:!public! !
 
 !SDL_GPUDevice class methodsFor!
 
-name: aString formatFlags: anInteger
+formatFlags: anInteger
 	| gpuDevice |
 	gpuDevice := SDL3Library default
 				createGPUDevice_formatFlags: anInteger
@@ -338,6 +338,6 @@ name: aString formatFlags: anInteger
 	^gpuDevice! !
 
 !SDL_GPUDevice class categoriesForMethods!
-name:formatFlags:!public! !
+formatFlags:!public! !
 !
 

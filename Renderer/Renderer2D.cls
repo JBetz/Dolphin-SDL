@@ -57,9 +57,8 @@ downloadTexture: aSDLTexture pixelFormat: anInteger
 	^sdlRenderer renderReadPixels: nil!
 
 present: aCanvas
-	| drawCommands |
-	drawCommands := aCanvas drawCommands asOrderedCollection.
-	drawCommands do: [:each | self queueDrawCommand: each].
+	self clear: Color white.
+	aCanvas drawQueue reverseFlushWith: [:each | self queueDrawCommand: each].
 	sdlRenderer present!
 
 queueDrawCommand: aRenderCommand
@@ -138,7 +137,7 @@ queueDrawTexture: aDrawTexture
 
 queueFillPolygon: aFillPolygon
 	| vertices indices |
-	vertices := aFillPolygon vertices.
+	vertices := aFillPolygon vertices collect: [:each | each asSDLVertex].
 	indices := aFillPolygon indices.
 	indices
 		ifNil: [sdlRenderer renderGeometry: nil vertices: vertices]

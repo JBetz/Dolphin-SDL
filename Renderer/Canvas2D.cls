@@ -97,6 +97,9 @@ drawPoint: aPoint color: aColor zIndex: anInteger
 				color: aColor;
 				zIndex: anInteger)!
 
+drawQueue
+	^drawCommands copy!
+
 drawRectangle: aRectangle
 	self drawRectangle: aRectangle color: Color black!
 
@@ -267,6 +270,7 @@ drawLineFrom:to:width:color:zIndex:!geometry!public! !
 drawLineFrom:to:width:zIndex:!public! !
 drawLineFrom:to:zIndex:!geometry!public! !
 drawPoint:color:zIndex:!geometry!public! !
+drawQueue!public! !
 drawRectangle:!geometry!public! !
 drawRectangle:color:!geometry!public! !
 drawRectangle:color:width:zIndex:!geometry!public! !

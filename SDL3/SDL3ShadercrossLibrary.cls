@@ -19,7 +19,7 @@ compileDXILFromHLSL_info: info size: size
 	^self invalidCall: _failureCode!
 
 compileGraphicsShaderFromHLSL_device: device info: info metadata: metadata
-	<cdecl: SDL_GPUShader* SDL_ShaderCross_CompileGraphicsShaderFromHLSL SDL_GPUDevice* SDL_ShaderCross_HLSL_Info* dword*>
+	<cdecl: SDL_GPUShader* SDL_ShaderCross_CompileGraphicsShaderFromHLSL SDL_GPUDevice* SDL_ShaderCross_HLSL_Info* SDL_ShaderCross_GraphicsShaderMetadata*>
 	^self invalidCall: _failureCode!
 
 getHLSLShaderFormats
