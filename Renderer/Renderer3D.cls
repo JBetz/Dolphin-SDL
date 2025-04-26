@@ -155,17 +155,41 @@ createTextEngine
 	textEngine := SDL3TTFLibrary default createGPUTextEngine_device: gpuDevice!
 
 createTexture: aPoint
-	^gpuDevice createTexture: aPoint format: SDL_GPU_TEXTUREFORMAT_INVALID!
+	^self createTexture: aPoint format: SDL_GPU_TEXTUREFORMAT_INVALID!
 
 createTexture: aPoint format: anInteger
+	self
+		assert: [aPoint x > 0];
+		assert: [aPoint y > 0].
 	^gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
-						type: SDL_GPU_TEXTURETYPE_2D;
-						format: anInteger ;
-						usage: SDL_GPU_TEXTUREUSAGE_SAMPLER | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET;
-						width: aPoint x;
-						height: aPoint y;
-						layer_count_or_depth: 1;
-						num_levels: 1)!
+				type: SDL_GPU_TEXTURETYPE_2D;
+				format: anInteger;
+				usage: SDL_GPU_TEXTUREUSAGE_SAMPLER | SDL_GPU_TEXTUREUSAGE_COLOR_TARGET;
+				width: aPoint x;
+				height: aPoint y;
+				layer_count_or_depth: 1;
+				num_levels: 1)!
+
+createTextureFromSurface: aSurface
+	| texture dataSize uploadBuffer copyPass |
+	self
+		assert: [aSurface width > 0];
+		assert: [aSurface height > 0].
+	texture := self createTexture: aSurface extent format: SDL_GPU_TEXTUREFORMAT_B8G8R8A8_UNORM.
+	dataSize := aSurface width * 4 * aSurface height.
+	uploadBuffer := gpuDevice createUploadBuffer: dataSize.
+	commandBuffer := gpuDevice acquireCommandBuffer.
+	copyPass := commandBuffer beginCopyPass.
+	copyPass
+		uploadToTexture: (SDL_GPUTextureTransferInfo new transfer_buffer: uploadBuffer)
+			destination: (SDL_GPUTextureRegion new
+					texture: texture;
+					w: texture width;
+					h: texture height;
+					d: 1);
+		end.
+	commandBuffer submit.
+	^texture!
 
 createUtilityTextures
 	self
@@ -195,10 +219,10 @@ destroy
 
 downloadTexture: aGPUTexture pixelFormat: anInteger
 	| extent surface imageSize downloadBuffer copyPass fence |
-	commandBuffer := gpuDevice acquireCommandBuffer.
 	extent := aGPUTexture extent.
 	surface := SDL_Surface extent: extent format: anInteger.
 	imageSize := extent x * extent y * 4.
+	commandBuffer := gpuDevice acquireCommandBuffer.
 	downloadBuffer := gpuDevice createDownloadBuffer: imageSize.
 	copyPass := commandBuffer beginCopyPass.
 	copyPass
@@ -528,6 +552,7 @@ createResolveTexture!private! !
 createTextEngine!private! !
 createTexture:!public! !
 createTexture:format:!public! !
+createTextureFromSurface:!public! !
 createUtilityTextures!private! !
 destroy!public! !
 downloadTexture:pixelFormat:!public! !
