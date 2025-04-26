@@ -2,7 +2,7 @@
 
 SDL_Object subclass: #SDL_Surface
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_internal _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_w'
+	classVariableNames: '_OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_reserved _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -11,10 +11,10 @@ SDL_Surface guid: (GUID fromString: '{3aabd7c9-80d5-4b61-8b6d-7b078df05699}')!
 SDL_Surface addClassConstant: '_OffsetOf_flags' value: 16r0!
 SDL_Surface addClassConstant: '_OffsetOf_format' value: 16r4!
 SDL_Surface addClassConstant: '_OffsetOf_h' value: 16rC!
-SDL_Surface addClassConstant: '_OffsetOf_internal' value: 16r1C!
 SDL_Surface addClassConstant: '_OffsetOf_pitch' value: 16r10!
 SDL_Surface addClassConstant: '_OffsetOf_pixels' value: 16r14!
 SDL_Surface addClassConstant: '_OffsetOf_refcount' value: 16r18!
+SDL_Surface addClassConstant: '_OffsetOf_reserved' value: 16r1C!
 SDL_Surface addClassConstant: '_OffsetOf_w' value: 16r8!
 
 SDL_Surface comment: ''!
@@ -53,16 +53,6 @@ h
 height
 	^self h!
 
-internal
-	"Answer the <ExternalAddress> value of the receiver's 'internal' field."
-
-	^(bytes uintPtrAtOffset: _OffsetOf_internal) asExternalAddress!
-
-internal: anExternalAddress
-	"Set the receiver's 'internal' field to the value of the argument, anExternalAddress"
-
-	bytes uintPtrAtOffset: _OffsetOf_internal put: anExternalAddress!
-
 isSurface
 	^true!
 
@@ -89,6 +79,16 @@ refcount: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_refcount put: anInteger!
 
+reserved
+	"Answer the <ExternalAddress> value of the receiver's 'reserved' field."
+
+	^(bytes uintPtrAtOffset: _OffsetOf_reserved) asExternalAddress!
+
+reserved: anExternalAddress
+	"Set the receiver's 'reserved' field to the value of the argument, anExternalAddress"
+
+	bytes uintPtrAtOffset: _OffsetOf_reserved put: anExternalAddress!
+
 saveAsPNG: aString
 	self checkBooleanResult: (SDL3ImageLibrary default savePNG_surface: self file: aString)!
 
@@ -104,20 +104,20 @@ width
 convertPixelFormat:!public! !
 destroy!public! !
 extent!public! !
-flags!**compiled accessors**!public! !
-format!**compiled accessors**!public! !
-h!**compiled accessors**!public! !
+flags!public! !
+format!public! !
+h!public! !
 height!public! !
-internal!**compiled accessors**!public! !
-internal:!**compiled accessors**!public! !
 isSurface!public! !
 isTexture!public! !
-pitch!**compiled accessors**!public! !
-pixels!**compiled accessors**!public! !
-refcount!**compiled accessors**!public! !
-refcount:!**compiled accessors**!public! !
+pitch!public! !
+pixels!public! !
+refcount!public! !
+refcount:!public! !
+reserved!public! !
+reserved:!public! !
 saveAsPNG:!public! !
-w!**compiled accessors**!public! !
+w!public! !
 width!public! !
 !
 
@@ -134,27 +134,19 @@ defineFields
 		defineField: #pitch type: SDWORDField new beReadOnly;
 		defineField: #pixels type: LPVOIDField new beReadOnly;
 		defineField: #refcount type: SDWORDField new;
-		defineField: #internal type: LPVOIDField new!
+		defineField: #reserved type: LPVOIDField new!
 
 extent: aPoint
-	| library format |
-	library := SDL3Library default.
-	format := library
-				getPixelFormatForMasks_bpp: 32
-				rMask: 0
-				gMask: 0
-				bMask: 0
-				aMask: 0.
-	^library
-		createSurface_width: aPoint x
-		height: aPoint y
-		format: format!
+	^self extent: aPoint format: SDL_PIXELFORMAT_ABGR8888!
 
 extent: extent format: format
-	^self
-		width: extent x
-		height: extent y
-		format: format!
+	| surface |
+	surface := self library
+				createSurface_width: extent x
+				height: extent y
+				format: format.
+	self checkObjectResult: surface.
+	^surface initialize!
 
 fromBMPFile: aString
 	| surface |
@@ -168,28 +160,8 @@ fromFile: aString
 	surface isNull ifTrue: [self error: SDL3Library default getError].
 	^surface initialize!
 
-fromPixels: pixels width: width height: height pitch: pitch format: format
-	| surface |
-	surface := self library
-				createSurfaceFrom_pixels: pixels
-				width: width
-				height: height
-				pitch: pitch
-				format: format.
-	self checkObjectResult: surface.
-	^surface initialize!
-
 getFieldNames
-	^#(#flags #format #w #h #pitch #pixels #refcount #internal)!
-
-width: width height: height format: format
-	| surface |
-	surface := self library
-				createSurface_width: width
-				height: height
-				format: format.
-	self checkObjectResult: surface.
-	^surface initialize! !
+	^#(#flags #format #w #h #pitch #pixels #refcount #reserved)! !
 
 !SDL_Surface class categoriesForMethods!
 defineFields!public! !
@@ -197,8 +169,6 @@ extent:!public! !
 extent:format:!public! !
 fromBMPFile:!public! !
 fromFile:!public! !
-fromPixels:width:height:pitch:format:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
-width:height:format:!public! !
 !
 
