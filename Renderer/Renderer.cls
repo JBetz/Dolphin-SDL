@@ -17,11 +17,6 @@ Renderer comment: ''!
 clear
 	self subclassResponsibility!
 
-createImageTexture: aString
-	| surface |
-	surface := SDL_Surface fromFile: aString.
-	^self createTextureFromSurface: surface!
-
 createStaticTexture: aPoint format: anInteger
 	Error subclassResponsibility!
 
@@ -92,7 +87,6 @@ withOffset: aPoint do: aBlock
 
 !Renderer categoriesForMethods!
 clear!public! !
-createImageTexture:!public! !
 createStaticTexture:format:!public! !
 createStreamingTexture:!public! !
 createTargetTexture:!public! !
