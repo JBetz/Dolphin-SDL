@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Renderer subclass: #Renderer3D
-	instanceVariableNames: 'window camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
+	instanceVariableNames: 'window sampleCount camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -82,7 +82,7 @@ createMultisampleTexture
 						height: window height;
 						layer_count_or_depth: 1;
 						num_levels: 1;
-						sample_count: self sampleCount)!
+						sample_count: self sdlSampleCount)!
 
 createRenderPipeline: anInteger vertexShader: aVertexShader fragmentShader: aFragmentShader
 	| graphicsPipelineCreateInfo |
@@ -100,7 +100,7 @@ createRenderPipeline: anInteger vertexShader: aVertexShader fragmentShader: aFra
 												dst_alpha_blendfactor: SDL_GPU_BLENDFACTOR_DST_ALPHA;
 												src_color_blendfactor: SDL_GPU_BLENDFACTOR_SRC_ALPHA;
 												dst_color_blendfactor: SDL_GPU_BLENDFACTOR_ONE_MINUS_SRC_ALPHA))));
-		multisample_state: (SDL_GPUMultisampleState new sample_count: self sampleCount);
+		multisample_state: (SDL_GPUMultisampleState new sample_count: self sdlSampleCount);
 		primitive_type: anInteger;
 		vertex_input_state: (SDL_GPUVertexInputState new
 					vertex_buffer_descriptions: (StructureArray with: (SDL_GPUVertexBufferDescription new
@@ -273,7 +273,7 @@ initialize
 	indices := OrderedCollection new!
 
 isMultisampling
-	^self sampleCount ~= SDL_GPU_SAMPLECOUNT_1!
+	^self sdlSampleCount ~= SDL_GPU_SAMPLECOUNT_1!
 
 loadShader: aShader
 	| codeSize code shaderCreateInfo |
@@ -475,11 +475,24 @@ runRenderPass: aCanvas
 	renderPass end.
 	self isMultisampling ifTrue: [self blitResolveTexture]!
 
-sampleCount
-	^SDL_GPU_SAMPLECOUNT_1!
+sampleCount: anInteger
+	"#TODO: Enable dynamic sample count."
+
+	sampleCount
+		ifNotNil: 
+			[self
+				error: 'Cannot dynamically change sample count without recreating the render pipeline. Create a new instance of Renderer3D with the desired sample count.'].
+	sampleCount := anInteger!
 
 sdl
 	^SDL3Library default!
+
+sdlSampleCount
+	sampleCount = 1 ifTrue: [^SDL_GPU_SAMPLECOUNT_1].
+	sampleCount = 2 ifTrue: [^SDL_GPU_SAMPLECOUNT_2].
+	sampleCount = 4 ifTrue: [^SDL_GPU_SAMPLECOUNT_4].
+	sampleCount = 8 ifTrue: [^SDL_GPU_SAMPLECOUNT_8].
+	^SDL_GPU_SAMPLECOUNT_1!
 
 shadersPath
 	^FileLocator imageRelative: 'shaders\'!
@@ -576,8 +589,9 @@ render:!private! !
 resizeUploadBuffer:!private! !
 runCopyPass:!private! !
 runRenderPass:!private! !
-sampleCount!private! !
+sampleCount:!private! !
 sdl!private! !
+sdlSampleCount!private! !
 shadersPath!private! !
 updateTexture:pixels:pitch:!public! !
 uploadVertices!private! !
@@ -588,13 +602,20 @@ window:!public! !
 !Renderer3D class methodsFor!
 
 forWindow: aWindow
+	^self forWindow: aWindow sampleCount: 1!
+
+forWindow: aWindow sampleCount: anInteger
 	| renderer gpuDevice |
+	(self validSampleCounts includes: anInteger)
+		ifFalse: 
+			[self error: ('Invalid sample count: <1d>. Must be 1, 2, 4, or 8.' expandMacrosWith: anInteger)].
 	gpuDevice := SDL_GPUDevice formatFlags: SDL_GPU_SHADERFORMAT_DXIL.
 	gpuDevice claimWindow: aWindow.
 	renderer := self new.
 	renderer
 		window: aWindow;
 		gpuDevice: gpuDevice;
+		sampleCount: anInteger;
 		createRenderPipelines;
 		createFragmentSampler;
 		createUtilityTextures;
@@ -603,11 +624,12 @@ forWindow: aWindow
 		clearFallbackTexture.
 	^renderer!
 
-new
-	^super new initialize! !
+validSampleCounts
+	^#(1 2 4 8)! !
 
 !Renderer3D class categoriesForMethods!
 forWindow:!public! !
-new!public! !
+forWindow:sampleCount:!public! !
+validSampleCounts!private! !
 !
 

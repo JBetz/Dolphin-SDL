@@ -32,15 +32,9 @@ closeWindow
 	window := nil!
 
 createRenderer
-	self useGPURenderer
-		ifTrue: [renderer := Renderer3D forWindow: window]
-		ifFalse: 
-			[| sdlRenderer |
-			sdlRenderer := window createRenderer.
-			sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND.
-			renderer := Renderer2D new
-						sdlRenderer: sdlRenderer;
-						createTextEngine]!
+	renderer := self useGPURenderer
+				ifTrue: [Renderer3D forWindow: window]
+				ifFalse: [Renderer2D forWindow: window]!
 
 createWindow
 	window := windowManager

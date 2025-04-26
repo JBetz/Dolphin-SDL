@@ -40,7 +40,7 @@ package setPrerequisites: #(
 	'..\Core\Object Arts\Dolphin\Base\Dolphin'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
 	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base'
-	'..\Linear Algebra\LinearAlgebra'
+	'..\LinearAlgebra\LinearAlgebra'
 	'..\SDL3\SDL3').
 
 package!
@@ -186,7 +186,7 @@ Renderer subclass: #Renderer2D
 	classInstanceVariableNames: ''!
 
 Renderer subclass: #Renderer3D
-	instanceVariableNames: 'window camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
+	instanceVariableNames: 'window sampleCount camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

@@ -197,3 +197,17 @@ updateTexture:pixels:pitch:!public! !
 viewport!public! !
 !
 
+!Renderer2D class methodsFor!
+
+forWindow: aWindow
+	| sdlRenderer |
+	sdlRenderer := aWindow createRenderer.
+	sdlRenderer setDrawBlendMode: SDL_BLENDMODE_BLEND.
+	^self new
+		sdlRenderer: sdlRenderer;
+		createTextEngine! !
+
+!Renderer2D class categoriesForMethods!
+forWindow:!public! !
+!
+
