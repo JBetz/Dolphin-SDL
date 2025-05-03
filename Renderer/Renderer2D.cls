@@ -166,7 +166,16 @@ updateTexture: aTexture pixels: anExternalAddress pitch: anInteger
 		isPainted: true!
 
 viewport
-	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent! !
+	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent!
+
+wrapSharedTexture: anExternalHandle extent: aPoint
+	| properties |
+	properties := SDL_Properties new.
+	properties
+		setPointerProperty: SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER value: anExternalHandle;
+		setNumberProperty: SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER value: aPoint x;
+		setNumberProperty: SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER value: aPoint y.
+	^sdlRenderer createTextureWithProperties: properties! !
 
 !Renderer2D categoriesForMethods!
 clear!public! !
@@ -195,6 +204,7 @@ sdlRenderer:!accessing!private! !
 setDrawColor:!executing!public! !
 updateTexture:pixels:pitch:!public! !
 viewport!public! !
+wrapSharedTexture:extent:!public! !
 !
 
 !Renderer2D class methodsFor!

@@ -51,6 +51,12 @@ createTextureFromSurface: aSDL_Surface
 	self checkObjectResult: texture.
 	^texture initialize!
 
+createTextureWithProperties: aProperties
+	| texture |
+	texture := self library createTextureWithProperties_renderer: self props: aProperties id.
+	self checkObjectResult: texture.
+	^texture initialize!
+
 destroy
 	self library destroyRenderer_renderer: self!
 
@@ -175,6 +181,7 @@ createTexture:access:!public! !
 createTexture:access:format:!public! !
 createTexture:format:!public! !
 createTextureFromSurface:!public! !
+createTextureWithProperties:!public! !
 destroy!public! !
 fillRectangle:!public! !
 getPropertiesId!public! !
