@@ -1107,15 +1107,15 @@ setLogPriorityPrefix_priority: priority prefix: prefix
 	^self invalidCall: _failureCode!
 
 setNumberProperty_props: props name: name value: value
-	<cdecl: bool SDL_GetNumberProperty dword lpstr sqword>
+	<cdecl: bool SDL_SetNumberProperty dword lpstr sqword>
 	^self invalidCall: _failureCode!
 
 setPointerProperty_props: props name: name value: value
-	<cdecl: bool SDL_GetPointerProperty dword lpstr void*>
+	<cdecl: bool SDL_SetPointerProperty dword lpstr void*>
 	^self invalidCall: _failureCode!
 
 setPointerPropertyWithCleanup_props: props name: name value: value cleanup: cleanup userdata: userdata
-	<cdecl: bool SDL_GetPointerPropertyWithCleanup dword lpstr void* void* void*>
+	<cdecl: bool SDL_SetPointerPropertyWithCleanup dword lpstr void* void* void*>
 	^self invalidCall: _failureCode!
 
 setRenderClipRect_renderer: renderer rect: rect
@@ -1139,7 +1139,7 @@ setRenderTarget_renderer: renderer texture: texture
 	^self invalidCall: _failureCode!
 
 setStringProperty_props: props name: name value: value
-	<cdecl: lpstr SDL_SetStringProperty dword lpstr lpstr>
+	<cdecl: bool SDL_SetStringProperty dword lpstr lpstr>
 	^self invalidCall: _failureCode!
 
 setTextureBlendMode_texture: texture blendMode: blendMode
