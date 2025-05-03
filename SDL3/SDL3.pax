@@ -82,6 +82,7 @@ package classNames
 	add: #SDL_PathInfo;
 	add: #SDL_PixelFormat;
 	add: #SDL_Point;
+	add: #SDL_Properties;
 	add: #SDL_QuitEvent;
 	add: #SDL_Rect;
 	add: #SDL_Renderer;
@@ -150,6 +151,12 @@ Object subclass: #SDL_Display
 	instanceVariableNames: 'name bounds usableBounds naturalOrientation currentOrientation contentScale fullscreenDisplayModes'
 	classVariableNames: ''
 	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+Object subclass: #SDL_Properties
+	instanceVariableNames: 'id'
+	classVariableNames: ''
+	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
 Object subclass: #SDLWindowManager
@@ -465,7 +472,7 @@ ExternalStructure subclass: #SDL_GPUViewport
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'propertiesId'
+	instanceVariableNames: 'propertiesId properties'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -760,7 +767,7 @@ SDL_Object subclass: #SDL_Renderer
 
 SDL_Object subclass: #SDL_Surface
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_internal _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_w'
+	classVariableNames: '_OffsetOf_flags _OffsetOf_format _OffsetOf_h _OffsetOf_pitch _OffsetOf_pixels _OffsetOf_refcount _OffsetOf_reserved _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

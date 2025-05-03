@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'propertiesId'
+	instanceVariableNames: 'propertiesId properties'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -35,50 +35,19 @@ free
 getPropertiesId
 	self subclassResponsibility!
 
-getProperty: aString
-	| type propertyId |
-	propertyId := self propertiesId.
-	type := self library getPropertyType_props: propertyId name: aString.
-	type = SDL_PROPERTY_TYPE_INVALID
-		ifTrue: [self error: ('Invalid property name: <1s>' expandMacrosWith: aString)].
-	type = SDL_PROPERTY_TYPE_POINTER
-		ifTrue: 
-			[^self library
-				getPointerProperty_props: propertyId
-				name: aString
-				defaultValue: nil].
-	type = SDL_PROPERTY_TYPE_STRING
-		ifTrue: 
-			[^self library
-				getStringProperty_props: propertyId
-				name: aString
-				defaultValue: ''].
-	type = SDL_PROPERTY_TYPE_NUMBER
-		ifTrue: 
-			[^self library
-				getNumberProperty_props: propertyId
-				name: aString
-				defaultValue: 0].
-	type = SDL_PROPERTY_TYPE_FLOAT
-		ifTrue: 
-			[^self library
-				getFloatProperty_props: propertyId
-				name: aString
-				defaultValue: 0.0].
-	type = SDL_PROPERTY_TYPE_BOOLEAN
-		ifTrue: 
-			[^self library
-				getBooleanProperty_props: propertyId
-				name: aString
-				defaultValue: false].
-	^nil!
-
 initialize
 	super initialize.
 	self beFinalizable!
 
 library
 	^SDL3Library default!
+
+properties
+	properties ifNil: [properties := SDL_Properties fromId: self propertiesId].
+	^properties!
+
+properties: aProperties
+	properties := aProperties!
 
 propertiesId
 	propertiesId ifNil: [propertiesId := self getPropertiesId].
@@ -90,9 +59,10 @@ checkObjectResult:!private! !
 destroy!public! !
 free!public! !
 getPropertiesId!public! !
-getProperty:!public! !
 initialize!public! !
 library!public! !
+properties!public! !
+properties:!public! !
 propertiesId!public! !
 !
 

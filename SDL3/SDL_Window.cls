@@ -19,28 +19,12 @@ aspectRatio
 
 createRenderer
 	| renderer |
-	renderer := self library createRenderer_window: self name: nil.
+	renderer := self library createRenderer_window: self name: 'direct3d11'.
 	self checkObjectResult: renderer.
 	^renderer initialize!
 
 destroy
 	self library destroyWindow_window: self!
-
-enumerateProperties
-	| properties callback |
-	properties := Dictionary new.
-	callback := ExternalCallback
-				block: [:userdata :props :name | properties at: name put: (self getProperty: name)]
-				descriptor: (ExternalDescriptor
-						callingConvention: 'cdecl:'
-						returnType: 'void'
-						argumentTypes: 'lpvoid dword lpstr').
-	self checkBooleanResult: (self library
-				enumerateProperties_props: self propertiesId
-				callback: callback asParameter
-				userdata: nil).
-	callback free.
-	^properties!
 
 extent
 	^self getExtent!
@@ -53,12 +37,8 @@ getExtent
 	^width value @ height value!
 
 getHandle
-	| handle |
-	handle := self library
-				getPointerProperty_props: self propertiesId
-				name: 'SDL.window.win32.hwnd'
-				defaultValue: ExternalHandle new.
-	^handle!
+	^self properties getProperty: 'SDL.window.win32.hwnd'
+				defaultValue: ExternalHandle new!
 
 getID
 	^self library getWindowID_window: self!
@@ -170,7 +150,6 @@ width
 aspectRatio!public! !
 createRenderer!public! !
 destroy!public! !
-enumerateProperties!public! !
 extent!public! !
 getExtent!public! !
 getHandle!public! !
