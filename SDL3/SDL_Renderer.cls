@@ -60,6 +60,21 @@ createTextureWithProperties: aProperties
 destroy
 	self library destroyRenderer_renderer: self!
 
+direct3D11Device
+	^self properties getProperty: SDL_PROP_RENDERER_D3D11_DEVICE_POINTER!
+
+direct3D11Swapchain
+	^self properties getProperty: SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER!
+
+direct3D12CommandQueue
+	^self properties getProperty: SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER!
+
+direct3D12Device
+	^self properties getProperty: SDL_PROP_RENDERER_D3D12_DEVICE_POINTER!
+
+direct3D12Swapchain
+	^self properties getProperty: SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER!
+
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
 
@@ -88,6 +103,12 @@ getScale
 
 getWindow
 	^self library getRenderWindow_renderer: self!
+
+gpuDevice
+	^self properties getProperty: SDL_PROP_RENDERER_GPU_DEVICE_POINTER!
+
+name
+	^self properties getProperty: SDL_PROP_RENDERER_NAME_STRING!
 
 present
 	self checkBooleanResult: (self library renderPresent_renderer: self)!
@@ -172,7 +193,10 @@ setDrawColor: aColor
 		a: aColor alpha!
 
 setRenderTarget: aSDLTexture
-	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)! !
+	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
+
+window
+	^self properties getProperty: SDL_PROP_RENDERER_WINDOW_POINTER! !
 
 !SDL_Renderer categoriesForMethods!
 clear!public! !
@@ -183,12 +207,19 @@ createTexture:format:!public! !
 createTextureFromSurface:!public! !
 createTextureWithProperties:!public! !
 destroy!public! !
+direct3D11Device!properties!public! !
+direct3D11Swapchain!properties!public! !
+direct3D12CommandQueue!properties!public! !
+direct3D12Device!properties!public! !
+direct3D12Swapchain!properties!public! !
 fillRectangle:!public! !
-getPropertiesId!public! !
+getPropertiesId!properties!public! !
 getRenderTarget!public! !
 getRenderViewport!public! !
 getScale!public! !
 getWindow!public! !
+gpuDevice!properties!public! !
+name!properties!public! !
 present!public! !
 renderDebugText:origin:!public! !
 renderGeometry:vertices:!public! !
@@ -203,5 +234,6 @@ setClip:!public! !
 setDrawBlendMode:!public! !
 setDrawColor:!public! !
 setRenderTarget:!public! !
+window!properties!public! !
 !
 
