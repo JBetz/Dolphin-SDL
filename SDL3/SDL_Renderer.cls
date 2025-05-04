@@ -75,6 +75,11 @@ direct3D12Device
 direct3D12Swapchain
 	^self properties getProperty: SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER!
 
+direct3DDevice
+	self isUsingDirect3D11Driver ifTrue: [^self direct3D11Device].
+	self isUsingDirect3D12Driver ifTrue: [^self direct3D12Device].
+	^nil!
+
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
 
@@ -106,6 +111,21 @@ getWindow
 
 gpuDevice
 	^self properties getProperty: SDL_PROP_RENDERER_GPU_DEVICE_POINTER!
+
+isUsingDirect3D11Driver
+	^self name = 'direct3d11'!
+
+isUsingDirect3D12Driver
+	^self name = 'direct3d12'!
+
+isUsingOpenGLDriver
+	^self name = 'opengl'!
+
+isUsingSoftwareDriver
+	^self name = 'software'!
+
+isUsingVulkanDriver
+	^self name = 'vulkan'!
 
 name
 	^self properties getProperty: SDL_PROP_RENDERER_NAME_STRING!
@@ -212,6 +232,7 @@ direct3D11Swapchain!properties!public! !
 direct3D12CommandQueue!properties!public! !
 direct3D12Device!properties!public! !
 direct3D12Swapchain!properties!public! !
+direct3DDevice!properties!public! !
 fillRectangle:!public! !
 getPropertiesId!properties!public! !
 getRenderTarget!public! !
@@ -219,6 +240,11 @@ getRenderViewport!public! !
 getScale!public! !
 getWindow!public! !
 gpuDevice!properties!public! !
+isUsingDirect3D11Driver!drivers!properties!public! !
+isUsingDirect3D12Driver!drivers!properties!public! !
+isUsingOpenGLDriver!drivers!properties!public! !
+isUsingSoftwareDriver!drivers!properties!public! !
+isUsingVulkanDriver!drivers!properties!public! !
 name!properties!public! !
 present!public! !
 renderDebugText:origin:!public! !
