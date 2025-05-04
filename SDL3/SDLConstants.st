@@ -522,6 +522,9 @@ SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_U_POINTER' put: nil!
 SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_D3D12_TEXTURE_V_POINTER' put: nil!
 SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER' put: 'SDL.texture.create.height'!
 SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER' put: 'SDL.texture.create.width'!
+SDLConstants at: 'SDL_PROP_TEXTURE_FORMAT_NUMBER' put: nil!
+SDLConstants at: 'SDL_PROP_TEXTURE_HEIGHT_NUMBER' put: nil!
+SDLConstants at: 'SDL_PROP_TEXTURE_WIDTH_NUMBER' put: nil!
 SDLConstants at: 'SDL_PROPERTY_TYPE_BOOLEAN' put: 16r5!
 SDLConstants at: 'SDL_PROPERTY_TYPE_FLOAT' put: 16r4!
 SDLConstants at: 'SDL_PROPERTY_TYPE_INVALID' put: 16r0!

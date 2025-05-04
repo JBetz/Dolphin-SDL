@@ -27,14 +27,14 @@ extent
 		h: height.
 	^width value @ height value!
 
-getFormat
-	^self getProperty: 'SDL.texture.format'!
+format
+	^self properties getProperty: SDL_PROP_TEXTURE_FORMAT_NUMBER!
 
 getPropertiesId
 	^self library getTextureProperties_texture: self!
 
 height
-	^self getProperty: 'SDL.texture.height'!
+	^self properties getProperty: SDL_PROP_TEXTURE_HEIGHT_NUMBER!
 
 isPainted
 	^isPainted ifNil: [false]!
@@ -75,12 +75,12 @@ updatePixels: pixels pitch: pitch
 	self checkBooleanResult: result!
 
 width
-	^self getProperty: 'SDL.texture.width'! !
+	^self properties getProperty: SDL_PROP_TEXTURE_WIDTH_NUMBER! !
 
 !SDL_Texture categoriesForMethods!
 destroy!public! !
 extent!public! !
-getFormat!public! !
+format!public! !
 getPropertiesId!public! !
 height!public! !
 isPainted!public! !
