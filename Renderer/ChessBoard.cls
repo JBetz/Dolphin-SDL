@@ -37,7 +37,7 @@ onCreated
 	isReady := true! !
 
 !ChessBoard categoriesForMethods!
-drawOn:!private! !
+drawOn:!public! !
 onCreated!public! !
 !
 

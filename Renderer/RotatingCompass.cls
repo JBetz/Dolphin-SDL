@@ -66,7 +66,7 @@ preferredExtent
 	^800@800! !
 
 !RotatingCompass categoriesForMethods!
-drawOn:!private! !
+drawOn:!public! !
 initialize!public! !
 loadTexture!private! !
 onCreated!public! !

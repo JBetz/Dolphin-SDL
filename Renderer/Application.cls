@@ -128,7 +128,7 @@ onWindowCloseRequested: aWindowEvent
 
 onWindowDestroyed: aWindowEvent!
 
-onWindowDisplayChanged: aSDL_WindowEvent 
+onWindowDisplayChanged: aWindowEvent 
 	^self!
 
 onWindowExposed: aWindowEvent!

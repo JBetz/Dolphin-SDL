@@ -52,9 +52,6 @@ drawArrowFrom: startPoint to: endPoint width: width color: color zIndex: zIndex
 					color: color;
 					zIndex: zIndex)!
 
-drawCommands
-	^drawCommands!
-
 drawLineFrom: startPoint to: endPoint color: color width: width zIndex: zIndex
 	self addDrawCommand: (DrawLine new
 				start: startPoint;
@@ -101,13 +98,12 @@ drawQueue
 	^drawCommands copy!
 
 drawRectangle: aRectangle
-	self drawRectangle: aRectangle color: Color black!
+	self addDrawCommand: (DrawRectangle new rectangle: aRectangle)!
 
 drawRectangle: aRectangle color: aColor
-	self
-		drawRectangle: aRectangle
-		color: aColor
-		zIndex: 1!
+	self addDrawCommand: (DrawRectangle new
+				rectangle: aRectangle;
+				color: aColor)!
 
 drawRectangle: aRectangle color: aColor width: anInteger zIndex: anotherInteger
 	self addDrawCommand: (DrawRectangle new
@@ -121,6 +117,14 @@ drawRectangle: aRectangle color: aColor zIndex: anInteger
 				rectangle: aRectangle;
 				color: aColor;
 				zIndex: anInteger)!
+
+drawString: aString rectangle: aRectangle color: aColor fontSize: anInteger zIndex: anotherInteger
+	self addDrawCommand: (DrawString new
+				string: aString;
+				rectangle: aRectangle;
+				color: aColor;
+				fontSize: anInteger;
+				zIndex: anotherInteger)!
 
 drawString: aString rectangle: aRectangle color: aColor zIndex: anInteger
 	self addDrawCommand: (DrawString new
@@ -222,6 +226,9 @@ offset
 offset: aPoint
 	offset := aPoint!
 
+resetClip
+	clip := nil!
+
 subtractOffset: aPoint
 	offset := offset - aPoint!
 
@@ -263,7 +270,6 @@ addDrawCommand:!private! !
 addOffset:!private! !
 clip!public! !
 drawArrowFrom:to:width:color:zIndex:!public! !
-drawCommands!public! !
 drawLineFrom:to:color:width:zIndex:!geometry!public! !
 drawLineFrom:to:color:zIndex:!geometry!public! !
 drawLineFrom:to:width:color:zIndex:!geometry!public! !
@@ -275,6 +281,7 @@ drawRectangle:!geometry!public! !
 drawRectangle:color:!geometry!public! !
 drawRectangle:color:width:zIndex:!geometry!public! !
 drawRectangle:color:zIndex:!geometry!public! !
+drawString:rectangle:color:fontSize:zIndex:!public!text! !
 drawString:rectangle:color:zIndex:!public!text! !
 drawString:rectangle:fontSize:zIndex:!public!text! !
 drawString:rectangle:zIndex:!public!text! !
@@ -291,6 +298,7 @@ fillTriangle:zIndex:!geometry!public! !
 initialize!public! !
 offset!accessing!public! !
 offset:!accessing!public! !
+resetClip!public! !
 subtractOffset:!private! !
 withClip:do:!public! !
 withOffset:do:!public! !

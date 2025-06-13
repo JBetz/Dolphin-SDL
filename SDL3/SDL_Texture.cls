@@ -66,7 +66,7 @@ unlock
 	self checkBooleanResult: (self library unlockTexture_texture: self)!
 
 updatePixels: pixels pitch: pitch
-	| destinationPixels destinationPitch result |
+	| result |
 	result := self library
 				updateTexture_texture: self
 				rect: nil
