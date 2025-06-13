@@ -90,6 +90,8 @@ package classNames
 	add: #SDL_ShaderCross_GraphicsShaderMetadata;
 	add: #SDL_ShaderCross_HLSL_Define;
 	add: #SDL_ShaderCross_HLSL_Info;
+	add: #SDL_ShaderCross_IOVarMetadata;
+	add: #SDL_ShaderCross_SPIRV_Info;
 	add: #SDL_Surface;
 	add: #SDL_SysWMEvent;
 	add: #SDL_SysWMinfo;
@@ -515,7 +517,7 @@ ExternalStructure subclass: #SDL_RendererInfo
 
 ExternalStructure subclass: #SDL_ShaderCross_GraphicsShaderMetadata
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_num_samplers _OffsetOf_num_storage_buffers _OffsetOf_num_storage_textures _OffsetOf_num_uniform_buffers _OffsetOf_props'
+	classVariableNames: '_OffsetOf_inputs _OffsetOf_num_inputs _OffsetOf_num_outputs _OffsetOf_num_samplers _OffsetOf_num_storage_buffers _OffsetOf_num_storage_textures _OffsetOf_num_uniform_buffers _OffsetOf_outputs'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -528,6 +530,18 @@ ExternalStructure subclass: #SDL_ShaderCross_HLSL_Define
 ExternalStructure subclass: #SDL_ShaderCross_HLSL_Info
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_defines _OffsetOf_enable_debug _OffsetOf_entrypoint _OffsetOf_include_dir _OffsetOf_name _OffsetOf_props _OffsetOf_shader_stage _OffsetOf_source'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_ShaderCross_IOVarMetadata
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_location _OffsetOf_name _OffsetOf_offset _OffsetOf_vector_size _OffsetOf_vector_type'
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_ShaderCross_SPIRV_Info
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_bytecode _OffsetOf_bytecode_size _OffsetOf_enable_debug _OffsetOf_entrypoint _OffsetOf_name _OffsetOf_props _OffsetOf_shader_stage'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

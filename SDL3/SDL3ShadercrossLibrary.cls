@@ -18,8 +18,12 @@ compileDXILFromHLSL_info: info size: size
 	<cdecl: void* SDL_ShaderCross_CompileDXILFromHLSL SDL_ShaderCross_HLSL_Info* dword*>
 	^self invalidCall: _failureCode!
 
-compileGraphicsShaderFromHLSL_device: device info: info metadata: metadata
-	<cdecl: SDL_GPUShader* SDL_ShaderCross_CompileGraphicsShaderFromHLSL SDL_GPUDevice* SDL_ShaderCross_HLSL_Info* SDL_ShaderCross_GraphicsShaderMetadata*>
+compileGraphicsShaderFromSPIRV_device: device info: info metadata: metadata props: props
+	<cdecl: SDL_GPUShader* SDL_ShaderCross_CompileGraphicsShaderFromSPIRV SDL_GPUDevice* SDL_ShaderCross_SPIRV_Info* SDL_ShaderCross_GraphicsShaderMetadata* dword>
+	^self invalidCall: _failureCode!
+
+compileSPIRVFromHLSL_info: info size: size
+	<cdecl: void* SDL_ShaderCross_CompileSPIRVFromHLSL SDL_ShaderCross_HLSL_Info* dword*>
 	^self invalidCall: _failureCode!
 
 getHLSLShaderFormats
@@ -32,14 +36,20 @@ init
 
 quit
 	<cdecl: void SDL_ShaderCross_Quit>
+	^self invalidCall: _failureCode!
+
+reflectGraphicsSPIRV_bytecode: bytecode bytecode_size: bytecode_size props: props
+	<cdecl: SDL_ShaderCross_GraphicsShaderMetadata* SDL_ShaderCross_ReflectGraphicsSPIRV byte* dword dword>
 	^self invalidCall: _failureCode! !
 
 !SDL3ShadercrossLibrary categoriesForMethods!
 compileDXILFromHLSL_info:size:!public! !
-compileGraphicsShaderFromHLSL_device:info:metadata:!public! !
+compileGraphicsShaderFromSPIRV_device:info:metadata:props:!public! !
+compileSPIRVFromHLSL_info:size:!public! !
 getHLSLShaderFormats!public! !
 init!public! !
 quit!public! !
+reflectGraphicsSPIRV_bytecode:bytecode_size:props:!public! !
 !
 
 !SDL3ShadercrossLibrary class methodsFor!

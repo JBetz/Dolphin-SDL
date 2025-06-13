@@ -35,17 +35,6 @@ clearFallbackTexture
 	(commandBuffer beginRenderPass: fallbackTexture clearColor: Color white) end.
 	commandBuffer submit!
 
-compileShader: aShaderSource
-	| shaderInfo |
-	shaderInfo := SDL_ShaderCross_HLSL_Info new.
-	shaderInfo
-		source: aShaderSource sourceCode;
-		entrypoint: 'main';
-		shader_stage: aShaderSource stage;
-		enable_debug: true;
-		name: aShaderSource name.
-	^gpuDevice compileShader: shaderInfo!
-
 createBuffers
 	vertexBuffer := gpuDevice createVertexBuffer: Vertex byteSize * 1024.
 	indexBuffer := gpuDevice createIndexBuffer: WORD byteSize * 1024.
@@ -131,8 +120,8 @@ createRenderPipeline: anInteger vertexShader: aVertexShader fragmentShader: aFra
 
 createRenderPipelines
 	| vertexShader fragmentShader |
-	vertexShader := self compileShader: ShaderSource geometryVertex.
-	fragmentShader := self compileShader: ShaderSource geometryFragment.
+	vertexShader := gpuDevice compileShader: ShaderSource geometryVertex.
+	fragmentShader := gpuDevice compileShader: ShaderSource geometryFragment.
 	renderPipeline := self
 				createRenderPipeline: SDL_GPU_PRIMITIVETYPE_TRIANGLELIST
 				vertexShader: vertexShader
@@ -443,7 +432,7 @@ queueFillRectangle: aFillRectangle
 	indices := #(0 1 2 2 3 0).
 	^DrawData vertices: vertices indices: indices!
 
-releaseTexture: aSDL_GPUTexture 
+releaseTexture: aSDL_GPUTexture
 	gpuDevice releaseTexture: aSDL_GPUTexture!
 
 render: aCanvas
@@ -548,13 +537,15 @@ viewMatrix
 		yourself!
 
 window: aWindow
-	window := aWindow! !
+	window := aWindow!
+
+wrapSharedTexture: anExternalAddress extent: aPoint 
+	self error: 'Shared textures are not yet supported for this renderer. See: https://github.com/libsdl-org/SDL/issues/12617'! !
 
 !Renderer3D categoriesForMethods!
 blitResolveTexture!private! !
 camera!public! !
 clearFallbackTexture!private! !
-compileShader:!private! !
 createBuffers!private! !
 createFallbackTexture!private! !
 createFragmentSampler!private! !
@@ -597,6 +588,7 @@ updateTexture:pixels:pitch:!public! !
 uploadVertices!private! !
 viewMatrix!private! !
 window:!public! !
+wrapSharedTexture:extent:!public! !
 !
 
 !Renderer3D class methodsFor!

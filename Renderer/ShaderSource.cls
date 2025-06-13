@@ -14,20 +14,6 @@ ShaderSource comment: ''!
 
 !ShaderSource methodsFor!
 
-compile
-	| shaderInfo size result |
-	shaderInfo := SDL_ShaderCross_HLSL_Info new.
-	shaderInfo
-		name: self name;
-		shader_stage: self stage;
-		source: self sourceCode;
-		entrypoint: 'main';
-		enable_debug: true.
-	size := DWORD new.
-	result := SDL3ShadercrossLibrary default compileDXILFromHLSL_info: shaderInfo size: size.
-	result isNull ifTrue: [self error: SDL3Library default getError].
-	^result!
-
 name
 	^name!
 
@@ -65,7 +51,6 @@ uniformBufferCount
 	^metadata num_uniform_buffers! !
 
 !ShaderSource categoriesForMethods!
-compile!public! !
 name!public! !
 name:!public! !
 samplerCount!public! !
@@ -131,66 +116,11 @@ Output main(Input input) {
 }'!
 
 new
-	^super new initialize!
-
-rawTriangleVertex
-	^self new
-		name: 'rawTriangle';
-		stage: SDL_GPU_SHADERSTAGE_VERTEX;
-		sourceCode: 'struct Input
-{
-    uint VertexIndex : SV_VertexID;
-};
-
-struct Output
-{
-    float4 Color : TEXCOORD0;
-    float4 Position : SV_Position;
-};
-
-Output main(Input input)
-{
-    Output output;
-    float2 pos;
-    if (input.VertexIndex == 0)
-    {
-        pos = (-1.0f).xx;
-        output.Color = float4(1.0f, 0.0f, 0.0f, 1.0f);
-    }
-    else
-    {
-        if (input.VertexIndex == 1)
-        {
-            pos = float2(1.0f, -1.0f);
-            output.Color = float4(0.0f, 1.0f, 0.0f, 1.0f);
-        }
-        else
-        {
-            if (input.VertexIndex == 2)
-            {
-                pos = float2(0.0f, 1.0f);
-                output.Color = float4(0.0f, 0.0f, 1.0f, 1.0f);
-            }
-        }
-    }
-    output.Position = float4(pos, 0.0f, 1.0f);
-    return output;
-}'!
-
-solidColorFragment
-	^self new
-		name: 'solidColor';
-		stage: SDL_GPU_SHADERSTAGE_FRAGMENT;
-		sourceCode: 'float4 main(float4 Color : TEXCOORD0) : SV_Target0
-{
-    return Color;
-}'! !
+	^super new initialize! !
 
 !ShaderSource class categoriesForMethods!
 geometryFragment!public! !
 geometryVertex!public! !
 new!public! !
-rawTriangleVertex!public! !
-solidColorFragment!public! !
 !
 

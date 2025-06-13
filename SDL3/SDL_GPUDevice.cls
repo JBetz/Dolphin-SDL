@@ -27,13 +27,34 @@ claimWindow: aWindow
 	swapchainTextureFormat := self getSwapchainTextureFormat: aWindow.
 	self assert: [swapchainTextureFormat > SDL_GPU_TEXTUREFORMAT_INVALID]!
 
-compileShader: aShaderCrossHLSLInfo
-	| shader metadata |
-	metadata := SDL_ShaderCross_GraphicsShaderMetadata new.
-	shader := SDL3ShadercrossLibrary default
-				compileGraphicsShaderFromHLSL_device: self
-				info: aShaderCrossHLSLInfo
-				metadata: metadata.
+compileShader: aShaderSource
+	| shadercross hlslInfo bytecodeSize bytecodePointer bytecode spirvInfo shader metadata |
+	shadercross := SDL3ShadercrossLibrary default.
+	hlslInfo := SDL_ShaderCross_HLSL_Info new
+				source: aShaderSource sourceCode;
+				entrypoint: 'main';
+				shader_stage: aShaderSource stage;
+				enable_debug: true;
+				name: aShaderSource name.
+	bytecodeSize := DWORD new.
+	bytecodePointer := shadercross compileSPIRVFromHLSL_info: hlslInfo size: bytecodeSize.
+	bytecode := ByteArray fromAddress: bytecodePointer length: bytecodeSize value.
+	self library free_mem: bytecodePointer.
+	metadata := shadercross
+				reflectGraphicsSPIRV_bytecode: bytecode
+				bytecode_size: bytecodeSize value
+				props: nil.
+	spirvInfo := SDL_ShaderCross_SPIRV_Info new
+				bytecode: bytecode;
+				entrypoint: 'main';
+				shader_stage: aShaderSource stage;
+				enable_debug: true;
+				name: aShaderSource name.
+	shader := shadercross
+				compileGraphicsShaderFromSPIRV_device: self
+				info: spirvInfo
+				metadata: metadata
+				props: nil.
 	self checkObjectResult: shader.
 	shader metadata: metadata.
 	^shader!

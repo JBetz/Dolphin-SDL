@@ -358,6 +358,10 @@ flushAudioStream_stream: stream
 	<cdecl: bool SDL_FlushAudioStream SDL_AudioStream*>
 	^self invalidCall: _failureCode!
 
+free_mem: mem
+	<cdecl: void SDL_free void*>
+	^self invalidCall: _failureCode!
+
 gdkResumeGPU_device: device
 	<cdecl: void SDL_GDKResumeGPU SDL_GPUDevice*>
 	^self invalidCall: _failureCode!
@@ -1369,6 +1373,7 @@ enumerateDirectory_path:callback:userdata:!file system!public! !
 enumerateProperties_props:callback:userdata:!properties!public! !
 flashWindow_window:operation:!public!video! !
 flushAudioStream_stream:!audio!public! !
+free_mem:!audio!public! !
 gdkResumeGPU_device:!gpu!public! !
 gdkSuspendGPU_device:!gpu!public! !
 generateMipmapsForGPUTexture_commandBuffer:texture:!gpu!public! !
