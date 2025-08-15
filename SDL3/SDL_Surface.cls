@@ -90,7 +90,9 @@ reserved: anExternalAddress
 	bytes uintPtrAtOffset: _OffsetOf_reserved put: anExternalAddress!
 
 saveAsPNG: aString
-	self checkBooleanResult: (SDL3ImageLibrary default savePNG_surface: self file: aString)!
+	| result |
+	result := self imageLibrary savePNG_surface: self file: aString.
+	self checkBooleanResult: result!
 
 w
 	"Answer the <Integer> value of the receiver's 'w' field."

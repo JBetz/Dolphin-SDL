@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 SDL_Object subclass: #SDL_Texture
-	instanceVariableNames: 'isPainted'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -35,12 +35,6 @@ getPropertiesId
 
 height
 	^self properties getProperty: SDL_PROP_TEXTURE_HEIGHT_NUMBER!
-
-isPainted
-	^isPainted ifNil: [false]!
-
-isPainted: aBoolean
-	isPainted := aBoolean!
 
 isSurface
 	^false!
@@ -83,8 +77,6 @@ extent!public! !
 format!public! !
 getPropertiesId!public! !
 height!public! !
-isPainted!public! !
-isPainted:!public! !
 isSurface!public! !
 isTexture!public! !
 lock!public! !

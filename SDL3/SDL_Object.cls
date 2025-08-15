@@ -35,6 +35,9 @@ free
 getPropertiesId
 	self subclassResponsibility!
 
+imageLibrary
+	^SDL3ImageLibrary default!
+
 initialize
 	super initialize.
 	self beFinalizable!
@@ -59,6 +62,7 @@ checkObjectResult:!private! !
 destroy!public! !
 free!public! !
 getPropertiesId!public! !
+imageLibrary!public! !
 initialize!public! !
 library!public! !
 properties!public! !

@@ -94,9 +94,6 @@ onEvent: aSDLEvent
 		perform: selector with: event;
 		markDirty!
 
-onEventLoopFinished
-	!
-
 onKeyDown: aKeyboardEvent!
 
 onKeyUp: aKeyboardEvent!
@@ -194,7 +191,7 @@ top
 	^self rectangle top!
 
 useGPURenderer
-	^true!
+	^false!
 
 viewport
 	^renderer viewport!
@@ -229,7 +226,6 @@ markDirty!public! !
 mousePosition!public! !
 onCreated!public! !
 onEvent:!public! !
-onEventLoopFinished!public! !
 onKeyDown:!event handling!public! !
 onKeyUp:!event handling!public! !
 onMouseButtonDown:!event handling!public! !

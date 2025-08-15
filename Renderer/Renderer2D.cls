@@ -41,6 +41,7 @@ createTextureFromSurface: aSDL_Surface
 	^sdlRenderer createTextureFromSurface: aSDL_Surface!
 
 destroy
+	sdlRenderer ifNil: [^self].
 	sdlRenderer destroy.
 	sdlRenderer := nil!
 
@@ -111,9 +112,10 @@ queueDrawSurface: aDrawSurface
 		destination: destinationRectangle!
 
 queueDrawText: aDrawText
-	| rectangle text |
-	rectangle := aDrawText rectangle.
+	| text rectangle |
 	text := aDrawText text.
+	text ifNil: [^self].
+	rectangle := aDrawText rectangle.
 	text color: (aDrawText color ifNil: [Color black]) asSDLColor.
 	textEngine
 		drawText: text
@@ -161,9 +163,7 @@ setDrawColor: aColor
 	sdlRenderer setDrawColor: aColor!
 
 updateTexture: aTexture pixels: anExternalAddress pitch: anInteger
-	aTexture
-		updatePixels: anExternalAddress pitch: anInteger;
-		isPainted: true!
+	aTexture updatePixels: anExternalAddress pitch: anInteger!
 
 viewport
 	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent!
