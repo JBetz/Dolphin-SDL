@@ -224,10 +224,28 @@ wasInit!public! !
 
 !SDL3TTFLibrary class methodsFor!
 
+cleanupResources
+	TTF_Object
+		allSubclassesDo: [:eachClass | eachClass allInstances do: [:eachInstance | eachInstance oneWayBecome: nil]]!
+
 fileName
-	^FileLocator imageRelative: 'SDL3_ttf'! !
+	^FileLocator imageRelative: 'SDL3_ttf'!
+
+initialize
+	"self initialize"
+
+	SessionManager current
+		when: #sessionStarted
+		send: #onStartup
+		to: self!
+
+onStartup
+	self cleanupResources! !
 
 !SDL3TTFLibrary class categoriesForMethods!
+cleanupResources!public! !
 fileName!public! !
+initialize!public! !
+onStartup!public! !
 !
 

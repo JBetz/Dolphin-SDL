@@ -1609,8 +1609,23 @@ windowSupportsGPUSwapchainComposition_device:window:swapchainComposition:!gpu!pu
 
 !SDL3Library class methodsFor!
 
+cleanupResources
+	SDL_Object
+		allSubclassesDo: [:eachClass | eachClass allInstances do: [:eachInstance | eachInstance oneWayBecome: nil]]!
+
 fileName
 	^FileLocator imageRelative: 'SDL3'!
+
+initialize
+	"self initialize"
+
+	SessionManager current
+		when: #sessionStarted
+		send: #onStartup
+		to: self!
+
+onStartup
+	self cleanupResources!
 
 testAudio
 	| sdl resultCode audioSpec audioDeviceId audioStream |
@@ -1633,7 +1648,10 @@ testAudio
 	sdl quitSubSystem_flags: 16! !
 
 !SDL3Library class categoriesForMethods!
+cleanupResources!public! !
 fileName!public! !
+initialize!public! !
+onStartup!public! !
 testAudio!public! !
 !
 
