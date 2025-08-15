@@ -3,7 +3,7 @@
 ExternalStructure subclass: #TTF_Object
 	instanceVariableNames: 'library'
 	classVariableNames: ''
-	poolDictionaries: ''
+	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
 TTF_Object guid: (GUID fromString: '{d25ebdf2-fabf-4f70-a641-33b9aa4695a9}')!

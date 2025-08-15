@@ -66,6 +66,12 @@ line_index: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_line_index put: anInteger!
 
+lineEnd
+	^self flags & TTF_SUBSTRING_LINE_END!
+
+lineStart
+	^self flags & TTF_SUBSTRING_LINE_START!
+
 offset
 	"Answer the <Integer> value of the receiver's 'offset' field."
 
@@ -88,7 +94,13 @@ rect: aSDL_Rect
 		replaceBytesOf: bytes
 		from: ##(_OffsetOf_rect + 1)
 		to: ##(_OffsetOf_rect + SDL_Rect basicByteSize)
-		startingAt: 1! !
+		startingAt: 1!
+
+textEnd
+	^self flags & TTF_SUBSTRING_TEXT_END!
+
+textStart
+	^self flags & TTF_SUBSTRING_TEXT_START! !
 
 !TTF_SubString categoriesForMethods!
 cluster_index!**compiled accessors**!public! !
@@ -101,10 +113,14 @@ length!**compiled accessors**!public! !
 length:!**compiled accessors**!public! !
 line_index!**compiled accessors**!public! !
 line_index:!**compiled accessors**!public! !
+lineEnd!public! !
+lineStart!public! !
 offset!**compiled accessors**!public! !
 offset:!**compiled accessors**!public! !
 rect!**compiled accessors**!public! !
 rect:!**compiled accessors**!public! !
+textEnd!public! !
+textStart!public! !
 !
 
 !TTF_SubString class methodsFor!
