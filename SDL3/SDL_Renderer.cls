@@ -196,6 +196,9 @@ renderTexture: texture source: source destination: destination
 resetClip
 	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: nil)!
 
+resetScale
+	self setScale: 1.0 @ 1.0!
+
 setClip: aRectangle
 	| result |
 	result := self library setRenderClipRect_renderer: self rect: aRectangle asSDLRect.
@@ -214,6 +217,14 @@ setDrawColor: aColor
 
 setRenderTarget: aSDLTexture
 	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
+
+setScale: aPoint
+	| result |
+	result := self library
+				setRenderScale_renderer: self
+				scaleX: aPoint x
+				scaleY: aPoint y.
+	self checkBooleanResult: result!
 
 window
 	^self properties getProperty: SDL_PROP_RENDERER_WINDOW_POINTER! !
@@ -256,10 +267,12 @@ renderReadPixels:!public! !
 renderRectangle:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !
+resetScale!public! !
 setClip:!public! !
 setDrawBlendMode:!public! !
 setDrawColor:!public! !
 setRenderTarget:!public! !
+setScale:!public! !
 window!properties!public! !
 !
 

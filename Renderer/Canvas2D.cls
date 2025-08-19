@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #Canvas2D
-	instanceVariableNames: 'drawCommands offset clip textEngine'
+	instanceVariableNames: 'drawCommands offset clip scale textEngine'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -16,7 +16,8 @@ Canvas2D comment: ''!
 
 addDrawCommand: aDrawCommand
 	offset ~= Point zero ifTrue: [aDrawCommand applyOffset: offset].
-	clip ifNotNil: [aDrawCommand applyClip: clip].
+	clip ifNotNil: [aDrawCommand clip: clip].
+	scale ifNotNil: [aDrawCommand scale: scale].
 	drawCommands enqueue: aDrawCommand priority: aDrawCommand zIndex!
 
 addOffset: aPoint
@@ -263,7 +264,15 @@ withoutOffsetDo: aBlock
 	currentOffset := offset.
 	offset := 0@0.
 	aBlock value.
-	offset := currentOffset! !
+	offset := currentOffset!
+
+withScale: aPoint do: aBlock
+	| currentScale |
+	aPoint ifNil: [^aBlock value].
+	currentScale := scale.
+	scale := aPoint.
+	aBlock value.
+	scale := currentScale! !
 
 !Canvas2D categoriesForMethods!
 addDrawCommand:!private! !
@@ -304,6 +313,7 @@ withClip:do:!public! !
 withOffset:do:!public! !
 withoutClipDo:!public! !
 withoutOffsetDo:!public! !
+withScale:do:!public! !
 !
 
 !Canvas2D class methodsFor!

@@ -37,6 +37,12 @@ rotation
 rotation: anObject
 	rotation := anObject!
 
+scale
+	^scale!
+
+scale: aPoint
+	scale := aPoint!
+
 zIndex
 	^zIndex!
 
@@ -51,6 +57,8 @@ drawData:!accessing!public! !
 initialize!public! !
 rotation!public! !
 rotation:!public! !
+scale!public! !
+scale:!public! !
 zIndex!public! !
 zIndex:!public! !
 !
