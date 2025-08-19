@@ -25,7 +25,8 @@ closeAllWindows
 	windows removeAll!
 
 closeWindow: anInteger
-	windows removeKey: anInteger ifAbsent: [nil]!
+	windows removeKey: anInteger
+		ifAbsent: [self error: ('Window with ID <D> does not exist' expandMacrosWith: anInteger)]!
 
 createWindow: aString extent: aPoint flags: anInteger for: anApplication
 	| window |
@@ -42,6 +43,12 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
+
+forceStop
+	windows removeAll.
+	keyStates := nil.
+	logCallback := nil.
+	isRunning := false!
 
 getDisplays
 	| displayCount primaryDisplayId |
@@ -64,9 +71,9 @@ initialize
 	windows := LookupTable new.
 	self
 		initializeLibraries;
+		initializeLogging;
 		registerRenderEvent;
 		setHints.
-	"initializeLogging;"
 	keyStates := self library getKeyboardState_numkeys: nil.
 	isRunning := true.
 	isBeingDebugged := false!
@@ -115,6 +122,11 @@ iterate
 
 library
 	^SDL3Library default!
+
+onLog: anExternalAddress category: anInteger priority: anInteger2 message: anAnsiString
+	Transcript
+		display: anInteger -> anInteger2 -> anAnsiString;
+		cr!
 
 onUnhandledError: anError
 	isBeingDebugged
@@ -193,6 +205,7 @@ closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
+forceStop!public! !
 getDisplays!public! !
 getPrimaryDisplay!public! !
 getPrimaryDisplayExtent!public! !
@@ -206,6 +219,7 @@ isKeyDown:!public! !
 isShiftKeyDown!public! !
 iterate!public! !
 library!public! !
+onLog:category:priority:message:!public! !
 onUnhandledError:!public! !
 pollEvent!public! !
 pumpMessages!public! !
@@ -227,7 +241,7 @@ current
 
 disable
 	Singleton ifNil: [^self].
-	Singleton stop.
+	Singleton forceStop.
 	Singleton := nil!
 
 enable
