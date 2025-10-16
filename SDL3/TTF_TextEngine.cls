@@ -26,7 +26,6 @@ createText: aString font: aFont
 
 createText: aString font: aFont wrapWidth: anInteger
 	| text |
-	aFont ifNil: [ self halt ].
 	text := self library
 				createText_engine: self
 				font: aFont
