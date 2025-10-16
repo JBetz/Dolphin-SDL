@@ -572,7 +572,7 @@ ExternalStructure subclass: #TTF_GPUAtlasDrawSequence
 ExternalStructure subclass: #TTF_Object
 	instanceVariableNames: 'library'
 	classVariableNames: ''
-	poolDictionaries: ''
+	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
 LPVOID subclass: #SDL_FunctionPointer
@@ -696,7 +696,7 @@ SDL_Object subclass: #SDL_Cursor
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_GPUBuffer
-	instanceVariableNames: ''
+	instanceVariableNames: 'size'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -786,7 +786,7 @@ SDL_Object subclass: #SDL_Surface
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_Texture
-	instanceVariableNames: 'isPainted'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

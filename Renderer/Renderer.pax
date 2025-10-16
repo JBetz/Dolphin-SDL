@@ -4,11 +4,9 @@ package paxVersion: 1;
 	basicComment: ''.
 
 package classNames
-	add: #Application;
 	add: #Camera;
 	add: #Camera2D;
 	add: #Canvas2D;
-	add: #ChessBoard;
 	add: #DrawCommand;
 	add: #DrawData;
 	add: #DrawLine;
@@ -23,9 +21,7 @@ package classNames
 	add: #Renderer;
 	add: #Renderer2D;
 	add: #Renderer3D;
-	add: #RotatingCompass;
 	add: #ShaderSource;
-	add: #SimpleExample;
 	add: #Uniform;
 	add: #Vertex;
 	yourself.
@@ -47,12 +43,6 @@ package!
 
 "Class Definitions"!
 
-Object subclass: #Application
-	instanceVariableNames: 'renderer window cursor mousePosition isDirty windowManager isReady'
-	classVariableNames: 'EventMap'
-	poolDictionaries: 'SDLConstants'
-	classInstanceVariableNames: ''!
-
 Object subclass: #Camera
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -60,7 +50,7 @@ Object subclass: #Camera
 	classInstanceVariableNames: ''!
 
 Object subclass: #Canvas2D
-	instanceVariableNames: 'drawCommands offset clip textEngine'
+	instanceVariableNames: 'drawCommands offset clip scale textEngine'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -87,24 +77,6 @@ Object subclass: #ShaderSource
 	instanceVariableNames: 'name stage sourceCode sourceFile metadata'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
-	classInstanceVariableNames: ''!
-
-Application subclass: #ChessBoard
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-Application subclass: #RotatingCompass
-	instanceVariableNames: 'player buildings camera texture'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-Application subclass: #SimpleExample
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 Camera subclass: #Camera2D
@@ -186,7 +158,7 @@ Renderer subclass: #Renderer2D
 	classInstanceVariableNames: ''!
 
 Renderer subclass: #Renderer3D
-	instanceVariableNames: 'window sampleCount camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
+	instanceVariableNames: 'window sampleCount camera gpuDevice renderPipeline fragmentSampler fallbackTexture resolveTexture multisampleTexture vertexBuffer uploadBuffer indexBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
