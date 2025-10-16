@@ -136,6 +136,9 @@ refcount: anInteger
 
 	bytes sdwordAtOffset: _OffsetOf_refcount put: anInteger!
 
+setTextString: aString
+	self library setTextString_text: self string: aString length: aString size!
+
 setWrapWhitespaceVisible: aBoolean
 	self library setTextWrapWhitespaceVisible_text: self visible: aBoolean!
 
@@ -181,6 +184,7 @@ num_lines!**compiled accessors**!public! !
 num_lines:!**compiled accessors**!public! !
 refcount!**compiled accessors**!public! !
 refcount:!**compiled accessors**!public! !
+setTextString:!public! !
 setWrapWhitespaceVisible:!public! !
 size!public! !
 text!**compiled accessors**!public! !

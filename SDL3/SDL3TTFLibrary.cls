@@ -154,6 +154,10 @@ setTextPosition_text: text x: x y: y
 	<cdecl: bool TTF_SetTextPosition TTF_Text* sdword sdword>
 	^self invalidCall: _failureCode!
 
+setTextString_text: text string: string length: length
+	<cdecl: bool TTF_SetTextString TTF_Text* char* dword>
+	^self invalidCall: _failureCode!
+
 setTextWrapWhitespaceVisible_text: text visible: visible
 	<cdecl: bool TTF_SetTextWrapWhitespaceVisible TTF_Text* bool>
 	^self invalidCall: _failureCode!
@@ -214,6 +218,7 @@ setFontStyle_font:style:!public! !
 setTextColor_text:r:g:b:a:!public! !
 setTextColorFloat_text:r:g:b:a:!public! !
 setTextPosition_text:x:y:!public! !
+setTextString_text:string:length:!public! !
 setTextWrapWhitespaceVisible_text:visible:!public! !
 setTextWrapWidth_text:wrapWidth:!public! !
 textWrapWhitespaceVisible_text:!public! !
