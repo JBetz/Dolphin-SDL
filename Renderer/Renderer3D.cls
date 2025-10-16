@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Renderer subclass: #Renderer3D
-	instanceVariableNames: 'window sampleCount camera gpuDevice renderPipeline commandBuffer fragmentSampler fallbackTexture resolveTexture multisampleTexture swapchainTexture vertices indices vertexBuffer uploadBuffer indexBuffer'
+	instanceVariableNames: 'window sampleCount camera gpuDevice renderPipeline fragmentSampler fallbackTexture resolveTexture multisampleTexture vertexBuffer uploadBuffer indexBuffer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -14,31 +14,32 @@ Renderer3D comment: ''!
 
 !Renderer3D methodsFor!
 
-blitResolveTexture
-	commandBuffer
+blitResolveTextureOn: aGPUTexture with: aCommandBuffer
+	aCommandBuffer
 		blitTexture: (SDL_GPUBlitRegion new
 				texture: resolveTexture;
 				w: resolveTexture width;
 				h: resolveTexture height)
 		destination: (SDL_GPUBlitRegion new
-				texture: swapchainTexture;
-				w: swapchainTexture width;
-				h: swapchainTexture height)
+				texture: aGPUTexture;
+				w: aGPUTexture width;
+				h: aGPUTexture height)
 		filter: SDL_GPU_FILTER_LINEAR!
 
 camera
 	^camera!
 
 clearFallbackTexture
-	| commandBuffer |
+	| commandBuffer renderPass |
 	commandBuffer := gpuDevice acquireCommandBuffer.
-	(commandBuffer beginRenderPass: fallbackTexture clearColor: Color white) end.
+	renderPass := commandBuffer beginRenderPass: fallbackTexture clearColor: Color white.
+	renderPass end.
 	commandBuffer submit!
 
 createBuffers
 	vertexBuffer := gpuDevice createVertexBuffer: Vertex byteSize * 1024.
 	indexBuffer := gpuDevice createIndexBuffer: WORD byteSize * 1024.
-	uploadBuffer := gpuDevice createUploadBuffer: 1!
+	uploadBuffer := gpuDevice createUploadBuffer: vertexBuffer size + indexBuffer size!
 
 createFallbackTexture
 	fallbackTexture := gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
@@ -60,13 +61,10 @@ createFragmentSampler
 						address_mode_w: SDL_GPU_SAMPLERADDRESSMODE_CLAMP_TO_EDGE)!
 
 createMultisampleTexture
-	| usageFlag |
-	usageFlag := SDL_GPU_TEXTUREUSAGE_COLOR_TARGET
-				bitOr: (self isMultisampling ifTrue: [0] ifFalse: [SDL_GPU_TEXTUREUSAGE_SAMPLER]).
 	multisampleTexture := gpuDevice createTexture: (SDL_GPUTextureCreateInfo new
 						type: SDL_GPU_TEXTURETYPE_2D;
 						format: SDL_GPU_TEXTUREFORMAT_R8G8B8A8_UNORM;
-						usage: usageFlag;
+						usage: SDL_GPU_TEXTUREUSAGE_COLOR_TARGET;
 						width: window width;
 						height: window height;
 						layer_count_or_depth: 1;
@@ -160,7 +158,7 @@ createTexture: aPoint format: anInteger
 				num_levels: 1)!
 
 createTextureFromSurface: aSurface
-	| texture dataSize uploadBuffer copyPass |
+	| texture dataSize uploadBuffer commandBuffer copyPass |
 	self
 		assert: [aSurface width > 0];
 		assert: [aSurface height > 0].
@@ -207,7 +205,7 @@ destroy
 	gpuDevice := nil!
 
 downloadTexture: aGPUTexture pixelFormat: anInteger
-	| extent surface imageSize downloadBuffer copyPass fence |
+	| extent surface imageSize commandBuffer downloadBuffer copyPass fence |
 	extent := aGPUTexture extent.
 	surface := SDL_Surface extent: extent format: anInteger.
 	imageSize := extent x * extent y * 4.
@@ -242,24 +240,12 @@ executeDrawCommand: aDrawCommand in: aRenderPass
 			firstIndex: drawData indexOffset
 			vertexOffset: drawData vertexOffset!
 
-free
-	super free.
-	textEngine destroy.
-	textEngine := nil.
-	window destroy.
-	window := nil.
-	gpuDevice destroy.
-	gpuDevice := nil.
-	!
-
 gpuDevice: aGPUDevice
 	gpuDevice := aGPUDevice!
 
 initialize
 	super initialize.
-	camera := Camera2D new.
-	vertices := OrderedCollection new.
-	indices := OrderedCollection new!
+	camera := Camera2D new!
 
 isMultisampling
 	^self sdlSampleCount ~= SDL_GPU_SAMPLECOUNT_1!
@@ -284,21 +270,21 @@ loadShader: aShader
 	^gpuDevice createShader: shaderCreateInfo!
 
 present: aCanvas
+	| commandBuffer swapchainTexture |
 	commandBuffer := gpuDevice acquireCommandBuffer.
 	swapchainTexture := commandBuffer acquireSwapchainTexture: window.
-	swapchainTexture isNull ifFalse: [self render: aCanvas].
+	swapchainTexture isNull
+		ifFalse: 
+			[self
+				render: aCanvas
+				on: swapchainTexture
+				with: commandBuffer].
 	commandBuffer submit!
 
 queueDrawCommand: aDrawCommand
 	| selector drawData |
-	selector :=CommandMap at: aDrawCommand class.
+	selector := CommandMap at: aDrawCommand class.
 	drawData := self perform: selector with: aDrawCommand.
-	drawData ifNil: [^self].
-	drawData
-		vertexOffset: vertices size;
-		indexOffset: indices size.
-	vertices addAll: drawData vertices.
-	indices addAll: drawData indices.
 	aDrawCommand drawData: drawData!
 
 queueDrawLine: aDrawLine
@@ -347,29 +333,6 @@ queueDrawRectangle: aDrawRectangle
 						yourself].
 	indices := #(0 1 2 1 2 3 4 5 6 5 6 7 8 9 10 9 10 11 12 13 14 13 14 15).
 	^DrawData vertices: vertices indices: indices!
-
-queueDrawString: aDrawString
-	| vertices ttfText drawData texture fcolor rectangle |
-	ttfText := textEngine createText: aDrawString string font: aDrawString font ?? self defaultFont.
-	(ttfText isNil or: [ttfText text isNil]) ifTrue: [^nil].
-	drawData := textEngine getDrawData: ttfText.
-	texture := drawData atlas_texture.
-	ttfText color: aDrawString color asSDLColor.
-	fcolor := aDrawString color asSDLFColor.
-	rectangle := aDrawString rectangle.
-	vertices := (1 to: drawData num_vertices) collect: 
-					[:index |
-					| xy uv |
-					xy := drawData xy at: index.
-					uv := drawData uv at: index.
-					Vertex
-						position: rectangle origin truncated + (xy x @ xy y negated)
-						color: fcolor
-						uv: uv x @ uv y].
-	^DrawData
-		vertices: vertices
-		indices: drawData indices
-		texture: texture!
 
 queueDrawText: aDrawText
 	| ttfText drawData texture fcolor rectangle vertices |
@@ -435,34 +398,56 @@ queueFillRectangle: aFillRectangle
 releaseTexture: aSDL_GPUTexture
 	gpuDevice releaseTexture: aSDL_GPUTexture!
 
-render: aCanvas
+render: aCanvas on: aGPUTexture with: aCommandBuffer
 	self
-		runCopyPass: aCanvas;
-		runRenderPass: aCanvas!
+		runCopyPassFor: aCanvas with: aCommandBuffer;
+		runRenderPassFor: aCanvas on: aGPUTexture with: aCommandBuffer!
+
+resizeIndexBuffer: anInteger
+	indexBuffer ifNotNil: [gpuDevice releaseBuffer: indexBuffer].
+	indexBuffer := gpuDevice createIndexBuffer: anInteger!
 
 resizeUploadBuffer: anInteger
 	uploadBuffer ifNotNil: [gpuDevice releaseBuffer: uploadBuffer].
 	uploadBuffer := gpuDevice createUploadBuffer: anInteger!
 
-runCopyPass: aCanvas
-	aCanvas drawQueue reverseFlushWith: [:each | self queueDrawCommand: each].
-	self uploadVertices.
-	vertices removeAll.
-	indices removeAll!
+resizeVertexBuffer: anInteger
+	vertexBuffer ifNotNil: [gpuDevice releaseBuffer: vertexBuffer].
+	vertexBuffer := gpuDevice createVertexBuffer: anInteger!
 
-runRenderPass: aCanvas
+runCopyPassFor: aCanvas with: aCommandBuffer
+	| vertices indices |
+	vertices := OrderedCollection new.
+	indices := OrderedCollection new.
+	aCanvas drawQueue reverseFlushWith: 
+			[:each |
+			self queueDrawCommand: each.
+			each drawData
+				ifNotNil: 
+					[:drawData |
+					drawData
+						vertexOffset: vertices size;
+						indexOffset: indices size.
+					vertices addAll: drawData vertices.
+					indices addAll: drawData indices]].
+	self
+		uploadVertices: vertices
+		indices: indices
+		with: aCommandBuffer!
+
+runRenderPassFor: aCanvas on: aGPUTexture with: aCommandBuffer
 	| renderPass |
 	renderPass := self isMultisampling
-				ifTrue: [commandBuffer beginRenderPass: multisampleTexture resolveTexture: resolveTexture]
-				ifFalse: [commandBuffer beginRenderPass: swapchainTexture].
-	commandBuffer pushVertexUniformData: (Uniform new view: self viewMatrix asFLOATArray).
+				ifTrue: [aCommandBuffer beginRenderPass: multisampleTexture resolveTexture: resolveTexture]
+				ifFalse: [aCommandBuffer beginRenderPass: aGPUTexture].
+	aCommandBuffer pushVertexUniformData: (Uniform new view: self viewMatrix asFLOATArray).
 	renderPass
 		bindGraphicsPipeline: renderPipeline;
 		bindVertexBuffers: (Array with: vertexBuffer);
 		bind16BitIndexBuffer: indexBuffer.
 	aCanvas drawQueue reverseFlushWith: [:each | self executeDrawCommand: each in: renderPass].
 	renderPass end.
-	self isMultisampling ifTrue: [self blitResolveTexture]!
+	self isMultisampling ifTrue: [self blitResolveTextureOn: aGPUTexture with: aCommandBuffer]!
 
 sampleCount: anInteger
 	"#TODO: Enable dynamic sample count."
@@ -472,9 +457,6 @@ sampleCount: anInteger
 			[self
 				error: 'Cannot dynamically change sample count without recreating the render pipeline. Create a new instance of Renderer3D with the desired sample count.'].
 	sampleCount := anInteger!
-
-sdl
-	^SDL3Library default!
 
 sdlSampleCount
 	sampleCount = 1 ifTrue: [^SDL_GPU_SAMPLECOUNT_1].
@@ -507,17 +489,19 @@ updateTexture: aGPUTexture pixels: anExternalAddress pitch: anInteger
 		end.
 	commandBuffer submit!
 
-uploadVertices
+uploadVertices: vertices indices: indices with: aCommandBuffer
 	| copyPass vertexData indexData transferSize |
 	vertexData := StructureArray withAll: vertices elementClass: Vertex.
+	vertexData byteSize > vertexBuffer size ifTrue: [self resizeVertexBuffer: vertexData byteSize].
 	indexData := WORDArray withAll: indices.
+	indexData byteSize > indexBuffer size ifTrue: [self resizeIndexBuffer: indexData byteSize].
 	transferSize := vertexData byteSize + indexData byteSize.
 	transferSize > uploadBuffer size ifTrue: [self resizeUploadBuffer: transferSize].
 	gpuDevice
 		uploadToBuffer: uploadBuffer
 		data: vertexData asByteArray , indexData asByteArray
 		length: vertexData byteSize + indexData byteSize.
-	copyPass := commandBuffer beginCopyPass.
+	copyPass := aCommandBuffer beginCopyPass.
 	copyPass
 		uploadToBuffer: uploadBuffer
 			destination: vertexBuffer
@@ -543,7 +527,7 @@ wrapSharedTexture: anExternalAddress extent: aPoint
 	self error: 'Shared textures are not yet supported for this renderer. See: https://github.com/libsdl-org/SDL/issues/12617'! !
 
 !Renderer3D categoriesForMethods!
-blitResolveTexture!private! !
+blitResolveTextureOn:with:!public! !
 camera!public! !
 clearFallbackTexture!private! !
 createBuffers!private! !
@@ -561,7 +545,6 @@ createUtilityTextures!private! !
 destroy!public! !
 downloadTexture:pixelFormat:!public! !
 executeDrawCommand:in:!private! !
-free!public! !
 gpuDevice:!public! !
 initialize!public! !
 isMultisampling!private! !
@@ -570,22 +553,22 @@ present:!public! !
 queueDrawCommand:!private! !
 queueDrawLine:!private! !
 queueDrawRectangle:!private! !
-queueDrawString:!private! !
 queueDrawText:!private! !
 queueDrawTexture:!private! !
 queueFillPolygon:!private! !
 queueFillRectangle:!private! !
 releaseTexture:!public! !
-render:!private! !
+render:on:with:!public! !
+resizeIndexBuffer:!private! !
 resizeUploadBuffer:!private! !
-runCopyPass:!private! !
-runRenderPass:!private! !
+resizeVertexBuffer:!private! !
+runCopyPassFor:with:!public! !
+runRenderPassFor:on:with:!public! !
 sampleCount:!private! !
-sdl!private! !
 sdlSampleCount!private! !
 shadersPath!private! !
 updateTexture:pixels:pitch:!public! !
-uploadVertices!private! !
+uploadVertices:indices:with:!private! !
 viewMatrix!private! !
 window:!public! !
 wrapSharedTexture:extent:!public! !
@@ -598,7 +581,7 @@ forWindow: aWindow
 
 forWindow: aWindow sampleCount: anInteger
 	| renderer gpuDevice |
-	(self validSampleCounts includes: anInteger)
+	(#(1 2 4 8) includes: anInteger)
 		ifFalse: 
 			[self error: ('Invalid sample count: <1d>. Must be 1, 2, 4, or 8.' expandMacrosWith: anInteger)].
 	gpuDevice := SDL_GPUDevice formatFlags: SDL_GPU_SHADERFORMAT_DXIL.
@@ -614,14 +597,10 @@ forWindow: aWindow sampleCount: anInteger
 		createTextEngine;
 		createBuffers;
 		clearFallbackTexture.
-	^renderer!
-
-validSampleCounts
-	^#(1 2 4 8)! !
+	^renderer! !
 
 !Renderer3D class categoriesForMethods!
 forWindow:!public! !
 forWindow:sampleCount:!public! !
-validSampleCounts!private! !
 !
 
