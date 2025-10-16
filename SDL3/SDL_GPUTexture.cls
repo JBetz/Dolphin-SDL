@@ -23,6 +23,9 @@ extent: aPoint
 height
 	^extent y!
 
+isTexture
+	^true!
+
 pixelFormat
 	^pixelFormat!
 
@@ -36,6 +39,7 @@ width
 extent!public! !
 extent:!public! !
 height!public! !
+isTexture!public! !
 pixelFormat!accessing!public! !
 pixelFormat:!accessing!public! !
 width!public! !
