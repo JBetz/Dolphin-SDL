@@ -521,10 +521,7 @@ viewMatrix
 		yourself!
 
 window: aWindow
-	window := aWindow!
-
-wrapSharedTexture: anExternalAddress extent: aPoint 
-	self error: 'Shared textures are not yet supported for this renderer. See: https://github.com/libsdl-org/SDL/issues/12617'! !
+	window := aWindow! !
 
 !Renderer3D categoriesForMethods!
 blitResolveTextureOn:with:!public! !
@@ -571,7 +568,6 @@ updateTexture:pixels:pitch:!public! !
 uploadVertices:indices:with:!private! !
 viewMatrix!private! !
 window:!public! !
-wrapSharedTexture:extent:!public! !
 !
 
 !Renderer3D class methodsFor!

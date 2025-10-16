@@ -45,6 +45,9 @@ destroy
 	sdlRenderer destroy.
 	sdlRenderer := nil!
 
+direct3DDevice
+	^sdlRenderer direct3DDevice!
+
 downloadTexture: aSDLTexture pixelFormat: anInteger
 	| extent newTexture |
 	extent := aSDLTexture extent.
@@ -166,20 +169,7 @@ updateTexture: aTexture pixels: anExternalAddress pitch: anInteger
 	aTexture updatePixels: anExternalAddress pitch: anInteger!
 
 viewport
-	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent!
-
-wrapSharedTexture: anExternalHandle extent: aPoint
-	| direct3DDevice cInterop sharedTexture properties |
-	direct3DDevice := sdlRenderer direct3DDevice.
-	cInterop := CInteropLibrary default.
-	sharedTexture := cInterop openSharedD3D11Texture2D_device: direct3DDevice
-				sharedTextureHandle: anExternalHandle.
-	properties := SDL_Properties new.
-	properties
-		setPointerProperty: SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER value: sharedTexture;
-		setNumberProperty: SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER value: aPoint x;
-		setNumberProperty: SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER value: aPoint y.
-	^sdlRenderer createTextureWithProperties: properties! !
+	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent! !
 
 !Renderer2D categoriesForMethods!
 clear!public! !
@@ -191,6 +181,7 @@ createTexture:!public! !
 createTexture:format:!public! !
 createTextureFromSurface:!public! !
 destroy!public! !
+direct3DDevice!public! !
 downloadTexture:pixelFormat:!images!public! !
 present:!public! !
 queueDrawCommand:!private! !
@@ -208,7 +199,6 @@ sdlRenderer:!accessing!private! !
 setDrawColor:!executing!public! !
 updateTexture:pixels:pitch:!public! !
 viewport!public! !
-wrapSharedTexture:extent:!public! !
 !
 
 !Renderer2D class methodsFor!
