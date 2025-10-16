@@ -94,8 +94,18 @@ raise
 rectangle
 	^Rectangle origin: self getPosition extent: self getExtent!
 
+setFocusable: aBoolean
+	| result |
+	result := self library setWindowFocusable_window: self focusable: aBoolean.
+	self checkBooleanResult: result!
+
 setIcon: aSDLSurface
 	^self library setWindowIcon_window: self icon: aSDLSurface!
+
+setParent: aSDLWindow
+	| result |
+	result := self library setWindowParent_window: self parent: aSDLWindow.
+	self checkBooleanResult: result!
 
 setPosition: aPoint
 	| result |
@@ -144,7 +154,13 @@ updateSurface
 	self library updateWindowSurface_window: self!
 
 width
-	^self extent x! !
+	^self extent x!
+
+x
+	^self getPosition x!
+
+y
+	^self getPosition y! !
 
 !SDL_Window categoriesForMethods!
 aspectRatio!public! !
@@ -165,7 +181,9 @@ maximize!public! !
 minimize!public! !
 raise!public! !
 rectangle!public! !
+setFocusable:!public! !
 setIcon:!public! !
+setParent:!public! !
 setPosition:!public! !
 setSize:!public! !
 setTitle:!public! !
@@ -176,5 +194,7 @@ startTextInput!public! !
 sync!public! !
 updateSurface!public! !
 width!public! !
+x!public! !
+y!public! !
 !
 

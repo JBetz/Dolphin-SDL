@@ -206,6 +206,10 @@ createGPUTransferBuffer_device: device createinfo: createinfo
 	<cdecl: SDL_GPUTransferBuffer* SDL_CreateGPUTransferBuffer SDL_GPUDevice* SDL_GPUTransferBufferCreateInfo*>
 	^self invalidCall: _failureCode!
 
+createPopupWindow_parent: parent offsetX: offsetX offsetY: offsetY w: w h: h flags: flags
+	<cdecl: SDL_Window* SDL_CreatePopupWindow SDL_Window* sdword sdword sdword sdword qword>
+	^self invalidCall: _failureCode!
+
 createProperties
 	<cdecl: dword SDL_CreateProperties>
 	^self invalidCall: _failureCode!
@@ -248,6 +252,10 @@ createWindow_title: title w: w h: h flags: flags
 
 createWindowAndRenderer_title: title width: width height: height windowFlags: windowFlags window: window renderer: renderer
 	<cdecl: bool SDL_CreateWindowAndRenderer lpstr sdword sdword dword SDL_Window** SDL_Renderer**>
+	^self invalidCall: _failureCode!
+
+createWindowWithProperties_props: props
+	<cdecl: SDL_Window* SDL_CreateWindowWithProperties dword>
 	^self invalidCall: _failureCode!
 
 delay_ms: ms
@@ -1150,6 +1158,10 @@ setTextureBlendMode_texture: texture blendMode: blendMode
 	<cdecl: bool SDL_SetTextureBlendMode SDL_Texture* dword>
 	^self invalidCall: _failureCode!
 
+setWindowFocusable_window: window focusable: focusable
+	<cdecl: bool SDL_SetWindowFocusable SDL_Window* bool>
+	^self invalidCall: _failureCode!
+
 setWindowFullscreen_window: window fullscreen: fullscreen
 	<cdecl: bool SDL_SetWindowFullscreen SDL_Window* bool>
 	^self invalidCall: _failureCode!
@@ -1160,6 +1172,10 @@ setWindowIcon_window: window icon: icon
 
 setWindowKeyboardGrab_window: window grabbed: grabbed
 	<cdecl: bool SDL_SetWindowKeyboardGrab SDL_Window* bool>
+	^self invalidCall: _failureCode!
+
+setWindowParent_window: window parent: parent
+	<cdecl: bool SDL_SetWindowPosition SDL_Window* SDL_Window*>
 	^self invalidCall: _failureCode!
 
 setWindowPosition_window: window x: x y: y
@@ -1335,6 +1351,7 @@ createGPUSampler_device:createinfo:!gpu!public! !
 createGPUShader_device:createinfo:!gpu!public! !
 createGPUTexture_device:createinfo:!gpu!public! !
 createGPUTransferBuffer_device:createinfo:!gpu!public! !
+createPopupWindow_parent:offsetX:offsetY:w:h:flags:!public!video! !
 createProperties!properties!public! !
 createRenderer_window:name:!public!render! !
 createSoftwareRenderer_surface:!public!render! !
@@ -1346,6 +1363,7 @@ createTextureFromSurface_renderer:surface:!public!render! !
 createTextureWithProperties_renderer:props:!public!render! !
 createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
+createWindowWithProperties_props:!public!video! !
 delay_ms:!public!video! !
 delayNS_ns:!public!video! !
 delayPrecise_ns:!public!video! !
@@ -1571,9 +1589,11 @@ setRenderScale_renderer:scaleX:scaleY:!public!render! !
 setRenderTarget_renderer:texture:!public!render! !
 setStringProperty_props:name:value:!properties!public! !
 setTextureBlendMode_texture:blendMode:!public!render! !
+setWindowFocusable_window:focusable:!public! !
 setWindowFullscreen_window:fullscreen:!public!video! !
 setWindowIcon_window:icon:!public!video! !
 setWindowKeyboardGrab_window:grabbed:!public!video! !
+setWindowParent_window:parent:!public!video! !
 setWindowPosition_window:x:y:!public!video! !
 setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
