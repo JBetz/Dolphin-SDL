@@ -96,7 +96,7 @@ library
 setBooleanProperty: aString value: aBoolean
 	| result |
 	result := self library
-				setBooleanProperty_props: self
+				setBooleanProperty_props: id
 				name: aString
 				value: aBoolean.
 	self checkBooleanResult: result!
@@ -104,7 +104,7 @@ setBooleanProperty: aString value: aBoolean
 setFloatProperty: aString value: aFloat
 	| result |
 	result := self library
-				setFloatProperty_props: self
+				setFloatProperty_props: id
 				name: aString
 				value: aFloat.
 	self checkBooleanResult: result!
@@ -128,7 +128,7 @@ setPointerProperty: aString value: anExternalAddress
 setStringProperty: aString value: anotherString
 	| result |
 	result := self library
-				setStringProperty_props: self
+				setStringProperty_props: id
 				name: aString
 				value: anotherString.
 	self checkBooleanResult: result! !
