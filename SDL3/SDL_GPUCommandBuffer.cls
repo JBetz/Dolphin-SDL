@@ -105,16 +105,6 @@ beginRenderPass: aGPUTexture resolveTexture: anotherGPUTexture clearColor: aColo
 	self checkObjectResult: renderPass.
 	^renderPass!
 
-beginRenderPassRaw: aColorTargetInfo
-	| renderPass |
-	renderPass := self library
-				beginGPURenderPass_commandBuffer: self
-				colorTargetInfos: aColorTargetInfo
-				numColorTargets: 1
-				depthStencilTargetInfo: nil.
-	self checkObjectResult: renderPass.
-	^renderPass!
-
 blitTexture: aGPUBlitRegion destination: anotherGPUBlitRegion
 	self
 		blitTexture: aGPUBlitRegion
@@ -215,7 +205,6 @@ beginRenderPass:clearColor:depthPlane:!public! !
 beginRenderPass:clearColor:depthPlane:cycle:!public! !
 beginRenderPass:resolveTexture:!public! !
 beginRenderPass:resolveTexture:clearColor:!public! !
-beginRenderPassRaw:!public! !
 blitTexture:destination:!public! !
 blitTexture:destination:filter:!public! !
 blitTexture:destination:flipMode:!public! !
