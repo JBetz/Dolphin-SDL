@@ -98,6 +98,7 @@ createIndexBuffer: anInteger
 						usage: SDL_GPU_BUFFERUSAGE_INDEX;
 						size: anInteger).
 	self checkObjectResult: buffer.
+	buffer size: anInteger.
 	^buffer!
 
 createSampler: aSamplerCreateInfo
@@ -141,6 +142,7 @@ createVertexBuffer: anInteger
 						usage: SDL_GPU_BUFFERUSAGE_VERTEX;
 						size: anInteger).
 	self checkObjectResult: buffer.
+	buffer size: anInteger.
 	^buffer!
 
 destroy
