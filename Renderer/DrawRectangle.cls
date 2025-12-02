@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 DrawCommand subclass: #DrawRectangle
-	instanceVariableNames: 'rectangle color width'
+	instanceVariableNames: 'rectangle color thickness'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -29,13 +29,19 @@ color: anObject
 initialize
 	super initialize.
 	color := Color black.
-	width := 1!
+	thickness := 1!
 
 rectangle
 	^rectangle!
 
 rectangle: anObject
-	rectangle := anObject! !
+	rectangle := anObject!
+
+thickness
+	^thickness!
+
+thickness: anInteger
+	thickness := anInteger! !
 
 !DrawRectangle categoriesForMethods!
 applyClip:!public! !
@@ -45,5 +51,7 @@ color:!accessing!public! !
 initialize!public! !
 rectangle!accessing!public! !
 rectangle:!accessing!public! !
+thickness!public! !
+thickness:!public! !
 !
 

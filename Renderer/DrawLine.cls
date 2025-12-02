@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 DrawCommand subclass: #DrawLine
-	instanceVariableNames: 'start end color width'
+	instanceVariableNames: 'start end color thickness'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -34,17 +34,17 @@ end
 end: anObject
 	end := anObject!
 
-initialize 
+initialize
 	super initialize.
 	color := Color black.
-	width := 1!
+	thickness := 1!
 
 offset
 	| length normal perpendicular |
 	length := start dist: end.
 	normal := (end - start) / length.
 	perpendicular := normal y negated @ normal x.
-	^perpendicular * width!
+	^perpendicular * thickness * 0.5!
 
 start
 	^start!
@@ -52,11 +52,11 @@ start
 start: anObject
 	start := anObject!
 
-width
-	^width!
+thickness
+	^thickness!
 
-width: anObject
-	width := anObject! !
+thickness: anInteger
+	thickness := anInteger! !
 
 !DrawLine categoriesForMethods!
 applyClip:!public! !
@@ -69,7 +69,7 @@ initialize!public! !
 offset!public! !
 start!accessing!public! !
 start:!accessing!public! !
-width!accessing!public! !
-width:!accessing!public! !
+thickness!accessing!public! !
+thickness:!public! !
 !
 
