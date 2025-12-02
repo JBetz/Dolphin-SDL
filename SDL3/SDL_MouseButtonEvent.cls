@@ -61,6 +61,9 @@ isMouseButtonDown
 isMouseButtonUp
 	^self type = SDL_EVENT_MOUSE_BUTTON_UP!
 
+isQuadrupleClick
+	^self clicks = 4!
+
 isRightButton
 	^self button = 3!
 
@@ -163,6 +166,7 @@ isLeftButton!public! !
 isMiddleButton!public! !
 isMouseButtonDown!public! !
 isMouseButtonUp!public! !
+isQuadrupleClick!public! !
 isRightButton!public! !
 isSingleClick!public! !
 isTripleClick!public! !

@@ -29,6 +29,9 @@ asFRect
 asRectangle
 	^Rectangle origin: self origin extent: self extent!
 
+bottom
+	^self y + self h!
+
 extent
 	^self w @ self h!
 
@@ -50,6 +53,9 @@ intersect: aSDL_Rect
 
 origin
 	^self x @ self y!
+
+right
+	^self x + self w!
 
 w
 	"Answer the <Integer> value of the receiver's 'w' field."
@@ -84,11 +90,13 @@ y: anInteger
 !SDL_Rect categoriesForMethods!
 asFRect!public! !
 asRectangle!public! !
+bottom!public! !
 extent!public! !
 h!**compiled accessors**!public! !
 h:!**compiled accessors**!public! !
 intersect:!public! !
 origin!public! !
+right!public! !
 w!**compiled accessors**!public! !
 w:!**compiled accessors**!public! !
 x!**compiled accessors**!public! !
