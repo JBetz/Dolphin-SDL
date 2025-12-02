@@ -68,13 +68,16 @@ lookupFont: aString pointSize: aFloat
 present: aCanvas
 	self subclassResponsibility!
 
+resetClip
+	Error subclassResponsibility!
+
 setClip: aRectangle
 	Error subclassResponsibility!
 
 textEngine
 	^textEngine!
 
-updateTexture: aGPUTexture pixels: anExternalAddress pitch: anInteger 
+updateTexture: aGPUTexture pixels: anExternalAddress extent: aPoint
 	self subclassResponsibility!
 
 viewport
@@ -83,7 +86,10 @@ viewport
 withOffset: aPoint do: aBlock
 	self addOffset: aPoint.
 	aBlock value.
-	self subtractOffset: aPoint! !
+	self subtractOffset: aPoint!
+
+wrapExternalTexture: anExternalAddress extent: aPoint
+	self subclassResponsibility! !
 
 !Renderer categoriesForMethods!
 clear!public! !
@@ -100,11 +106,13 @@ execute:!private! !
 initialize!public! !
 lookupFont:pointSize:!font!private! !
 present:!public! !
+resetClip!public! !
 setClip:!public! !
 textEngine!accessing!public! !
-updateTexture:pixels:pitch:!public! !
+updateTexture:pixels:extent:!public! !
 viewport!public! !
 withOffset:do:!public! !
+wrapExternalTexture:extent:!public! !
 !
 
 !Renderer class methodsFor!

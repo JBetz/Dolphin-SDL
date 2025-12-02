@@ -289,8 +289,8 @@ queueDrawCommand: aDrawCommand
 
 queueDrawLine: aDrawLine
 	| start end offset fcolor vertices indices |
-	start := aDrawLine start.
-	end := aDrawLine end.
+	start := aDrawLine start + 0.5.
+	end := aDrawLine end + 0.5.
 	offset := aDrawLine offset.
 	fcolor := aDrawLine color asSDLFColor.
 	vertices := Array
@@ -302,26 +302,31 @@ queueDrawLine: aDrawLine
 	^DrawData vertices: vertices indices: indices!
 
 queueDrawRectangle: aDrawRectangle
-	| vertices indices rectangle color lines |
+	| vertices indices rectangle thickness color lines |
 	rectangle := aDrawRectangle rectangle.
 	rectangle ifNil: [^nil].
+	thickness := aDrawRectangle thickness.
 	color := aDrawRectangle color.
 	lines := Array
 				with: (DrawLine new
 						start: rectangle topLeft;
 						end: rectangle topRight;
+						thickness: thickness;
 						color: color)
 				with: (DrawLine new
 						start: rectangle topRight;
 						end: rectangle bottomRight;
+						thickness: thickness;
 						color: color)
 				with: (DrawLine new
 						start: rectangle bottomRight;
 						end: rectangle bottomLeft;
+						thickness: thickness;
 						color: color)
 				with: (DrawLine new
 						start: rectangle bottomLeft;
 						end: rectangle topLeft;
+						thickness: thickness;
 						color: color).
 	vertices := lines inject: OrderedCollection new
 				into: 
@@ -468,10 +473,12 @@ sdlSampleCount
 shadersPath
 	^FileLocator imageRelative: 'shaders\'!
 
-updateTexture: aGPUTexture pixels: anExternalAddress pitch: anInteger
-	| commandBuffer copyPass transferSize |
+updateTexture: aGPUTexture pixels: anExternalAddress extent: aPoint
+	| drawWidth drawHeight transferSize commandBuffer copyPass |
 	gpuDevice ifNil: [^self].
-	transferSize := aGPUTexture height * anInteger.
+	drawWidth := aGPUTexture width min: aPoint x.
+	drawHeight := aGPUTexture height min: aPoint y.
+	transferSize := drawWidth * 4 * drawHeight.
 	transferSize > uploadBuffer size ifTrue: [self resizeUploadBuffer: transferSize].
 	gpuDevice
 		uploadToBuffer: uploadBuffer
@@ -483,8 +490,8 @@ updateTexture: aGPUTexture pixels: anExternalAddress pitch: anInteger
 		uploadToTexture: (SDL_GPUTextureTransferInfo new transfer_buffer: uploadBuffer)
 			destination: (SDL_GPUTextureRegion new
 					texture: aGPUTexture;
-					w: aGPUTexture width;
-					h: aGPUTexture height;
+					w: drawWidth;
+					h: drawHeight;
 					d: 1);
 		end.
 	commandBuffer submit!
@@ -521,7 +528,11 @@ viewMatrix
 		yourself!
 
 window: aWindow
-	window := aWindow! !
+	window := aWindow!
+
+wrapExternalTexture: anExternalAddress extent: aPoint
+	self
+		error: 'Shared textures are not yet supported for this renderer. See: https://github.com/libsdl-org/SDL/issues/12617'! !
 
 !Renderer3D categoriesForMethods!
 blitResolveTextureOn:with:!public! !
@@ -564,10 +575,11 @@ runRenderPassFor:on:with:!public! !
 sampleCount:!private! !
 sdlSampleCount!private! !
 shadersPath!private! !
-updateTexture:pixels:pitch:!public! !
+updateTexture:pixels:extent:!public! !
 uploadVertices:indices:with:!private! !
 viewMatrix!private! !
 window:!public! !
+wrapExternalTexture:extent:!public! !
 !
 
 !Renderer3D class methodsFor!

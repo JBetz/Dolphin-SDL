@@ -68,9 +68,9 @@ present: aCanvas
 queueDrawCommand: aRenderCommand
 	| selector |
 	selector := CommandMap at: aRenderCommand class.
-	aRenderCommand clip ifNotNil: [:aRectangle | sdlRenderer setClip: aRectangle].
+	aRenderCommand clip ifNotNil: [:aRectangle | self setClip: aRectangle].
 	self perform: selector with: aRenderCommand.
-	aRenderCommand clip ifNotNil: [sdlRenderer resetClip]!
+	aRenderCommand clip ifNotNil: [self resetClip]!
 
 queueDrawLine: aDrawLine
 	aDrawLine color ifNotNil: [:aColor | sdlRenderer setDrawColor: aColor].
@@ -159,17 +159,32 @@ queueFillRectangle: aFillRectangle
 releaseTexture: aSDL_Texture 
 	aSDL_Texture destroy!
 
+resetClip
+	sdlRenderer resetClip!
+
 sdlRenderer: aSDL_Renderer
 	sdlRenderer := aSDL_Renderer!
+
+setClip: aRectangle
+	sdlRenderer setClip: aRectangle!
 
 setDrawColor: aColor
 	sdlRenderer setDrawColor: aColor!
 
-updateTexture: aTexture pixels: anExternalAddress pitch: anInteger
-	aTexture updatePixels: anExternalAddress pitch: anInteger!
+updateTexture: aTexture pixels: anExternalAddress extent: aPoint 
+	aTexture updatePixels: anExternalAddress pitch: aPoint x * 4!
 
 viewport
-	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent! !
+	^Rectangle origin: 0 @ 0 extent: sdlRenderer getWindow getExtent!
+
+wrapExternalTexture: anExternalHandle extent: aPoint
+	| properties |
+	properties := SDL_Properties new.
+	properties
+		setPointerProperty: SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER value: anExternalHandle;
+		setNumberProperty: SDL_PROP_TEXTURE_CREATE_WIDTH_NUMBER value: aPoint x truncated;
+		setNumberProperty: SDL_PROP_TEXTURE_CREATE_HEIGHT_NUMBER value: aPoint y truncated.
+	^sdlRenderer createTextureWithProperties: properties! !
 
 !Renderer2D categoriesForMethods!
 clear!public! !
@@ -195,10 +210,13 @@ queueDrawTexture:!executing!private! !
 queueFillPolygon:!executing!private! !
 queueFillRectangle:!executing!private! !
 releaseTexture:!public! !
+resetClip!public! !
 sdlRenderer:!accessing!private! !
+setClip:!public! !
 setDrawColor:!executing!public! !
-updateTexture:pixels:pitch:!public! !
+updateTexture:pixels:extent:!public! !
 viewport!public! !
+wrapExternalTexture:extent:!public! !
 !
 
 !Renderer2D class methodsFor!
