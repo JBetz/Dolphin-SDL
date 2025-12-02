@@ -175,10 +175,15 @@ pushVertexUniformData: data
 		length: data byteSize!
 
 submit
-	self library submitGPUCommandBuffer_commandBuffer: self!
+	| result |
+	result := self library submitGPUCommandBuffer_commandBuffer: self.
+	self checkBooleanResult: result!
 
 submitAndAcquireFence
-	^self library submitGPUCommandBufferAndAcquireFence_commandBuffer: self!
+	| fence |
+	fence := self library submitGPUCommandBufferAndAcquireFence_commandBuffer: self.
+	self checkObjectResult: fence.
+	^fence!
 
 waitAndAcquireSwapchainTexture: aWindow
 	| swapchainTexture result width height |

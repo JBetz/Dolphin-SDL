@@ -1215,7 +1215,7 @@ stepBackUTF8_start: start pstr: pstr
 	^self invalidCall: _failureCode!
 
 submitGPUCommandBuffer_commandBuffer: commandBuffer
-	<cdecl: void SDL_SubmitGPUCommandBuffer SDL_GPUCommandBuffer*>
+	<cdecl: bool SDL_SubmitGPUCommandBuffer SDL_GPUCommandBuffer*>
 	^self invalidCall: _failureCode!
 
 submitGPUCommandBufferAndAcquireFence_commandBuffer: commandBuffer

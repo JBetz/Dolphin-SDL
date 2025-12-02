@@ -229,7 +229,16 @@ loadVertexShader: aString uniformBufferCount: anInteger storageBufferCount: anot
 		storageTextureCount: 0!
 
 mapTransferBuffer: aTransferBuffer
-	^self library mapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer cycle: true!
+	| result |
+	result := self library
+				mapGPUTransferBuffer_device: self
+				transferBuffer: aTransferBuffer
+				cycle: true.
+	self checkObjectResult: result.
+	^result!
+
+queryFence: aGPUFence
+	^self library queryGPUFence_device: self fence: aGPUFence!
 
 releaseBuffer: aGPUBuffer
 	self library releaseGPUBuffer_device: self buffer: aGPUBuffer!
@@ -276,7 +285,8 @@ supportsSampleCount: anInteger textureFormat: anotherInteger
 		sampleCount: anInteger!
 
 unmapTransferBuffer: aTransferBuffer
-	self library unmapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer!
+	self library unmapGPUTransferBuffer_device: self transferBuffer: aTransferBuffer.
+	!
 
 uploadToBuffer: aTransferBuffer data: anExternalAddress length: anInteger
 	| transferData |
@@ -331,6 +341,7 @@ loadVertexShader:!public! !
 loadVertexShader:uniformBufferCount:!public! !
 loadVertexShader:uniformBufferCount:storageBufferCount:!public! !
 mapTransferBuffer:!public! !
+queryFence:!public! !
 releaseBuffer:!public! !
 releaseComputePipeline:!public! !
 releaseFence:!public! !
