@@ -33,6 +33,15 @@ cluster_index: anInteger
 
 destroy!
 
+flagNames
+	| names |
+	names := OrderedCollection new.
+	self textStart ifTrue: [names add: #textStart].
+	self lineStart ifTrue: [names add: #lineStart].
+	self lineEnd ifTrue: [names add: #lineEnd].
+	self textEnd ifTrue: [names add: #textEnd].
+	^names asArray!
+
 flags
 	"Answer the <Integer> value of the receiver's 'flags' field."
 
@@ -67,10 +76,10 @@ line_index: anInteger
 	bytes sdwordAtOffset: _OffsetOf_line_index put: anInteger!
 
 lineEnd
-	^self flags & TTF_SUBSTRING_LINE_END!
+	^(self flags & TTF_SUBSTRING_LINE_END) asBoolean!
 
 lineStart
-	^self flags & TTF_SUBSTRING_LINE_START!
+	^(self flags & TTF_SUBSTRING_LINE_START) asBoolean!
 
 offset
 	"Answer the <Integer> value of the receiver's 'offset' field."
@@ -97,15 +106,16 @@ rect: aSDL_Rect
 		startingAt: 1!
 
 textEnd
-	^self flags & TTF_SUBSTRING_TEXT_END!
+	^(self flags & TTF_SUBSTRING_TEXT_END) asBoolean!
 
 textStart
-	^self flags & TTF_SUBSTRING_TEXT_START! !
+	^(self flags & TTF_SUBSTRING_TEXT_START) asBoolean! !
 
 !TTF_SubString categoriesForMethods!
 cluster_index!**compiled accessors**!public! !
 cluster_index:!**compiled accessors**!public! !
 destroy!public! !
+flagNames!**compiled accessors**!public! !
 flags!**compiled accessors**!public! !
 flags:!**compiled accessors**!public! !
 index!**compiled accessors**!public! !
