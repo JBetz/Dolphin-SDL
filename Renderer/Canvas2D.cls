@@ -53,12 +53,12 @@ drawArrowFrom: startPoint to: endPoint width: width color: color zIndex: zIndex
 					color: color;
 					zIndex: zIndex)!
 
-drawLineFrom: startPoint to: endPoint color: color width: width zIndex: zIndex
+drawLineFrom: startPoint to: endPoint color: color thickness: thickness zIndex: zIndex
 	self addDrawCommand: (DrawLine new
 				start: startPoint;
 				end: endPoint;
 				color: color;
-				width: width;
+				thickness: thickness;
 				zIndex: zIndex)!
 
 drawLineFrom: startPoint to: endPoint color: color zIndex: zIndex
@@ -68,20 +68,12 @@ drawLineFrom: startPoint to: endPoint color: color zIndex: zIndex
 				color: color;
 				zIndex: zIndex)!
 
-drawLineFrom: startPoint to: endPoint width: width color: color zIndex: zIndex
-	self addDrawCommand: (DrawLine new
-				start: startPoint;
-				end: endPoint;
-				width: width;
-				color: color;
-				zIndex: zIndex)!
-
-drawLineFrom: aPoint to: aPoint2 width: aFloat zIndex: anInteger
+drawLineFrom: aPoint to: aPoint2 thickness: thickness zIndex: zIndex
 	self addDrawCommand: (DrawLine new
 				start: aPoint;
 				end: aPoint2;
-				width: aFloat;
-				zIndex: anInteger)!
+				thickness: thickness;
+				zIndex: zIndex)!
 
 drawLineFrom: startPoint to: endPoint zIndex: anInteger
 	self addDrawCommand: (DrawLine new
@@ -106,11 +98,11 @@ drawRectangle: aRectangle color: aColor
 				rectangle: aRectangle;
 				color: aColor)!
 
-drawRectangle: aRectangle color: aColor width: anInteger zIndex: anotherInteger
+drawRectangle: aRectangle color: aColor thickness: anInteger zIndex: anotherInteger
 	self addDrawCommand: (DrawRectangle new
 				rectangle: aRectangle;
 				color: aColor;
-				width: anInteger;
+				thickness: anInteger;
 				zIndex: anotherInteger)!
 
 drawRectangle: aRectangle color: aColor zIndex: anInteger
@@ -279,16 +271,15 @@ addDrawCommand:!private! !
 addOffset:!private! !
 clip!public! !
 drawArrowFrom:to:width:color:zIndex:!public! !
-drawLineFrom:to:color:width:zIndex:!geometry!public! !
+drawLineFrom:to:color:thickness:zIndex:!geometry!public! !
 drawLineFrom:to:color:zIndex:!geometry!public! !
-drawLineFrom:to:width:color:zIndex:!geometry!public! !
-drawLineFrom:to:width:zIndex:!public! !
+drawLineFrom:to:thickness:zIndex:!public! !
 drawLineFrom:to:zIndex:!geometry!public! !
 drawPoint:color:zIndex:!geometry!public! !
 drawQueue!public! !
 drawRectangle:!geometry!public! !
 drawRectangle:color:!geometry!public! !
-drawRectangle:color:width:zIndex:!geometry!public! !
+drawRectangle:color:thickness:zIndex:!geometry!public! !
 drawRectangle:color:zIndex:!geometry!public! !
 drawString:rectangle:color:fontSize:zIndex:!public!text! !
 drawString:rectangle:color:zIndex:!public!text! !
