@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'windows renderEventCode keyStates logCallback isRunning isBeingDebugged'
+	instanceVariableNames: 'windows keyStates logCallback isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -39,16 +39,18 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 		initialize;
 		startTextInput.
 	windows at: window getID put: anApplication.
+	isRunning ifFalse: [self start].
 	^window!
 
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
+displayExtent
+	^self getPrimaryDisplay extent!
+
 forceStop
 	windows removeAll.
-	keyStates := nil.
-	logCallback := nil.
-	isRunning := false!
+	self stop!
 
 getDisplays
 	| displayCount primaryDisplayId |
@@ -63,28 +65,26 @@ getPrimaryDisplay
 	primaryDisplayId = 0 ifTrue: [self error: self library getError].
 	^SDL_Display fromInteger: primaryDisplayId!
 
-getPrimaryDisplayExtent
-	^self getPrimaryDisplay extent!
-
 initialize
 	super initialize.
 	windows := LookupTable new.
 	self
 		initializeLibraries;
 		initializeLogging;
-		registerRenderEvent;
 		setHints.
 	keyStates := self library getKeyboardState_numkeys: nil.
 	isRunning := true.
 	isBeingDebugged := false!
 
 initializeLibraries
-	| sdl sdlTtf |
+	| sdl sdlTtf sdlNet |
 	sdl := SDL3Library default.
 	sdlTtf := SDL3TTFLibrary default.
+	sdlNet := SDL3NetLibrary default.
 	(sdl init_flags: SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER)
 		ifFalse: [self error: 'Error when initializing SDL base library'].
-	sdlTtf init ifFalse: [self error: sdl getError]!
+	sdlTtf init ifFalse: [self error: sdl getError].
+	sdlNet init ifFalse: [self error: sdl getError]!
 
 initializeLogging
 	logCallback := MessageCallback
@@ -114,11 +114,8 @@ isKeyDown: scanCode
 isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
-iterate
-	isRunning ifFalse: [^self].
-	self
-		pumpMessages;
-		renderWindows!
+keepAlive
+	^isRunning!
 
 library
 	^SDL3Library default!
@@ -153,30 +150,9 @@ pumpMessages
 	windowId := event windowID.
 	windowId ifNil: [^self].
 	destination := windows at: windowId ifAbsent: [^self].
+	destination isReady ifFalse: [^self].
 	destination onEvent: event]
 			repeat!
-
-pushCloseEvent: anInteger
-	| event |
-	event := SDL_WindowEvent new
-				type: SDL_EVENT_WINDOW_CLOSE_REQUESTED;
-				windowID: anInteger.
-	self pushEvent: event!
-
-pushEvent: aSDLEvent
-	| result |
-	result := self library pushEvent_event: aSDLEvent.
-	self checkBooleanResult: result!
-
-pushRenderEvent: anInteger
-	| event |
-	event := SDL_UserEvent new
-				type: renderEventCode;
-				windowID: anInteger.
-	self pushEvent: event!
-
-registerRenderEvent
-	renderEventCode := self library registerEvents_numevents: 1!
 
 renderWindows
 	(windows select: [:each | each isReady]) do: [:each | each render]!
@@ -187,7 +163,7 @@ restart
 		start!
 
 setHints
-	self library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '1'!
+	self library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '0'!
 
 start
 	isRunning := true!
@@ -205,10 +181,10 @@ closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
+displayExtent!public! !
 forceStop!public! !
 getDisplays!public! !
 getPrimaryDisplay!public! !
-getPrimaryDisplayExtent!public! !
 initialize!public! !
 initializeLibraries!private! !
 initializeLogging!private! !
@@ -217,16 +193,12 @@ isCapsLockDown!public! !
 isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
-iterate!public! !
+keepAlive!public! !
 library!public! !
 onLog:category:priority:message:!public! !
 onUnhandledError:!public! !
 pollEvent!public! !
 pumpMessages!public! !
-pushCloseEvent:!public! !
-pushEvent:!public! !
-pushRenderEvent:!public! !
-registerRenderEvent!public! !
 renderWindows!public! !
 restart!public! !
 setHints!public! !
