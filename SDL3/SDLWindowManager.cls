@@ -114,6 +114,12 @@ isKeyDown: scanCode
 isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
 
+iterate
+	isRunning ifFalse: [^self].
+	self
+		pumpMessages;
+		renderWindows!
+
 keepAlive
 	^isRunning!
 
@@ -193,6 +199,7 @@ isCapsLockDown!public! !
 isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
+iterate!public! !
 keepAlive!public! !
 library!public! !
 onLog:category:priority:message:!public! !
