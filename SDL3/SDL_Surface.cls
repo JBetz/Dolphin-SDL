@@ -59,6 +59,11 @@ isSurface
 isTexture
 	^false!
 
+lock
+	| result |
+	result := self library lockSurface_surface: self.
+	self checkBooleanResult: result!
+
 pitch
 	"Answer the <Integer> value of the receiver's 'pitch' field."
 
@@ -94,6 +99,9 @@ saveAsPNG: aString
 	result := self imageLibrary savePNG_surface: self file: aString.
 	self checkBooleanResult: result!
 
+unlock
+	self library unlockSurface_surface: self!
+
 w
 	"Answer the <Integer> value of the receiver's 'w' field."
 
@@ -112,6 +120,7 @@ h!public! !
 height!public! !
 isSurface!public! !
 isTexture!public! !
+lock!public! !
 pitch!public! !
 pixels!public! !
 refcount!public! !
@@ -119,6 +128,7 @@ refcount:!public! !
 reserved!public! !
 reserved:!public! !
 saveAsPNG:!public! !
+unlock!public! !
 w!public! !
 width!public! !
 !
