@@ -75,7 +75,7 @@ getSubStringForLine: anInteger
 	substring := TTF_SubString new.
 	result := self library
 				getTextSubStringForLine_text: self
-				line: anInteger
+				line: anInteger - 1
 				substring: substring.
 	self checkBooleanResult: result.
 	^substring!
@@ -175,7 +175,7 @@ extent!public! !
 getSubStringForIndex:!public! !
 getSubStringForInterval:!public! !
 getSubStringForLine:!public! !
-getSubStringForOffset:!public! !
+getSubStringForOffset:!private! !
 getSubStringForPoint:!public! !
 insertString:index:!public! !
 insertString:offset:!public! !
