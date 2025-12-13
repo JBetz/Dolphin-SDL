@@ -542,6 +542,10 @@ getPerformanceFrequency
 	<cdecl: qword SDL_GetPerformanceFrequency>
 	^self invalidCall: _failureCode!
 
+getPixelFormatDetails_format: format
+	<cdecl: SDL_PixelFormatDetails* SDL_GetPixelFormatDetails dword>
+	^self invalidCall: _failureCode!
+
 getPixelFormatForMasks_bpp: bpp rMask: rMask gMask: gMask bMask: bMask aMask: aMask
 	<cdecl: dword SDL_GetPixelFormatForMasks sdword dword dword dword dword>
 	^self invalidCall: _failureCode!
@@ -600,6 +604,14 @@ getRenderViewport_renderer: renderer rect: rect
 
 getRenderWindow_renderer: renderer
 	<cdecl: SDL_Window* SDL_GetRenderWindow SDL_Renderer*>
+	^self invalidCall: _failureCode!
+
+getRGB_pixelValue: pixelValue format: format palette: palette r: r g: g b: b
+	<cdecl: void SDL_GetRGB dword SDL_PixelFormatDetails* SDL_Palette* byte* byte* byte*>
+	^self invalidCall: _failureCode!
+
+getRGBA_pixelValue: pixelValue format: format palette: palette r: r g: g b: b a: a
+	<cdecl: void SDL_GetRGBA dword SDL_PixelFormatDetails* SDL_Palette* byte* byte* byte* byte*>
 	^self invalidCall: _failureCode!
 
 getSandbox
@@ -820,6 +832,10 @@ lockAudioStream_stream: stream
 
 lockProperties_props: props
 	<cdecl: bool SDL_LockProperties dword>
+	^self invalidCall: _failureCode!
+
+lockSurface_surface: surface
+	<cdecl: bool SDL_LockSurface SDL_Surface*>
 	^self invalidCall: _failureCode!
 
 lockTexture_texture: texture rect: rect pixels: pixels pitch: pitch
@@ -1242,6 +1258,10 @@ unlockProperties_props: props
 	<cdecl: void SDL_UnlockProperties dword>
 	^self invalidCall: _failureCode!
 
+unlockSurface_surface: surface
+	<cdecl: void SDL_UnlockSurface SDL_Surface*>
+	^self invalidCall: _failureCode!
+
 unlockTexture_texture: texture
 	<cdecl: void SDL_UnlockTexture SDL_Texture*>
 	^self invalidCall: _failureCode!
@@ -1435,6 +1455,7 @@ getNumVideoDrivers!public!video! !
 getPathInfo_path:info:!file system!public! !
 getPerformanceCounter!public!video! !
 getPerformanceFrequency!public!video! !
+getPixelFormatDetails_format:!audio!public! !
 getPixelFormatForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
 getPointerProperty_props:name:defaultValue:!properties!public! !
 getPrefPath_org:app:!file system!public! !
@@ -1450,6 +1471,8 @@ getRenderScale_renderer:scaleX:scaleY:!public!render! !
 getRenderTarget_renderer:!public!render! !
 getRenderViewport_renderer:rect:!public!render! !
 getRenderWindow_renderer:!public!render! !
+getRGB_pixelValue:format:palette:r:g:b:!audio!public! !
+getRGBA_pixelValue:format:palette:r:g:b:a:!audio!public! !
 getSandbox!public!video! !
 getStringProperty_props:name:defaultValue:!properties!public! !
 getTextureBlendMode_texture:blendMode:!public!render! !
@@ -1505,6 +1528,7 @@ loadBMP_file:!io stream!public! !
 loadFile_file:datasize:!io stream!public! !
 lockAudioStream_stream:!audio!public! !
 lockProperties_props:!properties!public! !
+lockSurface_surface:!public!render! !
 lockTexture_texture:rect:pixels:pitch:!public!render! !
 log_fmt:!log!public! !
 logCritical_category:fmt:!log!public! !
@@ -1610,6 +1634,7 @@ unbindAudioStream_stream:!audio!public! !
 unbindAudioStreams_streams:numStreams:!audio!public! !
 unlockAudioStream_stream:!audio!public! !
 unlockProperties_props:!properties!public! !
+unlockSurface_surface:!public!render! !
 unlockTexture_texture:!public!render! !
 unmapGPUTransferBuffer_device:transferBuffer:!gpu!public! !
 updateTexture_texture:rect:pixels:pitch:!public!render! !
