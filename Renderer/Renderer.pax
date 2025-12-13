@@ -92,7 +92,7 @@ Dictionary variableSubclass: #PriorityQueue
 	classInstanceVariableNames: ''!
 
 DrawCommand subclass: #DrawLine
-	instanceVariableNames: 'start end color width'
+	instanceVariableNames: 'start end color thickness'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -104,7 +104,7 @@ DrawCommand subclass: #DrawPoint
 	classInstanceVariableNames: ''!
 
 DrawCommand subclass: #DrawRectangle
-	instanceVariableNames: 'rectangle color width'
+	instanceVariableNames: 'rectangle color thickness'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
