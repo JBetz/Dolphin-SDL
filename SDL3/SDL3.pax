@@ -4,6 +4,12 @@ package paxVersion: 1;
 	basicComment: ''.
 
 package classNames
+	add: #NET_Address;
+	add: #NET_Datagram;
+	add: #NET_DatagramSocket;
+	add: #NET_Object;
+	add: #NET_Server;
+	add: #NET_StreamSocket;
 	add: #SDL_AudioDeviceEvent;
 	add: #SDL_AudioSpec;
 	add: #SDL_AudioStream;
@@ -80,7 +86,7 @@ package classNames
 	add: #SDL_PaintEvent;
 	add: #SDL_Palette;
 	add: #SDL_PathInfo;
-	add: #SDL_PixelFormat;
+	add: #SDL_PixelFormatDetails;
 	add: #SDL_Point;
 	add: #SDL_Properties;
 	add: #SDL_QuitEvent;
@@ -106,6 +112,7 @@ package classNames
 	add: #SDL_WindowEvent;
 	add: #SDL3ImageLibrary;
 	add: #SDL3Library;
+	add: #SDL3NetLibrary;
 	add: #SDL3ShadercrossLibrary;
 	add: #SDL3TTFLibrary;
 	add: #SDLWindowManager;
@@ -122,6 +129,7 @@ package methodNames
 	add: #Color -> #asSDLColor;
 	add: #Color -> #asSDLFColor;
 	add: #ExternalMethod -> #procAddress:;
+	add: #InputState -> #loopWhile:;
 	add: #Point -> #asSDLFPoint;
 	add: #Point -> #asSDLPoint;
 	add: #Rectangle -> #asSDLFRect;
@@ -131,6 +139,7 @@ package methodNames
 
 package globalNames
 	add: #SDLConstants;
+	add: #SDLNetConstants;
 	add: #TTFConstants;
 	yourself.
 
@@ -141,9 +150,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+	'..\..\..\Desktop\Dolphin Images\Flight Navigator 48\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\Desktop\Dolphin Images\Flight Navigator 48\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\..\Desktop\Dolphin Images\Flight Navigator 48\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
@@ -162,7 +171,7 @@ Object subclass: #SDL_Properties
 	classInstanceVariableNames: ''!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'windows renderEventCode keyStates logCallback isRunning isBeingDebugged'
+	instanceVariableNames: 'windows keyStates logCallback isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -185,6 +194,12 @@ ExternalLibrary subclass: #SDL3Library
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+ExternalLibrary subclass: #SDL3NetLibrary
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 ExternalLibrary subclass: #SDL3ShadercrossLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -195,6 +210,12 @@ ExternalLibrary subclass: #SDL3TTFLibrary
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #NET_Object
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'SDLNetConstants'
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_AudioSpec
@@ -491,9 +512,9 @@ ExternalStructure subclass: #SDL_PathInfo
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
-ExternalStructure subclass: #SDL_PixelFormat
+ExternalStructure subclass: #SDL_PixelFormatDetails
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_Aloss _OffsetOf_Amask _OffsetOf_Ashift _OffsetOf_BitsPerPixel _OffsetOf_Bloss _OffsetOf_Bmask _OffsetOf_Bshift _OffsetOf_BytesPerPixel _OffsetOf_format _OffsetOf_Gloss _OffsetOf_Gmask _OffsetOf_Gshift _OffsetOf_next _OffsetOf_padding _OffsetOf_palette _OffsetOf_refcount _OffsetOf_Rloss _OffsetOf_Rmask _OffsetOf_Rshift'
+	classVariableNames: '_OffsetOf_Abits _OffsetOf_Amask _OffsetOf_Ashift _OffsetOf_Bbits _OffsetOf_bits_per_pixel _OffsetOf_Bmask _OffsetOf_Bshift _OffsetOf_bytes_per_pixel _OffsetOf_format _OffsetOf_Gbits _OffsetOf_Gmask _OffsetOf_Gshift _OffsetOf_padding _OffsetOf_Rbits _OffsetOf_Rmask _OffsetOf_Rshift'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -582,6 +603,36 @@ LPVOID subclass: #SDL_FunctionPointer
 	classInstanceVariableNames: ''!
 
 LPVOID subclass: #SDL_GLContext
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+NET_Object subclass: #NET_Address
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+NET_Object subclass: #NET_Datagram
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+NET_Object subclass: #NET_DatagramSocket
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+NET_Object subclass: #NET_Server
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+NET_Object subclass: #NET_StreamSocket
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
@@ -854,6 +905,48 @@ procAddress: anExternalAddress
 
 !ExternalMethod categoriesForMethods!
 procAddress:!accessing!public! !
+!
+
+!InputState methodsFor!
+
+loopWhile: aBlock
+	"Pump messages until the <niladicValuable> argument evaluates to false."
+
+	"Implementation Note: Host system events are processed at a higher priority to deferred
+	actions. A single message/action is processed before testing again to see if the loop should
+	be terminated. A single deferred action is processed between each test to see if there are
+	further Windows messages. Generally however the Windows message queue remains empty for long
+	periods, and all deferred messages will be quickly processed. When both queues are empty the
+	active process (which should be the UI process) will yield control to lower priority
+	processes, in particular the idle process which is responsible for quiescing the whole
+	system."
+
+	| msg activity |
+	msg := MSG new.
+	activity := false.
+	
+	[
+	[aBlock value ifFalse: [^self].
+	self isInputReady: msg] whileTrue: 
+				[activity := true.
+				self pumpMessage: msg].
+	SDLWindowManager iterate.
+	"The PostedActionWindow should evaluate all posted actions in the message pump, but for
+	robustness ensure it does not accumulate a backlog of actions as this would cause very
+	strange behaviour."
+	msgWindow evaluatePendingActions ifTrue: [activity := true].
+	deferredActions nextNoWait
+		ifNil: 
+			[self waitForInput: activity.
+			activity := false]
+		ifNotNil: 
+			[:action |
+			activity := true.
+			action value]]
+			repeat! !
+
+!InputState categoriesForMethods!
+loopWhile:!message dispatching!public! !
 !
 
 !Point methodsFor!
