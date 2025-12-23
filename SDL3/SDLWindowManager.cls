@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'windows keyStates logCallback isRunning isBeingDebugged'
+	instanceVariableNames: 'windows keyStates logCallback frameCallbacks isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -72,9 +72,10 @@ initialize
 		initializeLibraries;
 		initializeLogging;
 		setHints.
+	frameCallbacks := LookupTable new.
 	keyStates := self library getKeyboardState_numkeys: nil.
 	isRunning := true.
-	isBeingDebugged := false!
+	isBeingDebugged := false.!
 
 initializeLibraries
 	| sdl sdlTtf sdlNet |
@@ -113,12 +114,6 @@ isKeyDown: scanCode
 
 isShiftKeyDown
 	^(self isKeyDown: SDL_SCANCODE_LSHIFT) or: [self isKeyDown: SDL_SCANCODE_RSHIFT]!
-
-iterate
-	isRunning ifFalse: [^self].
-	self
-		pumpMessages;
-		renderWindows!
 
 keepAlive
 	^isRunning!
@@ -160,6 +155,9 @@ pumpMessages
 	destination onEvent: event]
 			repeat!
 
+registerFrameCallback: aBlock for: anObject
+	frameCallbacks at: anObject put: aBlock!
+
 renderWindows
 	(windows select: [:each | each isReady]) do: [:each | each render]!
 
@@ -178,7 +176,14 @@ stop
 	self closeAllWindows.
 	keyStates := nil.
 	logCallback := nil.
-	isRunning := false! !
+	frameCallbacks removeAll.
+	isRunning := false!
+
+update
+	isRunning ifFalse: [^self].
+	self pumpMessages.
+	frameCallbacks do: [:each | each value].
+	self renderWindows! !
 
 !SDLWindowManager categoriesForMethods!
 checkBooleanResult:!private! !
@@ -199,18 +204,19 @@ isCapsLockDown!public! !
 isCtrlKeyDown!public! !
 isKeyDown:!public! !
 isShiftKeyDown!public! !
-iterate!public! !
 keepAlive!public! !
 library!public! !
 onLog:category:priority:message:!public! !
 onUnhandledError:!public! !
 pollEvent!public! !
 pumpMessages!public! !
+registerFrameCallback:for:!public! !
 renderWindows!public! !
 restart!public! !
 setHints!public! !
 start!public! !
 stop!public! !
+update!public! !
 !
 
 !SDLWindowManager class methodsFor!
@@ -238,10 +244,6 @@ initialize
 			send: #onShutdown
 			to: self!
 
-iterate
-	Singleton ifNil: [^self].
-	[Singleton iterate] on: Error do: [:error | Singleton onUnhandledError: error]!
-
 new
 	self shouldNotImplement!
 
@@ -251,16 +253,20 @@ onShutdown
 onStartup
 	self
 		disable;
-		enable! !
+		enable!
+
+update
+	Singleton ifNil: [^self].
+	[Singleton update] on: Error do: [:error | Singleton onUnhandledError: error]! !
 
 !SDLWindowManager class categoriesForMethods!
 current!public! !
 disable!public! !
 enable!public! !
 initialize!public! !
-iterate!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
+update!public! !
 !
 

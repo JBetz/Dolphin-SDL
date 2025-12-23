@@ -171,7 +171,7 @@ Object subclass: #SDL_Properties
 	classInstanceVariableNames: ''!
 
 Object subclass: #SDLWindowManager
-	instanceVariableNames: 'windows keyStates logCallback isRunning isBeingDebugged'
+	instanceVariableNames: 'windows keyStates logCallback frameCallbacks isRunning isBeingDebugged'
 	classVariableNames: 'Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
@@ -930,7 +930,7 @@ loopWhile: aBlock
 	self isInputReady: msg] whileTrue: 
 				[activity := true.
 				self pumpMessage: msg].
-	SDLWindowManager iterate.
+	SDLWindowManager update.
 	"The PostedActionWindow should evaluate all posted actions in the message pump, but for
 	robustness ensure it does not accumulate a backlog of actions as this would cause very
 	strange behaviour."
