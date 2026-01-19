@@ -128,6 +128,7 @@ package classNames
 package methodNames
 	add: #Color -> #asSDLColor;
 	add: #Color -> #asSDLFColor;
+	add: #ExternalCallback -> #makeProcInstance;
 	add: #ExternalMethod -> #procAddress:;
 	add: #InputState -> #loopWhile:;
 	add: #Point -> #asSDLFPoint;
@@ -150,9 +151,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+	'..\..\..\Desktop\Dolphin Images\Flight Navigator 49\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\..\..\Desktop\Dolphin Images\Flight Navigator 49\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\..\..\Desktop\Dolphin Images\Flight Navigator 49\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
@@ -893,6 +894,20 @@ asSDLFColor
 !Color categoriesForMethods!
 asSDLColor!public! !
 asSDLFColor!public! !
+!
+
+!ExternalCallback methodsFor!
+
+makeProcInstance
+	"Private - Allocate a callback thunk for the receiver from the block in fixed, executable,
+	memory."
+
+	thunk := (ThunkBase asInteger + ((cookie - 1) * ThunkSize)) asExternalAddress.
+	thunk wordAtOffset: ArgSizeOffset
+		put: (descriptor calleeCleans ifTrue: [self argumentsSize] ifFalse: [0])! !
+
+!ExternalCallback categoriesForMethods!
+makeProcInstance!private!realizing/unrealizing! !
 !
 
 !ExternalMethod methodsFor!
