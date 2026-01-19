@@ -87,6 +87,9 @@ SDLConstants at: 'SDL_DISABLE' put: 16r0!
 SDLConstants at: 'SDL_DOLLARGESTURE' put: 16r800!
 SDLConstants at: 'SDL_DOLLARRECORD' put: 16r801!
 SDLConstants at: 'SDL_ENABLE' put: 16r1!
+SDLConstants at: 'SDL_ENUM_CONTINUE' put: 16r0!
+SDLConstants at: 'SDL_ENUM_FAILURE' put: 16r2!
+SDLConstants at: 'SDL_ENUM_SUCCESS' put: 16r1!
 SDLConstants at: 'SDL_EVENT_CLIPBOARD_UPDATE' put: 16r900!
 SDLConstants at: 'SDL_EVENT_DID_ENTER_BACKGROUND' put: 16r104!
 SDLConstants at: 'SDL_EVENT_DID_ENTER_FOREGROUND' put: 16r106!
@@ -203,6 +206,7 @@ SDLConstants at: 'SDL_GL_RETAINED_BACKING' put: 16r10!
 SDLConstants at: 'SDL_GL_SHARE_WITH_CURRENT_CONTEXT' put: 16r15!
 SDLConstants at: 'SDL_GL_STENCIL_SIZE' put: 16r7!
 SDLConstants at: 'SDL_GL_STEREO' put: 16rC!
+SDLConstants at: 'SDL_GLOB_CASEINSENSITIVE' put: 16r1!
 SDLConstants at: 'SDL_GPU_BLENDFACTOR_CONSTANT_COLOR' put: 16rB!
 SDLConstants at: 'SDL_GPU_BLENDFACTOR_DST_ALPHA' put: 16r9!
 SDLConstants at: 'SDL_GPU_BLENDFACTOR_DST_COLOR' put: 16r5!

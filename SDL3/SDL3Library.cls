@@ -430,6 +430,10 @@ getCurrentAudioDriver
 	<cdecl: lpstr SDL_GetCurrentAudioDriver>
 	^self invalidCall: _failureCode!
 
+getCurrentDirectory
+	<cdecl: lpstr SDL_GetCurrentDirectory>
+	^self invalidCall: _failureCode!
+
 getCurrentDisplayMode_displayID: displayID
 	<cdecl: SDL_DisplayMode* SDL_GetCurrentDisplayMode dword>
 	^self invalidCall: _failureCode!
@@ -1427,6 +1431,7 @@ getAudioStreamQueued_stream:!audio!public! !
 getBasePath!file system!public! !
 getBooleanProperty_props:name:defaultValue:!properties!public! !
 getCurrentAudioDriver!audio!public! !
+getCurrentDirectory!audio!public! !
 getCurrentDisplayMode_displayID:!public! !
 getCurrentVideoDriver!public!video! !
 getDefaultLogOutputFunction!log!public! !
