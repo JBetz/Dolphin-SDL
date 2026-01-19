@@ -22,7 +22,8 @@ checkObjectResult: anObject
 
 closeAllWindows
 	windows values do: [:each | each close].
-	windows removeAll!
+	windows removeAll.
+	frameCallbacks removeAll!
 
 closeWindow: anInteger
 	windows removeKey: anInteger
