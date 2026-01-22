@@ -21,13 +21,14 @@ destroy
 	self library destroyTexture_texture: self!
 
 extent
-	| width height |
+	| width height result |
 	width := FLOAT new.
 	height := FLOAT new.
-	self library
-		getTextureSize_texture: self
-		w: width
-		h: height.
+	result := self library
+				getTextureSize_texture: self
+				w: width
+				h: height.
+	self checkBooleanResult: result.
 	^width value @ height value!
 
 format
@@ -44,6 +45,12 @@ isSurface
 
 isTexture
 	^true!
+
+isValid
+	^self library
+		getTextureSize_texture: self
+		w: FLOAT new
+		h: FLOAT new!
 
 lock
 	^self lockRectangle: nil!
@@ -83,6 +90,7 @@ getPropertiesId!public! !
 height!public! !
 isSurface!public! !
 isTexture!public! !
+isValid!public! !
 lock!public! !
 lockRectangle:!public! !
 unlock!public! !
