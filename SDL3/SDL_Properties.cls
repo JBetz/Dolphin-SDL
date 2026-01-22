@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-Object subclass: #SDL_Properties
+SDL_Object subclass: #SDL_Properties
 	instanceVariableNames: 'id'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
@@ -14,8 +14,8 @@ SDL_Properties comment: ''!
 
 !SDL_Properties methodsFor!
 
-checkBooleanResult: aBoolean
-	aBoolean ifFalse: [self error: self library getError]!
+destroy
+	self library destroyProperties_props: id!
 
 enumerateProperties
 	| properties callback |
@@ -90,8 +90,11 @@ initialize
 	id := self library createProperties.
 	id = 0 ifTrue: [self error: self library getError]!
 
-library
-	^SDL3Library default!
+properties
+	^self shouldNotImplement!
+
+properties: aSDLProperties
+	^self shouldNotImplement!
 
 setBooleanProperty: aString value: aBoolean
 	| result |
@@ -134,7 +137,7 @@ setStringProperty: aString value: anotherString
 	self checkBooleanResult: result! !
 
 !SDL_Properties categoriesForMethods!
-checkBooleanResult:!private! !
+destroy!public! !
 enumerateProperties!public! !
 getBooleanProperty:defaultValue:!public! !
 getFloatProperty:defaultValue:!public! !
@@ -146,7 +149,8 @@ getStringProperty:defaultValue:!public! !
 id!public! !
 id:!public! !
 initialize!public! !
-library!public! !
+properties!public! !
+properties:!public! !
 setBooleanProperty:value:!public! !
 setFloatProperty:value:!public! !
 setNumberProperty:value:!public! !
@@ -157,7 +161,10 @@ setStringProperty:value:!public! !
 !SDL_Properties class methodsFor!
 
 fromId: anInteger
-	^super new id: anInteger!
+	^super new
+		id: anInteger;
+		beFinalizable;
+		yourself!
 
 new
 	^super new initialize! !

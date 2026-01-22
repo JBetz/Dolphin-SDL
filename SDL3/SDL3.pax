@@ -151,9 +151,9 @@ package globalAliases: (Set new
 	yourself).
 
 package setPrerequisites: #(
-	'..\..\..\Desktop\Dolphin Images\Flight Navigator 49\Core\Object Arts\Dolphin\Base\Dolphin'
-	'..\..\..\Desktop\Dolphin Images\Flight Navigator 49\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
-	'..\..\..\Desktop\Dolphin Images\Flight Navigator 49\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
+	'..\Core\Object Arts\Dolphin\Base\Dolphin'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin Basic Geometry'
+	'..\Core\Object Arts\Dolphin\MVP\Base\Dolphin MVP Base').
 
 package!
 
@@ -163,12 +163,6 @@ Object subclass: #SDL_Display
 	instanceVariableNames: 'name bounds usableBounds naturalOrientation currentOrientation contentScale fullscreenDisplayModes'
 	classVariableNames: ''
 	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-Object subclass: #SDL_Properties
-	instanceVariableNames: 'id'
-	classVariableNames: ''
-	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
 Object subclass: #SDLWindowManager
@@ -496,7 +490,7 @@ ExternalStructure subclass: #SDL_GPUViewport
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'propertiesId properties'
+	instanceVariableNames: 'properties'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -823,6 +817,12 @@ SDL_Object subclass: #SDL_GPUTransferBuffer
 	instanceVariableNames: 'size'
 	classVariableNames: ''
 	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_Properties
+	instanceVariableNames: 'id'
+	classVariableNames: ''
+	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_Renderer

@@ -55,6 +55,7 @@ createTextureWithProperties: aProperties
 	| texture |
 	texture := self library createTextureWithProperties_renderer: self props: aProperties id.
 	self checkObjectResult: texture.
+	texture properties: aProperties.
 	^texture initialize!
 
 destroy
@@ -184,6 +185,12 @@ renderReadPixels: aRectangle
 renderRectangle: aRectangle
 	self library renderRect_renderer: self rect: aRectangle asSDLFRect!
 
+renderTexture: texture
+	self
+		renderTexture: texture
+		source: nil
+		destination: nil!
+
 renderTexture: texture source: source destination: destination
 	| result |
 	result := self library
@@ -265,6 +272,7 @@ renderLineFrom:to:!public! !
 renderPoint:!public! !
 renderReadPixels:!public! !
 renderRectangle:!public! !
+renderTexture:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !
 resetScale!public! !

@@ -14,6 +14,9 @@ SDL_Texture comment: ''!
 
 !SDL_Texture methodsFor!
 
+access
+	^self properties getProperty: SDL_PROP_TEXTURE_ACCESS_NUMBER!
+
 destroy
 	self library destroyTexture_texture: self!
 
@@ -72,6 +75,7 @@ width
 	^self properties getProperty: SDL_PROP_TEXTURE_WIDTH_NUMBER! !
 
 !SDL_Texture categoriesForMethods!
+access!public! !
 destroy!public! !
 extent!public! !
 format!public! !

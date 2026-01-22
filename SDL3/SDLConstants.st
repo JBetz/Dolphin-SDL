@@ -526,6 +526,7 @@ SDLConstants at: 'SDL_PROP_RENDERER_D3D12_SWAPCHAIN_POINTER' put: 'SDL.renderer.
 SDLConstants at: 'SDL_PROP_RENDERER_GPU_DEVICE_POINTER' put: 'SDL.renderer.gpu.device'!
 SDLConstants at: 'SDL_PROP_RENDERER_NAME_STRING' put: 'SDL.renderer.name'!
 SDLConstants at: 'SDL_PROP_RENDERER_WINDOW_POINTER' put: 'SDL.renderer.window'!
+SDLConstants at: 'SDL_PROP_TEXTURE_ACCESS_NUMBER' put: 'SDL.texture.access'!
 SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_POINTER' put: 'SDL.texture.create.d3d11.texture'!
 SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_U_POINTER' put: 'SDL.texture.create.d3d11.texture_u'!
 SDLConstants at: 'SDL_PROP_TEXTURE_CREATE_D3D11_TEXTURE_V_POINTER' put: 'SDL.texture.create.d3d11.texture_v'!
