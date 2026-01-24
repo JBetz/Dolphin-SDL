@@ -29,21 +29,27 @@ createSurfaceFrom: pixels width: width height: height pitch: pitch format: forma
 	^surface initialize!
 
 createTexture: aPoint access: anInteger
-	^self createTexture: aPoint access: anInteger format: SDL_PIXELFORMAT_UNKNOWN!
+	^self
+		createTexture: aPoint
+		format: SDL_PIXELFORMAT_UNKNOWN
+		access: anInteger!
 
-createTexture: aPoint access: anInteger format: anotherInteger
+createTexture: aPoint format: anInteger
+	^self
+		createTexture: aPoint
+		format: SDL_TEXTUREACCESS_STATIC
+		access: anInteger!
+
+createTexture: aPoint format: anInteger access: anotherInteger
 	| texture |
 	texture := self library
 				createTexture_renderer: self
-				format: anotherInteger
-				access: anInteger
+				format: anInteger
+				access: anotherInteger
 				w: aPoint x asInteger
 				h: aPoint y asInteger.
 	self checkObjectResult: texture.
 	^texture initialize!
-
-createTexture: aPoint format: anInteger
-	^self createTexture: aPoint access: SDL_TEXTUREACCESS_STATIC format: anInteger!
 
 createTextureFromSurface: aSDL_Surface
 	| texture |
@@ -132,7 +138,9 @@ name
 	^self properties getProperty: SDL_PROP_RENDERER_NAME_STRING!
 
 present
-	self checkBooleanResult: (self library renderPresent_renderer: self)!
+	| result |
+	result := self library renderPresent_renderer: self.
+	self checkBooleanResult: result!
 
 renderDebugText: aString origin: aPoint
 	| result |
@@ -201,10 +209,17 @@ renderTexture: texture source: source destination: destination
 	self checkBooleanResult: result!
 
 resetClip
-	self checkBooleanResult: (self library setRenderClipRect_renderer: self rect: nil)!
+	| result |
+	result := self library setRenderClipRect_renderer: self rect: nil.
+	self checkBooleanResult: result!
 
 resetScale
 	self setScale: 1.0 @ 1.0!
+
+resetViewport
+	| result |
+	result := self library setRenderViewport_renderer: self rect: nil.
+	self checkBooleanResult: result!
 
 setClip: aRectangle
 	| result |
@@ -223,7 +238,9 @@ setDrawColor: aColor
 		a: aColor alpha!
 
 setRenderTarget: aSDLTexture
-	self checkBooleanResult: (self library setRenderTarget_renderer: self texture: aSDLTexture)!
+	| result |
+	result := self library setRenderTarget_renderer: self texture: aSDLTexture.
+	self checkBooleanResult: result!
 
 setScale: aPoint
 	| result |
@@ -233,6 +250,11 @@ setScale: aPoint
 				scaleY: aPoint y.
 	self checkBooleanResult: result!
 
+setViewport: aRectangle
+	| result |
+	result := self library setRenderViewport_renderer: self rect: aRectangle asSDLRect.
+	self checkBooleanResult: result!
+
 window
 	^self properties getProperty: SDL_PROP_RENDERER_WINDOW_POINTER! !
 
@@ -240,8 +262,8 @@ window
 clear!public! !
 createSurfaceFrom:width:height:pitch:format:!public! !
 createTexture:access:!public! !
-createTexture:access:format:!public! !
 createTexture:format:!public! !
+createTexture:format:access:!public! !
 createTextureFromSurface:!public! !
 createTextureWithProperties:!public! !
 destroy!public! !
@@ -276,11 +298,13 @@ renderTexture:!public! !
 renderTexture:source:destination:!public! !
 resetClip!public! !
 resetScale!public! !
+resetViewport!public! !
 setClip:!public! !
 setDrawBlendMode:!public! !
 setDrawColor:!public! !
 setRenderTarget:!public! !
 setScale:!public! !
+setViewport:!public! !
 window!properties!public! !
 !
 
