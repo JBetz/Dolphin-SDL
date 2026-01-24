@@ -1170,6 +1170,10 @@ setRenderTarget_renderer: renderer texture: texture
 	<cdecl: bool SDL_SetRenderTarget SDL_Renderer* SDL_Texture*>
 	^self invalidCall: _failureCode!
 
+setRenderViewport_renderer: renderer rect: rect
+	<cdecl: bool SDL_SetRenderViewport SDL_Renderer* SDL_Rect*>
+	^self invalidCall: _failureCode!
+
 setStringProperty_props: props name: name value: value
 	<cdecl: bool SDL_SetStringProperty dword lpstr lpstr>
 	^self invalidCall: _failureCode!
@@ -1616,6 +1620,7 @@ setRenderDrawBlendMode_renderer:blendMode:!public!render! !
 setRenderDrawColor_renderer:r:g:b:a:!public!render! !
 setRenderScale_renderer:scaleX:scaleY:!public!render! !
 setRenderTarget_renderer:texture:!public!render! !
+setRenderViewport_renderer:rect:!public!render! !
 setStringProperty_props:name:value:!properties!public! !
 setTextureBlendMode_texture:blendMode:!public!render! !
 setWindowFocusable_window:focusable:!public! !
