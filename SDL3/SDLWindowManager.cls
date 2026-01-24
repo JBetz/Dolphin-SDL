@@ -2,7 +2,7 @@
 
 Object subclass: #SDLWindowManager
 	instanceVariableNames: 'windows keyStates logCallback frameCallbacks isRunning isBeingDebugged'
-	classVariableNames: 'Singleton'
+	classVariableNames: 'EventMap Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
@@ -122,10 +122,28 @@ keepAlive
 library
 	^SDL3Library default!
 
+onAudioDeviceAdded: aSDL_Event!
+
+onAudioDeviceRemoved: aSDL_Event!
+
+onClipboardUpdate: aSDL_Event !
+
+onEvent: aSDLEvent
+	| event selector |
+	event := aSDLEvent convertToSubclass.
+	selector := EventMap at: event type.
+	self perform: selector with: event!
+
+onKeyboardAdded: aSDL_Event !
+
 onLog: anExternalAddress category: anInteger priority: anInteger2 message: anAnsiString
 	Transcript
 		display: anInteger -> anInteger2 -> anAnsiString;
 		cr!
+
+onMouseAdded: aSDL_Event !
+
+onQuit: aSDLEvent!
 
 onUnhandledError: anError
 	isBeingDebugged
@@ -145,15 +163,18 @@ pollEvent
 
 pumpMessages
 	
-	[| event windowId destination |
+	[| event |
 	event := self pollEvent.
 	event ifNil: [^self].
 	event type = SDL_EVENT_POLL_SENTINEL ifTrue: [^self].
-	windowId := event windowID.
-	windowId ifNil: [^self].
-	destination := windows at: windowId ifAbsent: [^self].
-	destination isReady ifFalse: [^self].
-	destination onEvent: event]
+	event windowID
+		ifNil: [self onEvent: event]
+		ifNotNil: 
+			[:windowId |
+			| destination |
+			destination := windows at: windowId ifAbsent: [^self].
+			destination isReady ifFalse: [^self].
+			destination onEvent: event]]
 			repeat!
 
 registerFrameCallback: aBlock for: anObject
@@ -167,8 +188,15 @@ restart
 		stop;
 		start!
 
+setHint: name value: value
+	| result |
+	result := self library setHint_name: name value: value.
+	self checkBooleanResult: result!
+
 setHints
-	self library setHint_name: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '0'!
+	self
+		setHint: 'SDL_MOUSE_FOCUS_CLICKTHROUGH' value: '0';
+		setHint: 'SDL_RENDER_DIRECT3D11_DEBUG' value: '1'!
 
 start
 	isRunning := true!
@@ -207,13 +235,21 @@ isKeyDown:!public! !
 isShiftKeyDown!public! !
 keepAlive!public! !
 library!public! !
+onAudioDeviceAdded:!public! !
+onAudioDeviceRemoved:!public! !
+onClipboardUpdate:!public! !
+onEvent:!public! !
+onKeyboardAdded:!public! !
 onLog:category:priority:message:!public! !
+onMouseAdded:!public! !
+onQuit:!public! !
 onUnhandledError:!public! !
 pollEvent!public! !
 pumpMessages!public! !
 registerFrameCallback:for:!public! !
 renderWindows!public! !
 restart!public! !
+setHint:value:!public! !
 setHints!public! !
 start!public! !
 stop!public! !
@@ -237,6 +273,7 @@ enable
 initialize
 	"self initialize"
 
+	self initializeEventMap.
 	SessionManager current
 		when: #sessionStarted
 			send: #onStartup
@@ -244,6 +281,40 @@ initialize
 		when: #sessionStopped
 			send: #onShutdown
 			to: self!
+
+initializeEventMap
+	EventMap := LookupTable new.
+	EventMap
+		at: SDL_EVENT_FIRST put: #onFirst:;
+		at: SDL_EVENT_QUIT put: #onQuit:;
+		at: SDL_EVENT_TERMINATING put: #onTerminating:;
+		at: SDL_EVENT_LOW_MEMORY put: #onLowMemory:;
+		at: SDL_EVENT_WILL_ENTER_BACKGROUND put: #onWillEnterBackground:;
+		at: SDL_EVENT_DID_ENTER_BACKGROUND put: #onDidEnterBackground:;
+		at: SDL_EVENT_WILL_ENTER_FOREGROUND put: #onWillEnterForeground:;
+		at: SDL_EVENT_DID_ENTER_FOREGROUND put: #onDidEnterForeground:;
+		at: SDL_EVENT_LOCALE_CHANGED put: #onLocaleChanged:;
+		at: SDL_EVENT_SYSTEM_THEME_CHANGED put: #onSystemThemeChanged:;
+		at: SDL_EVENT_DISPLAY_ORIENTATION put: #onDisplayOrientation:;
+		at: SDL_EVENT_DISPLAY_ADDED put: #onDisplayAdded:;
+		at: SDL_EVENT_DISPLAY_REMOVED put: #onDisplayRemoved:;
+		at: SDL_EVENT_DISPLAY_MOVED put: #onDisplayMoved:;
+		at: SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED put: #onDisplayDesktopModeChanged:;
+		at: SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED put: #onDisplayCurrentModeChanged:;
+		at: SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED put: #onDisplayContentScaleChanged:;
+		at: SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED put: #onDisplayUsableBoundsChanged:;
+		at: SDL_EVENT_KEYMAP_CHANGED put: #onKeymapChanged:;
+		at: SDL_EVENT_KEYBOARD_ADDED put: #onKeyboardAdded:;
+		at: SDL_EVENT_KEYBOARD_REMOVED put: #onKeyboardRemoved:;
+		at: SDL_EVENT_MOUSE_ADDED put: #onMouseAdded:;
+		at: SDL_EVENT_MOUSE_REMOVED put: #onMouseRemoved:;
+		at: SDL_EVENT_TEXT_EDITING_CANDIDATES put: #onTextEditingCandidates:;
+		at: SDL_EVENT_SCREEN_KEYBOARD_SHOWN put: #onScreenKeyboardShown:;
+		at: SDL_EVENT_SCREEN_KEYBOARD_HIDDEN put: #onScreenKeyboardHidden:;
+		at: SDL_EVENT_CLIPBOARD_UPDATE put: #onClipboardUpdate:;
+		at: SDL_EVENT_AUDIO_DEVICE_ADDED put: #onAudioDeviceAdded:;
+		at: SDL_EVENT_AUDIO_DEVICE_REMOVED put: #onAudioDeviceRemoved:;
+		at: SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED put: #onAudioDeviceFormatChanged:!
 
 new
 	self shouldNotImplement!
@@ -265,6 +336,7 @@ current!public! !
 disable!public! !
 enable!public! !
 initialize!public! !
+initializeEventMap!public! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !

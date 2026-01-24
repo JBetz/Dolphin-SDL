@@ -58,20 +58,22 @@ convertToSubclass
 	type = SDL_EVENT_TEXT_EDITING ifTrue: [^self asTextEditingEvent].
 	type = SDL_EVENT_USER ifTrue: [^self asUserEvent].
 	self isWindowEvent ifTrue: [^self asWindowEvent].
+	self isRenderEvent ifTrue: [^self asRenderEvent].
 	^self!
 
 hasAssociatedWindow
 	^self isWindowEvent or: 
-			[{SDL_EVENT_KEY_DOWN.
-				SDL_EVENT_KEY_UP.
-				SDL_EVENT_TEXT_EDITING.
-				SDL_EVENT_TEXT_INPUT.
-				SDL_EVENT_MOUSE_MOTION.
-				SDL_EVENT_MOUSE_BUTTON_DOWN.
-				SDL_EVENT_MOUSE_BUTTON_UP.
-				SDL_EVENT_MOUSE_WHEEL.
-				SDL_EVENT_DROP_FILE.
-				SDL_EVENT_USER} includes: self type]!
+			[self isRenderEvent or: 
+					[{SDL_EVENT_KEY_DOWN.
+						SDL_EVENT_KEY_UP.
+						SDL_EVENT_TEXT_EDITING.
+						SDL_EVENT_TEXT_INPUT.
+						SDL_EVENT_MOUSE_MOTION.
+						SDL_EVENT_MOUSE_BUTTON_DOWN.
+						SDL_EVENT_MOUSE_BUTTON_UP.
+						SDL_EVENT_MOUSE_WHEEL.
+						SDL_EVENT_DROP_FILE.
+						SDL_EVENT_USER} includes: self type]]!
 
 isConsumed
 	handlers ifNil: [^false].
@@ -79,6 +81,9 @@ isConsumed
 
 isHandled
 	^handlers ifNil: [false] ifNotNil: [handlers isEmpty not]!
+
+isRenderEvent
+	^self type between: SDL_EVENT_RENDER_TARGETS_RESET and: SDL_EVENT_RENDER_DEVICE_RESET!
 
 isWindowEvent
 	^self type between: SDL_EVENT_WINDOW_FIRST and: SDL_EVENT_WINDOW_LAST!
@@ -113,6 +118,7 @@ convertToSubclass!public! !
 hasAssociatedWindow!public! !
 isConsumed!public! !
 isHandled!public! !
+isRenderEvent!public! !
 isWindowEvent!public! !
 printOn:!public! !
 target!accessing!public! !
