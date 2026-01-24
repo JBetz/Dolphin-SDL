@@ -19,7 +19,7 @@ aspectRatio
 
 createRenderer
 	| renderer |
-	renderer := self library createRenderer_window: self name: 'direct3d11'.
+	renderer := self library createRenderer_window: self name: 'direct3d12'.
 	self checkObjectResult: renderer.
 	^renderer initialize!
 
