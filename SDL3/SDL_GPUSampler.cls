@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUSampler
+SDL_GPUObject subclass: #SDL_GPUSampler
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

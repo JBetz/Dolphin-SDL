@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUTexture
+SDL_GPUObject subclass: #SDL_GPUTexture
 	instanceVariableNames: 'extent pixelFormat'
 	classVariableNames: ''
 	poolDictionaries: ''

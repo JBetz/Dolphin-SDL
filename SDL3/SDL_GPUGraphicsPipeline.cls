@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUGraphicsPipeline
+SDL_GPUObject subclass: #SDL_GPUGraphicsPipeline
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

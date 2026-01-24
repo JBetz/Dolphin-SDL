@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUBuffer
+SDL_GPUObject subclass: #SDL_GPUBuffer
 	instanceVariableNames: 'size'
 	classVariableNames: ''
 	poolDictionaries: ''

@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUCopyPass
+SDL_GPUObject subclass: #SDL_GPUCopyPass
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

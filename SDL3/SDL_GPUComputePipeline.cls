@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUComputePipeline
+SDL_GPUObject subclass: #SDL_GPUComputePipeline
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''

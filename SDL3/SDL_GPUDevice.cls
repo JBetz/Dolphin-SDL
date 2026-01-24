@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUDevice
+SDL_GPUObject subclass: #SDL_GPUDevice
 	instanceVariableNames: 'swapchainTextureFormat'
 	classVariableNames: ''
 	poolDictionaries: ''

@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUShader
+SDL_GPUObject subclass: #SDL_GPUShader
 	instanceVariableNames: 'metadata'
 	classVariableNames: ''
 	poolDictionaries: ''

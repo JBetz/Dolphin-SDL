@@ -1,6 +1,6 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-SDL_Object subclass: #SDL_GPUCommandBuffer
+SDL_GPUObject subclass: #SDL_GPUCommandBuffer
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
