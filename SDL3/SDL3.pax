@@ -55,6 +55,7 @@ package classNames
 	add: #SDL_GPUIndirectDispatchCommand;
 	add: #SDL_GPUIndirectDrawCommand;
 	add: #SDL_GPUMultisampleState;
+	add: #SDL_GPUObject;
 	add: #SDL_GPURasterizerState;
 	add: #SDL_GPURenderPass;
 	add: #SDL_GPUSampler;
@@ -167,7 +168,7 @@ Object subclass: #SDL_Display
 
 Object subclass: #SDLWindowManager
 	instanceVariableNames: 'windows keyStates logCallback frameCallbacks isRunning isBeingDebugged'
-	classVariableNames: 'Singleton'
+	classVariableNames: 'EventMap Singleton'
 	poolDictionaries: 'SDLConstants Win32Constants'
 	classInstanceVariableNames: ''!
 
@@ -379,6 +380,12 @@ ExternalStructure subclass: #SDL_GPUMultisampleState
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_enable_mask _OffsetOf_padding1 _OffsetOf_padding2 _OffsetOf_padding3 _OffsetOf_sample_count _OffsetOf_sample_mask'
 	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #SDL_GPUObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_GPURasterizerState
@@ -729,6 +736,84 @@ SDL_Event subclass: #SDL_WindowEvent
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
+SDL_GPUObject subclass: #SDL_GPUBuffer
+	instanceVariableNames: 'size'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUCommandBuffer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUComputePass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUComputePipeline
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUCopyPass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUDevice
+	instanceVariableNames: 'swapchainTextureFormat'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUFence
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUGraphicsPipeline
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPURenderPass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUSampler
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUShader
+	instanceVariableNames: 'metadata'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUTexture
+	instanceVariableNames: 'extent pixelFormat'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_GPUObject subclass: #SDL_GPUTransferBuffer
+	instanceVariableNames: 'size'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
 SDL_Object subclass: #SDL_AudioStream
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -737,84 +822,6 @@ SDL_Object subclass: #SDL_AudioStream
 
 SDL_Object subclass: #SDL_Cursor
 	instanceVariableNames: 'name'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUBuffer
-	instanceVariableNames: 'size'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUCommandBuffer
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUComputePass
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUComputePipeline
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUCopyPass
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUDevice
-	instanceVariableNames: 'swapchainTextureFormat'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUFence
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUGraphicsPipeline
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPURenderPass
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUSampler
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUShader
-	instanceVariableNames: 'metadata'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUTexture
-	instanceVariableNames: 'extent pixelFormat'
-	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-SDL_Object subclass: #SDL_GPUTransferBuffer
-	instanceVariableNames: 'size'
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -839,7 +846,7 @@ SDL_Object subclass: #SDL_Surface
 
 SDL_Object subclass: #SDL_Texture
 	instanceVariableNames: ''
-	classVariableNames: ''
+	classVariableNames: '_OffsetOf_format _OffsetOf_h _OffsetOf_refcount _OffsetOf_w'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
