@@ -14,6 +14,15 @@ SDL_Object comment: ''!
 
 !SDL_Object methodsFor!
 
+basicFree
+	[self destroy] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: error;
+				cr].
+	super basicFree!
+
 checkBooleanResult: aBoolean
 	aBoolean ifFalse: [self error: self library getError]!
 
@@ -22,15 +31,6 @@ checkObjectResult: anObject
 
 destroy
 	self subclassResponsibility!
-
-free
-	[self destroy] on: Error
-		do: 
-			[:error |
-			Transcript
-				display: error;
-				cr].
-	super free!
 
 getPropertiesId
 	self subclassResponsibility!
@@ -53,10 +53,10 @@ properties: aProperties
 	properties := aProperties! !
 
 !SDL_Object categoriesForMethods!
+basicFree!private! !
 checkBooleanResult:!private! !
 checkObjectResult:!private! !
 destroy!public! !
-free!public! !
 getPropertiesId!public! !
 imageLibrary!public! !
 initialize!public! !
