@@ -46,6 +46,12 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
+dispatchEvent: aSDLEvent to: anObject
+	| event selector |
+	event := aSDLEvent convertToSubclass.
+	selector := EventMap at: event type.
+	anObject perform: selector with: event!
+
 displayExtent
 	^self getPrimaryDisplay extent!
 
@@ -128,12 +134,6 @@ onAudioDeviceRemoved: aSDL_Event!
 
 onClipboardUpdate: aSDL_Event !
 
-onEvent: aSDLEvent
-	| event selector |
-	event := aSDLEvent convertToSubclass.
-	selector := EventMap at: event type.
-	self perform: selector with: event!
-
 onKeyboardAdded: aSDL_Event !
 
 onLog: anExternalAddress category: anInteger priority: anInteger2 message: anAnsiString
@@ -163,18 +163,13 @@ pollEvent
 
 pumpMessages
 	
-	[| event |
+	[| event target |
 	event := self pollEvent.
 	event ifNil: [^self].
 	event type = SDL_EVENT_POLL_SENTINEL ifTrue: [^self].
-	event windowID
-		ifNil: [self onEvent: event]
-		ifNotNil: 
-			[:windowId |
-			| destination |
-			destination := windows at: windowId ifAbsent: [^self].
-			destination isReady ifFalse: [^self].
-			destination onEvent: event]]
+	target := event windowID ifNil: [self] ifNotNil: [:windowId | windows at: windowId ifAbsent: [nil]].
+	target ifNil: [^self].
+	self dispatchEvent: event to: target]
 			repeat!
 
 registerFrameCallback: aBlock for: anObject
@@ -221,6 +216,7 @@ closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
+dispatchEvent:to:!private! !
 displayExtent!public! !
 forceStop!public! !
 getDisplays!public! !
@@ -238,7 +234,6 @@ library!public! !
 onAudioDeviceAdded:!public! !
 onAudioDeviceRemoved:!public! !
 onClipboardUpdate:!public! !
-onEvent:!public! !
 onKeyboardAdded:!public! !
 onLog:category:priority:message:!public! !
 onMouseAdded:!public! !
@@ -283,6 +278,8 @@ initialize
 			to: self!
 
 initializeEventMap
+	"https://wiki.libsdl.org/SDL3/SDL_EventType"
+
 	EventMap := LookupTable new.
 	EventMap
 		at: SDL_EVENT_FIRST put: #onFirst:;
@@ -303,18 +300,52 @@ initializeEventMap
 		at: SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED put: #onDisplayCurrentModeChanged:;
 		at: SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED put: #onDisplayContentScaleChanged:;
 		at: SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED put: #onDisplayUsableBoundsChanged:;
+		at: SDL_EVENT_WINDOW_SHOWN put: #onWindowShown:;
+		at: SDL_EVENT_WINDOW_HIDDEN put: #onWindowHidden:;
+		at: SDL_EVENT_WINDOW_EXPOSED put: #onWindowExposed:;
+		at: SDL_EVENT_WINDOW_MOVED put: #onWindowMoved:;
+		at: SDL_EVENT_WINDOW_RESIZED put: #onWindowResized:;
+		at: SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED put: #onWindowPixelSizeChanged:;
+		at: SDL_EVENT_WINDOW_METAL_VIEW_RESIZED put: #onMetalViewResized:;
+		at: SDL_EVENT_WINDOW_MINIMIZED put: #onWindowMinimized:;
+		at: SDL_EVENT_WINDOW_MAXIMIZED put: #onWindowMaximized:;
+		at: SDL_EVENT_WINDOW_RESTORED put: #onWindowRestored:;
+		at: SDL_EVENT_WINDOW_MOUSE_ENTER put: #onWindowMouseEnter:;
+		at: SDL_EVENT_WINDOW_MOUSE_LEAVE put: #onWindowMouseLeave:;
+		at: SDL_EVENT_WINDOW_FOCUS_GAINED put: #onWindowFocusGained:;
+		at: SDL_EVENT_WINDOW_FOCUS_LOST put: #onWindowFocusLost:;
+		at: SDL_EVENT_WINDOW_CLOSE_REQUESTED put: #onWindowCloseRequested:;
+		at: SDL_EVENT_WINDOW_HIT_TEST put: #onWindowHitTest:;
+		at: SDL_EVENT_WINDOW_ICCPROF_CHANGED put: #onWindowIccProfileChanged:;
+		at: SDL_EVENT_WINDOW_DISPLAY_CHANGED put: #onWindowDisplayChanged:;
+		at: SDL_EVENT_WINDOW_DISPLAY_SCALE_CHANGED put: #onWindowDisplayScaleChanged:;
+		at: SDL_EVENT_WINDOW_SAFE_AREA_CHANGED put: #onWindowSafeAreaChanged:;
+		at: SDL_EVENT_WINDOW_OCCLUDED put: #onWindowOccluded:;
+		at: SDL_EVENT_WINDOW_ENTER_FULLSCREEN put: #onWindowEnterFullscreen:;
+		at: SDL_EVENT_WINDOW_LEAVE_FULLSCREEN put: #onWindowLeaveFullscreen:;
+		at: SDL_EVENT_WINDOW_DESTROYED put: #onWindowDestroyed:;
+		at: SDL_EVENT_WINDOW_HDR_STATE_CHANGED put: #onWindowHdrStateChanged:;
+		at: SDL_EVENT_KEY_DOWN put: #onKeyDown:;
+		at: SDL_EVENT_KEY_UP put: #onKeyUp:;
+		at: SDL_EVENT_TEXT_EDITING put: #onTextEditing:;
+		at: SDL_EVENT_TEXT_INPUT put: #onTextInput:;
 		at: SDL_EVENT_KEYMAP_CHANGED put: #onKeymapChanged:;
 		at: SDL_EVENT_KEYBOARD_ADDED put: #onKeyboardAdded:;
 		at: SDL_EVENT_KEYBOARD_REMOVED put: #onKeyboardRemoved:;
-		at: SDL_EVENT_MOUSE_ADDED put: #onMouseAdded:;
-		at: SDL_EVENT_MOUSE_REMOVED put: #onMouseRemoved:;
 		at: SDL_EVENT_TEXT_EDITING_CANDIDATES put: #onTextEditingCandidates:;
 		at: SDL_EVENT_SCREEN_KEYBOARD_SHOWN put: #onScreenKeyboardShown:;
 		at: SDL_EVENT_SCREEN_KEYBOARD_HIDDEN put: #onScreenKeyboardHidden:;
+		at: SDL_EVENT_MOUSE_MOTION put: #onMouseMotion:;
+		at: SDL_EVENT_MOUSE_BUTTON_DOWN put: #onMouseButtonDown:;
+		at: SDL_EVENT_MOUSE_BUTTON_UP put: #onMouseButtonUp:;
+		at: SDL_EVENT_MOUSE_WHEEL put: #onMouseWheel:;
+		at: SDL_EVENT_MOUSE_ADDED put: #onMouseAdded:;
+		at: SDL_EVENT_MOUSE_REMOVED put: #onMouseRemoved:;
 		at: SDL_EVENT_CLIPBOARD_UPDATE put: #onClipboardUpdate:;
 		at: SDL_EVENT_AUDIO_DEVICE_ADDED put: #onAudioDeviceAdded:;
 		at: SDL_EVENT_AUDIO_DEVICE_REMOVED put: #onAudioDeviceRemoved:;
-		at: SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED put: #onAudioDeviceFormatChanged:!
+		at: SDL_EVENT_AUDIO_DEVICE_FORMAT_CHANGED put: #onAudioDeviceFormatChanged:;
+		at: SDL_EVENT_USER put: #onUser:!
 
 new
 	self shouldNotImplement!
@@ -336,7 +367,7 @@ current!public! !
 disable!public! !
 enable!public! !
 initialize!public! !
-initializeEventMap!public! !
+initializeEventMap!private! !
 new!public! !
 onShutdown!public! !
 onStartup!public! !
