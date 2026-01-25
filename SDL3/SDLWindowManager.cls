@@ -46,11 +46,13 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
-dispatchEvent: aSDLEvent to: anObject
-	| event selector |
+dispatchEvent: aSDLEvent
+	| event selector target |
 	event := aSDLEvent convertToSubclass.
 	selector := EventMap at: event type.
-	anObject perform: selector with: event!
+	target := event windowID ifNil: [self] ifNotNil: [:windowId | windows at: windowId ifAbsent: [nil]].
+	target ifNil: [^self].
+	target perform: selector with: event!
 
 displayExtent
 	^self getPrimaryDisplay extent!
@@ -163,13 +165,11 @@ pollEvent
 
 pumpMessages
 	
-	[| event target |
+	[| event |
 	event := self pollEvent.
 	event ifNil: [^self].
 	event type = SDL_EVENT_POLL_SENTINEL ifTrue: [^self].
-	target := event windowID ifNil: [self] ifNotNil: [:windowId | windows at: windowId ifAbsent: [nil]].
-	target ifNil: [^self].
-	self dispatchEvent: event to: target]
+	self dispatchEvent: event]
 			repeat!
 
 registerFrameCallback: aBlock for: anObject
@@ -216,7 +216,7 @@ closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
-dispatchEvent:to:!private! !
+dispatchEvent:!private! !
 displayExtent!public! !
 forceStop!public! !
 getDisplays!public! !
