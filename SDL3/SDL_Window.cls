@@ -100,7 +100,9 @@ setFocusable: aBoolean
 	self checkBooleanResult: result!
 
 setIcon: aSDLSurface
-	^self library setWindowIcon_window: self icon: aSDLSurface!
+	| result |
+	result := self library setWindowIcon_window: self icon: aSDLSurface.
+	self checkBooleanResult: result!
 
 setParent: aSDLWindow
 	| result |
@@ -118,7 +120,9 @@ setSize: aPoint
 	self checkBooleanResult: result!
 
 setTitle: aString
-	^self library setWindowTitle_window: self title: aString!
+	| result |
+	result := self library setWindowTitle_window: self title: aString.
+	self checkBooleanResult: result!
 
 show
 	self library showWindow_window: self!
