@@ -163,13 +163,19 @@ extent: extent format: format
 fromBMPFile: aString
 	| surface |
 	surface := SDL3Library default loadBMP_file: aString.
-	surface isNull ifTrue: [self error: SDL3Library default getError].
+	self checkObjectResult: surface.
 	^surface initialize!
 
 fromFile: aString
 	| surface |
 	surface := SDL3ImageLibrary default load_file: aString.
-	surface isNull ifTrue: [self error: SDL3Library default getError].
+	self checkObjectResult: surface.
+	^surface initialize!
+
+fromIOStream: anIOStream
+	| surface |
+	surface := SDL3ImageLibrary default loadPNGIO_src: anIOStream .
+	self checkObjectResult: surface.
 	^surface initialize!
 
 getFieldNames
@@ -181,6 +187,7 @@ extent:!public! !
 extent:format:!public! !
 fromBMPFile:!public! !
 fromFile:!public! !
+fromIOStream:!public! !
 getFieldNames!**compiled accessors**!constants!private! !
 !
 

@@ -138,6 +138,10 @@ closeAudioDevice_devid: devid
 	<cdecl: void SDL_CloseAudioDevice dword>
 	^self invalidCall: _failureCode!
 
+closeIO_context: context
+	<cdecl: bool SDL_CloseIO SDL_IOStream*>
+	^self invalidCall: _failureCode!
+
 convertSurface_surface: surface format: format
 	<cdecl: SDL_Surface* SDL_ConvertSurface SDL_Surface* sdword>
 	^self invalidCall: _failureCode!
@@ -364,6 +368,10 @@ flashWindow_window: window operation: operation
 
 flushAudioStream_stream: stream
 	<cdecl: bool SDL_FlushAudioStream SDL_AudioStream*>
+	^self invalidCall: _failureCode!
+
+flushIO_context: context
+	<cdecl: bool SDL_FlushIO SDL_IOStream*>
 	^self invalidCall: _failureCode!
 
 free_mem: mem
@@ -820,6 +828,18 @@ initSubSystem_flags: flags
 
 insertGPUDebugLabel_commandBuffer: commandBuffer text: text 
 	<cdecl: void SDL_InsertGPUDebugLabel SDL_GPUCommandBuffer* lpstr>
+	^self invalidCall: _failureCode!
+
+ioFromConstMem_mem: mem size: size
+	<cdecl: SDL_IOStream* SDL_IOFromConstMem void* dword>
+	^self invalidCall: _failureCode!
+
+ioFromFile_file: file mode: mode
+	<cdecl: SDL_IOStream* SDL_IOFromFile char* char*>
+	^self invalidCall: _failureCode!
+
+ioFromMem_mem: mem size: size
+	<cdecl: SDL_IOStream* SDL_IOFromMem void* dword>
 	^self invalidCall: _failureCode!
 
 loadBMP_file: file
@@ -1362,6 +1382,7 @@ claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
 clearProperty_props:name:!properties!public! !
 closeAudioDevice_devid:!audio!public! !
+closeIO_context:!init!public! !
 convertSurface_surface:format:!properties!public! !
 copyFile_oldpath:newpath:!file system!public! !
 copyGPUBufferToBuffer_copyPass:source:destination:size:cycle:!gpu!public! !
@@ -1419,6 +1440,7 @@ enumerateDirectory_path:callback:userdata:!file system!public! !
 enumerateProperties_props:callback:userdata:!properties!public! !
 flashWindow_window:operation:!public!video! !
 flushAudioStream_stream:!audio!public! !
+flushIO_context:!init!public! !
 free_mem:!audio!public! !
 gdkResumeGPU_device:!gpu!public! !
 gdkSuspendGPU_device:!gpu!public! !
@@ -1533,6 +1555,9 @@ hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
 insertGPUDebugLabel_commandBuffer:text:!gpu!public! !
+ioFromConstMem_mem:size:!init!public! !
+ioFromFile_file:mode:!init!public! !
+ioFromMem_mem:size:!init!public! !
 loadBMP_file:!io stream!public! !
 loadFile_file:datasize:!io stream!public! !
 lockAudioStream_stream:!audio!public! !

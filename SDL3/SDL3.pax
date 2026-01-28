@@ -79,6 +79,7 @@ package classNames
 	add: #SDL_GPUVertexBufferDescription;
 	add: #SDL_GPUVertexInputState;
 	add: #SDL_GPUViewport;
+	add: #SDL_IOStream;
 	add: #SDL_KeyboardEvent;
 	add: #SDL_MouseButtonEvent;
 	add: #SDL_MouseMotionEvent;
@@ -822,6 +823,12 @@ SDL_Object subclass: #SDL_AudioStream
 
 SDL_Object subclass: #SDL_Cursor
 	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	classInstanceVariableNames: ''!
+
+SDL_Object subclass: #SDL_IOStream
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
