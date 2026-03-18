@@ -28,6 +28,15 @@ readBytes: anInteger
 	bytesRead = 0 ifTrue: [^nil].
 	^buffer first: bytesRead!
 
+waitUntilConnected
+	^self waitUntilConnected: -1!
+
+waitUntilConnected: anInteger
+	| status |
+	status := self library waitUntilConnected_socket: self timeout: anInteger.
+	self checkStatusResult: status.
+	^status!
+
 writeBytes: aByteArray
 	self writeBytes: aByteArray count: aByteArray size!
 
@@ -42,6 +51,8 @@ writeBytes: aByteArray count: anInteger
 !NET_StreamSocket categoriesForMethods!
 destroy!public! !
 readBytes:!public! !
+waitUntilConnected!public! !
+waitUntilConnected:!public! !
 writeBytes:!public! !
 writeBytes:count:!public! !
 !
