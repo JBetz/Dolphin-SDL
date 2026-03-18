@@ -1,9 +1,9 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
-TTF_Object subclass: #TTF_SubString
+ExternalStructure subclass: #TTF_SubString
 	instanceVariableNames: ''
 	classVariableNames: '_OffsetOf_cluster_index _OffsetOf_flags _OffsetOf_length _OffsetOf_line_index _OffsetOf_offset _OffsetOf_rect'
-	poolDictionaries: ''
+	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
 TTF_SubString guid: (GUID fromString: '{2a951df0-843c-4361-a7f0-67ef1b348e53}')!
@@ -30,8 +30,6 @@ cluster_index: anInteger
 	"Set the receiver's 'cluster_index' field to the value of the argument, anInteger"
 
 	bytes sdwordAtOffset: _OffsetOf_cluster_index put: anInteger!
-
-destroy!
 
 flagNames
 	| names |
@@ -114,7 +112,6 @@ textStart
 !TTF_SubString categoriesForMethods!
 cluster_index!**compiled accessors**!public! !
 cluster_index:!**compiled accessors**!public! !
-destroy!public! !
 flagNames!**compiled accessors**!public! !
 flags!**compiled accessors**!public! !
 flags:!**compiled accessors**!public! !

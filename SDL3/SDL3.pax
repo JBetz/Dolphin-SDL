@@ -498,7 +498,7 @@ ExternalStructure subclass: #SDL_GPUViewport
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'properties'
+	instanceVariableNames: 'properties wasDestroyed'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -594,8 +594,14 @@ ExternalStructure subclass: #TTF_GPUAtlasDrawSequence
 	classInstanceVariableNames: ''!
 
 ExternalStructure subclass: #TTF_Object
-	instanceVariableNames: 'library'
+	instanceVariableNames: 'library wasDestroyed'
 	classVariableNames: ''
+	poolDictionaries: 'TTFConstants'
+	classInstanceVariableNames: ''!
+
+ExternalStructure subclass: #TTF_SubString
+	instanceVariableNames: ''
+	classVariableNames: '_OffsetOf_cluster_index _OffsetOf_flags _OffsetOf_length _OffsetOf_line_index _OffsetOf_offset _OffsetOf_rect'
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
 
@@ -853,7 +859,7 @@ SDL_Object subclass: #SDL_Surface
 
 SDL_Object subclass: #SDL_Texture
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_format _OffsetOf_h _OffsetOf_refcount _OffsetOf_w'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
@@ -866,12 +872,6 @@ SDL_Object subclass: #SDL_Window
 TTF_Object subclass: #TTF_Font
 	instanceVariableNames: 'glyphCache'
 	classVariableNames: ''
-	poolDictionaries: ''
-	classInstanceVariableNames: ''!
-
-TTF_Object subclass: #TTF_SubString
-	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_cluster_index _OffsetOf_flags _OffsetOf_length _OffsetOf_line_index _OffsetOf_offset _OffsetOf_rect'
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 

@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #SDL_Object
-	instanceVariableNames: 'properties'
+	instanceVariableNames: 'properties wasDestroyed'
 	classVariableNames: ''
 	poolDictionaries: 'SDLConstants'
 	classInstanceVariableNames: ''!
@@ -15,12 +15,14 @@ SDL_Object comment: ''!
 !SDL_Object methodsFor!
 
 basicFree
-	[self destroy] on: Error
-		do: 
-			[:error |
-			Transcript
-				display: error;
-				cr].
+	wasDestroyed
+		ifFalse: 
+			[[self destroy] on: Error
+				do: 
+					[:error |
+					Transcript
+						display: error;
+						cr]].
 	super basicFree!
 
 checkBooleanResult: aBoolean
@@ -40,10 +42,14 @@ imageLibrary
 
 initialize
 	super initialize.
+	wasDestroyed := false.
 	self beFinalizable!
 
 library
 	^SDL3Library default!
+
+needsFree
+	^true!
 
 properties
 	properties ifNil: [properties := SDL_Properties fromId: self getPropertiesId].
@@ -61,6 +67,7 @@ getPropertiesId!public! !
 imageLibrary!public! !
 initialize!public! !
 library!public! !
+needsFree!public! !
 properties!public! !
 properties:!public! !
 !

@@ -18,13 +18,17 @@ aspectRatio
 	^self width asFloat / self height asFloat!
 
 createRenderer
+	^self createRenderer: nil!
+
+createRenderer: aString
 	| renderer |
-	renderer := self library createRenderer_window: self name: 'direct3d12'.
+	renderer := self library createRenderer_window: self name: aString.
 	self checkObjectResult: renderer.
 	^renderer initialize!
 
 destroy
-	self library destroyWindow_window: self!
+	self library destroyWindow_window: self.
+	wasDestroyed := true!
 
 extent
 	^self getExtent!
@@ -169,6 +173,7 @@ y
 !SDL_Window categoriesForMethods!
 aspectRatio!public! !
 createRenderer!public! !
+createRenderer:!public! !
 destroy!public! !
 extent!public! !
 getExtent!public! !

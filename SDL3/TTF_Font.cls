@@ -18,7 +18,8 @@ close
 	self library closeFont_font: self!
 
 destroy
-	self close!
+	self close.
+	wasDestroyed := true!
 
 getFontKerningSizeGlyphs32Between: aCharacter and: anotherCharacter
 	^self library

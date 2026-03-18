@@ -15,7 +15,8 @@ SDL_Properties comment: ''!
 !SDL_Properties methodsFor!
 
 destroy
-	self library destroyProperties_props: id!
+	self library destroyProperties_props: id.
+	wasDestroyed := true!
 
 enumerateProperties
 	| properties callback |

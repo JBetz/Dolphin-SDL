@@ -15,14 +15,10 @@ TTF_TextEngine comment: ''!
 !TTF_TextEngine methodsFor!
 
 createText: aString font: aFont
-	| text |
-	text := self library
-				createText_engine: self
-				font: aFont
-				text: aString
-				length: aString size.
-	self checkObjectResult: text.
-	^text initialize!
+	^self
+		createText: aString
+		font: aFont
+		wrapWidth: nil!
 
 createText: aString font: aFont wrapWidth: anInteger
 	| text |
@@ -36,7 +32,8 @@ createText: aString font: aFont wrapWidth: anInteger
 	^text initialize!
 
 destroy
-	self library destroyRendererTextEngine_engine: self!
+	self library destroyRendererTextEngine_engine: self.
+	wasDestroyed := true!
 
 drawText: aTTFText x: aFloat y: anotherFloat
 	| result |

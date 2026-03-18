@@ -15,7 +15,8 @@ SDL_Cursor comment: ''!
 !SDL_Cursor methodsFor!
 
 destroy
-	self library destroyCursor_cursor: self!
+	self library destroyCursor_cursor: self.
+	wasDestroyed := true!
 
 makeCurrent
 	self library setCursor_cursor: self!

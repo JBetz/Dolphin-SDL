@@ -15,7 +15,9 @@ SDL_Renderer comment: ''!
 !SDL_Renderer methodsFor!
 
 clear
-	self checkBooleanResult: (self library renderClear_renderer: self)!
+	| result |
+	result := self library renderClear_renderer: self.
+	self checkBooleanResult: result!
 
 createSurfaceFrom: pixels width: width height: height pitch: pitch format: format
 	| surface |
@@ -65,7 +67,8 @@ createTextureWithProperties: aProperties
 	^texture initialize!
 
 destroy
-	self library destroyRenderer_renderer: self!
+	self library destroyRenderer_renderer: self.
+	wasDestroyed := true!
 
 direct3D11Device
 	^self properties getProperty: SDL_PROP_RENDERER_D3D11_DEVICE_POINTER!
@@ -89,6 +92,11 @@ direct3DDevice
 
 fillRectangle: aRectangle
 	self library renderFillRect_renderer: self rect: aRectangle asSDLFRect!
+
+flush
+	| result |
+	result := self library flushRenderer_renderer: self.
+	self checkBooleanResult: result!
 
 getPropertiesId
 	^self library getRendererProperties_renderer: self!
@@ -274,6 +282,7 @@ direct3D12Device!properties!public! !
 direct3D12Swapchain!properties!public! !
 direct3DDevice!properties!public! !
 fillRectangle:!public! !
+flush!public! !
 getPropertiesId!properties!public! !
 getRenderTarget!public! !
 getRenderViewport!public! !

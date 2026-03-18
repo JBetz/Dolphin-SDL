@@ -15,7 +15,8 @@ SDL_AudioStream comment: ''!
 !SDL_AudioStream methodsFor!
 
 destroy
-	self library destroyAudioStream_stream: self!
+	self library destroyAudioStream_stream: self.
+	wasDestroyed := true!
 
 flush
 	self library flushAudioStream_stream: self!

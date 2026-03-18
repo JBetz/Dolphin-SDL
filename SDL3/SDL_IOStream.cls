@@ -15,7 +15,8 @@ SDL_IOStream comment: ''!
 !SDL_IOStream methodsFor!
 
 destroy
-	self library closeIO_context: self!
+	self library closeIO_context: self.
+	wasDestroyed := true!
 
 flush
 	self library flushIO_context: self! !

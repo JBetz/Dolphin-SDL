@@ -36,7 +36,8 @@ deleteString: index length: length
 	self checkBooleanResult: result!
 
 destroy
-	self library destroyText_text: self!
+	self library destroyText_text: self.
+	wasDestroyed := true!
 
 extent
 	| count result substrings |

@@ -30,7 +30,8 @@ convertPixelFormat: anInteger
 	^newSurface initialize!
 
 destroy
-	self library destroySurface_surface: self!
+	self library destroySurface_surface: self.
+	wasDestroyed := true!
 
 extent
 	^self w @ self h!

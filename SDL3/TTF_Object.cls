@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 ExternalStructure subclass: #TTF_Object
-	instanceVariableNames: 'library'
+	instanceVariableNames: 'library wasDestroyed'
 	classVariableNames: ''
 	poolDictionaries: 'TTFConstants'
 	classInstanceVariableNames: ''!
@@ -14,6 +14,15 @@ TTF_Object comment: ''!
 
 !TTF_Object methodsFor!
 
+basicFree
+	[self destroy] on: Error
+		do: 
+			[:error |
+			Transcript
+				display: error;
+				cr].
+	super basicFree!
+
 checkBooleanResult: aBoolean
 	aBoolean ifFalse: [self error: SDL3Library default getError]!
 
@@ -23,27 +32,19 @@ checkObjectResult: anObject
 destroy
 	self subclassResponsibility!
 
-free
-	[self destroy] on: Error
-		do: 
-			[:error |
-			Transcript
-				display: error;
-				cr].
-	super free!
-
 initialize
 	super initialize.
+	wasDestroyed := false.
 	self beFinalizable!
 
 library
 	^SDL3TTFLibrary default! !
 
 !TTF_Object categoriesForMethods!
+basicFree!public! !
 checkBooleanResult:!private! !
 checkObjectResult:!private! !
 destroy!public! !
-free!public! !
 initialize!public! !
 library!public! !
 !

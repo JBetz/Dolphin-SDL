@@ -2,16 +2,11 @@
 
 SDL_Object subclass: #SDL_Texture
 	instanceVariableNames: ''
-	classVariableNames: '_OffsetOf_format _OffsetOf_h _OffsetOf_refcount _OffsetOf_w'
+	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
 
 SDL_Texture guid: (GUID fromString: '{e253ed78-06ba-402e-8f07-b2da561b1b2c}')!
-
-SDL_Texture addClassConstant: '_OffsetOf_format' value: 16r0!
-SDL_Texture addClassConstant: '_OffsetOf_h' value: 16r8!
-SDL_Texture addClassConstant: '_OffsetOf_refcount' value: 16rC!
-SDL_Texture addClassConstant: '_OffsetOf_w' value: 16r4!
 
 SDL_Texture comment: ''!
 
@@ -22,8 +17,12 @@ SDL_Texture comment: ''!
 access
 	^self properties getProperty: SDL_PROP_TEXTURE_ACCESS_NUMBER!
 
+asTexture
+	^self!
+
 destroy
-	self library destroyTexture_texture: self!
+	self library destroyTexture_texture: self.
+	wasDestroyed := true!
 
 extent
 	| width height result |
@@ -42,11 +41,6 @@ format
 getPropertiesId
 	^self library getTextureProperties_texture: self!
 
-h
-	"Answer the <Integer> value of the receiver's 'h' field."
-
-	^bytes sdwordAtOffset: _OffsetOf_h!
-
 height
 	^self properties getProperty: SDL_PROP_TEXTURE_HEIGHT_NUMBER!
 
@@ -57,10 +51,7 @@ isTexture
 	^true!
 
 isValid
-	^self library
-		getTextureSize_texture: self
-		w: FLOAT new
-		h: FLOAT new!
+	^wasDestroyed not!
 
 lock
 	^self lockRectangle: nil!
@@ -76,11 +67,6 @@ lockRectangle: aRectangle
 				pitch: pitch).
 	^pixels!
 
-refcount
-	"Answer the <Integer> value of the receiver's 'refcount' field."
-
-	^bytes sdwordAtOffset: _OffsetOf_refcount!
-
 unlock
 	self checkBooleanResult: (self library unlockTexture_texture: self)!
 
@@ -93,50 +79,24 @@ updatePixels: pixels pitch: pitch
 				pitch: pitch.
 	self checkBooleanResult: result!
 
-w
-	"Answer the <Integer> value of the receiver's 'w' field."
-
-	^bytes sdwordAtOffset: _OffsetOf_w!
-
 width
 	^self properties getProperty: SDL_PROP_TEXTURE_WIDTH_NUMBER! !
 
 !SDL_Texture categoriesForMethods!
 access!public! !
+asTexture!public! !
 destroy!public! !
 extent!public! !
 format!public! !
 getPropertiesId!public! !
-h!public! !
 height!public! !
 isSurface!public! !
 isTexture!public! !
 isValid!public! !
 lock!public! !
 lockRectangle:!public! !
-refcount!public! !
 unlock!public! !
 updatePixels:pitch:!public! !
-w!public! !
 width!public! !
-!
-
-!SDL_Texture class methodsFor!
-
-defineFields
-	"self compileDefinition"
-
-	self
-		defineField: #format type: SDWORDField new beReadOnly;
-		defineField: #w type: SDWORDField new beReadOnly;
-		defineField: #h type: SDWORDField new beReadOnly;
-		defineField: #refcount type: SDWORDField new beReadOnly!
-
-getFieldNames
-	^#(#format #w #h #refcount)! !
-
-!SDL_Texture class categoriesForMethods!
-defineFields!public! !
-getFieldNames!**compiled accessors**!constants!private! !
 !
 
