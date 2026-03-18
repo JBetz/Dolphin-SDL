@@ -14,6 +14,9 @@ SDL_GPUTexture comment: ''!
 
 !SDL_GPUTexture methodsFor!
 
+asTexture
+	^self!
+
 extent
 	^extent!
 
@@ -36,6 +39,7 @@ width
 	^extent x! !
 
 !SDL_GPUTexture categoriesForMethods!
+asTexture!public! !
 extent!public! !
 extent:!public! !
 height!public! !

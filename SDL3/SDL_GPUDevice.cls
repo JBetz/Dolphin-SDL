@@ -363,15 +363,19 @@ waitForFences:!public! !
 !SDL_GPUDevice class methodsFor!
 
 formatFlags: anInteger
+	^self formatFlats: anInteger name: nil!
+
+formatFlags: anInteger name: aString
 	| gpuDevice |
 	gpuDevice := SDL3Library default
 				createGPUDevice_formatFlags: anInteger
 				debugMode: true
-				name: nil.
+				name: aString.
 	self checkObjectResult: gpuDevice.
 	^gpuDevice! !
 
 !SDL_GPUDevice class categoriesForMethods!
 formatFlags:!public! !
+formatFlags:name:!public! !
 !
 

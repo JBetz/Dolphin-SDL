@@ -14,6 +14,16 @@ SDL_GPUCopyPass comment: ''!
 
 !SDL_GPUCopyPass methodsFor!
 
+copyTexture: source to: destination
+	self library
+		copyGPUTextureToTexture_copyPass: self
+		source: source
+		destination: destination
+		w: source width
+		h: source height
+		d: 1
+		cycle: false!
+
 downloadFromTexture: source destination: destination
 	self library
 		downloadFromGPUTexture_copyPass: self
@@ -62,6 +72,7 @@ uploadToTexture: aGPUTextureTransferInfo destination: aGPUTextureRegion
 		cycle: false! !
 
 !SDL_GPUCopyPass categoriesForMethods!
+copyTexture:to:!public! !
 downloadFromTexture:destination:!public! !
 end!public! !
 uploadToBuffer:destination:!public! !

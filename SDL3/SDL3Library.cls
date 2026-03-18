@@ -374,6 +374,10 @@ flushIO_context: context
 	<cdecl: bool SDL_FlushIO SDL_IOStream*>
 	^self invalidCall: _failureCode!
 
+flushRenderer_renderer: renderer
+	<cdecl: bool SDL_FlushRenderer SDL_Renderer*>
+	^self invalidCall: _failureCode!
+
 free_mem: mem
 	<cdecl: void SDL_free void*>
 	^self invalidCall: _failureCode!
@@ -506,6 +510,10 @@ getGPUSwapchainTextureFormat_device: device window: window
 	<cdecl: sdword SDL_GetGPUSwapchainTextureFormat SDL_GPUDevice* SDL_Window*>
 	^self invalidCall: _failureCode!
 
+getGPUTextureFormatFromPixelFormat_format: format
+	<cdecl: dword SDL_GetGPUTextureFormatFromPixelFormat dword>
+	^self invalidCall: _failureCode!
+
 getKeyboardState_numkeys: numkeys
 	<cdecl: byte* SDL_GetKeyboardState sdword*>
 	^self invalidCall: _failureCode!
@@ -560,6 +568,10 @@ getPixelFormatDetails_format: format
 
 getPixelFormatForMasks_bpp: bpp rMask: rMask gMask: gMask bMask: bMask aMask: aMask
 	<cdecl: dword SDL_GetPixelFormatForMasks sdword dword dword dword dword>
+	^self invalidCall: _failureCode!
+
+getPixelFormatFromGPUTextureFormat_format: format
+	<cdecl: dword SDL_GetPixelFormatFromGPUTextureFormat dword>
 	^self invalidCall: _failureCode!
 
 getPointerProperty_props: props name: name defaultValue: defaultValue
@@ -1441,6 +1453,7 @@ enumerateProperties_props:callback:userdata:!properties!public! !
 flashWindow_window:operation:!public!video! !
 flushAudioStream_stream:!audio!public! !
 flushIO_context:!init!public! !
+flushRenderer_renderer:!init!public! !
 free_mem:!audio!public! !
 gdkResumeGPU_device:!gpu!public! !
 gdkSuspendGPU_device:!gpu!public! !
@@ -1474,6 +1487,7 @@ getGPUDeviceDriver_device:!gpu!public! !
 getGPUDriver_index:!gpu!public! !
 getGPUShaderFormats_device:!public! !
 getGPUSwapchainTextureFormat_device:window:!gpu!public! !
+getGPUTextureFormatFromPixelFormat_format:!audio!public! !
 getKeyboardState_numkeys:!public!video! !
 getKeyFromScancode_scancode:!public!video! !
 getLogOutputFunction_callback:userdata:!log!public! !
@@ -1488,6 +1502,7 @@ getPerformanceCounter!public!video! !
 getPerformanceFrequency!public!video! !
 getPixelFormatDetails_format:!audio!public! !
 getPixelFormatForMasks_bpp:rMask:gMask:bMask:aMask:!public!video! !
+getPixelFormatFromGPUTextureFormat_format:!audio!public! !
 getPointerProperty_props:name:defaultValue:!properties!public! !
 getPrefPath_org:app:!file system!public! !
 getPrimaryDisplay!public! !

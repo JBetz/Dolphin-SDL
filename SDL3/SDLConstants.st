@@ -542,6 +542,10 @@ SDLConstants at: 'SDL_PIXELTYPE_PACKED16' put: 16r5!
 SDLConstants at: 'SDL_PIXELTYPE_PACKED32' put: 16r6!
 SDLConstants at: 'SDL_PIXELTYPE_PACKED8' put: 16r4!
 SDLConstants at: 'SDL_PIXELTYPE_UNKNOWN' put: 16r0!
+SDLConstants at: 'SDL_PROP_GPU_DEVICE_CREATE_DEBUGMODE_BOOLEAN' put: nil!
+SDLConstants at: 'SDL_PROP_GPU_DEVICE_CREATE_NAME_STRING' put: nil!
+SDLConstants at: 'SDL_PROP_GPU_DEVICE_CREATE_VERBOSE_BOOLEAN' put: nil!
+SDLConstants at: 'SDL_PROP_GPU_TEXTURE_CREATE_DXGI_SHARED_HANDLE_POINTER' put: 'SDL.gpu.texture.create.dxgi_handle'!
 SDLConstants at: 'SDL_PROP_RENDERER_D3D11_DEVICE_POINTER' put: 'SDL.renderer.d3d11.device'!
 SDLConstants at: 'SDL_PROP_RENDERER_D3D11_SWAPCHAIN_POINTER' put: 'SDL.renderer.d3d11.swap_chain'!
 SDLConstants at: 'SDL_PROP_RENDERER_D3D12_COMMAND_QUEUE_POINTER' put: 'SDL.renderer.d3d12.command_queue'!
