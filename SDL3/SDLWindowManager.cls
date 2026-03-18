@@ -136,7 +136,17 @@ onAudioDeviceRemoved: aSDL_Event!
 
 onClipboardUpdate: aSDL_Event !
 
+onDisplayCurrentModeChanged: aSDL_Event!
+
+onDisplayDesktopModeChanged: aSDL_Event !
+
+onDisplayMoved: aSDL_Event!
+
+onFirst: aSDL_Event !
+
 onKeyboardAdded: aSDL_Event !
+
+onKeyboardRemoved: aSDL_Event!
 
 onLog: anExternalAddress category: anInteger priority: anInteger2 message: anAnsiString
 	Transcript
@@ -144,6 +154,8 @@ onLog: anExternalAddress category: anInteger priority: anInteger2 message: anAns
 		cr!
 
 onMouseAdded: aSDL_Event !
+
+onMouseRemoved: aSDL_Event!
 
 onQuit: aSDLEvent!
 
@@ -234,9 +246,15 @@ library!public! !
 onAudioDeviceAdded:!public! !
 onAudioDeviceRemoved:!public! !
 onClipboardUpdate:!public! !
+onDisplayCurrentModeChanged:!public! !
+onDisplayDesktopModeChanged:!public! !
+onDisplayMoved:!public! !
+onFirst:!public! !
 onKeyboardAdded:!public! !
+onKeyboardRemoved:!public! !
 onLog:category:priority:message:!public! !
 onMouseAdded:!public! !
+onMouseRemoved:!public! !
 onQuit:!public! !
 onUnhandledError:!public! !
 pollEvent!public! !
@@ -254,6 +272,7 @@ update!public! !
 !SDLWindowManager class methodsFor!
 
 current
+	Singleton ifNil: [self enable].
 	^Singleton!
 
 disable
@@ -354,9 +373,7 @@ onShutdown
 	self disable!
 
 onStartup
-	self
-		disable;
-		enable!
+	self disable!
 
 update
 	Singleton ifNil: [^self].
