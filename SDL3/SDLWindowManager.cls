@@ -132,6 +132,8 @@ library
 
 onAudioDeviceAdded: aSDL_Event!
 
+onAudioDeviceFormatChanged: aSDL_Event !
+
 onAudioDeviceRemoved: aSDL_Event!
 
 onClipboardUpdate: aSDL_Event !
@@ -244,6 +246,7 @@ isShiftKeyDown!public! !
 keepAlive!public! !
 library!public! !
 onAudioDeviceAdded:!public! !
+onAudioDeviceFormatChanged:!public! !
 onAudioDeviceRemoved:!public! !
 onClipboardUpdate:!public! !
 onDisplayCurrentModeChanged:!public! !
