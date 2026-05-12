@@ -46,6 +46,9 @@ createWindow: aString extent: aPoint flags: anInteger for: anApplication
 createWindow: aString extent: aPoint for: anApplication
 	^self createWindow: aString extent: aPoint flags: SDL_WINDOW_RESIZABLE for: anApplication!
 
+deregisterFrameCallbacksFor: anObject
+	frameCallbacks removeKey: anObject ifAbsent: [nil]!
+
 dispatchEvent: aSDLEvent
 	| event selector target |
 	event := aSDLEvent convertToSubclass.
@@ -230,6 +233,7 @@ closeAllWindows!public! !
 closeWindow:!public! !
 createWindow:extent:flags:for:!public! !
 createWindow:extent:for:!public! !
+deregisterFrameCallbacksFor:!public! !
 dispatchEvent:!private! !
 displayExtent!public! !
 forceStop!public! !
