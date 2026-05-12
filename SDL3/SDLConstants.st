@@ -836,6 +836,7 @@ SDLConstants at: 'SDL_SYSTEM_CURSOR_CROSSHAIR' put: 16r3!
 SDLConstants at: 'SDL_SYSTEM_CURSOR_HAND' put: 16rB!
 SDLConstants at: 'SDL_SYSTEM_CURSOR_IBEAM' put: 16r1!
 SDLConstants at: 'SDL_SYSTEM_CURSOR_NO' put: 16rA!
+SDLConstants at: 'SDL_SYSTEM_CURSOR_NOT_ALLOWED' put: 16rA!
 SDLConstants at: 'SDL_SYSTEM_CURSOR_SIZEALL' put: 16r9!
 SDLConstants at: 'SDL_SYSTEM_CURSOR_SIZENESW' put: 16r6!
 SDLConstants at: 'SDL_SYSTEM_CURSOR_SIZENS' put: 16r8!

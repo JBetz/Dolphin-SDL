@@ -828,7 +828,7 @@ SDL_Object subclass: #SDL_AudioStream
 	classInstanceVariableNames: ''!
 
 SDL_Object subclass: #SDL_Cursor
-	instanceVariableNames: 'name'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!

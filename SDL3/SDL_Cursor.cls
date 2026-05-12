@@ -1,7 +1,7 @@
 ﻿"Filed out from Dolphin Smalltalk"!
 
 SDL_Object subclass: #SDL_Cursor
-	instanceVariableNames: 'name'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	classInstanceVariableNames: ''!
@@ -18,20 +18,28 @@ destroy
 	self library destroyCursor_cursor: self.
 	wasDestroyed := true!
 
+hide
+	| result |
+	result := self library hideCursor.
+	self checkBooleanResult: result!
+
+isVisible
+	^self library cursorVisible!
+
 makeCurrent
 	self library setCursor_cursor: self!
 
-name
-	^name!
-
-name: aSymbol
-	name := aSymbol! !
+show
+	| result |
+	result := self library showCursor.
+	self checkBooleanResult: result! !
 
 !SDL_Cursor categoriesForMethods!
 destroy!public! !
+hide!public! !
+isVisible!public! !
 makeCurrent!public! !
-name!public! !
-name:!public! !
+show!public! !
 !
 
 !SDL_Cursor class methodsFor!
@@ -39,20 +47,23 @@ name:!public! !
 arrow
 	^self systemCursor: SDL_SYSTEM_CURSOR_ARROW!
 
+copy
+	^self arrow!
+
+crosshair
+	^self systemCursor: SDL_SYSTEM_CURSOR_CROSSHAIR!
+
 hand
 	^self systemCursor: SDL_SYSTEM_CURSOR_HAND!
 
 iBeam
 	^self systemCursor: SDL_SYSTEM_CURSOR_IBEAM!
 
-no
-	^self systemCursor: SDL_SYSTEM_CURSOR_NO!
+notAllowed
+	^self systemCursor: SDL_SYSTEM_CURSOR_NOT_ALLOWED!
 
 sizeAll
 	^self systemCursor: SDL_SYSTEM_CURSOR_SIZEALL!
-
-sizeCrosshair
-	^self systemCursor: SDL_SYSTEM_CURSOR_CROSSHAIR!
 
 sizeNESW
 	^self systemCursor: SDL_SYSTEM_CURSOR_SIZENESW!
@@ -67,7 +78,10 @@ sizeWE
 	^self systemCursor: SDL_SYSTEM_CURSOR_SIZEWE!
 
 systemCursor: anInteger
-	^(SDL3Library default createSystemCursor_id: anInteger) initialize!
+	^(self library createSystemCursor_id: anInteger) initialize!
+
+unknown
+	^self arrow!
 
 wait
 	^self systemCursor: SDL_SYSTEM_CURSOR_WAIT!
@@ -77,16 +91,18 @@ waitArrow
 
 !SDL_Cursor class categoriesForMethods!
 arrow!public! !
+copy!public! !
+crosshair!public! !
 hand!public! !
 iBeam!public! !
-no!public! !
+notAllowed!public! !
 sizeAll!public! !
-sizeCrosshair!public! !
 sizeNESW!public! !
 sizeNS!public! !
 sizeNWSE!public! !
 sizeWE!public! !
 systemCursor:!public! !
+unknown!public! !
 wait!public! !
 waitArrow!public! !
 !

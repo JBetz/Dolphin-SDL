@@ -23,6 +23,16 @@ SDL_Surface comment: ''!
 
 !SDL_Surface methodsFor!
 
+clear: aColor
+	| result |
+	result := self library
+				clearSurface_surface: self
+				r: aColor normalizedRed asFloat
+				g: aColor normalizedGreen asFloat
+				b: aColor normalizedBlue asFloat
+				a: aColor normalizedAlpha asFloat.
+	self checkBooleanResult: result!
+
 convertPixelFormat: anInteger
 	| newSurface |
 	newSurface := self library convertSurface_surface: self format: anInteger.
@@ -112,6 +122,7 @@ width
 	^self w! !
 
 !SDL_Surface categoriesForMethods!
+clear:!public! !
 convertPixelFormat:!public! !
 destroy!public! !
 extent!public! !

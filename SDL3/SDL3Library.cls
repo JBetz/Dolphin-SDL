@@ -134,6 +134,10 @@ clearProperty_props: props name: name
 	<cdecl: bool SDL_ClearProperty dword lpstr>
 	^self invalidCall: _failureCode!
 
+clearSurface_surface: surface r: r g: g b: b a: a
+	<cdecl: bool SDL_ClearSurface SDL_Surface* float float float float>
+	^self invalidCall: _failureCode!
+
 closeAudioDevice_devid: devid
 	<cdecl: void SDL_CloseAudioDevice dword>
 	^self invalidCall: _failureCode!
@@ -164,6 +168,10 @@ copyProperties_src: src dst: dst
 
 createAudioStream_sourceSpec: sourceSpec destinationSpec: destinationSpec
 	<cdecl: SDL_AudioStream* SDL_CreateAudioStream SDL_AudioSpec* SDL_AudioSpec*>
+	^self invalidCall: _failureCode!
+
+createColorCursor_surface: surface hotX: hotX hotY: hotY
+	<cdecl: SDL_Cursor* SDL_CreateColorCursor SDL_Cursor* sdword sdword>
 	^self invalidCall: _failureCode!
 
 createCursor_data: data mask: mask w: w h: h hotX: hotX hotY: hotY
@@ -260,6 +268,10 @@ createWindowAndRenderer_title: title width: width height: height windowFlags: wi
 
 createWindowWithProperties_props: props
 	<cdecl: SDL_Window* SDL_CreateWindowWithProperties dword>
+	^self invalidCall: _failureCode!
+
+cursorVisible
+	<cdecl: bool SDL_CursorVisible>
 	^self invalidCall: _failureCode!
 
 delay_ms: ms
@@ -826,6 +838,10 @@ hasProperty_props: props name: name
 	<cdecl: bool SDL_HasProperty dword lpstr>
 	^self invalidCall: _failureCode!
 
+hideCursor
+	<cdecl: bool SDL_HideCursor>
+	^self invalidCall: _failureCode!
+
 hideWindow_window: window
 	<cdecl: bool SDL_HideWindow SDL_Window*>
 	^self invalidCall: _failureCode!
@@ -1246,6 +1262,10 @@ setWindowTitle_window: window title: title
 	<cdecl: bool SDL_SetWindowTitle SDL_Window* lpstr>
 	^self invalidCall: _failureCode!
 
+showCursor
+	<cdecl: bool SDL_ShowCursor>
+	^self invalidCall: _failureCode!
+
 showOpenFileDialog_callback: callback userdata: userdata window: window filters: filters nfilters: nfilters defaultLocation: defaultLocation allowMany: allowMany
 	<cdecl: void SDL_ShowOpenFileDialog lpvoid lpvoid SDL_Window* SDL_DialogFileFilter* sdword lpstr bool>
 	^self invalidCall: _failureCode!
@@ -1393,6 +1413,7 @@ cancelGPUCommandBuffer_commandBuffer:!gpu!public! !
 claimWindowForGPUDevice_device:window:!gpu!public! !
 clearAudioStream_stream:!audio!public! !
 clearProperty_props:name:!properties!public! !
+clearSurface_surface:r:g:b:a:!public! !
 closeAudioDevice_devid:!audio!public! !
 closeIO_context:!init!public! !
 convertSurface_surface:format:!properties!public! !
@@ -1401,6 +1422,7 @@ copyGPUBufferToBuffer_copyPass:source:destination:size:cycle:!gpu!public! !
 copyGPUTextureToTexture_copyPass:source:destination:w:h:d:cycle:!gpu!public! !
 copyProperties_src:dst:!properties!public! !
 createAudioStream_sourceSpec:destinationSpec:!audio!public! !
+createColorCursor_surface:hotX:hotY:!events!public! !
 createCursor_data:mask:w:h:hotX:hotY:!events!public! !
 createDirectory_path:!file system!public! !
 createGPUBuffer_device:createinfo:!gpu!public! !
@@ -1425,6 +1447,7 @@ createTextureWithProperties_renderer:props:!public!render! !
 createWindow_title:w:h:flags:!public!video! !
 createWindowAndRenderer_title:width:height:windowFlags:window:renderer:!public!render! !
 createWindowWithProperties_props:!public!video! !
+cursorVisible!public! !
 delay_ms:!public!video! !
 delayNS_ns:!public!video! !
 delayPrecise_ns:!public!video! !
@@ -1566,6 +1589,7 @@ gpuTextureFormatTexelBlockSize_format:!gpu!public! !
 gpuTextureSupportsFormat_device:format:type:usage:!gpu!public! !
 gpuTextureSupportsSampleCount_device:format:sampleCount:!gpu!public! !
 hasProperty_props:name:!properties!public! !
+hideCursor!public! !
 hideWindow_window:!public!video! !
 init_flags:!init!public! !
 initSubSystem_flags:!init!public! !
@@ -1671,6 +1695,7 @@ setWindowParent_window:parent:!public!video! !
 setWindowPosition_window:x:y:!public!video! !
 setWindowSize_window:w:h:!public!video! !
 setWindowTitle_window:title:!public!video! !
+showCursor!public! !
 showOpenFileDialog_callback:userdata:window:filters:nfilters:defaultLocation:allowMany:!audio!dialog!public! !
 showOpenFolderDialog_callback:userdata:window:defaultLocation:allowMany:!audio!dialog!public! !
 showSaveFileDialog_callback:userdata:window:filters:nfilters:defaultLocation:!audio!dialog!public! !
