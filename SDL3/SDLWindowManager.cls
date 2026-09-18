@@ -380,7 +380,9 @@ onShutdown
 	self disable!
 
 onStartup
-	self disable!
+	self
+		disable;
+		enable!
 
 update
 	Singleton ifNil: [^self].
