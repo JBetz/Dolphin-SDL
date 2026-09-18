@@ -38,15 +38,18 @@ waitUntilConnected: anInteger
 	^status!
 
 writeBytes: aByteArray
-	self writeBytes: aByteArray count: aByteArray size!
-
-writeBytes: aByteArray count: anInteger
 	| result |
 	result := self library
 				writeToStreamSocket_socket: self
 				buffer: aByteArray yourAddress
-				bufferLength: anInteger.
-	self checkBooleanResult: result! !
+				bufferLength: aByteArray size.
+	self checkBooleanResult: result!
+
+writeInteger: anInteger
+	| byteArray |
+	byteArray := ByteArray new: anInteger byteSize.
+	byteArray sdwordAtOffset: 0 put: anInteger.
+	self writeBytes: byteArray! !
 
 !NET_StreamSocket categoriesForMethods!
 destroy!public! !
@@ -54,7 +57,7 @@ readBytes:!public! !
 waitUntilConnected!public! !
 waitUntilConnected:!public! !
 writeBytes:!public! !
-writeBytes:count:!public! !
+writeInteger:!public! !
 !
 
 !NET_StreamSocket class methodsFor!
